@@ -4,6 +4,7 @@ InstallGroupMath[]:= Module[{
         pkgDir= FileNameJoin[{$UserBaseDirectory, "Applications", "GroupMath"}],
         pkgLink= "https://renatofonseca.net/groupmath/ProgramVersions/GroupMath-1.1.2.zip",
         pkgName= "GroupMath",
+        proceed = True,
         questionOverwrite, tmpFile, unzipDir, zipDir},
 
 	(* Messages *)
@@ -17,34 +18,36 @@ InstallGroupMath[]:= Module[{
                 WindowFloating-> True,
                 WindowTitle-> pkgName<> " installation detected"],
 			Quiet@ DeleteDirectory[pkgDir, DeleteContents-> True],
-			Abort[]
+			proceed = False
 		];
 	];
 
-	(* Download GroupMath *)
-	Print["Downloading "<> pkgName<> " from ", pkgLink<> "."];
-
-	tmpFile= Quiet@ URLSave[pkgLink];
-
-	If[tmpFile=== $Failed,
-		Print["Failed to download "<> pkgName<> ".\nInstallation aborted!"];
-		Abort[]
+	If[proceed,
+		(* Download GroupMath *)
+		Print["Downloading "<> pkgName<> " from ", pkgLink<> "."];
+	
+		tmpFile= Quiet@ URLSave[pkgLink];
+	
+		If[tmpFile=== $Failed,
+			Print["Failed to download "<> pkgName<> ".\nInstallation aborted!"];
+			Abort[]
+		];
+	
+		(* Unzip GroupMath file *)
+		Print["Extracting "<> pkgName<> " zip file."];
+	
+		unzipDir= tmpFile<>".dir";
+		ExtractArchive[tmpFile, unzipDir];
+	
+		(* Move files to the Mathematica packages folder *)
+		Print["Copying "<> pkgName<> " to "<> pkgDir<> "."];
+	
+		zipDir= FileNames["GroupMath.m", unzipDir, Infinity];
+		CopyDirectory[DirectoryName[zipDir[[1]], 1], pkgDir];
+	
+		(* Delete the extracted archive *)
+		Quiet@ DeleteDirectory[unzipDir, DeleteContents-> True];
 	];
-
-	(* Unzip GroupMath file *)
-	Print["Extracting "<> pkgName<> " zip file."];
-
-	unzipDir= tmpFile<>".dir";
-	ExtractArchive[tmpFile, unzipDir];
-
-	(* Move files to the Mathematica packages folder *)
-	Print["Copying "<> pkgName<> " to "<> pkgDir<> "."];
-
-	zipDir= FileNames["GroupMath.m", unzipDir, Infinity];
-	CopyDirectory[DirectoryName[zipDir[[1]], 1], pkgDir];
-
-	(* Delete the extracted archive *)
-	Quiet@ DeleteDirectory[unzipDir, DeleteContents-> True];
 	Print["Installation complete!"];
 ];
 
@@ -54,6 +57,7 @@ InstallSCWIGE[]:= Module[{
         pkgLink= "https://github.com/srossd/SCWIGE/archive/main.zip",
         pkgName= "SCWIGE",
         minVersion= 9.0,
+        proceed = True,
         questionOverwrite, tmpFile, unzipDir, zipDir},
 
 	
@@ -81,36 +85,38 @@ InstallSCWIGE[]:= Module[{
                 WindowFloating-> True,
                 WindowTitle-> pkgName<> " installation detected"],
 			Quiet@ DeleteDirectory[pkgDir, DeleteContents-> True],
-			Abort[]
+			proceed = False
 		];
 	];
 
-	(* Download SCWIGE *)
-	Print["Downloading "<> pkgName<> " from ", pkgLink<> "."];
-
-	tmpFile= Quiet@ URLSave[pkgLink];
-
-	If[tmpFile=== $Failed,
-		Print["Failed to download "<> pkgName<> ".\nInstallation aborted!"];
-		Abort[]
-	];
-
-	(* Unzip SCWIGE file *)
-	Print["Extracting "<> pkgName<> " zip file."];
-
-	unzipDir= tmpFile<>".dir";
-	ExtractArchive[tmpFile, unzipDir];
-
-	(* Move files to the Mathematica packages folder *)
-	Print["Copying "<> pkgName<> " to "<> pkgDir<> "."];
-
-	zipDir= FileNames["SCWIGE.m", unzipDir, Infinity];
-	CopyDirectory[DirectoryName[zipDir[[1]], 1], pkgDir];
-
-	(* Delete the extracted archive *)
-	Quiet@ DeleteDirectory[unzipDir, DeleteContents-> True];
+	If[proceed,
+		(* Download SCWIGE *)
+		Print["Downloading "<> pkgName<> " from ", pkgLink<> "."];
 	
-	Quiet[ResourceFunction["MonitorProgress"]];
+		tmpFile= Quiet@ URLSave[pkgLink];
+	
+		If[tmpFile=== $Failed,
+			Print["Failed to download "<> pkgName<> ".\nInstallation aborted!"];
+			Abort[]
+		];
+	
+		(* Unzip SCWIGE file *)
+		Print["Extracting "<> pkgName<> " zip file."];
+	
+		unzipDir= tmpFile<>".dir";
+		ExtractArchive[tmpFile, unzipDir];
+	
+		(* Move files to the Mathematica packages folder *)
+		Print["Copying "<> pkgName<> " to "<> pkgDir<> "."];
+	
+		zipDir= FileNames["SCWIGE.m", unzipDir, Infinity];
+		CopyDirectory[DirectoryName[zipDir[[1]], 1], pkgDir];
+	
+		(* Delete the extracted archive *)
+		Quiet@ DeleteDirectory[unzipDir, DeleteContents-> True];
+		
+		Quiet[ResourceFunction["MonitorProgress"]];
+	];
 	Print["Installation complete!"];
 ];
 
