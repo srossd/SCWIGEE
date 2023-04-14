@@ -8,42 +8,6 @@ Block[{Print},Quiet[BeginPackage["SCWIGE`",{"TensorTools`","GroupMath`"}]]]
 Begin["`Private`"]
 (* Implementation of the package *)
 
-Unprotect@Inactive;
-Inactive /: MakeBoxes[Inactive[StructureI][i_, j_], TraditionalForm] :=
-   SuperscriptBox["\!\(\*OverscriptBox[\(I\), \(^\)]\)", 
-   RowBox@{ToString[i], ",", ToString[j]}];
-Inactive /: 
-  MakeBoxes[Inactive[StructureI][i_, j_, k_, l_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(I\), \(^\)]\)", 
-   RowBox@{ToString[k], ",", ToString[l]}, 
-   RowBox@{ToString[i], ",", ToString[j]}];
-Inactive /: 
-  MakeBoxes[Inactive[StructureJ][k_, i_, j_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(J\), \(^\)]\)", 
-   RowBox@{ToString[i], ",", ToString[j]}, RowBox@{ToString[k]}];
-Inactive /: 
-  MakeBoxes[Inactive[StructureK][i_, j_, k_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(K\), \(^\)]\)", 
-   RowBox@{ToString[k]}, RowBox@{ToString[i], ",", ToString[j]}];
-Inactive /: 
-  MakeBoxes[Inactive[StructureKBar][i_, j_, k_], TraditionalForm] := 
-  SubsuperscriptBox[
-   "\!\(\*OverscriptBox[OverscriptBox[\(K\), \(_\)], \(^\)]\)", 
-   RowBox@{ToString[k]}, RowBox@{ToString[i], ",", ToString[j]}];
-Inactive /: 
-  MakeBoxes[Inactive[StructureL][i_, j_, k_, l_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(L\), \(^\)]\)", 
-   RowBox@{ToString[j], ",", ToString[k], ",", ToString[l]}, 
-   RowBox@{ToString[i]}];
-Inactive /: 
-  MakeBoxes[Inactive[StructureLBar][i_, j_, k_, l_], 
-   TraditionalForm] := 
-  SubsuperscriptBox[
-   "\!\(\*OverscriptBox[OverscriptBox[\(L\), \(_\)], \(^\)]\)", 
-   RowBox@{ToString[j], ",", ToString[k], ",", ToString[l]}, 
-   RowBox@{ToString[i]}];
-Protect@Inactive;
-
 SetOptions[EvaluationNotebook[], CommonDefaultFormatTypes -> {"Output" -> TraditionalForm}]
 
 SetRSymmetry[group_] := (
@@ -225,13 +189,15 @@ Options[IndependentSet] = {"Rules" -> {}, "MonitorProgress" -> False, "MaxIndepe
 IndependentSet[{}] := {};
 IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indices[tensors[[1]]] == {},
    If[TrueQ[OptionValue["Indices"]], {1}, tensors[[{1}]]],
-   With[{indices = With[{comps=(Flatten@*Normal@*CanonicallyOrderedComponents /@ tensors) /. OptionValue["Rules"]},
+   With[{indices = Module[{runningComps = SparseArray[{}, {Length[tensors], If[!ArrayQ[tensors[[1]]], Times @@ (First@*IndexData@*First /@ Indices[tensors[[1]]]), Length[Flatten[tensors[[1]]]]]}]},
 	If[TrueQ[OptionValue["MonitorProgress"]] || ArrayQ[OptionValue["MonitorProgress"]],
 		ResourceFunction["MonitorProgress"][
 			Fold[
-				If[(OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"]) && indQ[comps[[#1]], comps[[#2]]], 
-					Append[#1, #2], 
-					#1
+			    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
+					If[(OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"]) && (Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp]), 
+						runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
+						#1
+					]
 				] &, 
 				{}, 
 				Range@Length[tensors]
@@ -239,13 +205,15 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 			"CurrentDisplayFunction" -> None 	
 		],
 		Fold[
-			If[(OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"]) && indQ[comps[[#1]], comps[[#2]]], 
-				Append[#1, #2], 
-				#1
+		    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
+				If[(OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"]) && (Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp]), 
+					runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
+					#1
+				]
 			] &, 
 			{}, 
 			Range@Length[tensors]
-		] 	
+		]
 	]
 ]}, If[TrueQ[OptionValue["Indices"]], indices, tensors[[indices]]]
 ]];
@@ -454,7 +422,7 @@ loopGraphs[reps_] := Flatten@Table[
         path[[i + 1, 2]]}, {i, Length[reps]}]]],
     {perm, {{1, 2, 3, 4}, {1, 3, 4, 2}, {1, 4, 2, 3}}},
     {start, 
-     SimpleRepInputConversion[$RSymmetry, #] & /@ (DeleteDuplicatesBy[RRep /@ Multiplet[], Sort[{#, ConjugateIrrep[$RSymmetry, #]}] &])},
+     SimpleRepInputConversion[$RSymmetry, #] & /@ (DeleteDuplicates[RRep /@ Multiplet[]])},
     {path, 
      FindPath[
       repTree[reps[[perm]]], {0, start}, {Length[reps], start}, {4}, 
@@ -473,12 +441,69 @@ treeGraphs[reps_] := Flatten@Table[
    ];
    
 numInvariants[reps_] := If[# == {}, 0, #[[1, 2]]] &@ Select[ReduceRepProduct[SU4, reps], #[[1]] == {0, 0, 0} &];
-   
-InvariantFourPts[reps_] /; Length[reps] == 4 := InvariantFourPts[reps] = SparseArray@
- With[{graphs = SortBy[Join[treeGraphs[reps], loopGraphs[reps]], {Max[Cases[#[[1]], {_Internal, _Internal, rep_} :> DimR[$RSymmetry, rep]]], Length[Cases[#[[1]], _Internal, All]]} &]},
-   TensorTranspose[CanonicallyOrderedComponents[#], Ordering[SimpleRepInputConversion[$RSymmetry, #] & /@ reps]] & /@ 
-    IndependentSet[buildExpression /@ graphs, "MaxIndependent" -> numInvariants[reps]]
+
+InvariantFourPtGraphs[reps_] /; Length[reps] == 4 := InvariantFourPtGraphs[reps] = 
+ With[{graphs = SortBy[Join[treeGraphs[reps], loopGraphs[reps]], {Max[Cases[#[[1]], {_Internal, _Internal, rep_} :> DimR[SU4, rep]]], 
+  Length[Cases[#[[1]], _Internal, All]]} &]},
+    graphs[[IndependentSet[buildExpression /@ graphs, "MaxIndependent" -> numInvariants[reps], "Indices" -> True]]]
   ]
+   
+InvariantFourPts[reps_] /; Length[reps] == 4 := InvariantFourPts[reps] = With[{order = Ordering[SimpleRepInputConversion[$RSymmetry, reps]]},
+   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ InvariantFourPtGraphs[reps])
+];
+
+cols = {Darker@Green, Blue, Black, Orange, Red, Purple, Yellow};
+arrow[{p1_, p2_}] := {Line[{p1, p2}], Arrow[{p1, .4 p1 + .6 p2}]};
+reverseArrow[{p1_, p2_}] := arrow[{p2, p1}];
+repStyles[mult_] := 
+ Association@With[{reps = 
+    SortBy[#, Function[rep, {DimR[RSymmetry[], rep], MatchQ[RepName[RSymmetry[], rep], _OverBar]}]] & /@ 
+     GroupBy[DeleteDuplicates[DeleteCases[RRep /@ mult, {0 ..}]], 
+      ConjugateIrrep[RSymmetry[], #] === 
+        SimpleRepInputConversion[RSymmetry[], #] &]}, 
+  Join[{Table[0, Length[RSymmetry[]]] -> {White, Line}},Thread[
+    reps[True] -> 
+     Table[{cols[[i]], Thick, Dashed, Line}, {i, Length[reps[True]]}]],
+   Thread[
+    reps[False] -> 
+     Table[{cols[[Ceiling[i/2]]], Thick, 
+       If[OddQ[i], arrow, reverseArrow]}, {i, Length[reps[False]]}]]
+   ]
+  ];
+
+Format[TreeInvariant[edges_], TraditionalForm] := 
+ Module[{vertices = 
+    DeleteDuplicates@Cases[edges, _Internal | _External, All], 
+   potential = 100 #^2 + 10/#^2 &, pos, sol},
+  pos = Association@
+    Thread[vertices -> (vertices /. {Internal[i_] :> {x[i], y[i]}, 
+         External[
+           i_] :> {Cos[(2 Pi (i - 1/2))/Count[vertices, _External]], 
+           Sin[(2 Pi (i - 1/2))/Count[vertices, _External]]}})];
+  sol = NMinimize[
+     Sum[If[MatchQ[e[[1]], _External] || MatchQ[e[[2]], _External], 3,
+         1] Boole[!MatchQ[Last[e], {0..} | 1]] potential[Norm[pos[e[[1]]] - pos[e[[2]]]]], {e, edges}], 
+     Cases[Values[pos], _x | _y, All]];
+  Graphics[{PointSize[.05], Arrowheads[.1], 
+    Join[Table[{Sequence @@ 
+        Most[repStyles[Multiplet[]][
+          SimpleRepInputConversion[$RSymmetry, 
+           If[MatchQ[e[[1]], _External] || MatchQ[e[[2]], _External], 
+            e[[3]], ConjugateIrrep[$RSymmetry, e[[3]]]]]]], 
+       Tooltip[Last[
+           repStyles[Multiplet[]][
+            SimpleRepInputConversion[$RSymmetry, 
+             If[MatchQ[e[[1]], _External] || 
+               MatchQ[e[[2]], _External], e[[3]], 
+              ConjugateIrrep[$RSymmetry, e[[3]]]]]]][{pos[e[[1]]], 
+           pos[e[[2]]]}], RepName[$RSymmetry, e[[3]]]] /. sol[[2]]}, {e, edges}], 
+     Table[{If[MatchQ[v, _External], Black, Gray], 
+       Tooltip[Point[pos[v] /. sol[[2]]], v]}, {v, vertices}]]}, 
+   ImageSize -> 150]
+  ]
+
+Format[LoopInvariant[edges_], TraditionalForm] := 
+  Format[TreeInvariant[edges], TraditionalForm];
   
 FourPtRInvariant[reps_, i_] := Tensor[{{RInvariant[i], Sequence @@ Table[Raised[RIndex[r]], {r, reps}]}}];
 BuildTensor[{RInvariant[i_], Raised[RIndex[r1_]], Raised[RIndex[r2_]], Raised[RIndex[r3_]], Raised[RIndex[r4_]]}] := InvariantFourPts[{r1, r2, r3, r4}][[i]];
@@ -912,7 +937,7 @@ With[{
 	myInds = Flatten[Table[ls[[idx]] /. {a_, b_} :> {Table[{idx, Spinor}, 2 a], Table[{idx, DottedSpinor}, 2 b]}, {idx, 2}], 2]
   },
   With[{
-	prod = KinematicPrefactor[dims, ls] I^(2 Abs[l1 - lb1]) TensorProduct[Sequence @@ Table[StructureI[1, 2], 2 l1], Sequence @@ Table[StructureI[2, 1], 2 lb1]], 
+	prod = KinematicPrefactor[dims, ls] I^(2 (l1 - lb1)) TensorProduct[Sequence @@ Table[StructureI[1, 2], 2 l1], Sequence @@ Table[StructureI[2, 1], 2 lb1]], 
 	indperm = FindPermutation[prodInds, myInds], 
   	perms = Select[Permutations[Range[Length[{idxs}]]], myInds[[#]] === myInds &]
   },
@@ -1307,6 +1332,40 @@ SpinorX[{i_, j_}, {k_, l_}, {m_, n_}] :=
   Contract[
    TensorProduct[\[Epsilon]SpaceTime, XX[i, j], XX[k, l], 
     XX[m, n], \[Sigma]Upper], {{1, 5}, {2, 6}, {3, 7}, {4, 8}}];
+
+MyInactive /: MakeBoxes[MyInactive[StructureI][i_, j_], TraditionalForm] :=
+   SuperscriptBox["\!\(\*OverscriptBox[\(I\), \(^\)]\)", 
+   RowBox@{ToString[i], ",", ToString[j]}];
+MyInactive /: 
+  MakeBoxes[MyInactive[StructureI][i_, j_, k_, l_], TraditionalForm] := 
+  SubsuperscriptBox["\!\(\*OverscriptBox[\(I\), \(^\)]\)", 
+   RowBox@{ToString[k], ",", ToString[l]}, 
+   RowBox@{ToString[i], ",", ToString[j]}];
+MyInactive /: 
+  MakeBoxes[MyInactive[StructureJ][k_, i_, j_], TraditionalForm] := 
+  SubsuperscriptBox["\!\(\*OverscriptBox[\(J\), \(^\)]\)", 
+   RowBox@{ToString[i], ",", ToString[j]}, RowBox@{ToString[k]}];
+MyInactive /: 
+  MakeBoxes[MyInactive[StructureK][i_, j_, k_], TraditionalForm] := 
+  SubsuperscriptBox["\!\(\*OverscriptBox[\(K\), \(^\)]\)", 
+   RowBox@{ToString[k]}, RowBox@{ToString[i], ",", ToString[j]}];
+MyInactive /: 
+  MakeBoxes[MyInactive[StructureKBar][i_, j_, k_], TraditionalForm] := 
+  SubsuperscriptBox[
+   "\!\(\*OverscriptBox[OverscriptBox[\(K\), \(_\)], \(^\)]\)", 
+   RowBox@{ToString[k]}, RowBox@{ToString[i], ",", ToString[j]}];
+MyInactive /: 
+  MakeBoxes[MyInactive[StructureL][i_, j_, k_, l_], TraditionalForm] := 
+  SubsuperscriptBox["\!\(\*OverscriptBox[\(L\), \(^\)]\)", 
+   RowBox@{ToString[j], ",", ToString[k], ",", ToString[l]}, 
+   RowBox@{ToString[i]}];
+MyInactive /: 
+  MakeBoxes[MyInactive[StructureLBar][i_, j_, k_, l_], 
+   TraditionalForm] := 
+  SubsuperscriptBox[
+   "\!\(\*OverscriptBox[OverscriptBox[\(L\), \(_\)], \(^\)]\)", 
+   RowBox@{ToString[j], ",", ToString[k], ",", ToString[l]}, 
+   RowBox@{ToString[i]}];
        
 StructureI[i_, j_] := SpinorX[i, j];
 StructureI[i_, j_, k_, l_] := 
@@ -1372,58 +1431,59 @@ numSTStructures[ls_] :=
   Length@Select[Tuples[Range[-#, #] & /@ Flatten[ls]], 
     Total[#[[{1, 3, 5, 7}]]] == Total[#[[{2, 4, 6, 8}]]] &]]
 
-validStruct[Inactive[StructureI][i_, j_]] := i != j;
+validStruct[MyInactive[StructureI][i_, j_]] := i != j;
 validStruct[
-   Inactive[StructureI][i_, j_, k_, l_]] := (k < l && 
+   MyInactive[StructureI][i_, j_, k_, l_]] := (k > l && 
     Length[DeleteDuplicates[{i, j, k, l}]] == 4);
 validStruct[
-   Inactive[StructureJ][i_, j_, k_]] := (j < k && 
+   MyInactive[StructureJ][i_, j_, k_]] := (j < k && 
     Length[DeleteDuplicates[{i, j, k}]] == 3);
 validStruct[
-   Inactive[StructureK][i_, j_, k_]] := (i < j && 
+   MyInactive[StructureK][i_, j_, k_]] := (i < j && 
     Length[DeleteDuplicates[{i, j, k}]] == 3);
 validStruct[
-   Inactive[StructureKBar][i_, j_, k_]] := (i < j && 
+   MyInactive[StructureKBar][i_, j_, k_]] := (i < j && 
     Length[DeleteDuplicates[{i, j, k}]] == 3);
 validStruct[
-   Inactive[StructureL][i_, j_, k_, l_]] := (j < k < l && 
+   MyInactive[StructureL][i_, j_, k_, l_]] := (j < k < l && 
     Length[DeleteDuplicates[{i, j, k, l}]] == 4);
 validStruct[
-   Inactive[StructureLBar][i_, j_, k_, l_]] := (j < k < l && 
+   MyInactive[StructureLBar][i_, j_, k_, l_]] := (j < k < l && 
     Length[DeleteDuplicates[{i, j, k, l}]] == 4);
 
-charges[Inactive[StructureI][i_, j_], n_] := 
+charges[MyInactive[StructureI][i_, j_], n_] := 
   SparseArray[{{i, 2} -> 1/2, {j, 1} -> 1/2}, {n, 2}];
-charges[Inactive[StructureI][i_, j_, k_, l_], n_] := 
+charges[MyInactive[StructureI][i_, j_, k_, l_], n_] := 
  SparseArray[{{i, 2} -> 1/2, {j, 1} -> 1/2}, {n, 2}]; 
-charges[Inactive[StructureJ][i_, j_, k_], n_] := 
+charges[MyInactive[StructureJ][i_, j_, k_], n_] := 
  SparseArray[{{i, 2} -> 1/2, {i, 1} -> 1/2}, {n, 2}]; 
-charges[Inactive[StructureK][i_, j_, k_], n_] := 
+charges[MyInactive[StructureK][i_, j_, k_], n_] := 
  SparseArray[{{i, 1} -> 1/2, {j, 1} -> 1/2}, {n, 2}]; 
-charges[Inactive[StructureKBar][i_, j_, k_], n_] := 
+charges[MyInactive[StructureKBar][i_, j_, k_], n_] := 
  SparseArray[{{i, 2} -> 1/2, {j, 2} -> 1/2}, {n, 2}]; 
-charges[Inactive[StructureL][i_, j_, k_, l_], n_] := 
+charges[MyInactive[StructureL][i_, j_, k_, l_], n_] := 
  SparseArray[{{i, 1} -> 1}, {n, 2}]; 
-charges[Inactive[StructureLBar][i_, j_, k_, l_], n_] := 
+charges[MyInactive[StructureLBar][i_, j_, k_, l_], n_] := 
  SparseArray[{{i, 2} -> 1}, {n, 2}];
 
 structTypes[n_] := 
-  Which[n == 2, {Inactive[StructureI][1, 2], 
-    Inactive[StructureI][2, 1]}, n == 3, 
+  Which[n == 2, {MyInactive[StructureI][1, 2], 
+    MyInactive[StructureI][2, 1]}, n == 3, 
    Select[Flatten@
-     Join[Inactive[StructureI] @@@ Tuples[Range[3], 2], 
-      Inactive[StructureJ] @@@ Permutations[Range[3]], 
-      Inactive[StructureK] @@@ Permutations[Range[3]], 
-      Inactive[StructureKBar] @@@ Permutations[Range[3]]], 
+     Join[MyInactive[StructureI] @@@ Tuples[Range[3], 2], 
+      MyInactive[StructureJ] @@@ Permutations[Range[3]], 
+      MyInactive[StructureK] @@@ Permutations[Range[3]], 
+      MyInactive[StructureKBar] @@@ Permutations[Range[3]]], 
     validStruct], n == 4, 
    Select[Flatten@
-     Join[Inactive[StructureI] @@@ Tuples[Range[4], 2], 
-      Inactive[StructureI] @@@ Permutations[Range[4]], 
-      Inactive[StructureJ] @@@ Tuples[Range[4], 3], 
-      Inactive[StructureK] @@@ Tuples[Range[4], 3], 
-      Inactive[StructureKBar] @@@ Tuples[Range[4], 3], 
-      Inactive[StructureL] @@@ Permutations[Range[4]], 
-      Inactive[StructureLBar] @@@ Permutations[Range[4]]], 
+     Join[
+      MyInactive[StructureI] @@@ Tuples[Range[4], 2], 
+      MyInactive[StructureI] @@@ Permutations[Range[4]], 
+      MyInactive[StructureJ] @@@ Tuples[Range[4], 3], 
+      MyInactive[StructureK] @@@ Tuples[Range[4], 3], 
+      MyInactive[StructureKBar] @@@ Tuples[Range[4], 3], 
+      MyInactive[StructureL] @@@ Permutations[Range[4]], 
+      MyInactive[StructureLBar] @@@ Permutations[Range[4]]], 
     validStruct]];
 
 structBasis[n_] := Normal[charges[#, n]] -> # & /@ structTypes[n];
@@ -1438,17 +1498,17 @@ sumsToProducts[basis_, target_] :=
      maxMultiplier[basis[[1, 1]], target], 0, -1}];
      
 structToIndexRules = {
-   Inactive[StructureI][i_, j_, ___] :> {{j, Spinor}, {i, DottedSpinor}},
-   Inactive[StructureJ][i_, j_, k_] :> {{i, Spinor}, {i, DottedSpinor}},
-   Inactive[StructureK][i_, j_, k_] :> {{i, Spinor}, {j, Spinor}},
-   Inactive[StructureKBar][i_, j_, k_] :> {{i, DottedSpinor}, {j, DottedSpinor}},
-   Inactive[StructureL][i_, j_, k_, l_] :> {{i, Spinor}, {i, Spinor}},
-   Inactive[StructureLBar][i_, j_, k_, l_] :> {{i, DottedSpinor}, {i, DottedSpinor}},
+   MyInactive[StructureI][i_, j_, ___] :> {{j, Spinor}, {i, DottedSpinor}},
+   MyInactive[StructureJ][i_, j_, k_] :> {{i, Spinor}, {i, DottedSpinor}},
+   MyInactive[StructureK][i_, j_, k_] :> {{i, Spinor}, {j, Spinor}},
+   MyInactive[StructureKBar][i_, j_, k_] :> {{i, DottedSpinor}, {j, DottedSpinor}},
+   MyInactive[StructureL][i_, j_, k_, l_] :> {{i, Spinor}, {i, Spinor}},
+   MyInactive[StructureLBar][i_, j_, k_, l_] :> {{i, DottedSpinor}, {i, DottedSpinor}},
    TensorProduct -> Join
 };
 
 constructStructure[expr_, perm_] := With[{inds = (expr /. structToIndexRules)},
-	With[{unsym = TensorTranspose[CanonicallyOrderedComponents[Activate[expr]], Ordering[inds[[;; , 2]]]], syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &]},
+	With[{unsym = TensorTranspose[CanonicallyOrderedComponents[expr /. MyInactive -> Identity], Ordering[inds[[;; , 2]]]], syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &]},
 	   If[syms == {}, unsym,
 		(1/Length[syms]) TensorTranspose[Sum[TensorTranspose[unsym, p], {p, syms}], perm]
 	   ]
@@ -1738,7 +1798,7 @@ solveData[m_, b_, num_] :=
 
 clearRadicals[mat_] := 
   With[{factors = 
-     Table[FirstCase[mat[[;; , i]], 
+     Table[FirstCase[Normal[mat[[;; , i]]], 
        x_ /; x =!= 0 :> (If[# == {}, 1, #[[1]]] &@
           Cases[x, Power[y_?NumericQ, 1/2 | -1/2] :> Sqrt[y], 
            All])], {i, Dimensions[mat][[2]]}]},
@@ -1756,22 +1816,27 @@ DeclareArbitraryFunction[head_] :=
 $SolvedCorrelators = {};
 SolvedCorrelators[] := $SolvedCorrelators;
 
+  
+Options[WardEquations] = {"QBar" -> False};
+WardEquations[names : {Except[_Field]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
+WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = With[{expr = Correlator@
+             NormalOrder[TensorProduct[QTensor["QBar" -> OptionValue["QBar"]], Tensor[fields]], 
+              "Vacuum" -> True]},
+    If[expr === 0, {},
+    DeleteCases[Thread[Flatten[
+        ExpansionComponents[
+         ExpandCorrelator@expr
+             /. SUSYRules[],
+          "MonitorProgress" -> True]] == 0], True]
+    ]
+];
+
 Options[SolveWard] = {"QBar" -> False, "Fit" -> False};
 SolveWard::notready = 
   "Cannot solve this Ward identity without first solving for ``";
-  
-Options[WardEquations] = {"QBar" -> False};
-WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Thread[Flatten[
-        ExpansionComponents[
-         ExpandCorrelator@
-            Correlator@
-             NormalOrder[TensorProduct[QTensor["QBar" -> OptionValue["QBar"]], Tensor[fields]], 
-              "Vacuum" -> True] /. SUSYRules[] /. SolvedCorrelators[],
-          "MonitorProgress" -> True]] == 0];
-
 SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] := SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 SolveWard[fields : {_Field..}, OptionsPattern[]] := 
-  With[{eqs = WardEquations[fields, "QBar" -> OptionValue["QBar"]]},
+  With[{eqs = CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. SolvedCorrelators[]]},
    If[Cases[eqs, Derivative[__][g[__]][__], All] != {}, 
     Message[SolveWard::notready, 
      First@Cases[eqs, Derivative[__][g[ffs_, __]][__] :> Tensor[ffs], 
@@ -1784,15 +1849,15 @@ SolveWard[fields : {_Field..}, OptionsPattern[]] :=
            ResourceFunction["MonitorProgress"][
             If[Length[#1] < Length[vars] && 
                indQ[crM[[1, #1]] /. 
-                  Thread[{u, v} -> safeUVs[[25]]] /. _\[Theta] -> 0, 
+                  Thread[{u, v} -> safeUVs[[25]]], 
                 crM[[1, #2]] /. 
-                  Thread[{u, v} -> safeUVs[[25]]] /. _\[Theta] -> 0], 
+                  Thread[{u, v} -> safeUVs[[25]]]], 
               Append[#1, #2], #1] &, {}, Range[Length[bm[[2]]]], 
             "Label" -> "Finding set of independent equations", 
             "CurrentDisplayFunction" -> None]},
          
          With[{sd = 
-            solveData[bm[[2, indIdxs]], bm[[1, indIdxs]], 7]},
+            solveData[bm[[2, indIdxs]], -bm[[1, indIdxs]], 7]},
           
           Thread[vars -> 
             ResourceFunction["MonitorProgress"][
@@ -1819,7 +1884,7 @@ SolveWard[fields : {_Field..}, OptionsPattern[]] :=
               Collect[#, _\[ScriptCapitalT] | 
                 Derivative[__][\[ScriptCapitalT]][__]] & /@ 
             Simplify[
-             LinearSolve[bm[[2]], bm[[1]], 
+             LinearSolve[bm[[2]], -bm[[1]], 
               ZeroTest -> (PossibleZeroQ[
                   Simplify[#, uvAssumptions]] &)], uvAssumptions])]
         ]

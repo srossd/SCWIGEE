@@ -10,16 +10,135 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    286492,       7089]
-NotebookOptionsPosition[    284056,       7042]
-NotebookOutlinePosition[    284592,       7061]
-CellTagsIndexPosition[    284549,       7058]
+NotebookDataLength[    238535,       5804]
+NotebookOptionsPosition[    234054,       5724]
+NotebookOutlinePosition[    234591,       5743]
+CellTagsIndexPosition[    234548,       5740]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Get", "[", 
+  "\"\<https://raw.githubusercontent.com/srossd/SCWIGE/main/Install.m\>\"", 
+  "]"}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"03401033-3b2a-4977-a7cd-1b01c47173e6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FormBox[
+  StyleBox["\<\"Checking TensorTools dependency...\"\>",
+   StripOnInput->False,
+   FontWeight->Bold], TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.8898913825376167`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"166aea54-7881-4324-a469-642621bad619"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"Downloading TensorTools from \"\>", 
+    "\[InvisibleSpace]", \
+"\<\"https://github.com/srossd/TensorTools/archive/main.zip.\"\>"}],
+   SequenceForm[
+   "Downloading TensorTools from ", 
+    "https://github.com/srossd/TensorTools/archive/main.zip."],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.889891386040885*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"bedd705f-d6ab-4540-8ce4-556983fd790b"],
+
+Cell[BoxData[
+ FormBox["\<\"Extracting TensorTools zip file.\"\>", 
+  TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.8898913864058104`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"156ad5bd-05ea-4b35-b041-f0971888db71"],
+
+Cell[BoxData[
+ FormBox["\<\"Copying TensorTools to \
+C:\\\\Users\\\\rossd\\\\AppData\\\\Roaming\\\\Mathematica\\\\Applications\\\\\
+TensorTools.\"\>", TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.889891387704199*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"10ad163b-a806-438d-90ef-1c80708ab569"],
+
+Cell[BoxData[
+ FormBox["\<\"Installation complete!\"\>", TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.889891387735448*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"1bbc2113-3541-46ef-b232-8afd0f944811"],
+
+Cell[BoxData[
+ FormBox[
+  StyleBox["\<\"Dependency resolved\"\>",
+   StripOnInput->False,
+   FontWeight->Bold], TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.889891387735448*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"b4cf3341-f902-4aa5-b6b2-c8495b9d4080"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"Downloading SCWIGE from \"\>", 
+    "\[InvisibleSpace]", \
+"\<\"https://github.com/srossd/SCWIGE/archive/main.zip.\"\>"}],
+   SequenceForm[
+   "Downloading SCWIGE from ", 
+    "https://github.com/srossd/SCWIGE/archive/main.zip."],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.889891389910902*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"b6415c77-181d-4574-b388-eea0f52a09ad"],
+
+Cell[BoxData[
+ FormBox["\<\"Extracting SCWIGE zip file.\"\>", TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.88989139011489*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"46c1e713-95ae-432c-b441-967da9150fd5"],
+
+Cell[BoxData[
+ FormBox["\<\"Copying SCWIGE to \
+C:\\\\Users\\\\rossd\\\\AppData\\\\Roaming\\\\Mathematica\\\\Applications\\\\\
+SCWIGE.\"\>", TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.8898913901592035`*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"7d9d7d99-49d0-463a-bd10-c3bcb4879319"],
+
+Cell[BoxData[
+ FormBox["\<\"Installation complete!\"\>", TraditionalForm]], "Print",
+ CellChangeTimes->{3.8898881519777427`*^9, 3.889888183458831*^9, 
+  3.889891390189353*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"d342ab91-18fd-4fd6-8b7c-a7f686427fb3"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"<<", "SCWIGE`"}]], "Input",
  CellChangeTimes->{{3.887471682158698*^9, 3.8874716837747507`*^9}},
@@ -44,15 +163,14 @@ Cell[BoxData[
           ToBoxes[
            InputField[
             Dynamic[SCWIGE`Private`$RSymmetry], Enabled -> 
-            SCWIGE`Private`$editing], TraditionalForm], 
-          ImageSizeCache -> {165.880859375, {6.125, 12.125}}]},
+            SCWIGE`Private`$editing], TraditionalForm]]},
         "RowDefault"], "\<\"\"\>", "\<\"\"\>"},
       {"\<\"\"\>", "\<\"\"\>", 
        DynamicBox[ToBoxes[
          SCWIGE`DisplayMultiplet["EditMode" -> SCWIGE`Private`$editing], 
          TraditionalForm],
         ImageSizeCache->{
-         600., {158., 161.56689455802552`}}], "\<\"\"\>", "\<\"\"\>"}
+         660., {174., 177.57358398973008`}}], "\<\"\"\>", "\<\"\"\>"}
      },
      AutoDelete->False,
      GridBoxAlignment->{"Columns" -> {{Center}}},
@@ -61,26 +179,35 @@ Cell[BoxData[
      GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{2}}}],
     "Grid"],
    Background->RGBColor[0.95, 0.95, 0.95]], TraditionalForm]], "Print",
- CellChangeTimes->{{3.8897908398735714`*^9, 3.889790845914135*^9}, {
-   3.889790998011466*^9, 3.8897910009551105`*^9}, {3.889791072513229*^9, 
-   3.889791074595357*^9}, {3.8897911636454678`*^9, 3.8897911667616377`*^9}, 
-   3.8897926085213137`*^9, 3.8897927998628697`*^9, 3.8897929339065866`*^9, {
-   3.8897939905640106`*^9, 3.8897939933391943`*^9}, {3.889795754559593*^9, 
-   3.8897957578489265`*^9}, {3.8897981866847687`*^9, 
-   3.8897981890859222`*^9}, {3.889858537143613*^9, 3.889858539621896*^9}, {
-   3.889860703358431*^9, 3.8898607065308914`*^9}, {3.8898678452038574`*^9, 
-   3.8898678484024677`*^9}, {3.8898686658538084`*^9, 
-   3.8898686686535215`*^9}, {3.8898691739216022`*^9, 
-   3.8898691798652306`*^9}, {3.889870274805815*^9, 3.889870280943548*^9}, 
-   3.889870486368417*^9, {3.8898705678345394`*^9, 3.889870575271575*^9}, {
-   3.88987080527345*^9, 3.88987080871795*^9}, 3.8898713651046653`*^9, {
-   3.889871486662078*^9, 3.8898714895564356`*^9}, {3.889872064332461*^9, 
-   3.8898720680780296`*^9}, 3.8898721841182423`*^9, 3.889872262391903*^9, 
-   3.8898733046095495`*^9, 3.8898748236630707`*^9, 3.8898753066959352`*^9, 
-   3.889876235714575*^9, 3.8898762881860223`*^9},
+ CellChangeTimes->{{3.890153739148286*^9, 3.8901537741949587`*^9}, {
+   3.890154308991905*^9, 3.890154312362645*^9}, 3.8901548162912664`*^9, {
+   3.890156581992956*^9, 3.890156606287691*^9}, 3.890156973841592*^9, 
+   3.8901570408880424`*^9, 3.8901570872269115`*^9, 3.890157260051007*^9, 
+   3.890157317192952*^9, 3.8901573704119387`*^9, {3.8901582404944916`*^9, 
+   3.890158246057426*^9}, {3.8902229630762954`*^9, 3.8902229667412195`*^9}, 
+   3.890223057737668*^9, 3.890223389067623*^9, 3.890223486837309*^9, 
+   3.8902235175685234`*^9, 3.8902236290497723`*^9, 3.890223709076949*^9, {
+   3.8902243009126887`*^9, 3.8902243093941307`*^9}, 3.890224360800209*^9, 
+   3.8902245157120028`*^9, {3.890226459281947*^9, 3.890226463521962*^9}, 
+   3.890226761039197*^9, 3.890226854756298*^9, 3.8902271725653763`*^9, 
+   3.890227224494201*^9, 3.8902273141758347`*^9, 3.890227457979068*^9, 
+   3.8902279201581717`*^9, {3.8902280088460617`*^9, 3.8902280303474917`*^9}, 
+   3.89022990043781*^9, 3.890230025816989*^9, 3.890230223128831*^9, 
+   3.8902303123608603`*^9, 3.8902304471165624`*^9, {3.8902324346710787`*^9, 
+   3.8902324375089912`*^9}, {3.8902341773104253`*^9, 3.89023418090734*^9}, {
+   3.890321518540733*^9, 3.890321521369664*^9}, {3.890322311717696*^9, 
+   3.890322314499772*^9}, {3.8903356131669827`*^9, 3.8903356171738024`*^9}, {
+   3.8903370101606827`*^9, 3.890337014012549*^9}, {3.8903817195629807`*^9, 
+   3.8903817234151716`*^9}, {3.890406013384897*^9, 3.890406015857972*^9}, 
+   3.890406501489046*^9, 3.890406589859086*^9, {3.890406816467266*^9, 
+   3.8904068196041346`*^9}, {3.890409889147936*^9, 3.890409892537322*^9}, 
+   3.8904100534958076`*^9, {3.8904203041366053`*^9, 3.8904203118370247`*^9}, {
+   3.890421043335085*^9, 3.890421047014468*^9}, 3.8904259393410387`*^9, {
+   3.8904278092819667`*^9, 3.8904278141718297`*^9}, {3.890428580719906*^9, 
+   3.8904285845812397`*^9}},
  CellLabel->
   "During evaluation of \
-In[1]:=",ExpressionUUID->"7d2fa759-1b1d-45b1-8342-1768502d66d1"]
+In[1]:=",ExpressionUUID->"421f3d3e-7f95-4b8a-ac75-3b461269320a"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -292,7 +419,8 @@ Cell[BoxData[
            SyntaxForm -> SuperscriptBox]},
         "RowDefault"],
        TraditionalForm], 
-      RowBox[{"2", " ", "\[ImaginaryI]", " ", 
+      RowBox[{
+       RowBox[{"-", "2"}], " ", "\[ImaginaryI]", " ", 
        FormBox[
         TemplateBox[{
           SubscriptBox[
@@ -427,8 +555,7 @@ TraditionalForm]\\)\"",
         "RowDefault"],
        TraditionalForm], 
       RowBox[{
-       RowBox[{
-        RowBox[{"-", "2"}], " ", 
+       RowBox[{"2", " ", 
         FormBox[
          TemplateBox[{
            SubscriptBox[
@@ -462,7 +589,7 @@ TraditionalForm]\\)\"",
               OverscriptBox["\"\[Alpha]\"", "."], 
               OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
           "RowDefault"],
-         TraditionalForm]}], "+", 
+         TraditionalForm]}], "-", 
        RowBox[{"\[ImaginaryI]", " ", 
         SqrtBox["3"], " ", 
         FormBox[
@@ -551,7 +678,7 @@ TraditionalForm]\\)\"",
               StripOnInput -> False]}, "Superscript", SyntaxForm -> 
             SuperscriptBox]},
           "RowDefault"],
-         TraditionalForm]}], "-", 
+         TraditionalForm]}], "+", 
        RowBox[{"\[ImaginaryI]", " ", 
         SqrtBox["6"], " ", 
         FormBox[
@@ -885,7 +1012,7 @@ TraditionalForm]\\)\"",
             OverscriptBox["\"\[Alpha]\"", "."]]},
           "RowDefault"],
          TraditionalForm], 
-        SqrtBox["6"]], "+", 
+        SqrtBox["6"]], "-", 
        RowBox[{"2", " ", "\[ImaginaryI]", " ", 
         SqrtBox[
          FractionBox["2", "3"]], " ", 
@@ -991,7 +1118,8 @@ TraditionalForm]\\)\"",
         "RowDefault"],
        TraditionalForm], 
       RowBox[{
-       SqrtBox["6"], " ", 
+       RowBox[{"-", 
+        SqrtBox["6"]}], " ", 
        FormBox[
         TemplateBox[{
           SubscriptBox[
@@ -1132,8 +1260,7 @@ TraditionalForm]\\)\"",
         "RowDefault"],
        TraditionalForm], 
       RowBox[{
-       RowBox[{
-        RowBox[{"-", "\[ImaginaryI]"}], " ", 
+       RowBox[{"\[ImaginaryI]", " ", 
         SqrtBox["2"], " ", 
         FormBox[
          TemplateBox[{
@@ -1169,7 +1296,7 @@ TraditionalForm]\\)\"",
               OverscriptBox["\"\[Alpha]\"", "."], 
               OverscriptBox["\"\[Gamma]\"", "."]}, "RowDefault"]]},
           "RowDefault"],
-         TraditionalForm]}], "-", 
+         TraditionalForm]}], "+", 
        RowBox[{"\[ImaginaryI]", " ", 
         SqrtBox["2"], " ", 
         FormBox[
@@ -1306,7 +1433,7 @@ TraditionalForm]\\)\"",
           "RowDefault"],
          TraditionalForm], 
         RowBox[{"2", " ", 
-         SqrtBox["3"]}]], "+", 
+         SqrtBox["3"]}]], "-", 
        FractionBox[
         RowBox[{"4", " ", "\[ImaginaryI]", " ", 
          FormBox[
@@ -1329,6 +1456,7 @@ TraditionalForm]\\)\"",
             SubscriptBox[
              
              TemplateBox[{
+              
               "\"\\!\\(\\*FormBox[OverscriptBox[\\\"\[Psi]\\\", \\\"_\\\"], \
 TraditionalForm]\\)\"", 
                StyleBox[
@@ -1679,7 +1807,8 @@ TraditionalForm]\\)\"",
           OverscriptBox["\"\[Beta]\"", "."]]},
         "RowDefault"],
        TraditionalForm], 
-      RowBox[{"2", " ", "\[ImaginaryI]", " ", 
+      RowBox[{
+       RowBox[{"-", "2"}], " ", "\[ImaginaryI]", " ", 
        SqrtBox["2"], " ", 
        FormBox[
         TemplateBox[{
@@ -2014,7 +2143,8 @@ TraditionalForm]\\)\"",
         "RowDefault"],
        TraditionalForm], 
       RowBox[{
-       RowBox[{"\[ImaginaryI]", " ", 
+       RowBox[{
+        RowBox[{"-", "\[ImaginaryI]"}], " ", 
         SqrtBox["5"], " ", 
         FormBox[
          TemplateBox[{
@@ -3351,10 +3481,19 @@ TraditionalForm]\\)\"",
    "Grid"], TraditionalForm]], "Output",
  CellChangeTimes->{3.8898721318065214`*^9, 3.889872204214753*^9, 
   3.889872280694082*^9, 3.889873476931934*^9, 3.88987502446915*^9, 
-  3.889875425461523*^9, 3.8898763390480475`*^9},
+  3.889875425461523*^9, 3.8898763390480475`*^9, 3.889888248970086*^9, 
+  3.8898914353010683`*^9, 3.8901285421909485`*^9, 3.890129348261304*^9, 
+  3.890130044437104*^9, 3.8901411421185846`*^9, 3.8901441166738997`*^9, 
+  3.8901543602475843`*^9, 3.890158475460438*^9, 3.8902282856957464`*^9, 
+  3.890230554909051*^9, 3.89023248464227*^9, 3.8902342286604958`*^9, 
+  3.89032157000698*^9, 3.890322365268078*^9, 3.8903357576398983`*^9, 
+  3.890337097875742*^9, 3.8903843534637046`*^9, 3.8904060739442425`*^9, 
+  3.890406667594658*^9, 3.8904068690373974`*^9, 3.890409938848732*^9, 
+  3.890410103441332*^9, 3.890420388395756*^9, 3.890421122826016*^9, 
+  3.8904260047824135`*^9, 3.890427876777238*^9, 3.890428654488239*^9},
  CellLabel->
-  "Out[3]//TraditionalForm=",ExpressionUUID->"12ae6093-82b4-41c4-bede-\
-7c2620294c76"]
+  "Out[3]//TraditionalForm=",ExpressionUUID->"fa14ec95-7767-4f42-944b-\
+68314d8070ae"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -3840,34 +3979,31 @@ TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
          Rational[5, 2], {0, 
           Rational[1, 2]}, -1]}, 6, 2][SCWIGE`u, SCWIGE`v]}]],
    Editable->False], TraditionalForm]], "Print",
- CellChangeTimes->{
-  3.889871635274717*^9, 3.88987236668721*^9, 3.8898735524612255`*^9, 
-   3.8898751091274614`*^9, {3.8898754693826504`*^9, 3.8898754982248287`*^9}, 
-   3.889876409110202*^9},
+ CellChangeTimes->{3.8902305928237095`*^9, 3.890232525110179*^9, 
+  3.890234275038338*^9, 3.890321606743983*^9, 3.890322785617258*^9, 
+  3.890335974532378*^9, 3.8903372382454166`*^9, 3.890384479260703*^9, 
+  3.8904062226556463`*^9, 3.8904103417306404`*^9, 3.890420479692707*^9, 
+  3.890421239121372*^9, 3.890426106036555*^9, 3.890427956319956*^9, 
+  3.8904287072176185`*^9},
  CellLabel->
   "During evaluation of \
-In[12]:=",ExpressionUUID->"907ee3df-63f5-41c1-8c23-6202097680c2"]
+In[12]:=",ExpressionUUID->"9ce690e2-8eb1-406e-b8f5-ecaad861437b"]
 }, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"soln2", "=", 
-   RowBox[{"SolveWard", "[", 
-    RowBox[{"{", 
-     RowBox[{
-     "\"\<S\>\"", ",", "\"\<S\>\"", ",", "\"\<\[Chi]\>\"", ",", 
-      "\"\<\!\(\*OverscriptBox[\(P\), \(_\)]\)\>\""}], "}"}], "]"}]}], 
-  ";"}]], "Input",
- CellChangeTimes->{{3.889872397302997*^9, 3.8898724555411572`*^9}},
- CellLabel->"In[13]:=",ExpressionUUID->"587ae46c-8117-4b7d-81c3-da8d71626953"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"CheckAndSave", "[", "soln2", "]"}], ";"}]], "Input",
- CellChangeTimes->{{3.889872478284816*^9, 3.8898724883894577`*^9}},
- CellLabel->"In[14]:=",ExpressionUUID->"33515799-15c2-45e4-8d8c-f5d686a18510"],
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<S\>\"", ",", "\"\<S\>\"", ",", 
+      "\"\<\!\(\*OverscriptBox[\(P\), \(_\)]\)\>\"", ",", "\"\<\[Chi]\>\""}], 
+     "}"}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8902357876283436`*^9, 3.8902358232845397`*^9}, 
+   3.890321631418971*^9},
+ CellLabel->"In[13]:=",ExpressionUUID->"2447fc4a-9b71-4f65-b9f9-660d12a01eab"],
 
 Cell[BoxData[
  FormBox[
@@ -4099,37 +4235,456 @@ TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
         "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
          0, 0}, 3, {0, 0}, -2]}, 4, 2][SCWIGE`u, SCWIGE`v]}]],
    Editable->False], TraditionalForm]], "Print",
- CellChangeTimes->{{3.889872482575816*^9, 3.889872491047428*^9}, 
-   3.8898735750171947`*^9, 3.8898751499377193`*^9, 3.8898754919511347`*^9, 
-   3.88987643696754*^9},
+ CellChangeTimes->{3.8903228154176397`*^9, 3.8903360104619904`*^9, 
+  3.8903372694939356`*^9, 3.8903845032426043`*^9, 3.890406241960566*^9, 
+  3.8904104082674184`*^9, 3.8904205212980013`*^9, 3.890421327525937*^9, 
+  3.8904261332313213`*^9, 3.8904279882049055`*^9, 3.8904287359306154`*^9},
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"42ebb3f4-3ea7-4f94-87d2-91f380028528"]
+In[13]:=",ExpressionUUID->"4c486bbf-94d2-4c63-9f62-8566d72ca9ad"]
 }, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"soln3", "=", 
-   RowBox[{"SolveWard", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-      "\"\<S\>\"", ",", "\"\<S\>\"", ",", 
-       "\"\<\!\(\*OverscriptBox[\(\[Chi]\), \(_\)]\)\>\"", ",", "\"\<P\>\""}],
-       "}"}], ",", 
-     RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}]}], ";"}]], "Input",
- CellChangeTimes->{{3.889872397302997*^9, 3.8898724555411572`*^9}, {
-  3.8898731051906476`*^9, 3.889873120922282*^9}},
- CellLabel->"In[15]:=",ExpressionUUID->"24591887-4abb-49e3-9a75-fc997a8ba595"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"CheckAndSave", "[", "soln3", "]"}], ";"}]], "Input",
- CellChangeTimes->{{3.889872478284816*^9, 3.8898724883894577`*^9}, {
-  3.889873106874013*^9, 3.8898731069687395`*^9}},
- CellLabel->"In[16]:=",ExpressionUUID->"52d74147-f31e-47a4-a03c-d9faaa24a524"],
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<S\>\"", ",", "\"\<S\>\"", ",", "\"\<P\>\"", ",", "\"\<\[Chi]\>\""}],
+      "}"}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8903216515912747`*^9, 3.890321666853963*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"d32fcb7d-45bd-431d-8d0e-3c708debb676"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{
+    StyleBox["\<\"\[CheckmarkedBox] Crossing is satisfied: \"\>",
+     StripOnInput->False,
+     LineColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     FrontFaceColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     BackFaceColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     GraphicsColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     FontWeight->Bold,
+     FontColor->RGBColor[0, 
+       Rational[2, 3], 0]], "\[InvisibleSpace]", 
+    TagBox[
+     FormBox[
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
+\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
+\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
+\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
+\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
+\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
+\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}]}], "}"}],
+      TraditionalForm],
+     TraditionalForm,
+     Editable->True]}],
+   SequenceForm[
+    Style["\[CheckmarkedBox] Crossing is satisfied: ", Bold, 
+     RGBColor[0, 
+      Rational[2, 3], 0]], 
+    TraditionalForm[{
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
+       1, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
+       1, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
+       2, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
+       2, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
+       3, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", {0, 1, 1}, 
+         Rational[5, 2], {
+          Rational[1, 2], 0}, 1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
+       3, 2][SCWIGE`u, SCWIGE`v]}]],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.89032167749946*^9, 3.8903228255738983`*^9, 
+  3.8903360289284286`*^9, 3.890337286345229*^9, 3.8903845168221645`*^9, 
+  3.8904062521469107`*^9, 3.890410418072744*^9, 3.8904205377032146`*^9, 
+  3.8904213733998413`*^9, 3.8904261476247053`*^9, 3.8904280014642725`*^9, 
+  3.8904287493189783`*^9},
+ CellLabel->
+  "During evaluation of \
+In[14]:=",ExpressionUUID->"48a462a5-6133-48b4-82b5-e6316dff814d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<S\>\"", ",", "\"\<S\>\"", ",", 
+       "\"\<\!\(\*OverscriptBox[\(P\), \(_\)]\)\>\"", ",", 
+       "\"\<\!\(\*OverscriptBox[\(\[Chi]\), \(_\)]\)\>\""}], "}"}], ",", 
+     RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8903216887228613`*^9, 3.8903217016586523`*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"d64280ff-208a-4c0c-bb5f-2d9402e911cf"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{
+    StyleBox["\<\"\[CheckmarkedBox] Crossing is satisfied: \"\>",
+     StripOnInput->False,
+     LineColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     FrontFaceColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     BackFaceColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     GraphicsColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     FontWeight->Bold,
+     FontColor->RGBColor[0, 
+       Rational[2, 3], 0]], "\[InvisibleSpace]", 
+    TagBox[
+     FormBox[
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
+TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}]}], "}"}],
+      TraditionalForm],
+     TraditionalForm,
+     Editable->True]}],
+   SequenceForm[
+    Style["\[CheckmarkedBox] Crossing is satisfied: ", Bold, 
+     RGBColor[0, 
+      Rational[2, 3], 0]], 
+    TraditionalForm[{
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
+         0, 0}, 3, {0, 0}, -2]}, 1, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
+         0, 0}, 3, {0, 0}, -2]}, 1, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
+         0, 0}, 3, {0, 0}, -2]}, 2, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
+         0, 0}, 3, {0, 0}, -2]}, 2, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
+         0, 0}, 3, {0, 0}, -2]}, 3, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"P\", \"_\"], TraditionalForm]\)", {2, 
+         0, 0}, 3, {0, 0}, -2]}, 3, 2][SCWIGE`u, SCWIGE`v]}]],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.8903217117177467`*^9, 3.8903228369734845`*^9, 
+  3.8903360458247223`*^9, 3.890337303391262*^9, 3.8903845301076374`*^9, 
+  3.890406264304618*^9, 3.890410427693653*^9, 3.890420555027095*^9, 
+  3.890421419858101*^9, 3.8904261610175705`*^9, 3.8904280149430337`*^9, 
+  3.890428762869599*^9},
+ CellLabel->
+  "During evaluation of \
+In[15]:=",ExpressionUUID->"0dbf13b8-188f-42a9-b471-e03747dbcbc5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<S\>\"", ",", "\"\<S\>\"", ",", "\"\<P\>\"", ",", 
+       "\"\<\!\(\*OverscriptBox[\(\[Chi]\), \(_\)]\)\>\""}], "}"}], ",", 
+     RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8903217208028126`*^9, 3.8903217212247505`*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"e4106750-36f5-4927-9d00-3e7ba2734b04"],
 
 Cell[BoxData[
  FormBox[
@@ -4377,2674 +4932,801 @@ TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
         "\!\(\*FormBox[\"P\", TraditionalForm]\)", {0, 0, 2}, 3, {0, 0}, 2]}, 
        4, 2][SCWIGE`u, SCWIGE`v]}]],
    Editable->False], TraditionalForm]], "Print",
- CellChangeTimes->{{3.889872482575816*^9, 3.889872491047428*^9}, 
-   3.889873147394061*^9, 3.8898735932070637`*^9, 3.88987645737986*^9},
+ CellChangeTimes->{3.890321737759575*^9, 3.890322864663123*^9, 
+  3.8903360732833767`*^9, 3.890337329730849*^9, 3.890384550201717*^9, 
+  3.890406281828129*^9, 3.8904104465486507`*^9, 3.8904205812370586`*^9, 
+  3.890421493849641*^9, 3.89042618216749*^9, 3.8904280357028046`*^9, 
+  3.8904287849433885`*^9},
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"ece2571a-a14d-4765-a6bc-cf5b1710433b"]
+In[16]:=",ExpressionUUID->"7709fedf-e178-4b2b-89a2-fa66c8dcf687"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"SolvedCorrelators", "[", "]"}], "//", "TableForm"}]], "Input",
- CellChangeTimes->{{3.889873208133603*^9, 3.889873212895003*^9}, {
-  3.889873277020637*^9, 3.8898732809836626`*^9}},
- CellLabel->"In[17]:=",ExpressionUUID->"b502240c-f22e-4465-a8e5-8b0a0b991673"],
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<S\>\"", ",", "\"\<P\>\"", ",", 
+       "\"\<\!\(\*OverscriptBox[\(P\), \(_\)]\)\>\"", ",", "\"\<\[Chi]\>\""}],
+       "}"}], ",", 
+     RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.890427212177334*^9, 3.8904272159562955`*^9}, 
+   3.8904279235703573`*^9, {3.89042809545158*^9, 3.890428100272047*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"08a54b3a-d435-45f8-a88f-6a0dd18c3a64"],
 
 Cell[BoxData[
  FormBox[
-  TagBox[
-   TagBox[GridBox[{
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"16", " ", "v", " ", 
-           RowBox[{"\[ScriptCapitalT]", "(", 
-            RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"16", " ", "u", " ", "v", " ", 
-           RowBox[{"\[ScriptCapitalT]", "(", 
-            RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"16", " ", "u", " ", 
-           RowBox[{"\[ScriptCapitalT]", "(", 
-            RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-           RowBox[{"\[ScriptCapitalT]", "(", 
-            RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"5\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"v", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", "u"}], "+", "v", "-", "1"}], ")"}], " ", 
-           RowBox[{"\[ScriptCapitalT]", "(", 
-            RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"6\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"u", " ", 
-           RowBox[{"(", 
-            RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-           RowBox[{"\[ScriptCapitalT]", "(", 
-            RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "+", "2"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox["6"]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"\[ImaginaryI]", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"2", " ", "u", " ", "v", " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"1", ",", "0"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"u", "-", 
-                 RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["6"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"\[ImaginaryI]", " ", "u", " ", "v", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"1", ",", "0"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"2", " ", "u"}], "-", 
-                 RowBox[{"2", " ", "v"}], "+", "3"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["6"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"\[ImaginaryI]", " ", "v", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"2", " ", "u", " ", "v", " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"3", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox["6"]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"\[ImaginaryI]", " ", 
-             SuperscriptBox["u", "2"], " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"2", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "1"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox["6"]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"2", " ", "u", " ", "v", " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"1", ",", "0"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"2", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["6"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"8", " ", "\[ImaginaryI]", " ", "v", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"2", " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "-", 
-             RowBox[{"u", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"8", " ", "\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"\[ScriptCapitalT]", "(", 
-              RowBox[{"u", ",", "v"}], ")"}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", "v", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"2", " ", "u", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "4"}], " ", "\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "-", 
-             RowBox[{"u", " ", "v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "4"}], " ", "\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "4"}], " ", "\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"\[ImaginaryI]", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                SuperscriptBox["u", "2"], "-", 
-                RowBox[{"u", " ", 
-                 RowBox[{"(", 
-                  RowBox[{"v", "+", "2"}], ")"}]}], "-", "v", "+", "1"}], 
-               ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                SuperscriptBox["u", "2"], "-", 
-                RowBox[{"u", " ", "v"}], "+", "u", "+", 
-                RowBox[{"2", " ", "v"}], "-", "2"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", "v", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "2"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"5\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", "v", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"u", " ", "v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "-", 
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", 
-                RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"3", " ", "u"}], "-", 
-                RowBox[{"4", " ", "v"}], "+", "4"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"5\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"2", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", "v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"2", " ", "u"}], "-", 
-                RowBox[{"3", " ", "v"}], "+", "1"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"6\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "8"}], " ", "\[ImaginaryI]", " ", "u", " ", "v", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"\[ScriptCapitalT]", "(", 
-              RowBox[{"u", ",", "v"}], ")"}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"6\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "8"}], " ", "\[ImaginaryI]", " ", "u", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"v", "-", "1"}], ")"}], " ", "v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", "v", " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"1", ",", "0"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"v", "-", "1"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
-TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", 
-            SqrtBox["u"], " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"3", " ", "u"}], "-", 
-                 RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"u", "-", 
-                 RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["3"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
-TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "4"}], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"3", " ", 
-                 SuperscriptBox["u", "2"]}], "-", 
-                RowBox[{"5", " ", "u", " ", "v"}], "-", "u", "+", 
-                RowBox[{"2", " ", 
-                 SuperscriptBox["v", "2"]}], "-", "2"}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"(", 
-                  RowBox[{
-                   SuperscriptBox["u", "2"], "-", 
-                   RowBox[{"u", " ", 
-                    RowBox[{"(", 
-                    RowBox[{"v", "+", "2"}], ")"}]}], "+", 
-                   RowBox[{"3", " ", "v"}], "+", "1"}], ")"}], " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}], "-", 
-                RowBox[{"(", 
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{"(", 
-                   RowBox[{
-                    RowBox[{"-", "u"}], "+", "v", "+", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], ")"}], "+", 
-                RowBox[{"v", " ", 
-                 RowBox[{"(", 
-                  RowBox[{"u", "-", "v", "-", "1"}], ")"}], " ", 
-                 RowBox[{"(", 
-                  RowBox[{
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                    RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                   RowBox[{"u", " ", 
-                    RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}], 
-             "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                SuperscriptBox["u", "2"], "-", 
-                RowBox[{"3", " ", "u", " ", "v"}], "+", "u", "+", 
-                RowBox[{"2", " ", 
-                 SuperscriptBox["v", "2"]}], "-", 
-                RowBox[{"4", " ", "v"}], "-", "2"}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
-TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "4"}], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"(", 
-                  RowBox[{
-                   SuperscriptBox["u", "2"], "+", 
-                   RowBox[{"u", " ", 
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"3", " ", "v"}], "-", "2"}], ")"}]}], "-", "v", 
-                   "+", "1"}], ")"}], " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                RowBox[{
-                 SuperscriptBox["v", "2"], " ", 
-                 RowBox[{"(", 
-                  RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                RowBox[{"v", " ", 
-                 RowBox[{"(", 
-                  RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                 RowBox[{"(", 
-                  RowBox[{
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                    RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                   RowBox[{"u", " ", 
-                    RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}], 
-             "-", 
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"-", 
-                 RowBox[{"3", " ", 
-                  SuperscriptBox["u", "2"]}]}], "-", 
-                RowBox[{"3", " ", "u", " ", "v"}], "+", "u", "+", 
-                RowBox[{"2", " ", 
-                 SuperscriptBox[
-                  RowBox[{"(", 
-                   RowBox[{"v", "-", "1"}], ")"}], "2"]}]}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                SuperscriptBox["u", "2"], "+", 
-                RowBox[{"u", " ", 
-                 RowBox[{"(", 
-                  RowBox[{"v", "+", "1"}], ")"}]}], "-", 
-                RowBox[{"2", " ", 
-                 SuperscriptBox[
-                  RowBox[{"(", 
-                   RowBox[{"v", "-", "1"}], ")"}], "2"]}]}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"P\\\", \\\"_\\\"], \
-TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{
-           RowBox[{"-", "4"}], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"v", " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"3", " ", 
-                 SuperscriptBox["u", "2"]}], "+", 
-                RowBox[{"u", " ", 
-                 RowBox[{"(", 
-                  RowBox[{"3", "-", 
-                   RowBox[{"5", " ", "v"}]}], ")"}]}], "+", 
-                RowBox[{"2", " ", 
-                 SuperscriptBox[
-                  RowBox[{"(", 
-                   RowBox[{"v", "-", "1"}], ")"}], "2"]}]}], ")"}], " ", 
-              RowBox[{
-               SuperscriptBox["\[ScriptCapitalT]", 
-                TagBox[
-                 RowBox[{"(", 
-                  RowBox[{"0", ",", "1"}], ")"}],
-                 Derivative],
-                MultilineFunction->None], "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                SuperscriptBox["u", "2"], "-", 
-                RowBox[{"3", " ", "u", " ", "v"}], "+", "u", "+", 
-                RowBox[{"2", " ", 
-                 SuperscriptBox[
-                  RowBox[{"(", 
-                   RowBox[{"v", "-", "1"}], ")"}], "2"]}]}], ")"}], " ", 
-              RowBox[{"\[ScriptCapitalT]", "(", 
-               RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-             RowBox[{"u", " ", 
-              RowBox[{"(", 
-               RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{
-                 SuperscriptBox["v", "2"], " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                RowBox[{"v", " ", 
-                 RowBox[{"(", 
-                  RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                RowBox[{"u", " ", "v", " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                RowBox[{
-                 RowBox[{"(", 
-                  RowBox[{"u", "-", "1"}], ")"}], " ", 
-                 RowBox[{
-                  SuperscriptBox["\[ScriptCapitalT]", 
-                   TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                   MultilineFunction->None], "(", 
-                  RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}]}], 
-         ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"3", " ", "u"}], "-", "v", "+", "2"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"u", "-", "v", "+", "2"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["v"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"3", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{"u", "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox[
-             RowBox[{"u", " ", "v"}]]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"4", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"2", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["v"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"4", " ", "\[ImaginaryI]", " ", 
-             SuperscriptBox["u", "2"], " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", 
-                    RowBox[{"2", " ", "v"}], "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"4", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"2", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "1"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox[
-             RowBox[{"u", " ", "v"}]]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"2", " ", "u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"7", " ", "u"}], "-", 
-                 RowBox[{"3", " ", "v"}], "+", "3"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"3", " ", "u"}], "-", 
-                 RowBox[{"4", " ", "v"}], "+", "3"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["v"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"2", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  SuperscriptBox["u", "2"], "-", 
-                  RowBox[{"3", " ", "u", " ", "v"}], "+", "u", "+", 
-                  RowBox[{"2", " ", 
-                   SuperscriptBox["v", "2"]}], "-", 
-                  RowBox[{"3", " ", "v"}], "+", "1"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{"2", " ", "v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"2", " ", 
-                   SuperscriptBox["u", "2"]}], "+", 
-                  RowBox[{"u", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"2", "-", 
-                    RowBox[{"3", " ", "v"}]}], ")"}]}], "+", 
-                  SuperscriptBox[
-                   RowBox[{"(", 
-                    RowBox[{"v", "-", "1"}], ")"}], "2"]}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}], 
-            SqrtBox[
-             RowBox[{"u", " ", "v"}]]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"4", " ", "\[ImaginaryI]", " ", 
-            SqrtBox["2"], " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"3", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["v"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
-\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\
-\\\"P\\\", \\\"_\\\"], TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", "0"}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"3", " ", "u"}], "-", "v", "+", "2"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"u", "-", "v", "+", "2"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["v"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"3", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{"u", "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox[
-             RowBox[{"u", " ", "v"}]]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-              RowBox[{"v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"4", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"2", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-           SqrtBox["v"]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"2\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"4", " ", "\[ImaginaryI]", " ", 
-             SuperscriptBox["u", "2"], " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", 
-                    RowBox[{"2", " ", "v"}], "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"4", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"2", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "1"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox[
-             RowBox[{"u", " ", "v"}]]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"2", " ", "u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"7", " ", "u"}], "-", 
-                  RowBox[{"3", " ", "v"}], "+", "3"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"3", " ", "u"}], "-", 
-                  RowBox[{"4", " ", "v"}], "+", "3"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox["v"]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"3\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          FractionBox[
-           RowBox[{"\[ImaginaryI]", " ", "u", " ", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"2", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 SuperscriptBox["u", "2"], "-", 
-                 RowBox[{"3", " ", "u", " ", "v"}], "+", "u", "+", 
-                 RowBox[{"2", " ", 
-                  SuperscriptBox["v", "2"]}], "-", 
-                 RowBox[{"3", " ", "v"}], "+", "1"}], ")"}], " ", 
-               RowBox[{"\[ScriptCapitalT]", "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{"2", " ", "v", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"2", " ", 
-                  SuperscriptBox["u", "2"]}], "+", 
-                 RowBox[{"u", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"2", "-", 
-                    RowBox[{"3", " ", "v"}]}], ")"}]}], "+", 
-                 SuperscriptBox[
-                  RowBox[{"(", 
-                   RowBox[{"v", "-", "1"}], ")"}], "2"]}], ")"}], " ", 
-               RowBox[{
-                SuperscriptBox["\[ScriptCapitalT]", 
-                 TagBox[
-                  RowBox[{"(", 
-                   RowBox[{"0", ",", "1"}], ")"}],
-                  Derivative],
-                 MultilineFunction->None], "(", 
-                RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-              RowBox[{"u", " ", 
-               RowBox[{"(", 
-                RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  SuperscriptBox["v", "2"], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"v", " ", 
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{"u", " ", "v", " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                  RowBox[{
-                   SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                   RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}]}], ")"}]}], 
-           SqrtBox[
-            RowBox[{"u", " ", "v"}]]]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"4", " ", "\[ImaginaryI]", " ", "u", " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"3", " ", "u"}], "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{"u", "-", "v", "+", "1"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox["v"]]}]}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"4\"", "\"2\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", "0"}], ")"}]}]},
-      {
-       RowBox[{
-        FormBox[
-         SubsuperscriptBox["\<\"g\"\>", 
-          TemplateBox[{"\"1\"", "\"1\""},
-           
-           "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[\\\"P\\\", \
-TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"F\\\", \\\"_\\\"], \
-TraditionalForm]\\)\"\>"],
-         TraditionalForm], "\[Rule]", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"{", 
-           RowBox[{"u", ",", "v"}], "}"}], "\[Function]", 
-          RowBox[{"-", 
-           FractionBox[
-            RowBox[{"2", " ", "\[ImaginaryI]", " ", 
-             SqrtBox[
-              RowBox[{"u", " ", "v"}]], " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"u", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{
-                   SuperscriptBox["v", "2"], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"0", ",", "2"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"v", " ", 
-                   RowBox[{"(", 
-                    RowBox[{"u", "+", "v", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "1"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{"u", " ", "v", " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"2", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-                  RowBox[{
-                   RowBox[{"(", 
-                    RowBox[{"u", "-", "1"}], ")"}], " ", 
-                   RowBox[{
-                    SuperscriptBox["\[ScriptCapitalT]", 
-                    TagBox[
-                    RowBox[{"(", 
-                    RowBox[{"1", ",", "0"}], ")"}],
-                    Derivative],
-                    MultilineFunction->None], "(", 
-                    RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], "+", 
-               RowBox[{"v", " ", 
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"3", " ", "u"}], "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{
-                 SuperscriptBox["\[ScriptCapitalT]", 
-                  TagBox[
-                   RowBox[{"(", 
-                    RowBox[{"0", ",", "1"}], ")"}],
-                   Derivative],
-                  MultilineFunction->None], "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}], "+", 
-               RowBox[{
-                RowBox[{"(", 
-                 RowBox[{"u", "-", 
-                  RowBox[{"2", " ", "v"}], "+", "2"}], ")"}], " ", 
-                RowBox[{"\[ScriptCapitalT]", "(", 
-                 RowBox[{"u", ",", "v"}], ")"}]}]}], ")"}]}], 
-            SqrtBox["3"]]}]}], ")"}]}]}
-     },
-     GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
-     GridBoxSpacings->{"Columns" -> {
-         Offset[0.27999999999999997`], {
-          Offset[0.5599999999999999]}, 
-         Offset[0.27999999999999997`]}, "Rows" -> {
-         Offset[0.2], {
-          Offset[0.4]}, 
-         Offset[0.2]}}],
-    Column],
-   Function[BoxForm`e$, 
-    TableForm[BoxForm`e$]]], TraditionalForm]], "Output",
- CellChangeTimes->{3.8898732753321733`*^9, 3.889873593902009*^9, 
-  3.889876458261942*^9},
+  StyleBox["\<\"No crossing checks to perform\"\>",
+   StripOnInput->False,
+   LineColor->GrayLevel[0.5],
+   FrontFaceColor->GrayLevel[0.5],
+   BackFaceColor->GrayLevel[0.5],
+   GraphicsColor->GrayLevel[0.5],
+   FontWeight->Bold,
+   FontColor->GrayLevel[0.5]], TraditionalForm]], "Print",
+ CellChangeTimes->{3.8904281177159057`*^9, 3.8904288428842993`*^9},
  CellLabel->
-  "Out[17]//TableForm=",ExpressionUUID->"8725187b-2ddf-4d9a-87e7-\
-5340190d6777"]
+  "During evaluation of \
+In[17]:=",ExpressionUUID->"b388e100-87d3-4da2-bb51-414e66be2914"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<S\>\"", ",", "\"\<P\>\"", ",", 
+      "\"\<\!\(\*OverscriptBox[\(P\), \(_\)]\)\>\"", ",", 
+      "\"\<\!\(\*OverscriptBox[\(\[Chi]\), \(_\)]\)\>\""}], "}"}], "]"}], 
+   "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8904211032638397`*^9, 3.890421106589506*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"f37c58e8-b8c7-4145-8568-45677ad50cbe"],
+
+Cell[BoxData[
+ FormBox[
+  DynamicBox[ToBoxes[
+    DynamicModule[{
+     FunctionRepository`$79bb43a797c0439e8f732569f776a460`sstart, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`si, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`stime, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`stimes, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`scur, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`totals = <||>, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`durations = <|
+       0 -> 0|>, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`prevProg = 0, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`dur, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`pdur, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`sknownLen = 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`knownLen$69156, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`progTemp = 
+      If[FunctionRepository`$79bb43a797c0439e8f732569f776a460`knownLen$69156, 
+        Row[{#, "/", 188}]& , #& ], 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`sres = 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`res$69156, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`max = 0, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`dPts, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`tPts, 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`label = 
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`CreateLabel[
+        OptionValue[
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`MonitorProgress, \
+{Parallelization -> False, "Label" -> 
+          "Generating spacetime structure relation data", 
+          "CurrentDisplayFunction" -> None}, "Label"]]}, 
+     Refresh[FunctionRepository`$79bb43a797c0439e8f732569f776a460`si = 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`i$69156; 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`stime = 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`time$69156; 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`stimes = 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`times$69156; 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`scur = 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`cur$69156, None]; 
+     DynamicWrapper[
+       DynamicWrapper[
+        Panel[
+         Row[{
+           Dynamic[
+           FunctionRepository`$79bb43a797c0439e8f732569f776a460`dur = 
+             FunctionRepository`$79bb43a797c0439e8f732569f776a460`stime - 
+              FunctionRepository`$79bb43a797c0439e8f732569f776a460`sstart; 
+            FunctionRepository`$79bb43a797c0439e8f732569f776a460`pdur = 
+             Last[FunctionRepository`$79bb43a797c0439e8f732569f776a460`stimes]\
+ - FunctionRepository`$79bb43a797c0439e8f732569f776a460`sstart; 
+            FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog = Last[
+               Keys[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`stimes]]; 
+            If[FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog > 
+              FunctionRepository`$79bb43a797c0439e8f732569f776a460`prevProg, 
+              AppendTo[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`durations,
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog -> 
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`pdur]; 
+              If[FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+sknownLen, AppendTo[
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`totals, 
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog -> \
+(188/FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog) 
+                   Part[FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+durations, -1]]; 
+                If[FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+prevProg == 0, 
+                  PrependTo[
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`totals,
+                    0 -> Part[
+                    FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+totals, 1]]]; FunctionRepository`$79bb43a797c0439e8f732569f776a460`max = 
+                 Max[FunctionRepository`$79bb43a797c0439e8f732569f776a460`max,
+                    FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+totals], FunctionRepository`$79bb43a797c0439e8f732569f776a460`max = 
+                Max[FunctionRepository`$79bb43a797c0439e8f732569f776a460`max, 
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+durations]]; FunctionRepository`$79bb43a797c0439e8f732569f776a460`prevProg = 
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog; 
+              Null]; Grid[{
+               Replace[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`label, 
+                None -> Nothing], 
+               If[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`scur =!= 
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`$None, {
+                "Current item:", 
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`scur}, 
+                Nothing], {"Progress:", 
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`progTemp[
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`si]}, {
+               "Time elapsed:", 
+                If[
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`si == 0, 
+                 "NA", 
+                 GeneralUtilities`TimeString[
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`dur]]}, \
+{"Time per Step:", 
+                If[
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`si == 0, 
+                 "NA", 
+                 GeneralUtilities`TimeString[
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`dur/
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`si]]}, 
+               If[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`sknownLen,\
+ {"Est. time remaining:", 
+                 If[
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`si == 0,
+                   "NA", 
+                  
+                  GeneralUtilities`TimeString[(188 - 
+                    FunctionRepository`$79bb43a797c0439e8f732569f776a460`si) (
+                    FunctionRepository`$79bb43a797c0439e8f732569f776a460`dur/
+                    FunctionRepository`$79bb43a797c0439e8f732569f776a460`si)]]\
+}, Nothing], 
+               If[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`sknownLen,\
+ {"Est. total time:", 
+                 If[
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`si == 0,
+                   "NA", 
+                  GeneralUtilities`TimeString[
+                  188 (FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+dur/FunctionRepository`$79bb43a797c0439e8f732569f776a460`si)]]}, Nothing]}, 
+              Alignment -> {{Right, Left}}, 
+              ItemSize -> {{All, 13}, {1.5, 1.5, 1.5, 1.5, 1.5, 1.5}}, 
+              ItemStyle -> {{
+                 Darker[Gray], Black}}], 
+            TrackedSymbols :> {
+             FunctionRepository`$79bb43a797c0439e8f732569f776a460`si, 
+              FunctionRepository`$79bb43a797c0439e8f732569f776a460`scur}, 
+            Evaluator -> "System"], 
+           Spacer[10], 
+           Dynamic[
+           FunctionRepository`$79bb43a797c0439e8f732569f776a460`tPts = 
+             MapApply[List, 
+               Normal[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`totals]]; 
+            FunctionRepository`$79bb43a797c0439e8f732569f776a460`dPts = 
+             MapApply[List, 
+               Normal[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`durations]\
+]; Graphics[{
+               Darker[Green], 
+               Opacity[0.3], 
+               
+               Rectangle[{0, 0}, {
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`prevProg,
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`max}], 
+               Opacity[0.5], 
+               Polygon[
+                Join[
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`tPts, {{
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+prevProg, 0}, {0, 0}}]], 
+               Opacity[1], 
+               Polygon[
+                Join[
+                FunctionRepository`$79bb43a797c0439e8f732569f776a460`dPts, {{
+                  FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+prevProg, 0}, {0, 0}}]], White, 
+               AbsoluteThickness[1.6], 
+               Line[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`dPts], 
+               Dashed, 
+               Line[
+               FunctionRepository`$79bb43a797c0439e8f732569f776a460`tPts]}, 
+              FrameTicks -> None, Frame -> False, Axes -> None, 
+              PlotRangePadding -> 0, ImageSize -> 300, PlotRange -> {{0, 
+                 If[
+                 FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+sknownLen, 188, FunctionRepository`$79bb43a797c0439e8f732569f776a460`prevProg + 
+                  1/FunctionRepository`$79bb43a797c0439e8f732569f776a460`sres]\
+}, {0, FunctionRepository`$79bb43a797c0439e8f732569f776a460`max}}, GridLines -> 
+              If[FunctionRepository`$79bb43a797c0439e8f732569f776a460`\
+sknownLen, {188 {0.2, 0.4, 0.6, 0.8}, Automatic}, Automatic], GridLinesStyle -> 
+              Directive[White, 
+                Opacity[0.75]], Method -> {"GridLinesInFront" -> True}, 
+              Background -> GrayLevel[0.9], AspectRatio -> 1/GoldenRatio], 
+            Evaluator -> "System"]}]], 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`si = 
+         FunctionRepository`$79bb43a797c0439e8f732569f776a460`i$69156; If[
+          NumericQ[
+          FunctionRepository`$79bb43a797c0439e8f732569f776a460`start$69156], 
+          FunctionRepository`$79bb43a797c0439e8f732569f776a460`sstart = 
+          FunctionRepository`$79bb43a797c0439e8f732569f776a460`start$69156]; 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`stime = 
+         FunctionRepository`$79bb43a797c0439e8f732569f776a460`time$69156; 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`stimes = 
+         FunctionRepository`$79bb43a797c0439e8f732569f776a460`times$69156; 
+        FunctionRepository`$79bb43a797c0439e8f732569f776a460`scur = 
+         Replace[FunctionRepository`$79bb43a797c0439e8f732569f776a460`cur$\
+69156, Pattern[FunctionRepository`$79bb43a797c0439e8f732569f776a460`c$, 
+             Except[
+             FunctionRepository`$79bb43a797c0439e8f732569f776a460`$None]] :> 
+           FunctionRepository`$79bb43a797c0439e8f732569f776a460`curDisp$69156[
+            FunctionRepository`$79bb43a797c0439e8f732569f776a460`c$]]; Null], 
+       If[
+         Not[
+          BooleanQ[
+          FunctionRepository`$79bb43a797c0439e8f732569f776a460`knownLen$69156]\
+], 
+         NotebookDelete[
+          EvaluationCell[]]]; Null], 
+     UnsavedVariables :> {
+      FunctionRepository`$79bb43a797c0439e8f732569f776a460`totals, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`durations, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`prevProg, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`dur, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`pdur, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`prog, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`max, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`dPts, 
+       FunctionRepository`$79bb43a797c0439e8f732569f776a460`tPts}], 
+    TraditionalForm],
+   Evaluator->"Local",
+   ImageSizeCache->{
+    556.1500000000001, {103.30195307573304`, 107.84804692426695`}}], 
+  TraditionalForm]], "PrintTemporary",
+ CellChangeTimes->{3.890428848033467*^9},
+ CellLabel->
+  "During evaluation of \
+In[18]:=",ExpressionUUID->"e337e194-5dc6-40cc-8e86-986ec2a87426"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<S\>\"", ",", "\"\<S\>\"", ",", "\"\<F\>\"", ",", 
+       "\"\<\!\(\*OverscriptBox[\(\[Chi]\), \(_\)]\)\>\""}], "}"}], ",", 
+     RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8904281634504833`*^9, 3.890428170590518*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"06344f63-48df-443c-b2a5-3b9adad71abb"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{
+    StyleBox["\<\"\[CheckmarkedBox] Crossing is satisfied: \"\>",
+     StripOnInput->False,
+     LineColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     FrontFaceColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     BackFaceColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     GraphicsColor->RGBColor[0, 
+       Rational[2, 3], 0],
+     FontWeight->Bold,
+     FontColor->RGBColor[0, 
+       Rational[2, 3], 0]], "\[InvisibleSpace]", 
+    TagBox[
+     FormBox[
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"3\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"1\"", "\"4\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"3\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"2\"", "\"4\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"3\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"3\"", "\"4\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"4\"", "\"1\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"4\"", "\"2\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"4\"", "\"3\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}], ",", 
+        RowBox[{
+         FormBox[
+          SubsuperscriptBox["\<\"g\"\>", 
+           TemplateBox[{"\"4\"", "\"4\""},
+            
+            "RowDefault"], "\<\"\\!\\(\\*FormBox[\\\"S\\\", \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
+TraditionalForm]\\)\\!\\(\\*FormBox[\\\"F\\\", TraditionalForm]\\)\"\>"],
+          TraditionalForm], "(", 
+         RowBox[{"u", ",", "v"}], ")"}]}], "}"}],
+      TraditionalForm],
+     TraditionalForm,
+     Editable->True]}],
+   SequenceForm[
+    Style["\[CheckmarkedBox] Crossing is satisfied: ", Bold, 
+     RGBColor[0, 
+      Rational[2, 3], 0]], 
+    TraditionalForm[{
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       1, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       1, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       1, 3][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       1, 4][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       2, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       2, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       2, 3][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       2, 4][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       3, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       3, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       3, 3][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       3, 4][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       4, 1][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       4, 2][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       4, 3][SCWIGE`u, SCWIGE`v], 
+      GroupMath`g[{
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"S\", TraditionalForm]\)", {0, 2, 0}, 2, {0, 0}, 0], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], TraditionalForm]\)", \
+{1, 1, 0}, 
+         Rational[5, 2], {0, 
+          Rational[1, 2]}, -1], 
+        SCWIGE`Field[
+        "\!\(\*FormBox[\"F\", TraditionalForm]\)", {0, 1, 0}, 3, {1, 0}, 2]}, 
+       4, 4][SCWIGE`u, SCWIGE`v]}]],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.890428382084096*^9},
+ CellLabel->
+  "During evaluation of \
+In[21]:=",ExpressionUUID->"ee4f1461-9968-4203-b4d3-761c2ad4c347"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CheckAndSave", "[", 
+   RowBox[{"SolveWard", "[", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<S\>\"", ",", "\"\<S\>\"", ",", 
+      "\"\<\!\(\*OverscriptBox[\(F\), \(_\)]\)\>\"", ",", "\"\<\[Chi]\>\""}], 
+     "}"}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.890428390442074*^9, 3.89042839786165*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"dab792f4-d362-484f-87f5-1ef0c7d4ebe8"],
+
+Cell[BoxData[
+ FormBox["$Aborted", TraditionalForm]], "Output",
+ CellChangeTimes->{3.890428555845622*^9},
+ CellLabel->"Out[22]=",ExpressionUUID->"4dd36b79-08c3-433d-bf5b-5f09af314ca8"]
 }, Open  ]]
 },
 WindowSize->{1440., 742.5},
 WindowMargins->{{-4.875, Automatic}, {Automatic, -4.875}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 CommonDefaultFormatTypes->{"Output"->TraditionalForm},
-Magnification:>1. Inherited,
+Magnification:>1.1 Inherited,
 FrontEndVersion->"13.1 for Microsoft Windows (64-bit) (June 16, 2022)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"088ed991-8225-4813-b2ac-5fc25a1ada44"
@@ -7061,35 +5743,68 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 197, 3, 28, "Input",ExpressionUUID->"e6ea2357-b4cf-45c9-a763-19a70fab190a"],
-Cell[780, 27, 2670, 55, 431, "Print",ExpressionUUID->"7d2fa759-1b1d-45b1-8342-1768502d66d1"]
-}, Open  ]],
-Cell[3465, 85, 211, 3, 28, "Input",ExpressionUUID->"8c6b1a01-3512-4d1a-ac4f-91906fce6fc6"],
-Cell[3679, 90, 5364, 134, 265, "Input",ExpressionUUID->"dcd280db-ec31-4da4-9386-0344c3d7e698"],
+Cell[580, 22, 209, 4, 31, "Input",ExpressionUUID->"03401033-3b2a-4977-a7cd-1b01c47173e6"],
 Cell[CellGroupData[{
-Cell[9068, 228, 295, 4, 28, "Input",ExpressionUUID->"0a2f7b54-e566-4344-9bab-73a696282f8b"],
-Cell[9366, 234, 128408, 3122, 541, "Output",ExpressionUUID->"12ae6093-82b4-41c4-bede-7c2620294c76"]
-}, Open  ]],
-Cell[137789, 3359, 2126, 61, 173, "Input",ExpressionUUID->"4eeaeb34-0fd4-47a8-b972-c9d52164fd46"],
-Cell[139918, 3422, 2258, 64, 67, "Input",ExpressionUUID->"3907405f-a7ea-49fd-a05e-4535b1611004"],
-Cell[142179, 3488, 590, 13, 28, "Input",ExpressionUUID->"fcefd263-64ae-490e-9706-31c306b0fb19"],
+Cell[814, 30, 351, 9, 24, "Print",ExpressionUUID->"166aea54-7881-4324-a469-642621bad619"],
+Cell[1168, 41, 555, 14, 24, "Print",ExpressionUUID->"bedd705f-d6ab-4540-8ce4-556983fd790b"],
+Cell[1726, 57, 294, 7, 24, "Print",ExpressionUUID->"156ad5bd-05ea-4b35-b041-f0971888db71"],
+Cell[2023, 66, 373, 8, 24, "Print",ExpressionUUID->"10ad163b-a806-438d-90ef-1c80708ab569"],
+Cell[2399, 76, 279, 6, 24, "Print",ExpressionUUID->"1bbc2113-3541-46ef-b232-8afd0f944811"],
+Cell[2681, 84, 334, 9, 24, "Print",ExpressionUUID->"b4cf3341-f902-4aa5-b6b2-c8495b9d4080"],
+Cell[3018, 95, 535, 14, 24, "Print",ExpressionUUID->"b6415c77-181d-4574-b388-eea0f52a09ad"],
+Cell[3556, 111, 283, 6, 24, "Print",ExpressionUUID->"46c1e713-95ae-432c-b441-967da9150fd5"],
+Cell[3842, 119, 365, 8, 24, "Print",ExpressionUUID->"7d9d7d99-49d0-463a-bd10-c3bcb4879319"],
+Cell[4210, 129, 279, 6, 24, "Print",ExpressionUUID->"d342ab91-18fd-4fd6-8b7c-a7f686427fb3"]
+}, Open  ]]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[142794, 3505, 311, 5, 28, "Input",ExpressionUUID->"3c61d3c0-4b61-44d1-b056-83320110191d"],
-Cell[143108, 3512, 13851, 336, 29, "Print",ExpressionUUID->"907ee3df-63f5-41c1-8c23-6202097680c2"]
+Cell[4538, 141, 197, 3, 26, "Input",ExpressionUUID->"e6ea2357-b4cf-45c9-a763-19a70fab190a"],
+Cell[4738, 146, 3307, 63, 471, "Print",ExpressionUUID->"421f3d3e-7f95-4b8a-ac75-3b461269320a"]
 }, Open  ]],
-Cell[156974, 3851, 413, 10, 32, "Input",ExpressionUUID->"587ae46c-8117-4b7d-81c3-da8d71626953"],
+Cell[8060, 212, 211, 3, 31, "Input",ExpressionUUID->"8c6b1a01-3512-4d1a-ac4f-91906fce6fc6"],
+Cell[8274, 217, 5364, 134, 376, "Input",ExpressionUUID->"dcd280db-ec31-4da4-9386-0344c3d7e698"],
 Cell[CellGroupData[{
-Cell[157412, 3865, 234, 4, 28, "Input",ExpressionUUID->"33515799-15c2-45e4-8d8c-f5d686a18510"],
-Cell[157649, 3871, 9644, 235, 31, "Print",ExpressionUUID->"42ebb3f4-3ea7-4f94-87d2-91f380028528"]
+Cell[13663, 355, 295, 4, 31, "Input",ExpressionUUID->"0a2f7b54-e566-4344-9bab-73a696282f8b"],
+Cell[13961, 361, 129134, 3134, 631, "Output",ExpressionUUID->"fa14ec95-7767-4f42-944b-68314d8070ae"]
 }, Open  ]],
-Cell[167308, 4109, 538, 13, 28, "Input",ExpressionUUID->"24591887-4abb-49e3-9a75-fc997a8ba595"],
+Cell[143110, 3498, 2126, 61, 195, "Input",ExpressionUUID->"4eeaeb34-0fd4-47a8-b972-c9d52164fd46"],
+Cell[145239, 3561, 2258, 64, 73, "Input",ExpressionUUID->"3907405f-a7ea-49fd-a05e-4535b1611004"],
+Cell[147500, 3627, 590, 13, 31, "Input",ExpressionUUID->"fcefd263-64ae-490e-9706-31c306b0fb19"],
 Cell[CellGroupData[{
-Cell[167871, 4126, 285, 5, 28, "Input",ExpressionUUID->"52d74147-f31e-47a4-a03c-d9faaa24a524"],
-Cell[168159, 4133, 10022, 250, 29, "Print",ExpressionUUID->"ece2571a-a14d-4765-a6bc-cf5b1710433b"]
+Cell[148115, 3644, 311, 5, 31, "Input",ExpressionUUID->"3c61d3c0-4b61-44d1-b056-83320110191d"],
+Cell[148429, 3651, 14032, 338, 31, "Print",ExpressionUUID->"9ce690e2-8eb1-406e-b8f5-ecaad861437b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[178218, 4388, 293, 5, 28, "Input",ExpressionUUID->"b502240c-f22e-4465-a8e5-8b0a0b991673"],
-Cell[178514, 4395, 105526, 2644, 1320, "Output",ExpressionUUID->"8725187b-2ddf-4d9a-87e7-5340190d6777"]
+Cell[162498, 3994, 456, 11, 34, "Input",ExpressionUUID->"2447fc4a-9b71-4f65-b9f9-660d12a01eab"],
+Cell[162957, 4007, 9766, 236, 34, "Print",ExpressionUUID->"4c486bbf-94d2-4c63-9f62-8566d72ca9ad"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[172760, 4248, 387, 9, 31, "Input",ExpressionUUID->"d32fcb7d-45bd-431d-8d0e-3c708debb676"],
+Cell[173150, 4259, 7346, 187, 31, "Print",ExpressionUUID->"48a462a5-6133-48b4-82b5-e6316dff814d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[180533, 4451, 536, 12, 34, "Input",ExpressionUUID->"d64280ff-208a-4c0c-bb5f-2d9402e911cf"],
+Cell[181072, 4465, 8271, 205, 34, "Print",ExpressionUUID->"0dbf13b8-188f-42a9-b471-e03747dbcbc5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[189380, 4675, 494, 11, 31, "Input",ExpressionUUID->"e4106750-36f5-4927-9d00-3e7ba2734b04"],
+Cell[189877, 4688, 10190, 253, 31, "Print",ExpressionUUID->"7709fedf-e178-4b2b-89a2-fa66c8dcf687"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[200104, 4946, 572, 13, 34, "Input",ExpressionUUID->"08a54b3a-d435-45f8-a88f-6a0dd18c3a64"],
+Cell[200679, 4961, 485, 13, 24, "Print",ExpressionUUID->"b388e100-87d3-4da2-bb51-414e66be2914"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[201201, 4979, 467, 11, 34, "Input",ExpressionUUID->"f37c58e8-b8c7-4145-8568-45677ad50cbe"],
+Cell[201671, 4992, 12299, 226, 221, "PrintTemporary",ExpressionUUID->"e337e194-5dc6-40cc-8e86-986ec2a87426"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[214007, 5223, 492, 11, 31, "Input",ExpressionUUID->"06344f63-48df-443c-b2a5-3b9adad71abb"],
+Cell[214502, 5236, 18887, 465, 31, "Print",ExpressionUUID->"ee4f1461-9968-4203-b4d3-761c2ad4c347"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[233426, 5706, 425, 10, 34, "Input",ExpressionUUID->"dab792f4-d362-484f-87f5-1ef0c7d4ebe8"],
+Cell[233854, 5718, 184, 3, 34, "Output",ExpressionUUID->"4dd36b79-08c3-433d-bf5b-5f09af314ca8"]
 }, Open  ]]
 }
 ]

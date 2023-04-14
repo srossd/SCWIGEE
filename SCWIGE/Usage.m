@@ -242,6 +242,10 @@ StyleBox[\"rep4\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)constructed by contracting primitive three-pt invariants.";
 
+InvariantFourPtGraphs::usage = "InvariantFourPtGraphs[\!\(\*
+StyleBox[\"reps\",\nFontSlant->\"Italic\"]\)] gives the graphs of three-pt invariant tensors used to build InvariantFourPts[\!\(\*
+StyleBox[\"reps\",\nFontSlant->\"Italic\"]\)].";
+
 ExpansionComponents::usage = "ExpansionComponents[\!\(\*
 StyleBox[\"expr\",\nFontSlant->\"Italic\"]\)] takes a tensor expression consisting of R-symmetry invariants and spacetime structures, and expands both into a complete basis to give a highly compressed set of components.";
 
@@ -562,6 +566,15 @@ StyleBox[\"soln\",\nFontSlant->\"Italic\"]\) to the list of solved correlators."
 WardEquations::usage = "WardEquations[\!\(\*
 StyleBox[\"fields\",\nFontSlant->\"Italic\"]\)] gives a list of equations obtained by acting with a supersymmetry generator on the correlator of \!\(\*
 StyleBox[\"fields\",\nFontSlant->\"Italic\"]\).";
+
+TreeInvariant::usage = "TreeInvariant[\!\(\*
+StyleBox[\"edges\",\nFontSlant->\"Italic\"]\)] represents a tree diagram for a four-point R-invariant.";
+LoopInvariant::usage = "LoopInvariant[\!\(\*
+StyleBox[\"edges\",\nFontSlant->\"Italic\"]\)] represents a loop diagram for a four-point R-invariant.";
+Internal::usage = "Internal[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] represents an internal vertex in an R-invariant diagram.";
+External::usage = "External[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] represents an external vertex in an R-invariant diagram.";
 
 
 EndPackage[]
