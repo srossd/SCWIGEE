@@ -589,5 +589,33 @@ ToTensor::usage = "ToTensor[\!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the tensor corresponding to \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
+SetTwoPtRInvariant::usage = "SetTwoPtRInvariant[\!\(\*
+StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"r2\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)] sets the two-point R-invariant \!\(\*SuperscriptBox[\(\[Delta]\), 
+StyleBox[
+RowBox[{\"r1\", \",\", \" \", \"r2\"}],\nFontSlant->\"Italic\"]]\) to \!\(\*
+StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
+SetThreePtRInvariant::usage = "SetThreePtRInvariant[\!\(\*
+StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"r2\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"r3\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)] sets the three-point R-invariant \!\(\*SuperscriptBox[\(C\), 
+StyleBox[
+RowBox[{\"r1\", \",\", \" \", \"r2\", \",\", \" \", \"r3\"}],\nFontSlant->\"Italic\"]]\) to \!\(\*
+StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
+
 
 EndPackage[]

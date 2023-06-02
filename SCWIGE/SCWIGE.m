@@ -400,21 +400,51 @@ lowerEigs[rep_] := lowerEigs[rep] = With[{mat = IrrepInProduct[$RSymmetry, {rep,
    Transpose@SparseArray@Orthogonalize@Sort@(DiagonalMatrix[Sqrt[Eigenvalues[mat]]] . Eigenvectors[mat])
 ];
      
-BuildTensor[
-   arg : {"\[Delta]", Raised@RIndex[rep1_], Raised@RIndex[rep2_]}] :=
-   BuildTensor[arg] = IrrepInProduct[$RSymmetry, {rep1, rep2}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]];
+BuildTensor[arg : {"\[Delta]", Raised@RIndex[rep1_], Raised@RIndex[rep2_]}] := BuildTensor[arg] = twopt[r1, r2];
 
-BuildTensor[
-   arg : {"\[Delta]", Lowered@RIndex[rep1_], Lowered@RIndex[rep2_]}] :=
-   BuildTensor[arg] = 
-   IrrepInProduct[$RSymmetry, {rep1, rep2}, singRep[$RSymmetry], 
-     ConjugateRepsInProduct -> {True, True}, TensorForm -> True][[1, 1, ;; , ;; , 1]];
-    
-threept[r1_, r2_, r3_] := threept[r1, r2, r3] = With[{reps = SimpleRepInputConversion[$RSymmetry, #] & /@ {r1, r2, r3}},
-   With[{sorted = Sort[reps], order = Ordering[reps]},
-     TensorTranspose[IrrepInProduct[$RSymmetry, sorted[[;;2]], sorted[[3]], ConjugateTargetRep -> True, TensorForm -> True][[1,1]], order]
-   ]
+BuildTensor[arg : {"\[Delta]", Lowered@RIndex[rep1_], Lowered@RIndex[rep2_]}] := BuildTensor[arg] = Inverse[twopt[r2, r1]];
+
+$customInvariants = False;
+     
+twopt::undefined = "The two-point invariant for representations (``, ``) has not been defined.";
+twopt[r1 : (_Integer | _List), r2 : (_Integer | _List)] /; r1 =!= SimpleRepInputConversion[RSymmetry[], r1] := twopt[SimpleRepInputConversion[RSymmetry[], r1], r2];
+twopt[r1 : (_Integer | _List), r2 : (_Integer | _List)] /; r2 =!= SimpleRepInputConversion[RSymmetry[], r2] := twopt[r1, SimpleRepInputConversion[RSymmetry[], r2]];
+twopt[r1 : (_Integer | _List), r2 : (_Integer | _List)] /; r1 === SimpleRepInputConversion[RSymmetry[], r1] && r2 === SimpleRepInputConversion[RSymmetry[], r2] && !OrderedQ[{r1, r2}] := Transpose[twopt[r2, r1]];
+twopt[r1 : (_Integer | _List), r2 : (_Integer | _List)] /; r1 === SimpleRepInputConversion[RSymmetry[], r1] && r2 === SimpleRepInputConversion[RSymmetry[], r2] && OrderedQ[{r1, r2}] := 
+If[$customInvariants,
+   Message[twopt::undefined, RepName[RSymmetry[], r1], RepName[RSymmetry[], r2]];,
+   IrrepInProduct[$RSymmetry, {r1, r2}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]]
 ];
+ 
+threept::undefined = "The three-point invariant for representations (``, ``, ``) has not been defined.";
+threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List)] /; r1 =!= SimpleRepInputConversion[RSymmetry[], r1] :=
+   threept[SimpleRepInputConversion[RSymmetry[], r1], r2, r3];
+threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List)] /; r2 =!= SimpleRepInputConversion[RSymmetry[], r2] :=
+   threept[r1, SimpleRepInputConversion[RSymmetry[], r2], r3];
+threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List)] /; r3 =!= SimpleRepInputConversion[RSymmetry[], r3] :=
+   threept[r1, r2, SimpleRepInputConversion[RSymmetry[], r3]];
+threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List)] /; r1 === SimpleRepInputConversion[RSymmetry[], r1] && r2 === SimpleRepInputConversion[RSymmetry[], r2] && r3 === SimpleRepInputConversion[RSymmetry[], r3] && !OrderedQ[{r1, r2, r3}] := 
+   TensorTranspose[threept @@ Sort[{r1,r2,r3}], Ordering[{r1,r2,r3}]];
+   
+threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List)] /; r1 === SimpleRepInputConversion[RSymmetry[], r1] && r2 === SimpleRepInputConversion[RSymmetry[], r2] && r3 === SimpleRepInputConversion[RSymmetry[], r3] && OrderedQ[{r1, r2, r3}] := 
+If[$customInvariants,
+   Message[threept::undefined, RepName[RSymmetry[], r1], RepName[RSymmetry[], r2], RepName[RSymmetry[], r3]];,
+   IrrepInProduct[$RSymmetry, {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1, 1]]
+];
+
+SetTwoPtRInvariant[r1_, r2_, mat_] := Module[{reps = SimpleRepInputConversion[RSymmetry[], #] & /@ {r1, r2}, sorted, order},
+    $customInvariants = True;
+ 	sorted = Sort[reps];
+ 	order = Ordering[reps];
+ 	twopt[sorted[[1]], sorted[[2]]] = SparseArray@TensorTranspose[mat, order];
+]
+
+SetThreePtRInvariant[r1_, r2_, r3_, mat_] := Module[{reps = SimpleRepInputConversion[RSymmetry[], #] & /@ {r1, r2, r3}, sorted, order},
+    $customInvariants = True;
+ 	sorted = Sort[reps];
+ 	order = InversePermutation@Ordering[reps];
+ 	threept[sorted[[1]], sorted[[2]], sorted[[3]]] = SparseArray@TensorTranspose[mat, order];
+]
 
 BuildTensor[
    arg : {"C", Lowered@RIndex[target_], Raised@RIndex[rep1_], 
