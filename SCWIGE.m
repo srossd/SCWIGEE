@@ -25,31 +25,55 @@ SetSymmetries[ops_] := Do[
 		Table[{Cycles[{{i, i+1}}], 1}, {i, 2 + 2 Spin[op][[1]], 2 + 2 Spin[op][[1]] + 2 Spin[op][[2]] - 2}]
 	]],
 	{op, ops}];
-SetMultiplet[ops_] := (SetSymmetries[ops]; $multiplet = ops);
+
+$multipletIndices = {};
+SetMultiplet[ops_, name_, sc_, i_ : 1] := (
+	SetSymmetries[Flatten[ops]]; 
+	$multipletIndices = Union[$multipletIndices, {i}]; 
+	$multiplet[i] = ops;
+	$multipletName[i] = name;
+	$multipletSC[i] = sc;
+);
 
 RSymmetry[] := $RSymmetry;
-Multiplet[] := $multiplet;
+Multiplet[i_] := $multiplet[i];
 
 Format[Field[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] := 
   With[{indices = 
      Join[{"\[Alpha]", "\[Beta]"}[[;; 
         2 j1]], {"\!\(\*OverscriptBox[\(\[Alpha]\), \(.\)]\)", 
         "\!\(\*OverscriptBox[\(\[Beta]\), \(.\)]\)"}[[;; 2 j2]]]},
-   Row[{Superscript[" ", RepName[$RSymmetry, rep]], 
-     "\[NegativeVeryThinSpace]", 
-     Subscript[HoldForm[name], Row[indices]]}]
-   ];
+     Subsuperscript[If[StringQ[name], ToExpression[name, TraditionalForm, HoldForm], name], If[indices == {}, "", Row[ToExpression[#, TraditionalForm, HoldForm] & /@ indices]],RepName[$RSymmetry, rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
+  ToString[ToExpression[s, TraditionalForm]]]
+  ];
 
 ScalingDimension[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
 Spin[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := {j1, j2};
 RRep[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
 
+whichMultiplet[f_Field] := whichMultiplet[f[[1]]];
+whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] &];
+
+multipletOf[f_Field] := With[{mm = Multiplet[whichMultiplet[f]]},
+   If[MatchQ[mm[[1]], _List], SelectFirst[mm, MemberQ[#, f] &], mm]
+];
+
 Field /: Conjugate[f : Field[name_, rep_, dim_, js_, y_]] := 
  With[{r = ConjugateIrrep[$RSymmetry, rep]},
-    SelectFirst[Multiplet[], SimpleRepInputConversion[$RSymmetry, #[[2]]] == r && #[[3]] == dim && #[[4]] == Reverse[js] && #[[5]] == -y &] 
+    First@SortBy[Select[Flatten[Multiplet[whichMultiplet[f]]], SimpleRepInputConversion[$RSymmetry, #[[2]]] == r && #[[3]] == dim && #[[4]] == Reverse[js] && #[[5]] == -y &], # === f &] 
  ];
  
-name2field[name_] := SelectFirst[Multiplet[], #[[1]] == name &];
+makeConjugate[f : Field[name_, rep_, dim_, js_, y_]] := Field[
+   With[{nameExp = ToExpression[name, TraditionalForm]}, 
+      If[FreeQ[nameExp, OverBar], 
+         nameExp /. x_ :> ToString[OverBar[x], TraditionalForm],
+         nameExp /. x_ :> ToString[x /. OverBar -> Identity, TraditionalForm]
+      ]
+   ],
+   ConjugateIrrep[$RSymmetry, rep],
+   dim, Reverse[js], -y];
+ 
+name2field[name_] := SelectFirst[Flatten[Multiplet[whichMultiplet[name]]], #[[1]] == name &];
 
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
@@ -64,46 +88,65 @@ singRep[grp_] :=
    
 $RSymmetry = Null;
 $editing = True;
-$multiplet = {};
+$viewingMultiplet = 1;
+$multiplet = <||>;
+$multipletName = <||>;
+$multipletSC = <||>;
 
 plusIcon = 
   Graphics[{Darker@Green, Disk[], Thickness[.15], White, 
     Line[{{-.5, 0}, {.5, 0}}], Line[{{0, -.5}, {0, .5}}]}];
+   
+tikzLine[{{x1_, y1_}, {x2_, y2_}}] := StringForm["\\draw (``, ``) -- (``, ``);", x1, y1, x2, y2];
+tikzNode[exprs_, style_, {x1_, y1_}] := StringForm["\\node[``] at (``, ``) {$``$};", style, x1, y1, StringRiffle[exprs, " \\quad "]];
+tikzMultiplet[i_] := With[{grp = GroupBy[Flatten[$multiplet[i]], List @@ (#[[{5, 3}]]) &]},
+   StringRiffle[Flatten[{
+   "\\begin{tikzpicture}[box/.style = {draw,black,thick,rectangle,fill=blue!10,inner sep=.1cm},scale=1.5]",
+   tikzLine /@ Map[{-1, -2} # &, Select[Subsets[Keys[grp], {2}],Abs[Subtract @@ #] == {1, 1/2} &], {2}],
+   Table[tikzNode[ToString@*TeXForm /@ vals, "box", {-vals[[1,5]], -2 vals[[1,3]]}], {vals, Values[grp]}],
+   Table[tikzNode[{"\\Delta = "<>ToString[TeXForm[dim]]}, "", {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
+   "\\end{tikzpicture}"
+}], "\n"]];
 
 Options[DisplayMultiplet] := {"EditMode" -> False};
-DisplayMultiplet[OptionsPattern[]] := 
+DisplayMultiplet[i_, OptionsPattern[]] := 
   With[{grp = 
      If[OptionValue["EditMode"], 
-       Merge[{#, AssociationMap[Function[x, {}], extraPos[$multiplet]]}, 
+       Merge[{#, AssociationMap[Function[x, {}], extraPos@Flatten[$multiplet[i]]]}, 
          Flatten@*Join] &, # &]@
-      GroupBy[$multiplet, List @@ (#[[{5, 3}]]) &]},
+      GroupBy[Flatten[$multiplet[i]], List @@ (#[[{5, 3}]]) &]},
    If[! OptionValue["EditMode"],
     Graphics[{
-      Line /@ Map[{1, -2} # &, 
+      Line /@ Map[{-1, -2} # &, 
   Select[Subsets[Keys[grp], {2}], 
    Abs[Subtract @@ #] == {1, 1/2} &], {2}], 
       Text[Style[
           Framed[Row[TraditionalForm /@ #, Spacer[2]], 
            Background -> LightBlue], 20, 
-          FontFamily -> "CMU Serif"], {#[[1, 5]], -2 #[[1, 3]]}] & /@ 
-       Values[grp]
+          FontFamily -> "CMU Serif"], {-#[[1, 5]], -2 #[[1, 3]]}] & /@ 
+       Values[grp],
+       If[!$multipletSC[i], {Thick, Dashed, Line[{{0, -2 Min[ScalingDimension /@ Flatten[$multiplet[i]]] + .5}, {0, -2 Max[ScalingDimension /@ Flatten[$multiplet[i]]] - .5}}]}, Nothing],
+       Table[Text[Style["\[CapitalDelta] = "<>ToString[dim,TraditionalForm], 14, FontFamily -> "CMU Serif"], {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}]
       }, 
      ImageSize -> (75 (Max[Keys[grp][[;; , 1]]] - 
           Min[Keys[grp][[;; , 1]]]))],
     If[Length[grp] == 0,
-     Graphics[{Text[
+     Graphics[{
+       Text[
         Style[Framed[
           Button[plusIcon, 
            With[{res = 
               opDialog[{}, "New Operator", 
-               Field[Null, 1, Null, {0, 0}, 0]]}, 
-            If[MatchQ[res, _Field], SetMultiplet[Append[$multiplet, res]]]],
+               Field[Null, 1, Null, {0, 0}, If[$multipletSC[i], 0, Null]]]},
+               If[FailureQ[Enclose[ConfirmQuiet[RepName[RSymmetry[], RRep[res]]]]], MessageDialog[StringForm["`` is not a valid R-symmetry representation.", RRep[res]]],
+            If[MatchQ[res, _Field], $multiplet[i] = If[$multipletSC[i], {res}, ReverseSortBy[{{res}, {makeConjugate[res]}}, #[[1,-1]]&]]]]],
            Method -> "Queued", ImageSize -> Small, 
            Appearance -> "Frameless", Enabled -> ($RSymmetry =!= Null)]], 20, 
          FontFamily -> "CMU Serif"], {0, 0}]}],
-     Graphics[{
+     Graphics[{ 
+       Table[Text[Style["\[CapitalDelta] = "<>ToString[dim,TraditionalForm], 14, FontFamily -> "CMU Serif"], {Min[-.75 Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
        Line /@ (Select[Subsets[Keys[grp], {2}], 
-           Abs[Subtract @@ #] == {1, 1/2} &] . {{.75, 0}, {0, -2}}), 
+           Abs[Subtract @@ #] == {1, 1/2} &] . {{-.75, 0}, {0, -2}}), 
        Text[Style[Framed[Grid[{Append[
                Function[x, Button[
                    Style[TraditionalForm[x], 18], 
@@ -117,9 +160,8 @@ DisplayMultiplet[OptionsPattern[]] :=
                     1]], {diff, {{-1, -1/2}, {1, -1/2}}}, {f, 
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "Edit Operator", 
-                    x]}, If[MatchQ[res, _Field], 
-                    SetMultiplet[
-                    Append[DeleteCases[$multiplet, x], res]]]],
+                    x]}, If[MatchQ[res, _Field] && StringQ[res[[1]]], 
+                    $multiplet[i] = $multiplet[i] /. {x -> res, makeConjugate[x] -> makeConjugate[res]}]],
                    Method -> "Queued", Appearance -> "Frameless"
                    ]] /@ #[[2]],
                
@@ -135,13 +177,23 @@ DisplayMultiplet[OptionsPattern[]] :=
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "New Operator", 
                     Field[Null, 1, #[[1, 2]], {0, 0}, #[[1, 1]]]]}, 
-                 If[MatchQ[res, _Field], AppendTo[$multiplet, res]]],
+                 If[MatchQ[res, _Field] && StringQ[res[[1]]], 
+                    If[$multipletSC[i], 
+                       AppendTo[$multiplet[i], res];
+                       If[res[[-1]] != 0, AppendTo[$multiplet[i], makeConjugate[res]]], 
+                       $multiplet[i] = {
+                          Append[$multiplet[i][[1]], If[res[[-1]] >= 0, res, makeConjugate[res]]],
+                       	  Append[$multiplet[i][[2]], If[res[[-1]] >= 0, makeConjugate[res], res]]
+                       };
+                    ]
+                 ]
+                ],
                 Method -> "Queued", ImageSize -> Small, 
                 Appearance -> "Frameless"]
                ]}, Alignment -> {Center, Center}, Spacings -> .5], 
             Background -> LightBlue], 20, 
            FontFamily -> 
-            "CMU Serif"], {.75 #[[1, 1]], -2 #[[1, 2]]}] & /@ 
+            "CMU Serif"], {-.75 #[[1, 1]], -2 #[[1, 2]]}] & /@ 
         Normal[grp]}, 
       ImageSize -> (75 (Max[Keys[grp][[;; , 1]]] - 
            Min[Keys[grp][[;; , 1]]]))]
@@ -149,11 +201,10 @@ DisplayMultiplet[OptionsPattern[]] :=
     ]
    ];
    
-Clear[opDialog];
 opDialog[reps_, label_, 
    init_ : Field[Null, 1, 2, {0, 0}, 0]] := ($nfName = 
     init[[1]]; $nfRep = init[[2]]; $nfL = 2 init[[4, 1]]; $nfLb = 
-    2 init[[4, 2]]; $nfDim = init[[3]]; 
+    2 init[[4, 2]]; $nfDim = init[[3]]; $nfRCharge = If[init[[5]] === Null, Null, init[[5]]/2];
    DialogInput[
     DialogNotebook[{Framed@
        Panel[Grid[{{"Operator name:", 
@@ -166,14 +217,45 @@ opDialog[reps_, label_,
             Number]}, {"Dotted spinor indices:", 
            InputField[Dynamic[$nfLb], Number]}, 
           If[init[[3]] === Null, {"Scaling dimension:", 
-            InputField[Dynamic[$nfDim], Number]}, Nothing]}], 
+            InputField[Dynamic[$nfDim], Number]}, Nothing],
+          If[init[[5]] === Null, {"R-charge:", 
+            InputField[Dynamic[$nfRCharge], Number]}, Nothing]}], 
         Style[label, 20], Top, Background -> LightBlue], 
       DefaultButton[
        DialogReturn[
         Field[ReleaseHold[
           ToString[#, TraditionalForm] & /@ 
            Hold[$nfName]], $nfRep, $nfDim, {$nfL, $nfLb}/2, 
-         init[[5]]]]]}]]);
+         2 $nfRCharge]]]}]]);
+         
+multipletDialog[] := ($multName = Null; $multSC = True;
+   DialogInput[
+    DialogNotebook[{Framed@
+       Panel[Grid[{{"Multiplet name:", 
+           InputField[Dynamic[$multName]]}, {"Self-conjugate:", 
+           Checkbox[Dynamic[$multSC]]}}], 
+        Style["Add Multiplet", 20], Top, Background -> LightBlue], 
+      DefaultButton[DialogReturn[{$multName, $multSC}]]}]]);
+         
+wizardPanel[] := Panel[Grid[{{"", "", Style["Setup Wizard", 20], 
+    Style["Editing: ", 16], Checkbox[Dynamic[$editing]]}, {"", "", 
+    Row[{Style["R-symmetry: ", 16], 
+      Dynamic[InputField[Dynamic[$RSymmetry, {Automatic, SetRSymmetry[#1] &}], Enabled -> $editing]]}],
+     "", ""}, {"", "", 
+    Dynamic[If[Length[$multipletIndices] == 0, Style["Set the R-symmetry, and then add a multiplet.", 11, Italic], TabView[Table[$multipletName[i] -> Column[{
+       Framed@DisplayMultiplet[i, "EditMode" -> $editing],
+       Button[Style["Copy as TeX", 14], CopyToClipboard[tikzMultiplet[$viewingMultiplet]], ImageSize -> 200]}, Alignment -> Center], 
+       {i, $multipletIndices}], Dynamic[$viewingMultiplet], Alignment -> Center, ImageSize -> Automatic]]], 
+    Button["Add Multiplet", With[{res = multipletDialog[], new=If[Length[$multipletIndices] == 0, 0, Max[$multipletIndices]] + 1}, 
+       If[Length[res] === 2,
+          AppendTo[$multipletIndices, new];
+          $multiplet[new] = If[res[[2]], {}, {{},{}}]; 
+          $multipletName[new] = res[[1]];
+          $multipletSC[new] = res[[2]];
+       ]
+    ], Method -> "Queued", ImageSize -> {Automatic, 50}, Enabled -> Dynamic[$RSymmetry =!= Null]], 
+    ""}}, Alignment -> Center, Spacings -> {Automatic, 2}, 
+  Dividers -> {True, All}], Background -> Lighter[Gray, 0.9]];
          
 NontrivialPermutations[t_] := 
   Select[Permutations[Range@TensorRank[Components[t]]], 
@@ -225,8 +307,9 @@ IndexData[Spinor] = Index[2, "Greek", 1];
 IndexData[DottedSpinor] = Index[2, "Greek", 1, OverDot];
 IndexData[SpaceTime] = Index[4, "Greek", 12];
 IndexData[RIndex[rep_]] := 
-  Index[Times @@ DimR[RSymmetry[], rep], "Latin", 9, Subscript[#, RepName[RSymmetry[], rep]] &];
-RIndex[rep_Integer] := RIndex[SimpleRepInputConversion[RSymmetry[], rep]];
+  Index[Times @@ DimR[RSymmetry[], rep], "Latin", 9, Subscript[#, RepName[RSymmetry[], rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
+  ToString[ToExpression[s, TraditionalForm]]] &];
+RIndex[rep_Integer] /; RSymmetry[] =!= U1 := RIndex[SimpleRepInputConversion[RSymmetry[], rep]];
 
 \[Epsilon]Lower = 
   Tensor[{{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}}];
@@ -279,17 +362,17 @@ With[{products =
     ]
 ];
 
-OperatorsWithQuantumNumbers[rep_, dim_, {j1_, j2_}, y_] :=
+OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
     Flatten[{
         EpsilonProducts[Tensor[{#}], {j1, j2} - Spin[#]] & /@ 
-         Select[$multiplet, 
+         Select[multiplet, 
              SimpleRepInputConversion[$RSymmetry, rep] == SimpleRepInputConversion[$RSymmetry, RRep[#]] && 
              y == #[[5]] && 
              ScalingDimension[#] == dim && 
              AllTrue[Spin[#] - {j1, j2}, IntegerQ] &
          ],
         EpsilonProducts[Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}, #}], {j1 - 1/2, j2 - 1/2} - Spin[#]] & /@ 
-         Select[$multiplet, 
+         Select[multiplet, 
              SimpleRepInputConversion[$RSymmetry, rep] == SimpleRepInputConversion[$RSymmetry, RRep[#]] && 
              y == #[[5]] && 
              ScalingDimension[#] == dim - 1 && 
@@ -309,23 +392,27 @@ ThreePtRInvariant[{rep1_, rep2_}, target_] :=
 ConjugateThreePtRInvariant[{rep1_, rep2_}, target_] :=
    Tensor[{{"C", Lowered[RIndex[target]], Raised[RIndex[rep1]], 
       Raised[RIndex[rep2]]}}];
+      
+upperEigs[rep_] := upperEigs[rep] = With[{mat = IrrepInProduct[$RSymmetry, {rep, ConjugateIrrep[$RSymmetry, rep]}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]]},
+   Transpose@SparseArray@Orthogonalize@Sort@(DiagonalMatrix[Sqrt[Eigenvalues[mat]]] . Eigenvectors[mat])
+];
+lowerEigs[rep_] := lowerEigs[rep] = With[{mat = IrrepInProduct[$RSymmetry, {rep, ConjugateIrrep[$RSymmetry, rep]}, singRep[$RSymmetry], ConjugateRepsInProduct -> {True, True}, TensorForm -> True][[1, 1, ;; , ;; , 1]]},
+   Transpose@SparseArray@Orthogonalize@Sort@(DiagonalMatrix[Sqrt[Eigenvalues[mat]]] . Eigenvectors[mat])
+];
      
 BuildTensor[
    arg : {"\[Delta]", Raised@RIndex[rep1_], Raised@RIndex[rep2_]}] :=
-   BuildTensor[arg] = 
-    IrrepInProduct[$RSymmetry, {rep1, rep2}, singRep[$RSymmetry], TensorForm -> True][[1, 
-     1, ;; , ;; , 1]];
+   BuildTensor[arg] = IrrepInProduct[$RSymmetry, {rep1, rep2}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]];
 
 BuildTensor[
    arg : {"\[Delta]", Lowered@RIndex[rep1_], Lowered@RIndex[rep2_]}] :=
    BuildTensor[arg] = 
    IrrepInProduct[$RSymmetry, {rep1, rep2}, singRep[$RSymmetry], 
-     ConjugateRepsInProduct -> {True, True}, TensorForm -> True][[1, 
-    1, ;; , ;; , 1]];
+     ConjugateRepsInProduct -> {True, True}, TensorForm -> True][[1, 1, ;; , ;; , 1]];
     
 threept[r1_, r2_, r3_] := threept[r1, r2, r3] = With[{reps = SimpleRepInputConversion[$RSymmetry, #] & /@ {r1, r2, r3}},
    With[{sorted = Sort[reps], order = Ordering[reps]},
-      TensorTranspose[IrrepInProduct[$RSymmetry, sorted[[;;2]], sorted[[3]], ConjugateTargetRep -> True, TensorForm -> True][[1,1]], order]
+     TensorTranspose[IrrepInProduct[$RSymmetry, sorted[[;;2]], sorted[[3]], ConjugateTargetRep -> True, TensorForm -> True][[1,1]], order]
    ]
 ];
 
@@ -405,18 +492,18 @@ buildExpression[TreeInvariant[edges_]] :=
   ]
 repTree[reps_] := 
  Graph[Flatten[
-   Table[{i, r}, {i, 0, Length[reps]}, {r, DeleteDuplicates[RRep /@ Multiplet[]]}], 1], 
+   Table[{i, r}, {i, 0, Length[reps]}, {r, allReps[]}], 1], 
   Flatten[Table[
     DirectedEdge[{i, r}, {i + 1, rp}],
-    {i, 0, 3}, {r, DeleteDuplicates[RRep /@ Multiplet[]]},
+    {i, 0, 3}, {r, allReps[]},
     {rp, 
      Intersection[
       Select[ReduceRepProduct[
          $RSymmetry, {r, reps[[i + 1]]}], #[[2]] == 1 &][[;; , 1]], 
-      DeleteDuplicates[RRep /@ Multiplet[]]]}
+      allReps[]]}
     ]], VertexCoordinates -> 
-   Flatten[Table[{i, (DeleteDuplicates[RRep /@ Multiplet[]])[[j]]} -> {j, i}, {i, 0, 
-      Length[reps]}, {j, Length[DeleteDuplicates[RRep /@ Multiplet[]]]}], 1]]
+   Flatten[Table[{i, (allReps[])[[j]]} -> {j, i}, {i, 0, 
+      Length[reps]}, {j, Length[allReps[]]}], 1]]
 loopGraphs[reps_] := Flatten@Table[
     LoopInvariant[
      Join[Table[{Internal[i], External[i], reps[[i]]}, {i, 
@@ -425,7 +512,7 @@ loopGraphs[reps_] := Flatten@Table[
         path[[i + 1, 2]]}, {i, Length[reps]}]]],
     {perm, {{1, 2, 3, 4}, {1, 3, 4, 2}, {1, 4, 2, 3}}},
     {start, 
-     SimpleRepInputConversion[$RSymmetry, #] & /@ (DeleteDuplicates[RRep /@ Multiplet[]])},
+     SimpleRepInputConversion[$RSymmetry, #] & /@ allReps[]},
     {path, 
      FindPath[
       repTree[reps[[perm]]], {0, start}, {Length[reps], start}, {4}, 
@@ -438,7 +525,7 @@ treeGraphs[reps_] := Flatten@Table[
       reps[[p[[4]]]]}, {Internal[1], Internal[2], rep}}],
    {p, {{1, 2, 3, 4}, {1, 3, 4, 2}, {1, 4, 2, 3}}},
    {rep, 
-    Intersection[DeleteDuplicates[RRep /@ Multiplet[]], 
+    Intersection[allReps[], 
      Select[ReduceRepProduct[$RSymmetry, reps[[p[[;; 2]]]]], #[[2]] == 1 &][[;; , 1]], 
      ConjugateIrrep[$RSymmetry, #] & /@ (Select[ReduceRepProduct[$RSymmetry, reps[[p[[3 ;;]]]]], #[[2]] == 1 &][[;; , 1]])]}
    ];
@@ -455,13 +542,15 @@ InvariantFourPts[reps_] /; Length[reps] == 4 := InvariantFourPts[reps] = With[{o
    SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ InvariantFourPtGraphs[reps])
 ];
 
+allReps[] := DeleteDuplicates[RRep /@ Flatten[Multiplet /@ $multipletIndices]];
+
 cols = {Darker@Green, Blue, Black, Orange, Red, Purple, Yellow};
 arrow[{p1_, p2_}] := {Line[{p1, p2}], Arrow[{p1, .4 p1 + .6 p2}]};
 reverseArrow[{p1_, p2_}] := arrow[{p2, p1}];
-repStyles[mult_] := 
+repStyles[multreps_] := 
  Association@With[{reps = 
     SortBy[#, Function[rep, {Times @@ DimR[RSymmetry[], rep], MatchQ[RepName[RSymmetry[], rep], _OverBar]}]] & /@ 
-     GroupBy[DeleteDuplicates[DeleteCases[RRep /@ mult, singRep[RSymmetry[]]]], 
+     GroupBy[DeleteDuplicates[DeleteCases[multreps, singRep[RSymmetry[]]]], 
       ConjugateIrrep[RSymmetry[], #] === 
         SimpleRepInputConversion[RSymmetry[], #] &]}, 
   Join[{singRep[RSymmetry[]] -> {White, Line}},Thread[
@@ -489,12 +578,12 @@ Format[TreeInvariant[edges_], TraditionalForm] :=
      Cases[Values[pos], _x | _y, All]];
   Graphics[{PointSize[.05], Arrowheads[.1], 
     Join[Table[{Sequence @@ 
-        Most[repStyles[Multiplet[]][
+        Most[repStyles[allReps[]][
           SimpleRepInputConversion[$RSymmetry, 
            If[MatchQ[e[[1]], _External] || MatchQ[e[[2]], _External], 
             e[[3]], ConjugateIrrep[$RSymmetry, e[[3]]]]]]], 
        Tooltip[Last[
-           repStyles[Multiplet[]][
+           repStyles[allReps[]][
             SimpleRepInputConversion[$RSymmetry, 
              If[MatchQ[e[[1]], _External] || 
                MatchQ[e[[2]], _External], e[[3]], 
@@ -531,7 +620,8 @@ BuildTensor[{name_String, idxs___}] :=
    ];
 
 Options[PossibleQActions] = {"QBar" -> False};
-PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := If[TrueQ[OptionValue["QBar"]], qToQBar /@ PossibleQActions[Conjugate[f]],
+PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := If[TrueQ[OptionValue["QBar"]],
+   qToQBar /@ PossibleQActions[Conjugate[f]],
    IndependentSet@
     Select[
      With[ {reps = ReduceRepProduct[$RSymmetry, {fundRep[$RSymmetry], rep}][[;; , 1]]},
@@ -539,7 +629,7 @@ PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := 
          Table[
              Contract[TensorProduct[ConjugateThreePtRInvariant[{fundRep[$RSymmetry], rep}, rep2], op], {{1, 3 + Position[Indices[op], _Raised][[1, 1]]}}], 
             {rep2, reps}, 
-            {op, OperatorsWithQuantumNumbers[rep2, dim + 1/2, {j1, j2} + {1/2, 0}, y + 1]}
+            {op, OperatorsWithQuantumNumbers[multipletOf[f], rep2, dim + 1/2, {j1 + 1/2, j2}, y + 1]}
          ]
         ]
      ], Function[t, ! AnyTrue[TensorSymmetry[
@@ -583,7 +673,7 @@ t /. {{"C", Lowered[RIndex[i_]], Raised[RIndex[j_]], Raised[RIndex[k_]]} :> {"C"
    {"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]} -> {"\[Epsilon]", Lowered[DottedSpinor], Lowered[DottedSpinor]},
    {"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]} -> {"\[Epsilon]", Raised[Spinor], Raised[Spinor]},
    {"\[Epsilon]", Lowered[DottedSpinor], Lowered[DottedSpinor]} -> {"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]},
-   {name_, idxs___} /; MemberQ[Multiplet[][[;;,1]], name] :> Symbolic[ToTensor[Conjugate[name2field[name]]]][[1]]
+   {name_, idxs___} /; MemberQ[Flatten[$multiplet /@ $multipletIndices][[;;,1]], name] :> Symbolic[ToTensor[Conjugate[name2field[name]]]][[1]]
 });
 
 Options["QAnsatz"] = {"QBar" -> False, "Symmetrized" -> True};
@@ -881,7 +971,8 @@ KinematicPrefactor[deltas_, spins_] /; Length[deltas] == 4 := With[{kappas = del
 
 
 AddTensorHead[Correlator];
-Correlator[a_ b_] /; FreeQ[a, _Tensor] := a Correlator[b];
+Correlator[x_?NumericQ] := x;
+Correlator[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := a Correlator[b];
 Correlator[a_ + b_] := Correlator[a] + Correlator[b];
 
 readyToCorrelate[names_, already_] := 
@@ -981,8 +1072,8 @@ BuildTensor[{SpacetimeStructure[dims_, {{l1_, lb1_}, {l2_, lb2_}}, derivs_, "\[P
     Ordering@{idxs}]
    ];
    
-ExpandCorrelator[Correlator[Tensor[names_]]] /; (AllTrue[names, MemberQ[$multiplet[[;;, 1]], StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] &] && Length[names] == 2) :=
-With[{name2field = Association@Table[f[[1]] -> f, {f, $multiplet}]}, 
+ExpandCorrelator[Correlator[Tensor[names_]]] /; (AllTrue[names, MemberQ[Flatten[$multiplet /@ $multipletIndices][[;;, 1]], StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] &] && Length[names] == 2) :=
+With[{name2field = Association@Table[f[[1]] -> f, {f, Flatten[$multiplet /@ $multipletIndices]}]}, 
   With[{fields = 
      name2field[
         StringDrop[#[[1]], 
@@ -1249,6 +1340,7 @@ ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms =
       ]
    ]
 ];
+ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> 1},{1,1}];
 
 $susyRules = {};
 
@@ -1258,7 +1350,8 @@ DeclareAlgebra[] := Module[{},
 	Do[
 		If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op];
 		If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True];,
-		{op, $multiplet}
+		{i, $multipletIndices},
+		{op, Flatten[$multiplet[i]]}
 	];
 	
 	Commutator[$QTensor, Tensor[{{"C", ___}}]] = 0;
@@ -1280,12 +1373,12 @@ solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[grps[[
 ];   
 
 Options[SUSYRules] = {"EquationGroupSize" -> 10};
-SUSYRules[OptionsPattern[]] := SUSYRules[OptionsPattern[]] = Module[{linears, quadratics, norms, vars, rvars, quadgroups, partialsol},
+SUSYRules[i_, OptionsPattern[]] := SUSYRules[i, OptionsPattern[]] = Module[{linears, quadratics, norms, vars, rvars, quadgroups, partialsol},
 	DeclareAlgebra[];
 	linears = DeleteCases[Reduce /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator@NormalOrder[TensorProduct[actWith, Tensor[ops]], "Vacuum" -> True],
-		   {ops, Subsets[Multiplet[], {2}]}, {actWith, {QTensor[], QTensor["QBar" -> True]}}
+		   {ops, Subsets[Flatten[Multiplet[i]], {2}]}, {actWith, {QTensor[], QTensor["QBar" -> True]}}
 		],
 		"Label" -> "Generating linear equations",
 		"CurrentDisplayFunction" -> None
@@ -1294,7 +1387,7 @@ SUSYRules[OptionsPattern[]] := SUSYRules[OptionsPattern[]] = Module[{linears, qu
 	quadratics = DeleteCases[Simplify[Reduce[#], _SUSYCoefficient != 0] & /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator[TensorProduct[quadraticZero[ops[[1]]], Tensor[{ops[[2]]}]]],
-		   {ops, Subsets[Multiplet[], {2}]}
+		   {ops, Subsets[Flatten[Multiplet[i]], {2}]}
 		],
 		"Label" -> "Generating quadratic equations",
 		"CurrentDisplayFunction" -> None
@@ -1315,12 +1408,22 @@ SUSYRules[OptionsPattern[]] := SUSYRules[OptionsPattern[]] = Module[{linears, qu
 	Thread[Join[partialsol[[;;, 1]], rvars] -> (Join[partialsol[[;;, 2]], rvars] /. Thread[rvars -> Array[\[Alpha], Length[rvars]]] /. Last[Solve[norms]])]
 ];
 
-Options[DisplaySUSYVariations] = {"Solved" -> True};
-DisplaySUSYVariations[OptionsPattern[]] := Grid[Table[{TensorProduct[$QTensor, ToTensor[op]], 
-    QAnsatz[op, "QBar" -> False] /. If[TrueQ[OptionValue["Solved"]], SUSYRules[], {}], 
+Options[susyTable] = {"Solved" -> True};
+susyTable[ops_, OptionsPattern[]] := With[{g = Grid[Table[{TensorProduct[$QTensor, ToTensor[op]], 
+    QAnsatz[op, "QBar" -> False] /. If[TrueQ[OptionValue["Solved"]], SUSYRules[whichMultiplet[ops[[1]]]], {}], 
     TensorProduct[$QBarTensor, ToTensor[Conjugate[op]]], 
-    QAnsatz[Conjugate@op, "QBar" -> True] /.  If[TrueQ[OptionValue["Solved"]], SUSYRules[], {}]}, {op, Multiplet[]}], 
-  Dividers -> All, Alignment -> Left] // TraditionalForm;
+    QAnsatz[Conjugate@op, "QBar" -> True] /.  If[TrueQ[OptionValue["Solved"]], SUSYRules[whichMultiplet[ops[[1]]]], {}]}, {op, ops}], 
+  Dividers -> All, Alignment -> Left]},
+  	Column[{g // TraditionalForm,
+ 		Button[Style["Copy as TeX", 14], CopyToClipboard[ToString[TeXForm[g]]], ImageSize -> 200]
+  	}, Alignment -> Center 
+	]
+  ];
+
+Options[DisplaySUSYVariations] = {"Solved" -> True};
+DisplaySUSYVariations[opt:OptionsPattern[]] := TabView[
+   Table[$multipletName[i] -> susyTable[Flatten[Multiplet[i]],opt], {i, $multipletIndices}], 
+   Alignment -> Center, ImageSize -> Automatic];
   
 \[Epsilon]SpaceTime = 
   Tensor[{{"\[Epsilon]", Lowered[SpaceTime], Lowered[SpaceTime], 
@@ -1831,77 +1934,61 @@ WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Wi
     DeleteCases[Thread[Flatten[
         ExpansionComponents[
          ExpandCorrelator@expr
-             /. SUSYRules[],
+             /. Join@@ (SUSYRules /@ $multipletIndices),
           "MonitorProgress" -> True]] == 0], True]
     ]
 ];
 
-Options[SolveWard] = {"QBar" -> False, "Fit" -> False};
-SolveWard::notready = 
-  "Cannot solve this Ward identity without first solving for ``";
+spQ[f_Field] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f];
+spCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, spQ];
+spCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, spQ];
+
+Options[SolveWard] = {"QBar" -> False};
 SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] := SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 SolveWard[fields : {_Field..}, OptionsPattern[]] := 
-  With[{eqs = CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. SolvedCorrelators[]]},
-   If[Cases[eqs, Derivative[__][g[__]][__], All] != {}, 
-    Message[SolveWard::notready, 
-     First@Cases[eqs, Derivative[__][g[ffs_, __]][__] :> Tensor[ffs], 
-        All] // TraditionalForm],
-    With[{vars = Sort@DeleteDuplicates@Cases[eqs, g[__][__], All]}, 
+  With[{eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True]},
+    With[{vars = Sort@Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&]}, 
      With[{bm = CoefficientArrays[eqs, vars]},
-      If[TrueQ[OptionValue["Fit"]],
-       With[{crM = clearRadicals[bm[[2]]]},
-        With[{indIdxs = 
-           ResourceFunction["MonitorProgress"][
-            If[Length[#1] < Length[vars] && 
-               indQ[crM[[1, #1]] /. 
-                  Thread[{u, v} -> safeUVs[[25]]], 
-                crM[[1, #2]] /. 
-                  Thread[{u, v} -> safeUVs[[25]]]], 
-              Append[#1, #2], #1] &, {}, Range[Length[bm[[2]]]], 
-            "Label" -> "Finding set of independent equations", 
-            "CurrentDisplayFunction" -> None]},
-         
-         With[{sd = 
-            solveData[bm[[2, indIdxs]], -bm[[1, indIdxs]], 7]},
-          
-          Thread[vars -> 
-            ResourceFunction["MonitorProgress"][
-             Table[With[{terms = 
-                 DeleteDuplicates@
-                  Cases[sd[[;; , 2, vari]], \[ScriptCapitalT][__] | 
-                    Derivative[__][\[ScriptCapitalT]][__], All]},
-               
-               terms . Table[
-                 Simplify@
-                  fitRational[(sd /. {{u_?NumericQ, v_}, data_} :> {u,
-                     v, Coefficient[data[[vari]], term]}), 1, 6, 
-                   "Prefactors" -> {1, Sqrt[u], Sqrt[v], Sqrt[
-                    u v]}], {term, terms}]], {vari, Length[vars]}], 
-             "Label" -> "Fitting rational functions",
-		"CurrentDisplayFunction" -> None]]
-          ]
-         ]
-        ]
-       ,
-       If[AllTrue[bm[[1]], # === 0 &], Thread[vars -> 0],
-        Thread[
-         vars -> (Simplify@
-              Collect[#, _\[ScriptCapitalT] | 
-                Derivative[__][\[ScriptCapitalT]][__]] & /@ 
-            Simplify[
-             LinearSolve[bm[[2]], -bm[[1]], 
-              ZeroTest -> (PossibleZeroQ[
-                  Simplify[#, uvAssumptions]] &)], uvAssumptions])]
-        ]
-       ]
-      ]
-     ]
-    ]
-   ];
+	   If[AllTrue[bm[[1]], # === 0 &], Thread[vars -> 0],
+	    Thread[
+	     vars -> Simplify[LinearSolve[bm[[2]], -bm[[1]], ZeroTest -> (PossibleZeroQ[Simplify[#, uvAssumptions]] &)], uvAssumptions]]
+	    ]
+	   ]
+	  ]
+  ];
 
 crosses = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
     v -> v/u}, {u -> v/u, v -> 1/u}, {u -> 1/v, v -> u/v}, {u -> v, 
     v -> u}};
+    
+AddSolutions[soln_] := With[{uvVersions = Select[Flatten[Table[s /. cross, {s, soln}, {cross, crosses}]], MatchQ[#[[1]], g[__][u,v]]&] /. HoldPattern[a_ -> b_] :> (Head[a] -> Function[{u,v}, b])},
+  $SolvedCorrelators = Merge[{$SolvedCorrelators, Association[uvVersions]}, Flatten @* List];
+  $SolvedCorrelators = Association @@ Table[k -> Table[Function[{u,v}, Evaluate[val /. (First /@ $SolvedCorrelators)]], {val, $SolvedCorrelators[k]}], {k, Keys[$SolvedCorrelators]}]
+];    
+
+AddSolutions[soln_] := 
+  Block[{tmp}, 
+   With[{uvVersions = 
+      Values /@ 
+       GroupBy[Select[
+          Flatten[Table[
+            s /. cross, {s, soln}, {cross, SCWIGE`Private`crosses}]], 
+          MatchQ[#[[1]], g[__][u, v]] &] /. 
+         HoldPattern[
+           a_ -> b_] :> (Head[
+             a] -> (Function[{u, v}, tmp] /. tmp -> b)), First]},
+    $SolvedCorrelators = 
+     Merge[{$SolvedCorrelators, Association[uvVersions]}, 
+      DeleteDuplicates@*Flatten@*List];
+    $SolvedCorrelators = 
+     Association @@ 
+      Table[k -> 
+        Table[Function[{u, v}, 
+          Evaluate[Simplify[CrossingSimplify[val[u, v] /. (First /@ $SolvedCorrelators)], uvAssumptions]]], {val, $SolvedCorrelators[k]}], {k, 
+        Keys[$SolvedCorrelators]}];
+    ]
+   ];
+
 $crossingRules = <||>;
 
 DeclareCrossingRule::unknown = 
@@ -1924,50 +2011,6 @@ CrossingSimplify[expr_] :=
           Derivative[__][f][args__], {f, $ArbitraryFunctions}]) /; 
      Length[{args}] == 2 && {args} =!= {u, v} :> (tterm /. 
       Table[f -> $crossingRules[f[args]], {f, $ArbitraryFunctions}]);
-      
-AddSolutions[soln_] := ($SolvedCorrelators = DeleteDuplicates@Join[$SolvedCorrelators, soln]);
-
-CheckAndSave[soln_] := 
-  With[{augmented = 
-     Merge[Flatten[
-       Table[(rule[[1]] /. cross) -> 
-         Simplify[CrossingSimplify[rule[[2]] /. cross], 
-          uvAssumptions], {rule, soln}, {cross, 
-         DeleteDuplicatesBy[crosses, rule[[1]] /. # &]}]], Join]},
-   If[AllTrue[Values[augmented], 
-     Function[x, AllTrue[
-       Simplify[Differences[x], uvAssumptions] /. 
-         Thread[{u, v} -> safeUVs[[10]]] // Simplify, # === 0 &]]],
-    With[{nontrivial = 
-       Select[Keys[
-         augmented], (List @@ # == {u, v} && 
-           Length[augmented[#]] > 1) &]},
-     If[Length[nontrivial] > 0, 
-      Print[Style["\[CheckmarkedBox] Crossing is satisfied: ", Bold, 
-        Darker@Green], TraditionalForm[nontrivial]], 
-      Print[Style["No crossing checks to perform", Bold, Gray]]]
-     ];
-    AddSolutions[Normal[(Function[{u, v},
-            Evaluate[
-             Simplify@
-              Collect[Simplify[#[[1]], 
-                uvAssumptions], _\[ScriptCapitalT] | 
-                Derivative[__][\[ScriptCapitalT]][__]]]]) & /@ 
-         KeySelect[augmented, List @@ # === {u, v} &]] /. 
-       g[spec__][__] :> g[spec]],
-    Print[Style["\[CheckedBox] Crossing failed!", Bold, Red]];
-    With[{culprits = 
-       Select[Keys[augmented], 
-        Function[x,(*(List @@ x == {u, v}) &&*) ! AllTrue[Simplify[Differences[augmented[x]], 
-               uvAssumptions] /. Thread[{u, v} -> safeUVs[[10]]] // 
-             Simplify, # === 0 &]]]},
-     Print[Style["Culprits: ", Bold, Red], 
-      TraditionalForm[culprits]];
-     KeySelect[augmented, 
-      (*List @@ # === {u, v} && *)! FreeQ[#, Alternatives @@ culprits] &]
-     ]
-    ]
-   ];
   
 End[]
 

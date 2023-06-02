@@ -17,7 +17,8 @@ StyleBox[\"op2\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"...\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"}\",\nFontSlant->\"Italic\"]\)] sets the multiplet to the operators \!\(\*
+StyleBox[\"}, i\",\nFontSlant->\"Italic\"]\)] sets the \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th multiplet to the operators \!\(\*
 StyleBox[\"op1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -27,9 +28,15 @@ StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"...\",\nFontSlant->\"Italic\"]\).";
 
 RSymmetry::usage = "RSymmetry[] gives the Cartan matrix R-symmetry group (or list of Cartan matrices for a non-simple group).";
-Multiplet::usage = "Multiplet[] gives the current SUSY multiplet.";
+Multiplet::usage = "Multiplet[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the list of fields in the \*
+StyleBox[\(\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] SUSY multiplet.";
 
-DisplayMultiplet::usage = "DisplayMultiplet[] displays the current SUSY multiplet.";
+DisplayMultiplet::usage = "DisplayMultiplet[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] displays the \*
+StyleBox[\(\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] SUSY multiplet.";
 
 Field::usage = "Field[\!\(\*
 StyleBox[\"name\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -66,6 +73,10 @@ StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the spin of \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 RRep::usage = "RRep[\!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the R-symmetry representation of \!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
+
+ToTensor::usage = "ToTensor[\!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives a tensor corresponding to \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
 IndependentSet::usage = "IndependentSet[\!\(\*
@@ -558,8 +569,6 @@ StyleBox[\"rhs\",\nFontSlant->\"Italic\"]\).";
 CrossingSimplify::usage = "CrossingSimplify[\!\(\*
 StyleBox[\"expr\",\nFontSlant->\"Italic\"]\)] simplifies \!\(\*
 StyleBox[\"expr\",\nFontSlant->\"Italic\"]\) using rules declared with DeclareCrossingRule.";
-CheckAndSave::usage = "CheckAndSave[\!\(\*
-StyleBox[\"soln\",\nFontSlant->\"Italic\"]\)] checks that the output of SolveWard obeys crossing symmetry, and if so, adds it to the list of solved correlators."
 AddSolutions::usage = "AddSolutions[\!\(\*
 StyleBox[\"soln\",\nFontSlant->\"Italic\"]\)] adds \!\(\*
 StyleBox[\"soln\",\nFontSlant->\"Italic\"]\) to the list of solved correlators.";
@@ -575,6 +584,10 @@ Internal::usage = "Internal[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] represents an internal vertex in an R-invariant diagram.";
 External::usage = "External[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] represents an external vertex in an R-invariant diagram.";
+
+ToTensor::usage = "ToTensor[\!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the tensor corresponding to \!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
 
 EndPackage[]
