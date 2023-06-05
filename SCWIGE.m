@@ -400,9 +400,9 @@ lowerEigs[rep_] := lowerEigs[rep] = With[{mat = IrrepInProduct[$RSymmetry, {rep,
    Transpose@SparseArray@Orthogonalize@Sort@(DiagonalMatrix[Sqrt[Eigenvalues[mat]]] . Eigenvectors[mat])
 ];
      
-BuildTensor[arg : {"\[Delta]", Raised@RIndex[rep1_], Raised@RIndex[rep2_]}] := BuildTensor[arg] = twopt[r1, r2];
+BuildTensor[arg : {"\[Delta]", Raised@RIndex[r1_], Raised@RIndex[r2_]}] := BuildTensor[arg] = twopt[r1, r2];
 
-BuildTensor[arg : {"\[Delta]", Lowered@RIndex[rep1_], Lowered@RIndex[rep2_]}] := BuildTensor[arg] = Inverse[twopt[r2, r1]];
+BuildTensor[arg : {"\[Delta]", Lowered@RIndex[r1_], Lowered@RIndex[r2_]}] := BuildTensor[arg] = Inverse[twopt[r2, r1]];
 
 $customInvariants = False;
      
