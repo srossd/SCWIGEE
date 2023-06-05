@@ -392,17 +392,10 @@ ThreePtRInvariant[{rep1_, rep2_}, target_] :=
 ConjugateThreePtRInvariant[{rep1_, rep2_}, target_] :=
    Tensor[{{"C", Lowered[RIndex[target]], Raised[RIndex[rep1]], 
       Raised[RIndex[rep2]]}}];
-      
-upperEigs[rep_] := upperEigs[rep] = With[{mat = IrrepInProduct[$RSymmetry, {rep, ConjugateIrrep[$RSymmetry, rep]}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]]},
-   Transpose@SparseArray@Orthogonalize@Sort@(DiagonalMatrix[Sqrt[Eigenvalues[mat]]] . Eigenvectors[mat])
-];
-lowerEigs[rep_] := lowerEigs[rep] = With[{mat = IrrepInProduct[$RSymmetry, {rep, ConjugateIrrep[$RSymmetry, rep]}, singRep[$RSymmetry], ConjugateRepsInProduct -> {True, True}, TensorForm -> True][[1, 1, ;; , ;; , 1]]},
-   Transpose@SparseArray@Orthogonalize@Sort@(DiagonalMatrix[Sqrt[Eigenvalues[mat]]] . Eigenvectors[mat])
-];
      
-BuildTensor[arg : {"\[Delta]", Raised@RIndex[r1_], Raised@RIndex[r2_]}] := BuildTensor[arg] = twopt[r1, r2];
+BuildTensor[arg : {"\[Delta]", Raised@RIndex[r1_], Raised@RIndex[r2_]}] := twopt[r1, r2];
 
-BuildTensor[arg : {"\[Delta]", Lowered@RIndex[r1_], Lowered@RIndex[r2_]}] := BuildTensor[arg] = Inverse[twopt[r2, r1]];
+BuildTensor[arg : {"\[Delta]", Lowered@RIndex[r1_], Lowered@RIndex[r2_]}] := Inverse[twopt[r2, r1]];
 
 $customInvariants = False;
      
@@ -449,13 +442,11 @@ SetThreePtRInvariant[r1_, r2_, r3_, mat_] := Module[{reps = SimpleRepInputConver
 BuildTensor[
    arg : {"C", Lowered@RIndex[target_], Raised@RIndex[rep1_], 
      Raised@RIndex[rep2_]}] :=
-   BuildTensor[arg] = 
     Components[ConjugateTwoPtRInvariant[target, ConjugateIrrep[$RSymmetry, target]]] . threept[ConjugateIrrep[$RSymmetry, target], rep1, rep2];
 
 BuildTensor[
    arg : {"C", Raised@RIndex[target_], Lowered@RIndex[rep1_], 
      Lowered@RIndex[rep2_]}] :=
-   BuildTensor[arg] = 
     Components[Contract[TensorProduct[
        Tensor[{{"C", Lowered[RIndex[ConjugateIrrep[$RSymmetry, target]]], Raised[RIndex[ConjugateIrrep[$RSymmetry, rep1]]], Raised[RIndex[ConjugateIrrep[$RSymmetry, rep2]]]}}], 
        TwoPtRInvariant[ConjugateIrrep[$RSymmetry, target], target],
