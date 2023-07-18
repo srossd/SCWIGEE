@@ -278,11 +278,14 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 	If[TrueQ[OptionValue["MonitorProgress"]] || ArrayQ[OptionValue["MonitorProgress"]],
 		ResourceFunction["MonitorProgress"][
 			Fold[
-			    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
-					If[(OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"]) && (Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp]), 
-						runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
-						#1
-					]
+			   If[OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"],
+				    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
+						If[Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp], 
+							runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
+							#1
+						]
+				    ],
+				    #1
 				] &, 
 				{}, 
 				Range@Length[tensors]
@@ -290,11 +293,14 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 			"CurrentDisplayFunction" -> None 	
 		],
 		Fold[
-		    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
-				If[(OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"]) && (Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp]), 
-					runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
-					#1
-				]
+		    If[OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"],
+			    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
+					If[Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp], 
+						runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
+						#1
+					]
+			    ],
+			    #1
 			] &, 
 			{}, 
 			Range@Length[tensors]
@@ -332,6 +338,8 @@ BuildTensor[{"\[Epsilon]", Lowered[DottedSpinor],
 BuildTensor[{"\[Epsilon]", Raised[DottedSpinor], 
     Raised[DottedSpinor]}] = SparseArray@LeviCivitaTensor[2];
     
+DeclareTensorSymmetry["\[Epsilon]", {{Cycles[{{1,2}}], -1}}];
+    
 Unprotect[Tensor];
 Tensor[{x___, f_Field, y___}] := Tensor[{x, ToTensor[f][[1, 1]], y}];
 Protect[Tensor];
@@ -363,7 +371,7 @@ With[{products =
 ];
 
 OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
-    Flatten[{
+    DeleteDuplicates@Flatten[{
         EpsilonProducts[Tensor[{#}], {j1, j2} - Spin[#]] & /@ 
          Select[multiplet, 
              SimpleRepInputConversion[$RSymmetry, rep] == SimpleRepInputConversion[$RSymmetry, RRep[#]] && 
@@ -395,7 +403,7 @@ ConjugateThreePtRInvariant[{rep1_, rep2_}, target_] :=
      
 BuildTensor[arg : {"\[Delta]", Raised@RIndex[r1_], Raised@RIndex[r2_]}] := twopt[r1, r2];
 
-BuildTensor[arg : {"\[Delta]", Lowered@RIndex[r1_], Lowered@RIndex[r2_]}] := Inverse[twopt[r2, r1]];
+BuildTensor[arg : {"\[Delta]", Lowered@RIndex[r1_], Lowered@RIndex[r2_]}] := SparseArray@Inverse[twopt[r2, r1]];
 
 $customInvariants = False;
      
@@ -406,7 +414,7 @@ twopt[r1 : (_Integer | _List), r2 : (_Integer | _List)] /; r1 === SimpleRepInput
 twopt[r1 : (_Integer | _List), r2 : (_Integer | _List)] /; r1 === SimpleRepInputConversion[RSymmetry[], r1] && r2 === SimpleRepInputConversion[RSymmetry[], r2] && OrderedQ[{r1, r2}] := 
 If[$customInvariants,
    Message[twopt::undefined, RepName[RSymmetry[], r1], RepName[RSymmetry[], r2]];,
-   IrrepInProduct[$RSymmetry, {r1, r2}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]]
+   SparseArray[IrrepInProduct[$RSymmetry, {r1, r2}, singRep[$RSymmetry], TensorForm -> True][[1, 1, ;; , ;; , 1]]]
 ];
  
 threept::undefined = "The three-point invariant for representations (``, ``, ``) has not been defined.";
@@ -422,7 +430,7 @@ threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List
 threept[r1 : (_Integer | _List), r2 : (_Integer | _List), r3 : (_Integer | _List)] /; r1 === SimpleRepInputConversion[RSymmetry[], r1] && r2 === SimpleRepInputConversion[RSymmetry[], r2] && r3 === SimpleRepInputConversion[RSymmetry[], r3] && OrderedQ[{r1, r2, r3}] := 
 If[$customInvariants,
    Message[threept::undefined, RepName[RSymmetry[], r1], RepName[RSymmetry[], r2], RepName[RSymmetry[], r3]];,
-   IrrepInProduct[$RSymmetry, {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1, 1]]
+   SparseArray[IrrepInProduct[$RSymmetry, {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1, 1]]]
 ];
 
 SetTwoPtRInvariant[r1_, r2_, mat_] := Module[{reps = SimpleRepInputConversion[RSymmetry[], #] & /@ {r1, r2}, sorted, order},
@@ -643,7 +651,7 @@ BuildTensor[{name_String, idxs___}] :=
 Options[PossibleQActions] = {"QBar" -> False};
 PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := If[TrueQ[OptionValue["QBar"]],
    qToQBar /@ PossibleQActions[Conjugate[f]],
-   IndependentSet@
+   DeleteDuplicates[(SymmetryReduce /@
     Select[
      With[ {reps = ReduceRepProduct[$RSymmetry, {fundRep[$RSymmetry], rep}][[;; , 1]]},
         Flatten[
@@ -659,6 +667,7 @@ PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := 
           Cycles[xs_] :> Cycles[xs + 2]}, 
         Norm[Flatten[
             Components[t] + TensorTranspose[Components[t], #]]] === 0 &]]]
+   ) /. a_ b_ /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] :> b ]
 ];
             
 Options[SUSYCoefficient] = {"QBar" -> False};
