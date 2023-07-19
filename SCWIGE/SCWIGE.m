@@ -647,6 +647,8 @@ BuildTensor[{name_String, idxs___}] :=
            Length[{idxs}]}]]], 
      Table[IndexData[{idxs}[[ii, 1]]][[1]], {ii, Length[{idxs}]}]]
    ];
+   
+symmetryInconsistent[gen1_, gen2_] := Max[Length /@ Values[GroupBy[DeleteDuplicates@Join[SymmetryPermutations[gen1], SymmetryPermutations[gen2]], First]]] > 1;
 
 Options[PossibleQActions] = {"QBar" -> False};
 PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := If[TrueQ[OptionValue["QBar"]],
@@ -661,12 +663,7 @@ PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], OptionsPattern[]] := 
             {op, OperatorsWithQuantumNumbers[multipletOf[f], rep2, dim + 1/2, {j1 + 1/2, j2}, y + 1]}
          ]
         ]
-     ], Function[t, ! AnyTrue[TensorSymmetry[
-          Components@
-           ToTensor[f]] /. {Symmetric[xs_] :> {Cycles[{xs + 2}]}, 
-          Cycles[xs_] :> Cycles[xs + 2]}, 
-        Norm[Flatten[
-            Components[t] + TensorTranspose[Components[t], #]]] === 0 &]]]
+     ], Function[t, ! symmetryInconsistent[TensorSymmetries[f[[1]]] /. Cycles[xs_] :> Cycles[xs + 2], TensorSymmetries[t]]]]
    ) /. a_ b_ /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] :> b ]
 ];
             
@@ -1402,10 +1399,7 @@ solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[grps[[
 	]
 ];   
 
-Options[SUSYRules] = {"EquationGroupSize" -> 10};
-SUSYRules[i_, OptionsPattern[]] := SUSYRules[i, OptionsPattern[]] = Module[{linears, quadratics, norms, vars, rvars, quadgroups, partialsol},
-	DeclareAlgebra[];
-	linears = DeleteCases[Reduce /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
+linearEquations[i_] := DeleteCases[Reduce /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator@NormalOrder[TensorProduct[actWith, Tensor[ops]], "Vacuum" -> True],
 		   {ops, Subsets[Flatten[Multiplet[i]], {2}]}, {actWith, {QTensor[], QTensor["QBar" -> True]}}
@@ -1414,7 +1408,7 @@ SUSYRules[i_, OptionsPattern[]] := SUSYRules[i, OptionsPattern[]] = Module[{line
 		"CurrentDisplayFunction" -> None
 	] == 0], True];
 	
-	quadratics = DeleteCases[Simplify[Reduce[#], _SUSYCoefficient != 0] & /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
+quadraticEquations[i_] := DeleteCases[Simplify[Reduce[#], _SUSYCoefficient != 0] & /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator[TensorProduct[quadraticZero[ops[[1]]], Tensor[{ops[[2]]}]]],
 		   {ops, Subsets[Flatten[Multiplet[i]], {2}]}
@@ -1422,6 +1416,14 @@ SUSYRules[i_, OptionsPattern[]] := SUSYRules[i, OptionsPattern[]] = Module[{line
 		"Label" -> "Generating quadratic equations",
 		"CurrentDisplayFunction" -> None
 	] == 0], True];
+
+Options[SUSYRules] = {"EquationGroupSize" -> 10};
+SUSYRules[i_, OptionsPattern[]] := SUSYRules[i, OptionsPattern[]] = Module[{linears, quadratics, norms, vars, rvars, quadgroups, partialsol},
+	DeclareAlgebra[];
+	
+	linears = linearEquations[i];
+	
+	quadratics = quadraticEquations[i];
 	
 	vars = DeleteDuplicates@Cases[Join[linears, quadratics], _SUSYCoefficient, All];
 	
