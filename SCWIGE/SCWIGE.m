@@ -1494,9 +1494,9 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, qua
 
 Options[susyTable] = {"Solved" -> True, "MaxDepth" -> 0};
 susyTable[ops_, OptionsPattern[]] := With[{g = Grid[Table[{TensorProduct[$QTensor, ToTensor[op]], 
-    QAnsatz[op, "QBar" -> False] /. If[TrueQ[OptionValue["Solved"]], SUSYRules[whichMultiplet[ops[[1]]], "MaxDepth" -> OptionValue["MaxDepth"]], {}], 
+    QAnsatz[op, "QBar" -> False] /. If[TrueQ[OptionValue["Solved"]], If[OptionValue["MaxDepth"] == 0, SUSYRules[whichMultiplet[ops[[1]]]], SUSYRules[whichMultiplet[ops[[1]]], "MaxDepth" -> OptionValue["MaxDepth"]]], {}], 
     TensorProduct[$QBarTensor, ToTensor[Conjugate[op]]], 
-    QAnsatz[Conjugate@op, "QBar" -> True] /.  If[TrueQ[OptionValue["Solved"]], SUSYRules[whichMultiplet[ops[[1]]], "MaxDepth" -> OptionValue["MaxDepth"]], {}]}, {op, ops}], 
+    QAnsatz[Conjugate@op, "QBar" -> True] /.  If[TrueQ[OptionValue["Solved"]], If[OptionValue["MaxDepth"] == 0, SUSYRules[whichMultiplet[ops[[1]]]], SUSYRules[whichMultiplet[ops[[1]]], "MaxDepth" -> OptionValue["MaxDepth"]]], {}]}, {op, ops}], 
   Dividers -> All, Alignment -> Left]},
   	Column[{g // TraditionalForm,
  		Button[Style["Copy as TeX", 14], CopyToClipboard[ToString[TeXForm[g]]], ImageSize -> 200]
