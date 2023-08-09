@@ -1425,7 +1425,7 @@ quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $Q
  2 I TensorProduct[Kronecker[RIndex[fundRep[$RSymmetry]]], Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}}], Tensor[{op}]];
  
 solveGroups[{}, vars_, rules_, assum_] := {};
-solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[grps[[1]] /. rules, assum], vars]][[1]]},
+solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[(grps[[1]] /. rules), assum], vars]][[1]]},
 	With[{rest = Select[solveGroups[Rest[grps], vars, Join[rules, sol], assum], !MemberQ[sol[[;;, 1]], #[[1]]] &]},
 	   Select[Join[sol /. rest, rest], ! SameQ @@ # &]
 	]
@@ -1470,18 +1470,21 @@ quadraticEquations[i_, OptionsPattern[]] := DeleteDuplicates@DeleteCases[Simplif
 	] == 0], True];
 
 Options[SUSYRules] = {"EquationGroupSize" -> 10, "MaxDepth" -> 0};
-SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, quadratics, norms, vars, rvars, quadgroups, partialsol},
+SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, vars, rvars, quadgroups, quadsol, partialsol},
 	DeclareAlgebra["MaxDepth" -> OptionValue["MaxDepth"]];
 	
 	linears = linearEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
+	linsol = First[Solve[linears]];
 	
 	quadratics = quadraticEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
 	
-	vars = DeleteDuplicates@Cases[Join[linears, quadratics], _SUSYCoefficient, All];
+	quadgroups = Partition[DeleteCases[DeleteDuplicates[Simplify[#, SUSYCoefficient[__] != 0] & /@ (quadratics /. linsol)], True], UpTo[OptionValue["EquationGroupSize"]]];
 	
-	quadgroups = Partition[quadratics, UpTo[OptionValue["EquationGroupSize"]]];
+	vars = DeleteDuplicates@Cases[grps, _SUSYCoefficient, All];
 	
-	partialsol = solveGroups[Prepend[quadgroups, linears], vars, {}, Thread[vars != 0]];
+	quadsol = solveGroups[quadgroups, vars, {}, Thread[vars != 0]];
+	
+	partialsol = Join[linsol /. quadsol, quadsol];
 	
 	rvars = DeleteDuplicates[Cases[partialsol[[;;, 2]], _SUSYCoefficient, All]];	
 	norms = DeleteCases[Simplify[Cases[partialsol[[;; , 1]], 
