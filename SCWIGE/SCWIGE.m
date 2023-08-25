@@ -1438,7 +1438,7 @@ opGroup[m_, i_, j_, OptionsPattern[]] := With[{bottom = First@MinimalBy[If[$mult
 
 groupOf[f_Field] := Module[{mult, conj, bottom, dimdiff, ydiff},
    mult = whichMultiplet[f];
-   conj = (! $multipletSC[mult] && MemberQ[f, Multiplet[mult][[2]]]);
+   conj = (! $multipletSC[mult] && MemberQ[Multiplet[mult][[2]], f]);
    bottom = First@opGroup[mult, 0, 0, "Conjugate" -> conj];
    dimdiff = ScalingDimension[f] - ScalingDimension[bottom];
    ydiff = Last[f] - Last[bottom];
@@ -1470,7 +1470,7 @@ quadraticEquations[i_, OptionsPattern[]] := DeleteDuplicates@DeleteCases[Simplif
 	] == 0], True];
 
 Options[SUSYRules] = {"EquationGroupSize" -> 10, "MaxDepth" -> 0};
-SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, vars, rvars, quadgroups, quadsol, partialsol},
+SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, normsol, vars, rvars, quadgroups, quadsol, partialsol},
 	DeclareAlgebra["MaxDepth" -> OptionValue["MaxDepth"]];
 	
 	linears = linearEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
@@ -1480,7 +1480,7 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, lin
 	
 	quadgroups = Partition[DeleteCases[DeleteDuplicates[Simplify[#, SUSYCoefficient[__] != 0] & /@ (quadratics /. linsol)], True], UpTo[OptionValue["EquationGroupSize"]]];
 	
-	vars = DeleteDuplicates@Cases[grps, _SUSYCoefficient, All];
+	vars = DeleteDuplicates@Cases[quadgroups, _SUSYCoefficient, All];
 	
 	quadsol = solveGroups[quadgroups, vars, {}, Thread[vars != 0]];
 	
@@ -1492,7 +1492,9 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, lin
 	   All] /. partialsol /. Thread[rvars -> Array[\[Alpha], Length[rvars]]], \[Alpha][_] > 0], 
 	x_ /; ! FreeQ[x, SUSYCoefficient]];
 	
-	Thread[Join[partialsol[[;;, 1]], rvars] -> (Join[partialsol[[;;, 2]], rvars] /. Thread[rvars -> Array[\[Alpha], Length[rvars]]] /. Last[Solve[norms]] /. Thread[Array[\[Alpha], Length[rvars]] -> rvars])]
+	normsol = Last[Solve[norms]];
+	
+	Thread[Join[partialsol[[;;, 1]], rvars] -> (Join[partialsol[[;;, 2]], rvars] /. Thread[rvars -> Array[\[Alpha], Length[rvars]]] /. normsol /. Thread[Array[\[Alpha], Length[rvars]] -> rvars])]
 ];
 
 Options[susyTable] = {"Solved" -> True, "MaxDepth" -> 0};
@@ -1969,39 +1971,6 @@ ExpandCorrelator[Correlator[Tensor[names_]],
      ]
     ]
    ];
-   
-solveData[m_, b_, num_] := 
-  solveData[m, b, num] = 
-   With[{terms = 
-      DeleteDuplicates@
-       Cases[b, \[ScriptCapitalT][__] | 
-         Derivative[__][\[ScriptCapitalT]][__], All], 
-     crM = clearRadicals[m]}, 
-    ResourceFunction["MonitorProgress"][
-     Table[{uv, 
-       Simplify@
-         LinearSolve[
-          crM[[1]] /. Thread[{u, v} -> uv] /. _\[Theta] -> 0, 
-          b /. Thread[terms -> Array[\[Alpha], Length[terms]]] /. 
-             Thread[{u, v} -> uv] /. 
-            Thread[Array[\[Alpha], Length[terms]] -> 
-              terms] /. _\[Theta] -> 0] crM[[2]]}, {uv, 
-       Tuples[fracs[num], 2]}], 
-     "Label" -> "Generating solution data",
-		"CurrentDisplayFunction" -> None]
-    ];
-
-clearRadicals[mat_] := 
-  With[{factors = 
-     Table[FirstCase[Normal[mat[[;; , i]]], 
-       x_ /; x =!= 0 :> (If[# == {}, 1, #[[1]]] &@
-          Cases[x, Power[y_?NumericQ, 1/2 | -1/2] :> Sqrt[y], 
-           All])], {i, Dimensions[mat][[2]]}]},
-   {mat . DiagonalMatrix[factors], factors}
-   ];
-
-indQ[basis_, vec_] := 
-  Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True];
 
 $ArbitraryFunctions = {};
 DeclareArbitraryFunction[head_] := 
@@ -2030,19 +1999,102 @@ spQ[f_Field] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f];
 spCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, spQ];
 spCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, spQ];
 
-Options[SolveWard] = {"QBar" -> False};
-SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] := SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-SolveWard[fields : {_Field..}, OptionsPattern[]] := 
-  With[{eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True]},
-    With[{vars = Sort@Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&]}, 
-     With[{bm = CoefficientArrays[eqs, vars]},
-	   If[AllTrue[bm[[1]], # === 0 &], Thread[vars -> 0],
-	    Thread[
-	     vars -> Simplify[LinearSolve[bm[[2]], -bm[[1]], ZeroTest -> (PossibleZeroQ[Simplify[#, uvAssumptions]] &)], uvAssumptions]]
-	    ]
-	   ]
-	  ]
-  ];
+Options[SolveWard] = {"QBar" -> False, "Fit" -> False};
+SolveWard::underdetermined = "The system has `` variables but only `` independent equations.";
+SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] :=
+   SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
+SolveWard[fields : {_Field..}, OptionsPattern[]] :=
+   With[ {eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True]},
+      With[ {vars = Sort@Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&]},
+	     With[ {bm = CoefficientArrays[eqs, vars]},
+	        With[{nRedundant = Length[NullSpace@Transpose[bm[[2]]]]},
+	         If[Length[vars] > Length[eqs] - nRedundant,
+	            Message[SolveWard::underdetermined, Length[vars], Length[eqs] - nRedundant],
+		         If[ OptionValue["Fit"],
+		            wardSolveFit[eqs, vars],
+	               If[ AllTrue[bm[[1]], # === 0 &],
+	                  Thread[vars -> 0],
+	                  Thread[
+	                   vars -> Simplify[LinearSolve[bm[[2]], -bm[[1]], ZeroTest -> (PossibleZeroQ[Simplify[#, uvAssumptions]] &)], uvAssumptions]]
+	               ]
+		         ]
+		       ]
+	         ]
+         ]
+      ]
+   ];
+   
+Clear[`solveData]; 
+`solveData[m_, b_, num_] := 
+ `solveData[m, b, num] = 
+  With[{terms = 
+     DeleteDuplicates@
+      Cases[b, (Alternatives @@ 
+           `$ArbitraryFunctions)[__] | 
+        Derivative[__][(Alternatives @@ 
+            $ArbitraryFunctions)][__], All], 
+    crM = clearRadicals[m]}, 
+   ResourceFunction["MonitorProgress"][
+    Table[{uv, 
+      Simplify@
+        LinearSolve[
+         crM[[1]] /. Thread[{u, v} -> uv] /. _\[Theta] -> 0, 
+         b /. Thread[terms -> Array[\[Alpha], Length[terms]]] /. 
+           Thread[{u, v} -> uv] /. 
+          Thread[Array[\[Alpha], Length[terms]] -> 
+            terms]] crM[[2]]}, {uv, safeUVs}], 
+    "Label" -> "Generating solution data", 
+         "CurrentDisplayFunction" -> None]
+   ];
+  
+clearRadicals[mat_] := 
+  With[{factors = 
+     Table[FirstCase[mat[[;; , i]], 
+       x_ /; x =!= 0 :> (If[# == {}, 1, #[[1]]] &@
+          Cases[x, Power[y_?NumericQ, 1/2 | -1/2] :> Sqrt[y], 
+           All])], {i, Dimensions[mat][[2]]}]},
+   {mat . DiagonalMatrix[factors], factors}
+   ];
+
+indQ[basis_, vec_] := 
+  Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True];
+
+wardSolveFit[eqs_, vars_] := 
+  With[{bm = CoefficientArrays[eqs, vars]}, 
+   With[{b = -bm[[1]], m = bm[[2]]}, 
+    With[{crM = clearRadicals[m]}, 
+     With[{indIdxs = 
+        ResourceFunction["MonitorProgress"][
+         Fold[If[Length[#1] < Length[vars] && 
+             indQ[
+              crM[[1, #1]] /. 
+               Thread[{u, v} -> safeUVs[[25]]], 
+              crM[[1, #2]] /. 
+               Thread[{u, v} -> safeUVs[[25]]]], 
+            Append[#1, #2], #1] &, {}, Range[Length[m]]], 
+         "Label" -> "Finding set of independent equations", 
+         "CurrentDisplayFunction" -> None]},
+      
+      With[{sd = 
+         solveData[m[[indIdxs]], b[[indIdxs]], 7]},
+       Thread[
+        vars -> ResourceFunction["MonitorProgress"][
+          Table[With[{terms = 
+              DeleteDuplicates@
+               Cases[sd[[;; , 2, 
+                  vari]], (Alternatives @@ 
+                    $ArbitraryFunctions)[__] | 
+                 Derivative[__][(Alternatives @@ 
+                    $ArbitraryFunctions)][__], All]}, 
+            terms . Table[
+              Simplify@
+               fitRational[(sd /. {{u_?NumericQ, v_}, 
+                    data_} :> {u, v, 
+                    Coefficient[data[[vari]], term]}), 1, 6, 
+                "Prefactors" -> {1, Sqrt[u], Sqrt[v], 
+                  Sqrt[u v]}], {term, terms}]], {vari, Length[vars]}],
+           "Label" -> "Fitting rational functions", 
+         "CurrentDisplayFunction" -> None]]]]]]];
 
 crosses = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
     v -> v/u}, {u -> v/u, v -> 1/u}, {u -> 1/v, v -> u/v}, {u -> v, 
