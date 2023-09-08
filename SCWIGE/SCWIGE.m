@@ -2007,7 +2007,7 @@ SolveWard[fields : {_Field..}, OptionsPattern[]] :=
    With[ {eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True]},
       With[ {vars = Sort@Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&]},
 	     With[ {bm = CoefficientArrays[eqs, vars]},
-	        With[{nRedundant = Length[NullSpace@Transpose[bm[[2]]]]},
+	        With[{nRedundant = Length[NullSpace@Transpose[Normal[bm[[2]]] /. Thread[{u, v} -> safeUVs[[37]]]]]},
 	         If[Length[vars] > Length[eqs] - nRedundant,
 	            Message[SolveWard::underdetermined, Length[vars], Length[eqs] - nRedundant],
 		         If[ OptionValue["Fit"],
