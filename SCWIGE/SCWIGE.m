@@ -1424,12 +1424,22 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] - 
  2 I TensorProduct[Kronecker[RIndex[fundRep[$RSymmetry]]], Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}}], Tensor[{op}]];
  
-solveGroups[{}, vars_, rules_, assum_] := {};
+(*solveGroups[{}, vars_, rules_, assum_] := {};
 solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[(grps[[1]] /. rules), assum], vars]][[1]]},
-	With[{rest = Select[solveGroups[Rest[grps], vars, Join[rules, sol], assum], !MemberQ[sol[[;;, 1]], #[[1]]] &]},
-	   Select[Join[sol /. rest, rest], ! SameQ @@ # &]
+	With[{rest = Select[solveGroups[Rest[grps], vars, Join[rules /. sol, sol], assum], !MemberQ[sol[[;;, 1]], #[[1]]] &]},
+	   Select[Simplify[Join[sol /. rest, rest], assum], ! SameQ @@ # &]
 	]
-];
+];*)
+
+solveGroups[grps_, vars_, rules_, assum_] := 
+ ResourceFunction["MonitorProgress"][Fold[
+   With[{sol = Quiet[Assuming[assum, First@Solve[#2 /. #1, vars]]]},
+     Sort@Select[Simplify[Join[#1 /. sol, sol], assum], ! SameQ @@ # &]
+     ] &,
+   {}, grps
+   ], "Label" -> "Solving equations", 
+  "CurrentDisplayFunction" -> None
+  ]
 
 Options[opGroup] = {"Conjugate" -> False};
 opGroup[m_, i_, j_, OptionsPattern[]] := With[{bottom = First@MinimalBy[If[$multipletSC[m], Multiplet[m], Multiplet[m][[If[OptionValue["Conjugate"], 2, 1]]]], ScalingDimension]},
@@ -2000,37 +2010,28 @@ spCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, spQ];
 spCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, spQ];
 
 Options[SolveWard] = {"QBar" -> False, "Fit" -> False};
-SolveWard::underdetermined = "The system has `` variables but only `` independent equations.";
 SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-SolveWard[fields : {_Field..}, OptionsPattern[]] :=
-   With[ {eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True]},
-      With[ {vars = Sort@Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&]},
-	     With[ {bm = CoefficientArrays[eqs, vars]},
-	        With[{nRedundant = Length[NullSpace@Transpose[Normal[bm[[2]]] /. Thread[{u, v} -> safeUVs[[37]]]]]},
-	         If[Length[vars] > Length[eqs] - nRedundant,
-	            Message[SolveWard::underdetermined, Length[vars], Length[eqs] - nRedundant],
-		         If[ OptionValue["Fit"],
-		            wardSolveFit[eqs, vars],
-	               If[ AllTrue[bm[[1]], # === 0 &],
-	                  Thread[vars -> 0],
-	                  Thread[
-	                   vars -> Simplify[LinearSolve[bm[[2]], -bm[[1]], ZeroTest -> (PossibleZeroQ[Simplify[#, uvAssumptions]] &)], uvAssumptions]]
-	               ]
-		         ]
-		       ]
-	         ]
-         ]
-      ]
+SolveWard[fields : {_Field..}, OptionsPattern[]] := Module[{eqs, vars, bm},
+   eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True];
+   vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
+   bm = CoefficientArrays[eqs, vars];
+	 If[OptionValue["Fit"],
+	    wardSolveFit[eqs, vars],
+	   If[ AllTrue[bm[[1]], # === 0 &],
+	      Thread[vars -> 0],
+	      Sort[solveGroups[Partition[eqs /. u -> Glaisher /. v -> EulerGamma, UpTo[1]], vars /. u -> Glaisher /. v -> EulerGamma, {}, {}] /. Glaisher -> u /. EulerGamma -> v]
+	   ]
+	 ]
    ];
    
-Clear[`solveData]; 
-`solveData[m_, b_, num_] := 
- `solveData[m, b, num] = 
+Clear[solveData]; 
+solveData[m_, b_, num_] := 
+ solveData[m, b, num] = 
   With[{terms = 
      DeleteDuplicates@
       Cases[b, (Alternatives @@ 
-           `$ArbitraryFunctions)[__] | 
+           $ArbitraryFunctions)[__] | 
         Derivative[__][(Alternatives @@ 
             $ArbitraryFunctions)][__], All], 
     crM = clearRadicals[m]}, 
@@ -2111,7 +2112,7 @@ AddSolutions[soln_] :=
       Values /@ 
        GroupBy[Select[
           Flatten[Table[
-            s /. cross, {s, soln}, {cross, SCWIGE`Private`crosses}]], 
+            s /. cross, {s, soln}, {cross, crosses}]], 
           MatchQ[#[[1]], g[__][u, v]] &] /. 
          HoldPattern[
            a_ -> b_] :> (Head[
