@@ -1902,7 +1902,7 @@ fieldOrder = (ScalingDimension[#1] <
        ScalingDimension[#2] && Abs[Last[#1]] == Abs[Last[#2]] && 
       Last[#1] >= Last[#2]) &;
       
-fieldOrder = OrderedQ[{ScalingDimension[#1], Spin[#1], Abs[Last[#1]], Last[#1]}, {ScalingDimension[#2], Spin[#2], Abs[Last[#2]], Last[#2]}];
+fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Reverse@Spin[#1], Abs[Last[#1]], Last[#1]}, {N@ScalingDimension[#2], Reverse@Spin[#2], Abs[Last[#2]], Last[#2]}}] &;
       
 crossingPermutationST[t_Tensor, order_] := 
   With[{ordered = SwapFactors[t, order]},
