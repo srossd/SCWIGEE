@@ -1433,8 +1433,8 @@ solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[(grps[
 
 solveGroups[grps_, vars_, rules_, assum_] := 
  ResourceFunction["MonitorProgress"][Fold[
-   With[{sol = Quiet[Assuming[assum, First@Solve[#2 /. #1, vars]]]},
-     Sort@Select[Simplify[Join[#1 /. sol, sol], assum], ! SameQ @@ # &]
+   With[{sol = Quiet[Assuming[assum, Simplify@First@Solve[#2 /. #1, vars]]]},
+     Sort@Select[Join[Simplify[#1 /. sol, assum], sol], ! SameQ @@ # &]
      ] &,
    {}, grps
    ], "Label" -> "Solving equations", 
@@ -1901,6 +1901,8 @@ fieldOrder = (ScalingDimension[#1] <
       Abs[Last[#1]] > Abs[Last[#2]]) || (ScalingDimension[#1] == 
        ScalingDimension[#2] && Abs[Last[#1]] == Abs[Last[#2]] && 
       Last[#1] >= Last[#2]) &;
+      
+fieldOrder = OrderedQ[{ScalingDimension[#1], Spin[#1], Abs[Last[#1]], Last[#1]}, {ScalingDimension[#2], Spin[#2], Abs[Last[#2]], Last[#2]}];
       
 crossingPermutationST[t_Tensor, order_] := 
   With[{ordered = SwapFactors[t, order]},
