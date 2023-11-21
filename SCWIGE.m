@@ -404,6 +404,11 @@ ThreePtRInvariant[{rep1_, rep2_}, target_] :=
 ConjugateThreePtRInvariant[{rep1_, rep2_}, target_] :=
    Tensor[{{"C", Lowered[RIndex[target]], Raised[RIndex[rep1]], 
       Raised[RIndex[rep2]]}}];
+
+ThreePtRInvariant[r1_, r2_, r3_] :=
+   Tensor[{{"C", Raised[RIndex[r1]], Raised[RIndex[r2]], Raised[RIndex[r3]]}}];
+ConjugateThreePtRInvariant[r1_, r2_, r3_] :=
+   Tensor[{{"C", Lowered[RIndex[r1]], Lowered[RIndex[r2]], Lowered[RIndex[r3]]}}];
      
 BuildTensor[arg : {"\[Delta]", Raised@RIndex[r1_], Raised@RIndex[r2_]}] := twopt[r1, r2];
 
@@ -452,6 +457,10 @@ SetThreePtRInvariant[r1_, r2_, r3_, mat_] := Module[{reps = SimpleRepInputConver
 ]
 
 BuildTensor[
+   arg : {"C", Raised@RIndex[target_], Raised@RIndex[rep1_], 
+     Raised@RIndex[rep2_]}] := threept[target, rep1, rep2];
+
+BuildTensor[
    arg : {"C", Lowered@RIndex[target_], Raised@RIndex[rep1_], 
      Raised@RIndex[rep2_]}] :=
     Components[ConjugateTwoPtRInvariant[target, ConjugateIrrep[$RSymmetry, target]]] . threept[ConjugateIrrep[$RSymmetry, target], rep1, rep2];
@@ -462,6 +471,16 @@ BuildTensor[
     Components[Contract[TensorProduct[
        Tensor[{{"C", Lowered[RIndex[ConjugateIrrep[$RSymmetry, target]]], Raised[RIndex[ConjugateIrrep[$RSymmetry, rep1]]], Raised[RIndex[ConjugateIrrep[$RSymmetry, rep2]]]}}], 
        TwoPtRInvariant[ConjugateIrrep[$RSymmetry, target], target],
+       ConjugateTwoPtRInvariant[ConjugateIrrep[$RSymmetry, rep1], rep1],
+       ConjugateTwoPtRInvariant[ConjugateIrrep[$RSymmetry, rep2], rep2]
+    ], {{1, 4}, {2, 6}, {3, 8}}]];
+    
+BuildTensor[
+   arg : {"C", Lowered@RIndex[target_], Lowered@RIndex[rep1_], 
+     Lowered@RIndex[rep2_]}] :=
+    Components[Contract[TensorProduct[
+       Tensor[{{"C", Raised[RIndex[ConjugateIrrep[$RSymmetry, target]]], Raised[RIndex[ConjugateIrrep[$RSymmetry, rep1]]], Raised[RIndex[ConjugateIrrep[$RSymmetry, rep2]]]}}], 
+       ConjugateTwoPtRInvariant[ConjugateIrrep[$RSymmetry, target], target],
        ConjugateTwoPtRInvariant[ConjugateIrrep[$RSymmetry, rep1], rep1],
        ConjugateTwoPtRInvariant[ConjugateIrrep[$RSymmetry, rep2], rep2]
     ], {{1, 4}, {2, 6}, {3, 8}}]];
@@ -679,7 +698,6 @@ Format[SUSYCoefficient[name_, idx_, opt : OptionsPattern[]], TraditionalForm] :=
 	If[OptionValue[SUSYCoefficient, opt, "QBar"], "\!\(\*OverscriptBox[\(\[ScriptA]\), \(_\)]\)", "\[ScriptA]"],
    Row[{name, ",", idx}]];
    
-(* specific to QAnsatz expressions *)
 fieldPerm[t_] := With[{inds = 
      Position[
        Indices[t], (Lowered | Raised)[
@@ -689,6 +707,7 @@ fieldPerm[t_] := With[{inds =
          Symbolic[t][[2, 1]]]]}, 
 	PermutationPower[Cycles[{inds}], 2 Spin[f][[1]]]
 ];
+(* specific to QAnsatz expressions *)
 qToQBar[expr_] := expr /. t_Contract :> qToQBar[t]/. SUSYCoefficient[name_, idx_, "QBar" -> False] :> SUSYCoefficient[Conjugate[name2field[name]][[1]], idx, "QBar" -> True];
 qToQBar[Contract[t_, pairs_]] := With[{fp = fieldPerm[t]},
    Contract[qToQBar[t], If[Symbolic[t][[2,1]] == "\[PartialD]", pairs /. {1 -> 3, 4 -> 5, 5 -> 4}, pairs /. 1 -> 3] /. Thread[Range@Length[Indices[t]] -> PermutationList[InversePermutation[fp], Length@Indices[t]]]]
@@ -1750,8 +1769,7 @@ BuildTensor[{SpacetimeStructure[dims_, ls_, {}, derivtype_, perm_, i_], idxs___}
  	]    
 ];
 
-BuildTensor[{SpacetimeStructure[dims_, 
-      ls : {{l1_, lb1_}, {l2_, lb2_}, {l3_, lb3_}, {l4_, lb4_}}, 
+BuildTensor[{SpacetimeStructure[dims_, ls_, 
       derivs_, derivtype_, perm_, i_], idxs___}] /; derivs =!= {} := 
   With[{bd = 
      SpacetimeStructures[dims, ls, {}, "\[PartialD]", perm][[i]]},
@@ -1891,6 +1909,10 @@ Format[g[fields_, i_, j_], TraditionalForm] :=
 \!\(\*SubsuperscriptBox[\("\<g\>"\), \(Row[{ToString[i], 
      ToString[j]}]\), \(StringJoin @@ \((First /@ fields)\)\)]\);
      
+Format[\[Lambda][fields_, i_, j_], TraditionalForm] := 
+\!\(\*SubsuperscriptBox[\("\<\[Lambda]\>"\), \(Row[{ToString[i], 
+     ToString[j]}]\), \(StringJoin @@ \((First /@ fields)\)\)]\);
+     
 Format[u[perm_], TraditionalForm] := 
   "U"^#1 "V"^#2 & @@ uvpowers[1, perm];
 Format[v[perm_], TraditionalForm] := "U"^#1 "V"^#2 & @@ uvpowers[2, perm];
@@ -1925,14 +1947,14 @@ ExpandCorrelator[Correlator[Tensor[names_]],
     OptionsPattern[]] /; (AllTrue[names, 
       !MissingQ[name2field@StringDrop[#[[1]], 
          Count[Characters[#[[1]]], "\[PartialD]"]]] &] && 
-     Length[names] == 4) := 
+     3 <= Length[names] <= 4) := 
   With[{fields = 
      name2field[
         StringDrop[#[[1]], 
          Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names, 
     derivs = 
      Flatten@Table[
-       i, {i, 4}, {j, 
+       i, {i, Length[names]}, {j, 
         Count[Characters[names[[i, 1]]], "\[PartialD]"]}]},
    With[{sfields = Sort[fields, fieldOrder], 
      order = Ordering[fields, All, fieldOrder]},
@@ -1946,15 +1968,18 @@ ExpandCorrelator[Correlator[Tensor[names_]],
       STindperm = crossingPermutationST[Tensor[names], order], 
       Rindperm = crossingPermutationR[Tensor[names], order]},
      sign Sum[
-       g[sfields, i, j][u[order], v[order]] TensorProduct[
+       If[Length[names] == 3, \[Lambda][sfields,i,j], g[sfields, i, j][u[order], v[order]]] TensorProduct[
           TensorPermute[
-           FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields), 
+           If[Length[names] == 4,
+           	FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields),
+           	ThreePtRInvariant @@ (RRep /@ sfields)
+           ], 
            Rindperm], 
           TensorPermute[
            SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, 
              InversePermutation[order][[#]] & /@ derivs, 
              "\[PartialD]", order][[j]], STindperm]] + 
-        If[derivs === {}, 0,
+        If[derivs === {} || Length[names] == 3, 0,
          
          Derivative[1, 0][g[sfields, i, j]][u[order], 
             v[order]] TensorProduct[
