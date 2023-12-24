@@ -410,6 +410,12 @@ DisplaySUSYVariations::usage = "DisplaySUSYVariations[] gives a table showing th
 \[Sigma]CommUpper::usage = "\[Sigma]CommUpper is the tensor \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \\\ \)\(\[Alpha]\[Beta]\)\), \(\[Mu]\[Nu]\)]\) = -\!\(\*FractionBox[\(1\), \(4\)]\)(\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \)\(\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)\), \(\[Mu]\)]\)\!\(\*SuperscriptBox[\(\[Sigma]\), \(\[Nu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \[Gamma]\)]\)\!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Gamma]\[Beta]\)]\) - (\[Mu] \[LeftRightArrow] \[Nu])).";
 \[Sigma]CommUpperDot::usage = "\[Sigma]CommUpperDot is the tensor \!\(\*SuperscriptBox[\(\[Sigma]\), \(\[Mu]\[Nu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\) = -\!\(\*FractionBox[\(1\), \(4\)]\)(\!\(\*SubscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Gamma]\), \(.\)]\)]\)\!\(\*SuperscriptBox[\(\[Sigma]\), \(\[Mu] \*OverscriptBox[\(\[Gamma]\), \(.\)] \[Alpha]\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \)\(\[Alpha] \*OverscriptBox[\(\[Beta]\), \(.\)]\)\), \(\[Nu]\)]\) - (\[Mu] \[LeftRightArrow] \[Nu])).";
 
+\[Eta]Lower::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\)";
+\[Eta]Upper::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\).";
+
+\[Epsilon]Spacetime::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
+\[Epsilon]SpacetimeUpper::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
+
 SpacetimeStructureExpressions::usage = "SpacetimeStructureExpressions[\!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\)] gives a list of symbolic expressions for the normalized spacetime structures with spins \!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\).";

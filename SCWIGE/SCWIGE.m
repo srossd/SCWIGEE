@@ -38,6 +38,9 @@ SetMultiplet[ops_, name_, sc_, i_ : 1] := (
 RSymmetry[] := $RSymmetry;
 Multiplet[i_] := $multiplet[i];
 
+$signatureFactor = 1;
+SignatureFactor[] := $signatureFactor;
+
 Format[Field[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] := 
   With[{indices = 
      Join[{"\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]"}[[;; 
@@ -236,26 +239,85 @@ multipletDialog[] := ($multName = Null; $multSC = True;
            Checkbox[Dynamic[$multSC]]}}], 
         Style["Add Multiplet", 20], Top, Background -> LightBlue], 
       DefaultButton[DialogReturn[{$multName, $multSC}]]}]]);
+      
+conventionButton[eq_] := With[{s = ToString@TeXForm[eq]},
+   Tooltip[Button[
+  Panel[Style[Format[eq, TraditionalForm], 14, 
+    FontFamily -> "CMU Serif"], FrameMargins -> {30, 30}, 
+   Background -> 
+    Dynamic[If[CurrentValue["MouseOver"], LightGray, White]], Appearance -> "Frameless"], 
+  CopyToClipboard[s], 
+  Appearance -> "Frameless"], "Copy to TeX"]
+]
+      
+conventions[1] := {\[Eta]Lower == MatrixForm[Components[\[Eta]Lower]], \[Epsilon]Lower ==
+   MatrixForm@Components[\[Epsilon]Lower], \[Epsilon]LowerDot == 
+  MatrixForm@Components[\[Epsilon]LowerDot], \[Sigma]Lower == 
+  MatrixForm /@ Components[\[Sigma]Lower], \[Sigma]BarLower == 
+  MatrixForm /@ Components[\[Sigma]BarLower], 
+ Subscript["\[Epsilon]", Row[{0, 1, 2, 3}]] == 
+  Components[\[Epsilon]Spacetime][[1, 2, 3, 4]]} /. (x_ == y_) :> conventionButton[x == y];
+  
+conventions[2] := {MyInactive[StructureI]["i", "j"] == StructureI["i", "j"], 
+ MyInactive[StructureI]["i", "j", "k", "l"] == 
+  StructureI["i", "j", "k", "l"], 
+ MyInactive[StructureJ]["i", "j", "k"] == 
+  StructureJ["i", "j", "k"], 
+ MyInactive[StructureK]["i", "j", "k"] == 
+  StructureK["i", "j", "k"], 
+ MyInactive[StructureKBar]["i", "j", "k"] == 
+  StructureKBar["i", "j", "k"], 
+ MyInactive[StructureL]["i", "j", "k", "l"] == 
+  StructureL["i", "j", "k", "l"], 
+ MyInactive[StructureLBar]["i", "j", "k", "l"] == 
+  StructureLBar["i", "j", "k", "l"]} /. {
+  "i" -> "\!\(TraditionalForm\`i\)",
+  "j" -> "\!\(TraditionalForm\`j\)",
+  "k" -> "\!\(TraditionalForm\`k\)",
+  "l" -> "\!\(TraditionalForm\`l\)"
+  } /. (x_ == y_) :> conventionButton[x == y];
+  
+conventionsPanel[] := Row[{Column[conventions[1], Spacings -> 2]//TraditionalForm, 
+   Spacer[20], 
+   Column[conventions[2], Spacings -> 1]//TraditionalForm
+}];
          
 wizardPanel[] := Panel[Grid[{{"", "", Style["Setup Wizard", 20], 
-    Style["Editing: ", 16], Checkbox[Dynamic[$editing]]}, {"", "", 
+    Row[{Style["Editing: ", 16], Spacer[5], 
+      Checkbox[Dynamic[$editing]]}]}, {"", "", 
+    Row[{Style["Signature: ", 14], 
+      Dynamic[RadioButtonBar[
+        Dynamic[$signatureFactor], {1 -> Style["Lorentzian", 12], 
+         I -> Style["Euclidean", 12]}, Enabled -> $editing]]}], 
+    Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {1000, 400}, WindowFloating -> False, WindowTitle -> "Conventions"]]}, {"", "", 
     Row[{Style["R-symmetry: ", 16], 
-      Dynamic[InputField[Dynamic[$RSymmetry, {Automatic, SetRSymmetry[#1] &}], Enabled -> $editing]]}],
-     "", ""}, {"", "", 
-    Dynamic[If[Length[$multipletIndices] == 0, Style["Set the R-symmetry, and then add a multiplet.", 11, Italic], TabView[Table[$multipletName[i] -> Column[{
-       Framed@DisplayMultiplet[i, "EditMode" -> $editing],
-       Button[Style["Copy as TeX", 14], CopyToClipboard[tikzMultiplet[$viewingMultiplet]], ImageSize -> 200]}, Alignment -> Center], 
-       {i, $multipletIndices}], Dynamic[$viewingMultiplet], Alignment -> Center, ImageSize -> Automatic]]], 
-    Button["Add Multiplet", With[{res = multipletDialog[], new=If[Length[$multipletIndices] == 0, 0, Max[$multipletIndices]] + 1}, 
-       If[Length[res] === 2,
-          AppendTo[$multipletIndices, new];
-          $multiplet[new] = If[res[[2]], {}, {{},{}}]; 
-          $multipletName[new] = res[[1]];
-          $multipletSC[new] = res[[2]];
-       ]
-    ], Method -> "Queued", ImageSize -> {Automatic, 50}, Enabled -> Dynamic[$RSymmetry =!= Null]], 
-    ""}}, Alignment -> Center, Spacings -> {Automatic, 2}, 
-  Dividers -> {True, All}], Background -> Lighter[Gray, 0.9]];
+      Dynamic[InputField[
+        Dynamic[$RSymmetry, {Automatic, SetRSymmetry[#1] &}], 
+        Enabled -> $editing, FieldSize -> {20, 1}]]}], "", ""}, {"", 
+    "", Dynamic[
+     If[Length[$multipletIndices] == 0, 
+      Style["Set the R-symmetry, and then add a multiplet.", 11, 
+       Italic], 
+      TabView[Table[$multipletName[i] -> 
+         Column[{Framed@DisplayMultiplet[i, "EditMode" -> $editing], 
+           Button[Style["Copy as TeX", 14], 
+            CopyToClipboard[tikzMultiplet[$viewingMultiplet]], 
+            ImageSize -> 200]}, 
+          Alignment -> Center], {i, $multipletIndices}], 
+       Dynamic[$viewingMultiplet], Alignment -> Center, 
+       ImageSize -> Automatic]]], 
+    Button["Add Multiplet", 
+     With[{res = multipletDialog[], 
+       new = If[Length[$multipletIndices] == 0, 0, 
+          Max[$multipletIndices]] + 1}, 
+      If[Length[res] === 2, AppendTo[$multipletIndices, new];
+       $multiplet[new] = If[res[[2]], {}, {{}, {}}];
+       $multipletName[new] = res[[1]];
+       $multipletSC[new] = res[[2]];]], Method -> "Queued", 
+     ImageSize -> {Automatic, 30}, 
+     Enabled -> Dynamic[$RSymmetry =!= Null]]}}, Alignment -> Center, 
+  Spacings -> {Automatic, 2}, Dividers -> {True, All}], 
+ Background -> Lighter[Gray, 0.9]];
          
 NontrivialPermutations[t_] := 
   Select[Permutations[Range@TensorRank[Components[t]]], 
@@ -758,32 +820,32 @@ QAnsatz[f_Field, opt : OptionsPattern[]] :=
 
 \[Eta]Upper = 
   Tensor[{{"\[Eta]", Raised[SpaceTime], Raised[SpaceTime]}}];
-BuildTensor[{"\[Eta]", Raised[SpaceTime], Raised[SpaceTime]}] = 
-  SparseArray[DiagonalMatrix[{-1, 1, 1, 1}]];
+BuildTensor[{"\[Eta]", Raised[SpaceTime], Raised[SpaceTime]}] := 
+  SparseArray[DiagonalMatrix[{-SignatureFactor[]^2, 1, 1, 1}]];
 
 \[Eta]Lower = 
   Tensor[{{"\[Eta]", Lowered[SpaceTime], Lowered[SpaceTime]}}];
-BuildTensor[{"\[Eta]", Lowered[SpaceTime], Lowered[SpaceTime]}] = 
-  SparseArray[DiagonalMatrix[{-1, 1, 1, 1}]];
+BuildTensor[{"\[Eta]", Lowered[SpaceTime], Lowered[SpaceTime]}] := 
+  SparseArray[DiagonalMatrix[{-SignatureFactor[]^2, 1, 1, 1}]];
 
 \[Sigma]Lower = 
   Tensor[{{"\[Sigma]", Lowered[SpaceTime], Lowered[Spinor], 
      Lowered[DottedSpinor]}}];
 BuildTensor[{"\[Sigma]", Lowered[SpaceTime], Lowered[Spinor], 
-    Lowered[DottedSpinor]}] = 
-  SparseArray[{-1, 1, 1, 1} (PauliMatrix /@ Range[0, 3])];
+    Lowered[DottedSpinor]}] := 
+  SparseArray[{-SignatureFactor[], 1, 1, 1} (PauliMatrix /@ Range[0, 3])];
 \[Sigma]BarLower = 
   Tensor[{{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", 
      Lowered[SpaceTime], Raised[DottedSpinor], Raised[Spinor]}}];
 BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", 
-    Lowered[SpaceTime], Raised[DottedSpinor], Raised[Spinor]}] = 
-  SparseArray[{1, 1, 1, 1} (PauliMatrix /@ Range[0, 3])];
+    Lowered[SpaceTime], Raised[DottedSpinor], Raised[Spinor]}] := 
+  SparseArray[{SignatureFactor[], 1, 1, 1} (PauliMatrix /@ Range[0, 3])];
 
 \[Sigma]Upper = 
   Tensor[{{"\[Sigma]", Raised[SpaceTime], Lowered[Spinor], 
      Lowered[DottedSpinor]}}];
 BuildTensor[{"\[Sigma]", Raised[SpaceTime], Lowered[Spinor], 
-    Lowered[DottedSpinor]}] = 
+    Lowered[DottedSpinor]}] := 
   Components@
    Contract[TensorProduct[\[Eta]Upper, \[Sigma]Lower], {{2, 3}}];
 
@@ -791,7 +853,7 @@ BuildTensor[{"\[Sigma]", Raised[SpaceTime], Lowered[Spinor],
   Tensor[{{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", 
      Raised[SpaceTime], Raised[DottedSpinor], Raised[Spinor]}}];
 BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", 
-    Raised[SpaceTime], Raised[DottedSpinor], Raised[Spinor]}] = 
+    Raised[SpaceTime], Raised[DottedSpinor], Raised[Spinor]}] := 
   Components@
    Contract[TensorProduct[\[Eta]Upper, \[Sigma]BarLower], {{2, 3}}];
 
@@ -799,7 +861,7 @@ BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)",
   Tensor[{{"\[Sigma]", Lowered[SpaceTime], Lowered[SpaceTime], 
      Lowered[Spinor], Lowered[Spinor]}}];
 BuildTensor[{"\[Sigma]", Lowered[SpaceTime], Lowered[SpaceTime], 
-    Lowered[Spinor], Lowered[Spinor]}] = -1/
+    Lowered[Spinor], Lowered[Spinor]}] := -1/
    4 TensorTranspose[
     CanonicallyOrderedComponents[
      Contract[
@@ -819,7 +881,7 @@ BuildTensor[{"\[Sigma]", Lowered[SpaceTime], Lowered[SpaceTime],
      Lowered[DottedSpinor]}}];
 BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", 
     Lowered[SpaceTime], Lowered[SpaceTime], Lowered[DottedSpinor], 
-    Lowered[DottedSpinor]}] = -1/
+    Lowered[DottedSpinor]}] := -1/
    4 TensorTranspose[
     CanonicallyOrderedComponents[
      Contract[
@@ -837,7 +899,7 @@ BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)",
   Tensor[{{"\[Sigma]", Raised[SpaceTime], Raised[SpaceTime], 
      Lowered[Spinor], Lowered[Spinor]}}];
 BuildTensor[{"\[Sigma]", Raised[SpaceTime], Raised[SpaceTime], 
-    Lowered[Spinor], Lowered[Spinor]}] = -1/
+    Lowered[Spinor], Lowered[Spinor]}] := -1/
    4 TensorTranspose[
     CanonicallyOrderedComponents[
      Contract[
@@ -857,7 +919,7 @@ BuildTensor[{"\[Sigma]", Raised[SpaceTime], Raised[SpaceTime],
      Lowered[DottedSpinor]}}];
 BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", 
     Raised[SpaceTime], Raised[SpaceTime], Lowered[DottedSpinor], 
-    Lowered[DottedSpinor]}] = -1/
+    Lowered[DottedSpinor]}] := -1/
    4 TensorTranspose[
     CanonicallyOrderedComponents[
      Contract[
@@ -872,8 +934,8 @@ BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)",
        Lowered[DottedSpinor], Lowered[DottedSpinor]}]];
        
 Format[x[i_, j_], TraditionalForm] := Superscript[Subscript[x, i], j];
-Format[SpacetimePoint[i_], TraditionalForm] := Subscript["x", i];
-Format[SpacetimeSeparation[i_, j_], TraditionalForm] := Subscript["x", Row[{i, j}]];
+Format[SpacetimePoint[i_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", i];
+Format[SpacetimeSeparation[i_, j_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", Row[{i, j}]];
 
 XX[i_] := Tensor[{{SpacetimePoint[i], Raised[SpaceTime]}}];
 BuildTensor[{SpacetimePoint[i_], Raised[SpaceTime]}] := SparseArray@Table[x[i, k], {k, 4}];
@@ -893,8 +955,8 @@ AppendTo[TensorTools`Private`explicitRules,
     Contract[
      TensorProduct[XX[i, j], \[Eta]Lower, 
       XX[i, j]], {{1, 2}, {3, 4}}]]];
-Format[XXSquared[i_], TraditionalForm] := (Subscript["x", Row[{i}]])^2;
-Format[XXSquared[i_, j_], TraditionalForm] := (Subscript["x", 
+Format[XXSquared[i_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", Row[{i}]])^2;
+Format[XXSquared[i_, j_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", 
    Row[{i, j}]])^2;
 MakeBoxes[Power[XXSquared[xs__], n_], TraditionalForm] := 
   If[n == 1/2, 
@@ -1442,13 +1504,6 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 
 quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] - 
  2 I TensorProduct[Kronecker[RIndex[fundRep[$RSymmetry]]], Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}}], Tensor[{op}]];
- 
-(*solveGroups[{}, vars_, rules_, assum_] := {};
-solveGroups[grps_, vars_, rules_, assum_] := With[{sol = Quiet[Solve[Join[(grps[[1]] /. rules), assum], vars]][[1]]},
-	With[{rest = Select[solveGroups[Rest[grps], vars, Join[rules /. sol, sol], assum], !MemberQ[sol[[;;, 1]], #[[1]]] &]},
-	   Select[Simplify[Join[sol /. rest, rest], assum], ! SameQ @@ # &]
-	]
-];*)
 
 solveGroups[grps_, vars_, rules_, assum_] := 
  ResourceFunction["MonitorProgress"][Fold[
@@ -1543,65 +1598,64 @@ DisplaySUSYVariations[opt:OptionsPattern[]] := TabView[
    Table[$multipletName[i] -> susyTable[If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"]}, {k, 0, OptionValue["MaxDepth"] - j}]]],opt], {i, $multipletIndices}], 
    Alignment -> Center, ImageSize -> Automatic];
   
-\[Epsilon]SpaceTime = 
+\[Epsilon]Spacetime = 
   Tensor[{{"\[Epsilon]", Lowered[SpaceTime], Lowered[SpaceTime], 
      Lowered[SpaceTime], Lowered[SpaceTime]}}];
-\[Epsilon]SpaceTimeUpper = 
+\[Epsilon]SpacetimeUpper = 
   Tensor[{{"\[Epsilon]", Raised[SpaceTime], Raised[SpaceTime], 
      Raised[SpaceTime], Raised[SpaceTime]}}];
 BuildTensor[{"\[Epsilon]", Lowered[SpaceTime], Lowered[SpaceTime], 
-    Lowered[SpaceTime], Lowered[SpaceTime]}] := -LeviCivitaTensor[4];
+    Lowered[SpaceTime], Lowered[SpaceTime]}] := -SignatureFactor[]^2 LeviCivitaTensor[4];
 BuildTensor[{"\[Epsilon]", Raised[SpaceTime], Raised[SpaceTime], 
     Raised[SpaceTime], Raised[SpaceTime]}] := LeviCivitaTensor[4];
 
 SpinorX[{i_, j_}, {k_, l_}, {m_, n_}] := 
   Contract[
-   TensorProduct[\[Epsilon]SpaceTime, XX[i, j], XX[k, l], 
+   TensorProduct[\[Epsilon]Spacetime, XX[i, j], XX[k, l], 
     XX[m, n], \[Sigma]Upper], {{1, 5}, {2, 6}, {3, 7}, {4, 8}}];
 
 MyInactive /: MakeBoxes[MyInactive[StructureI][i_, j_], TraditionalForm] :=
-   SuperscriptBox["\!\(\*OverscriptBox[\(I\), \(^\)]\)", 
+   SuperscriptBox[OverscriptBox["I", "^"], 
    RowBox@{ToString[i], ",", ToString[j]}];
 MyInactive /: 
   MakeBoxes[MyInactive[StructureI][i_, j_, k_, l_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(I\), \(^\)]\)", 
+  SubsuperscriptBox[OverscriptBox["I", "^"], 
    RowBox@{ToString[k], ",", ToString[l]}, 
    RowBox@{ToString[i], ",", ToString[j]}];
 MyInactive /: 
   MakeBoxes[MyInactive[StructureJ][k_, i_, j_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(J\), \(^\)]\)", 
+  SubsuperscriptBox[OverscriptBox["J", "^"], 
    RowBox@{ToString[i], ",", ToString[j]}, RowBox@{ToString[k]}];
 MyInactive /: 
   MakeBoxes[MyInactive[StructureK][i_, j_, k_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(K\), \(^\)]\)", 
+  SubsuperscriptBox[OverscriptBox["K", "^"], 
    RowBox@{ToString[k]}, RowBox@{ToString[i], ",", ToString[j]}];
 MyInactive /: 
   MakeBoxes[MyInactive[StructureKBar][i_, j_, k_], TraditionalForm] := 
   SubsuperscriptBox[
-   "\!\(\*OverscriptBox[OverscriptBox[\(K\), \(_\)], \(^\)]\)", 
+   OverscriptBox[OverscriptBox["K", "_"], "^"], 
    RowBox@{ToString[k]}, RowBox@{ToString[i], ",", ToString[j]}];
 MyInactive /: 
   MakeBoxes[MyInactive[StructureL][i_, j_, k_, l_], TraditionalForm] := 
-  SubsuperscriptBox["\!\(\*OverscriptBox[\(L\), \(^\)]\)", 
+  SubsuperscriptBox[OverscriptBox["L", "^"], 
    RowBox@{ToString[j], ",", ToString[k], ",", ToString[l]}, 
    RowBox@{ToString[i]}];
 MyInactive /: 
   MakeBoxes[MyInactive[StructureLBar][i_, j_, k_, l_], 
    TraditionalForm] := 
   SubsuperscriptBox[
-   "\!\(\*OverscriptBox[OverscriptBox[\(L\), \(_\)], \(^\)]\)", 
+    OverscriptBox[OverscriptBox["L", "_"], "^"], 
    RowBox@{ToString[j], ",", ToString[k], ",", ToString[l]}, 
    RowBox@{ToString[i]}];
        
 StructureI[i_, j_] := SpinorX[i, j];
-StructureI[i_, j_, k_, l_] := 
-  If[i == j, StructureJ[i, k, l], 
-   1/(2 XXSquared[k, 
+StructureI[i_, j_, k_, l_] /; i === j := StructureJ[i, k, l];
+StructureI[i_, j_, k_, l_] /; i =!= j := 1/(2 XXSquared[k, 
       l]) ((XXSquared[i, k] SpinorX[j, l] - 
         XXSquared[i, l] SpinorX[j, k]) + (XXSquared[j, k] SpinorX[i, 
           l] - XXSquared[j, l] SpinorX[i, k]) - 
       XXSquared[i, j] SpinorX[k, l] - XXSquared[k, l] SpinorX[i, j] - 
-      2 I SpinorX[{i, k}, {l, j}, {l, k}])];
+      (2 I / SignatureFactor[]) SpinorX[{i, k}, {l, j}, {l, k}]);
 
 StructureJ[k_, i_, j_] := (XXSquared[i, k] XXSquared[j, k])/
    XXSquared[i, 
@@ -1836,7 +1890,7 @@ BuildTensor[{"M", Raised[SpaceTime], Lowered[SpaceTime],
         Raised[Spinor]}]];
 
 BuildTensor[{"M", Raised[SpaceTime], Lowered[SpaceTime], 
-    Lowered[DottedSpinor], Raised[DottedSpinor]}] := -1/
+    Lowered[DottedSpinor], Raised[DottedSpinor]}] := - 1/
    2 TensorTranspose[
     CanonicallyOrderedComponents[
      Contract[
