@@ -23,15 +23,15 @@ WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Wi
 ];
 
 superprimaryQ[f_Field] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f];
-superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, spQ];
-superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, spQ];
+superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
+superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
 Options[SolveWard] = {"QBar" -> False, "Fit" -> False};
 SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 SolveWard[fields : {_Field..}, OptionsPattern[]] := Module[{eqs, vars, bm},
    eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True];
-   vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !spCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
+   vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
    bm = CoefficientArrays[eqs, vars];
 	 If[OptionValue["Fit"],
 	    wardSolveFit[eqs, vars],

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   1105000,      25321]
-NotebookOptionsPosition[   1091744,      25113]
-NotebookOutlinePosition[   1092268,      25132]
-CellTagsIndexPosition[   1092225,      25129]
+NotebookDataLength[   1089587,      24804]
+NotebookOptionsPosition[   1077313,      24613]
+NotebookOutlinePosition[   1077841,      24632]
+CellTagsIndexPosition[   1077798,      24629]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -32,573 +32,96 @@ Cell[BoxData[
  CellLabel->"In[1]:=",ExpressionUUID->"e6ea2357-b4cf-45c9-a763-19a70fab190a"],
 
 Cell[BoxData[
- RowBox[{"SCWIGE`Private`wizardPanel", "[", "]"}]],
+ PanelBox[
+  TagBox[GridBox[{
+     {"\<\"\"\>", "\<\"\"\>", 
+      StyleBox["\<\"Setup Wizard\"\>",
+       StripOnInput->False,
+       FontSize->20], 
+      TemplateBox[{
+        StyleBox["\"Editing: \"", 16, StripOnInput -> False], 
+        TemplateBox[{5}, "Spacer1"], 
+        CheckboxBox[
+         Dynamic[SCWIGE`Private`$editing]]},
+       "RowDefault"], ""},
+     {"\<\"\"\>", "\<\"\"\>", 
+      TemplateBox[{
+        StyleBox["\"Signature: \"", 14, StripOnInput -> False], 
+        DynamicBox[
+         ToBoxes[
+          RadioButtonBar[
+           Dynamic[SCWIGE`Private`$signatureFactor], {
+           1 -> Style["Lorentzian", 12], I -> Style["Euclidean", 12]}, 
+           Enabled -> SCWIGE`Private`$editing], StandardForm]]},
+       "RowDefault"], 
+      DynamicBox[ToBoxes[
+        PopupWindow[
+         Button["View Conventions"], 
+         SCWIGE`Private`conventionsPanel[], WindowSize -> {1000, 400}, 
+         WindowFloating -> False, WindowTitle -> "Conventions"], StandardForm],
+       ImageSizeCache->{79., {8.433593688416295, 12.566406311583705`}}], ""},
+     {"\<\"\"\>", "\<\"\"\>", 
+      TemplateBox[{
+        StyleBox["\"R-symmetry: \"", 16, StripOnInput -> False], 
+        DynamicBox[
+         ToBoxes[
+          InputField[
+           Dynamic[
+           SCWIGE`Private`$RSymmetry, {Automatic, SCWIGE`SetRSymmetry[#]& }], 
+           Enabled -> SCWIGE`Private`$editing, FieldSize -> {20, 1}], 
+          StandardForm]]},
+       "RowDefault"], "\<\"\"\>", "\<\"\"\>"},
+     {"\<\"\"\>", "\<\"\"\>", 
+      DynamicBox[ToBoxes[
+        If[Length[SCWIGE`Private`$multipletIndices] == 0, 
+         Style["Set the R-symmetry, and then add a multiplet.", 11, Italic], 
+         TabView[
+          Table[SCWIGE`Private`$multipletName[SCWIGE`Private`i] -> Column[{
+              Framed[
+               SCWIGE`DisplayMultiplet[
+               SCWIGE`Private`i, "EditMode" -> SCWIGE`Private`$editing]], 
+              Button[
+               Style["Copy as TeX", 14], 
+               CopyToClipboard[
+                SCWIGE`Private`tikzMultiplet[
+                SCWIGE`Private`$viewingMultiplet]], ImageSize -> 200]}, 
+             Alignment -> Center], {
+           SCWIGE`Private`i, SCWIGE`Private`$multipletIndices}], 
+          Dynamic[SCWIGE`Private`$viewingMultiplet], Alignment -> Center, 
+          ImageSize -> Automatic]], StandardForm],
+       ImageSizeCache->{222.13526105484925`, {3., 8.}}], 
+      ButtonBox["\<\"Add Multiplet\"\>",
+       Appearance->Automatic,
+       ButtonFunction:>
+        With[{SCWIGE`Private`res = SCWIGE`Private`multipletDialog[], 
+          SCWIGE`Private`new = 
+          If[Length[SCWIGE`Private`$multipletIndices] == 0, 0, 
+             Max[SCWIGE`Private`$multipletIndices]] + 1}, 
+         If[
+         Length[SCWIGE`Private`res] === 2, 
+          AppendTo[SCWIGE`Private`$multipletIndices, SCWIGE`Private`new]; 
+          SCWIGE`Private`$multiplet[SCWIGE`Private`new] = If[
+             Part[SCWIGE`Private`res, 2], {}, {{}, {}}]; 
+          SCWIGE`Private`$multipletName[SCWIGE`Private`new] = 
+           Part[SCWIGE`Private`res, 1]; 
+          SCWIGE`Private`$multipletSC[SCWIGE`Private`new] = 
+           Part[SCWIGE`Private`res, 2]; Null]],
+       Enabled->Dynamic[SCWIGE`Private`$RSymmetry =!= Null],
+       Evaluator->Automatic,
+       ImageSize->{Automatic, 30},
+       Method->"Queued"], ""}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Center}}},
+    GridBoxDividers->{"Columns" -> {True, {}, True}, "Rows" -> {{True}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+    GridBoxSpacings->{"Columns" -> {{Automatic}}, "Rows" -> {{2}}}],
+   "Grid"],
+  Background->RGBColor[0.95, 0.95, 0.95]]],
  GeneratedCell->True,
  CellAutoOverwrite->True,
- CellChangeTimes->{3.9126429681379557`*^9},
- TextAlignment->Center,ExpressionUUID->"5d4cdd5a-fbaf-4cb1-bea1-e132503f0b62"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"SpacetimeStructureExpressions", "[", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"0", ",", "0"}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"1", "/", "2"}], ",", 
-       RowBox[{"1", "/", "2"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"1", "/", "2"}], ",", 
-       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
-   RowBox[{"\"\<Overcomplete\>\"", "->", "True"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.912610735770096*^9, 3.91261074456046*^9}, {
-   3.912618888878703*^9, 3.912618907835509*^9}, {3.9126189567773447`*^9, 
-   3.9126189819317274`*^9}, {3.912619559488267*^9, 3.912619570844967*^9}, 
-   3.912620077231696*^9},
- CellLabel->"In[21]:=",ExpressionUUID->"5cfd0e56-22fa-4152-ae34-6f6cc7bedd47"],
-
-Cell[BoxData[
- FormBox[
-  RowBox[{"(", "\[NoBreak]", GridBox[{
-     {
-      RowBox[{
-       SuperscriptBox[
-        OverscriptBox["I", "^"], 
-        RowBox[{"2", ",", "3"}]], "\[TensorProduct]", 
-       SuperscriptBox[
-        OverscriptBox["I", "^"], 
-        RowBox[{"3", ",", "2"}]]}], 
-      RowBox[{"Cycles", "[", 
-       RowBox[{"(", "\[NoBreak]", GridBox[{
-          {"1", "3"}
-         },
-         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.7]}, 
-             Offset[0.27999999999999997`]}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
-     {
-      RowBox[{
-       SubsuperscriptBox[
-        OverscriptBox["J", "^"], 
-        RowBox[{"1", ",", "3"}], "2"], "\[TensorProduct]", 
-       SubsuperscriptBox[
-        OverscriptBox["J", "^"], 
-        RowBox[{"1", ",", "2"}], "3"]}], 
-      RowBox[{"Cycles", "[", 
-       RowBox[{"{", "}"}], "]"}]},
-     {
-      RowBox[{
-       SubsuperscriptBox[
-        OverscriptBox["K", "^"], "1", 
-        RowBox[{"2", ",", "3"}]], "\[TensorProduct]", 
-       SubsuperscriptBox[
-        OverscriptBox[
-         OverscriptBox["K", "_"], "^"], "1", 
-        RowBox[{"2", ",", "3"}]]}], 
-      RowBox[{"Cycles", "[", 
-       RowBox[{"(", "\[NoBreak]", GridBox[{
-          {"2", "3"}
-         },
-         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.7]}, 
-             Offset[0.27999999999999997`]}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]}
-    },
-    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
-    GridBoxSpacings->{"Columns" -> {
-        Offset[0.27999999999999997`], {
-         Offset[0.7]}, 
-        Offset[0.27999999999999997`]}, "Rows" -> {
-        Offset[0.2], {
-         Offset[0.4]}, 
-        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
- CellChangeTimes->{
-  3.91261074553477*^9, 3.9126109864865775`*^9, {3.912618891701973*^9, 
-   3.912618908528303*^9}, {3.9126189653053856`*^9, 3.912618982175452*^9}, {
-   3.9126195633650794`*^9, 3.9126195711222496`*^9}, 3.9126200775802507`*^9},
- CellLabel->"Out[21]=",ExpressionUUID->"14269589-7030-47f5-b0e3-32ccdfbb24b4"]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"test", "[", 
-    RowBox[{"\[CapitalDelta]1_", ",", "\[CapitalDelta]2_"}], "]"}], ":=", 
-   FractionBox[
-    SuperscriptBox[
-     RowBox[{"Sum", "[", 
-      RowBox[{
-       SuperscriptBox[
-        RowBox[{"x", "[", 
-         RowBox[{"2", ",", "i"}], "]"}], "2"], ",", 
-       RowBox[{"{", 
-        RowBox[{"i", ",", "3"}], "}"}]}], "]"}], 
-     RowBox[{
-      RowBox[{"(", 
-       RowBox[{"\[CapitalDelta]1", "-", "\[CapitalDelta]2"}], ")"}], "/", 
-      "2"}]], 
-    SuperscriptBox[
-     RowBox[{"XXSquared", "[", 
-      RowBox[{"1", ",", "2"}], "]"}], "\[CapitalDelta]1"]]}], ";"}]], "Input",
- CellChangeTimes->{{3.91263442132996*^9, 3.91263444974977*^9}, {
-  3.9126344895623107`*^9, 3.912634542161154*^9}},
- CellLabel->"In[27]:=",ExpressionUUID->"aee7f941-6b3e-4d85-83f9-e732a6e89574"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{
-   RowBox[{"CanonicallyOrderedComponents", "[", 
-    RowBox[{"SCWIGE`Private`ConformalCheck", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"2", ",", "3"}], "}"}], ",", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"0", ",", "0"}], "}"}], ",", 
-        RowBox[{"{", 
-         RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", 
-      RowBox[{"{", 
-       RowBox[{"1", ",", "2"}], "}"}], ",", 
-      RowBox[{"test", "[", 
-       RowBox[{"2", ",", "3"}], "]"}]}], "]"}], "]"}], "//", "Normal"}], "//",
-   "FullSimplify"}]], "Input",
- CellChangeTimes->{{3.9126337134539957`*^9, 3.9126337209218864`*^9}, {
-  3.912634221340067*^9, 3.912634225360718*^9}, {3.912634525632305*^9, 
-  3.912634580187354*^9}},
- CellLabel->"In[32]:=",ExpressionUUID->"5acff8df-0b3f-453c-8c7c-6c5a001179a7"],
-
-Cell[BoxData[
- FormBox[
-  RowBox[{"{", 
-   RowBox[{
-    FractionBox[
-     RowBox[{
-      FormBox[
-       TemplateBox[{
-         SubscriptBox["x", "2"], "1"},
-        "Superscript"],
-       TraditionalForm], " ", 
-      RowBox[{"(", 
-       RowBox[{
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "1"},
-           "Superscript"],
-          TraditionalForm], "2"], "-", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "2"},
-           "Superscript"],
-          TraditionalForm], "2"], "-", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "3"},
-           "Superscript"],
-          TraditionalForm], "2"], "-", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "4"},
-           "Superscript"],
-          TraditionalForm], "2"]}], ")"}]}], 
-     RowBox[{
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "1"},
-            "Superscript"],
-           TraditionalForm], "2"], "+", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "2"},
-            "Superscript"],
-           TraditionalForm], "2"], "+", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "3"},
-            "Superscript"],
-           TraditionalForm], "2"]}], ")"}], 
-       RowBox[{"3", "/", "2"}]], " ", 
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", 
-          SuperscriptBox[
-           RowBox[{"(", 
-            RowBox[{
-             FormBox[
-              TemplateBox[{
-                SubscriptBox["x", "1"], "1"},
-               "Superscript"],
-              TraditionalForm], "-", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox["x", "2"], "1"},
-               "Superscript"],
-              TraditionalForm]}], ")"}], "2"]}], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "2"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "2"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "3"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "3"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "4"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "4"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"]}], ")"}], "2"]}]], ",", 
-    FractionBox[
-     RowBox[{
-      FormBox[
-       TemplateBox[{
-         SubscriptBox["x", "2"], "2"},
-        "Superscript"],
-       TraditionalForm], " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "1"},
-            "Superscript"],
-           TraditionalForm], "2"]}], "+", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "2"},
-           "Superscript"],
-          TraditionalForm], "2"], "+", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "3"},
-           "Superscript"],
-          TraditionalForm], "2"], "+", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "4"},
-           "Superscript"],
-          TraditionalForm], "2"]}], ")"}]}], 
-     RowBox[{
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "1"},
-            "Superscript"],
-           TraditionalForm], "2"], "+", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "2"},
-            "Superscript"],
-           TraditionalForm], "2"], "+", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "3"},
-            "Superscript"],
-           TraditionalForm], "2"]}], ")"}], 
-       RowBox[{"3", "/", "2"}]], " ", 
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", 
-          SuperscriptBox[
-           RowBox[{"(", 
-            RowBox[{
-             FormBox[
-              TemplateBox[{
-                SubscriptBox["x", "1"], "1"},
-               "Superscript"],
-              TraditionalForm], "-", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox["x", "2"], "1"},
-               "Superscript"],
-              TraditionalForm]}], ")"}], "2"]}], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "2"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "2"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "3"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "3"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "4"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "4"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"]}], ")"}], "2"]}]], ",", 
-    FractionBox[
-     RowBox[{
-      FormBox[
-       TemplateBox[{
-         SubscriptBox["x", "2"], "3"},
-        "Superscript"],
-       TraditionalForm], " ", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"-", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "1"},
-            "Superscript"],
-           TraditionalForm], "2"]}], "+", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "2"},
-           "Superscript"],
-          TraditionalForm], "2"], "+", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "3"},
-           "Superscript"],
-          TraditionalForm], "2"], "+", 
-        SuperscriptBox[
-         FormBox[
-          TemplateBox[{
-            SubscriptBox["x", "2"], "4"},
-           "Superscript"],
-          TraditionalForm], "2"]}], ")"}]}], 
-     RowBox[{
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "1"},
-            "Superscript"],
-           TraditionalForm], "2"], "+", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "2"},
-            "Superscript"],
-           TraditionalForm], "2"], "+", 
-         SuperscriptBox[
-          FormBox[
-           TemplateBox[{
-             SubscriptBox["x", "2"], "3"},
-            "Superscript"],
-           TraditionalForm], "2"]}], ")"}], 
-       RowBox[{"3", "/", "2"}]], " ", 
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", 
-          SuperscriptBox[
-           RowBox[{"(", 
-            RowBox[{
-             FormBox[
-              TemplateBox[{
-                SubscriptBox["x", "1"], "1"},
-               "Superscript"],
-              TraditionalForm], "-", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox["x", "2"], "1"},
-               "Superscript"],
-              TraditionalForm]}], ")"}], "2"]}], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "2"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "2"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "3"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "3"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"], "+", 
-         SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "1"], "4"},
-              "Superscript"],
-             TraditionalForm], "-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox["x", "2"], "4"},
-              "Superscript"],
-             TraditionalForm]}], ")"}], "2"]}], ")"}], "2"]}]], ",", "0"}], 
-   "}"}], TraditionalForm]], "Output",
- CellChangeTimes->{{3.9126345275715013`*^9, 3.9126345876033316`*^9}},
- CellLabel->"Out[32]=",ExpressionUUID->"77da9465-83f7-4802-8ae8-4a1efb46b2dc"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"KinematicPrefactor", "[", 
-   RowBox[{
-    RowBox[{"{", 
-     RowBox[{
-     "\[CapitalDelta]\[Phi]", ",", "\[CapitalDelta]\[Phi]", ",", 
-      "\[CapitalDelta]j", ",", "\[CapitalDelta]j"}], "}"}], ",", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"0", ",", "0"}], "}"}], ",", 
-      RowBox[{"{", 
-       RowBox[{"0", ",", "0"}], "}"}], ",", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"1", "/", "2"}], ",", 
-        RowBox[{"1", "/", "2"}]}], "}"}], ",", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"1", "/", "2"}], ",", 
-        RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}]}], "]"}], "//", 
-  "StandardForm"}]], "Input",
- CellChangeTimes->{{3.9126108602071877`*^9, 3.912610922064329*^9}, {
-  3.91261100204212*^9, 3.912611019322233*^9}, {3.912611090119837*^9, 
-  3.9126111246931057`*^9}, {3.912619199021617*^9, 3.9126192012951903`*^9}},
- CellLabel->"In[17]:=",ExpressionUUID->"e7d58b67-7d45-40c1-8598-10e66535925f"],
-
-Cell[BoxData[
- RowBox[{
-  SuperscriptBox[
-   RowBox[{"XXSquared", "[", 
-    RowBox[{"1", ",", "2"}], "]"}], 
-   RowBox[{"-", "\[CapitalDelta]\[Phi]"}]], " ", 
-  SuperscriptBox[
-   RowBox[{"XXSquared", "[", 
-    RowBox[{"3", ",", "4"}], "]"}], 
-   RowBox[{
-    FractionBox["1", "2"], " ", 
-    RowBox[{"(", 
-     RowBox[{
-      RowBox[{"-", "2"}], "-", 
-      RowBox[{"2", " ", "\[CapitalDelta]j"}]}], ")"}]}]]}]], "Output",
- CellChangeTimes->{{3.9126108646473546`*^9, 3.9126109224433565`*^9}, {
-   3.912610987616726*^9, 3.91261101968541*^9}, {3.91261109168845*^9, 
-   3.912611124923814*^9}, 3.912619201590232*^9},
- CellLabel->
-  "Out[17]//StandardForm=",ExpressionUUID->"5e953e6d-cb5d-4dc8-80b2-\
-846654de1d20"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"XXSquared", "[", 
-  RowBox[{"1", ",", "2"}], "]"}]], "Input",
- CellChangeTimes->{{3.9126108937121296`*^9, 3.912610895476924*^9}},
- CellLabel->"In[48]:=",ExpressionUUID->"7d5240da-0849-4953-9c39-c8b480319438"],
-
-Cell[BoxData[
- FormBox[
-  SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", 
-   TemplateBox[{"1", "2"},
-    "RowDefault"], "2"], TraditionalForm]], "Output",
- CellChangeTimes->{3.912610895690236*^9},
- CellLabel->"Out[48]=",ExpressionUUID->"2679294e-539c-4367-a31c-f625694eb6a2"]
-}, Open  ]],
+ CellChangeTimes->{3.912718054546816*^9},
+ TextAlignment->Center,ExpressionUUID->"1b75c7c0-f6c4-4fd1-a3fa-f28d8a8d3dac"],
 
 Cell[CellGroupData[{
 
@@ -14300,7 +13823,7 @@ Cell["\[ScriptCapitalN] = 4 Stress tensor", "Section",
 Cell[BoxData[
  RowBox[{"SetRSymmetry", "[", "SU4", "]"}]], "Input",
  CellChangeTimes->{{3.887722536995759*^9, 3.887722539050499*^9}},
- CellLabel->"In[9]:=",ExpressionUUID->"8c6b1a01-3512-4d1a-ac4f-91906fce6fc6"],
+ CellLabel->"In[1]:=",ExpressionUUID->"8c6b1a01-3512-4d1a-ac4f-91906fce6fc6"],
 
 Cell[BoxData[{
  RowBox[{
@@ -14899,7 +14422,7 @@ TraditionalForm]\\)\>\"", ",",
   3.8898713670598726`*^9}, {3.894381908656396*^9, 3.894381912050668*^9}, {
   3.894637942714155*^9, 3.8946379427662354`*^9}, {3.898686869913984*^9, 
   3.898686869978198*^9}},
- CellLabel->"In[10]:=",ExpressionUUID->"dcd280db-ec31-4da4-9386-0344c3d7e698"],
+ CellLabel->"In[2]:=",ExpressionUUID->"dcd280db-ec31-4da4-9386-0344c3d7e698"],
 
 Cell[CellGroupData[{
 
@@ -14911,7 +14434,7 @@ Cell[BoxData[
    3.8992027821111307`*^9}, {3.899205269383421*^9, 3.8992052714418306`*^9}, 
    3.8992058323789797`*^9, {3.8992058760388374`*^9, 3.899205880075206*^9}, 
    3.899207000774942*^9},
- CellLabel->"In[11]:=",ExpressionUUID->"0a2f7b54-e566-4344-9bab-73a696282f8b"],
+ CellLabel->"In[3]:=",ExpressionUUID->"0a2f7b54-e566-4344-9bab-73a696282f8b"],
 
 Cell[BoxData[
  FormBox[
@@ -14936,7 +14459,8 @@ Cell[BoxData[
                "Superscript", SyntaxForm -> SuperscriptBox]},
              "RowDefault"],
             TraditionalForm], 
-           RowBox[{"2", " ", "\[ImaginaryI]", " ", 
+           RowBox[{
+            RowBox[{"-", "2"}], " ", "\[ImaginaryI]", " ", 
             FormBox[
              TemplateBox[{
                TemplateBox[{
@@ -15041,8 +14565,7 @@ Cell[BoxData[
             TraditionalForm], 
            RowBox[{
             RowBox[{
-             RowBox[{"-", 
-              SqrtBox["3"]}], " ", 
+             SqrtBox["6"], " ", 
              FormBox[
               TemplateBox[{
                 TemplateBox[{
@@ -15075,7 +14598,7 @@ Cell[BoxData[
                    TagBox["\[Alpha]", HoldForm], 
                    TagBox["\[Beta]", HoldForm]}, "RowDefault"]]},
                "RowDefault"],
-              TraditionalForm]}], "-", 
+              TraditionalForm]}], "+", 
             RowBox[{"2", " ", "\[ImaginaryI]", " ", 
              FormBox[
               TemplateBox[{
@@ -15135,7 +14658,7 @@ Cell[BoxData[
             TraditionalForm], 
            RowBox[{
             RowBox[{
-             SqrtBox["3"], " ", 
+             SqrtBox["6"], " ", 
              FormBox[
               TemplateBox[{
                 SubscriptBox[
@@ -15321,41 +14844,6 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{"\[ImaginaryI]", " ", 
-             SqrtBox["6"], " ", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"20\"", Bold, StripOnInput -> False]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["J", HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   TagBox["\[Alpha]", HoldForm], 
-                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}], "-", 
             RowBox[{
              FractionBox["1", "2"], " ", 
              FormBox[
@@ -15390,6 +14878,41 @@ Cell[BoxData[
                     0.6666666666666666], StripOnInput -> False]}, 
                  "Superscript", SyntaxForm -> SuperscriptBox]},
                "RowDefault"],
+              TraditionalForm]}], "-", 
+            RowBox[{"\[ImaginaryI]", " ", 
+             SqrtBox["6"], " ", 
+             FormBox[
+              TemplateBox[{
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox["C", HoldForm], 
+                   SubscriptBox["\"i\"", 
+                    StyleBox["\"20\"", Bold, StripOnInput -> False]]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   SubscriptBox["\"i\"", 
+                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                   StyleBox[
+                    SubscriptBox["\"i\"", 
+                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
+                    RGBColor[
+                    0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                  "RowDefault"]], 
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox["J", HoldForm], 
+                   StyleBox[
+                    SubscriptBox["\"i\"", 
+                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
+                    RGBColor[
+                    0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   TagBox["\[Alpha]", HoldForm], 
+                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
+               "RowDefault"],
               TraditionalForm]}]}]},
           {
            FormBox[
@@ -15413,46 +14936,45 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{
-             RowBox[{"-", "2"}], " ", 
-             SqrtBox[
-              FractionBox["2", "3"]], " ", 
-             FormBox[
-              TemplateBox[{
-                TemplateBox[{
-                  SubscriptBox[
-                   TagBox["C", HoldForm], 
-                   StyleBox[
+            FractionBox[
+             RowBox[{"4", " ", 
+              FormBox[
+               TemplateBox[{
+                 TemplateBox[{
+                   SubscriptBox[
+                    TagBox["C", HoldForm], 
+                    StyleBox[
                     SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]], 
-                  TemplateBox[{
+                   TemplateBox[{
                     SubscriptBox["\"i\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     SubscriptBox["\"i\"", 
                     StyleBox["\"15\"", Bold, StripOnInput -> False]]}, 
-                   "RowDefault"]}, "Superscript", SyntaxForm -> 
-                 SuperscriptBox], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["\[Psi]", HoldForm], 
-                   StyleBox[
+                    "RowDefault"]}, "Superscript", SyntaxForm -> 
+                  SuperscriptBox], 
+                 SubscriptBox[
+                  TemplateBox[{
+                    TagBox["\[Psi]", HoldForm], 
+                    StyleBox[
                     SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   TagBox["\[Alpha]", HoldForm], 
-                   TemplateBox[{
+                   "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TemplateBox[{
+                    TagBox["\[Alpha]", HoldForm], 
+                    TemplateBox[{
                     TagBox["\[Beta]", HoldForm], 
                     OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
-                  "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}], "+", 
+                   "RowDefault"]]},
+                "RowDefault"],
+               TraditionalForm]}], 
+             SqrtBox["3"]], "-", 
             RowBox[{
              SqrtBox[
               FractionBox["2", "3"]], " ", 
@@ -15490,7 +15012,7 @@ Cell[BoxData[
                   "Superscript", SyntaxForm -> SuperscriptBox], 
                  TagBox["\[Beta]", HoldForm]]},
                "RowDefault"],
-              TraditionalForm]}], "-", 
+              TraditionalForm]}], "+", 
             FractionBox[
              FormBox[
               TemplateBox[{
@@ -15549,48 +15071,48 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{"2", " ", 
-             SqrtBox[
-              FractionBox["2", "3"]], " ", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
+            FractionBox[
+             RowBox[{"4", " ", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox[
+                  TemplateBox[{
+                    TagBox["C", HoldForm], 
+                    SubscriptBox["\"i\"", 
                     StyleBox["\"15\"", Bold, StripOnInput -> False]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"i\"", 
+                   "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TemplateBox[{
+                    SubscriptBox["\"i\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
+                    StyleBox[
                     SubscriptBox["\"i\"", 
                     OverscriptBox[
                     StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox[
+                   "RowDefault"]], 
+                 SubscriptBox[
+                  TemplateBox[{
+                    TagBox[
                     OverscriptBox["\[Psi]", "_"], HoldForm], 
-                   StyleBox[
+                    StyleBox[
                     SubscriptBox["\"i\"", 
                     OverscriptBox[
                     StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   TagBox["\[Alpha]", HoldForm], 
-                   TemplateBox[{
+                   "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TemplateBox[{
+                    TagBox["\[Alpha]", HoldForm], 
+                    TemplateBox[{
                     OverscriptBox["\"\[Alpha]\"", "."], 
                     OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, 
-                  "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}], "-", 
+                   "RowDefault"]]},
+                "RowDefault"],
+               TraditionalForm]}], 
+             SqrtBox["3"]], "-", 
             RowBox[{
              SqrtBox[
               FractionBox["2", "3"]], " ", 
@@ -15690,7 +15212,8 @@ Cell[BoxData[
                "Superscript", SyntaxForm -> SuperscriptBox]},
              "RowDefault"],
             TraditionalForm], 
-           RowBox[{"\[ImaginaryI]", " ", 
+           RowBox[{
+            RowBox[{"-", "\[ImaginaryI]"}], " ", 
             SqrtBox["6"], " ", 
             FormBox[
              TemplateBox[{
@@ -15799,8 +15322,7 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{
-             SqrtBox["2"], " ", 
+            RowBox[{"-", 
              FormBox[
               TemplateBox[{
                 TemplateBox[{
@@ -15838,47 +15360,45 @@ Cell[BoxData[
                    TagBox["\[Alpha]", HoldForm], 
                    TagBox["\[Gamma]", HoldForm]}, "RowDefault"]]},
                "RowDefault"],
-              TraditionalForm]}], "+", 
-            RowBox[{
-             SqrtBox["2"], " ", 
-             FormBox[
-              TemplateBox[{
-                TemplateBox[{
-                  SubscriptBox[
-                   TagBox["C", HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
+              TraditionalForm]}], "-", 
+            FormBox[
+             TemplateBox[{
+               TemplateBox[{
+                 SubscriptBox[
+                  TagBox["C", HoldForm], 
+                  StyleBox[
+                   SubscriptBox["\"i\"", 
                     OverscriptBox[
                     StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]], 
-                  TemplateBox[{
-                    SubscriptBox["\"i\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                    SubscriptBox["\"i\"", 
-                    StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
-                   "RowDefault"]}, "Superscript", SyntaxForm -> 
-                 SuperscriptBox], 
-                SubscriptBox[
                  TemplateBox[{
-                   TagBox["\[Lambda]", HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
+                   SubscriptBox["\"i\"", 
+                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                   SubscriptBox["\"i\"", 
+                    StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
+                  "RowDefault"]}, "Superscript", SyntaxForm -> 
+                SuperscriptBox], 
+               SubscriptBox[
+                TemplateBox[{
+                  TagBox["\[Lambda]", HoldForm], 
+                  StyleBox[
+                   SubscriptBox["\"i\"", 
                     OverscriptBox[
                     StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TagBox["\[Gamma]", HoldForm]], 
-                SubscriptBox[
-                 TagBox["\[Epsilon]", HoldForm], 
-                 TemplateBox[{
-                   TagBox["\[Alpha]", HoldForm], 
-                   TagBox["\[Beta]", HoldForm]}, "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}]}], 
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                TagBox["\[Gamma]", HoldForm]], 
+               SubscriptBox[
+                TagBox["\[Epsilon]", HoldForm], 
+                TemplateBox[{
+                  TagBox["\[Alpha]", HoldForm], 
+                  TagBox["\[Beta]", HoldForm]}, "RowDefault"]]},
+              "RowDefault"],
+             TraditionalForm]}], 
            FormBox[
             TemplateBox[{
               SubscriptBox[
@@ -15901,84 +15421,80 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{
-             SqrtBox["2"], " ", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"i\"", 
+            FormBox[
+             TemplateBox[{
+               SubscriptBox[
+                TemplateBox[{
+                  TagBox["C", HoldForm], 
+                  SubscriptBox["\"i\"", 
+                   StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                TemplateBox[{
+                  SubscriptBox["\"i\"", 
+                   StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                  StyleBox[
+                   SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
-                    SubscriptBox["\"j\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox[
-                    OverscriptBox["\[Lambda]", "_"], HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"j\"", 
+                 "RowDefault"]], 
+               SubscriptBox[
+                TemplateBox[{
+                  TagBox[
+                   OverscriptBox["\[Lambda]", "_"], HoldForm], 
+                  StyleBox[
+                   SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 OverscriptBox["\"\[Beta]\"", "."]], 
-                SubscriptBox[
-                 TagBox["\[Epsilon]", HoldForm], 
-                 TemplateBox[{
-                   OverscriptBox["\"\[Alpha]\"", "."], 
-                   OverscriptBox["\"\[Gamma]\"", "."]}, "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}], "+", 
-            RowBox[{
-             SqrtBox["2"], " ", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"i\"", 
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                OverscriptBox["\"\[Beta]\"", "."]], 
+               SubscriptBox[
+                TagBox["\[Epsilon]", HoldForm], 
+                TemplateBox[{
+                  OverscriptBox["\"\[Alpha]\"", "."], 
+                  OverscriptBox["\"\[Gamma]\"", "."]}, "RowDefault"]]},
+              "RowDefault"],
+             TraditionalForm], "+", 
+            FormBox[
+             TemplateBox[{
+               SubscriptBox[
+                TemplateBox[{
+                  TagBox["C", HoldForm], 
+                  SubscriptBox["\"i\"", 
+                   StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                TemplateBox[{
+                  SubscriptBox["\"i\"", 
+                   StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                  StyleBox[
+                   SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
-                    SubscriptBox["\"j\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox[
-                    OverscriptBox["\[Lambda]", "_"], HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"j\"", 
+                 "RowDefault"]], 
+               SubscriptBox[
+                TemplateBox[{
+                  TagBox[
+                   OverscriptBox["\[Lambda]", "_"], HoldForm], 
+                  StyleBox[
+                   SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 OverscriptBox["\"\[Gamma]\"", "."]], 
-                SubscriptBox[
-                 TagBox["\[Epsilon]", HoldForm], 
-                 TemplateBox[{
-                   OverscriptBox["\"\[Alpha]\"", "."], 
-                   OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}]}]},
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                OverscriptBox["\"\[Gamma]\"", "."]], 
+               SubscriptBox[
+                TagBox["\[Epsilon]", HoldForm], 
+                TemplateBox[{
+                  OverscriptBox["\"\[Alpha]\"", "."], 
+                  OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
+              "RowDefault"],
+             TraditionalForm]}]},
           {
            FormBox[
             TemplateBox[{
@@ -16085,7 +15601,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"2", " ", 
-              SqrtBox["3"]}]], "-", 
+              SqrtBox["6"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -16127,7 +15643,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"2", " ", 
-              SqrtBox["3"]}]]}], 
+              SqrtBox["6"]}]]}], 
            FormBox[
             TemplateBox[{
               SubscriptBox[
@@ -16149,18 +15665,17 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{"-", 
-             FractionBox[
-              RowBox[{"4", " ", "\[ImaginaryI]", " ", 
-               FormBox[
-                TemplateBox[{
-                  SubscriptBox[
-                   TemplateBox[{
+            FractionBox[
+             RowBox[{"4", " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox[
+                  TemplateBox[{
                     TagBox["C", HoldForm], 
                     SubscriptBox["\"i\"", 
                     StyleBox["\"6\"", Bold, StripOnInput -> False]]}, 
-                    "Superscript", SyntaxForm -> SuperscriptBox], 
-                   TemplateBox[{
+                   "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TemplateBox[{
                     SubscriptBox["\"i\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     StyleBox[
@@ -16169,9 +15684,9 @@ Cell[BoxData[
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                    "RowDefault"]], 
-                  SubscriptBox[
-                   TemplateBox[{
+                   "RowDefault"]], 
+                 SubscriptBox[
+                  TemplateBox[{
                     TagBox["\[Psi]", HoldForm], 
                     StyleBox[
                     SubscriptBox["\"j\"", 
@@ -16179,16 +15694,16 @@ Cell[BoxData[
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                    "Superscript", SyntaxForm -> SuperscriptBox], 
-                   TemplateBox[{
+                   "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TemplateBox[{
                     TagBox["\[Alpha]", HoldForm], 
                     TemplateBox[{
                     TagBox["\[Beta]", HoldForm], 
                     OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
-                    "RowDefault"]]},
-                 "RowDefault"],
-                TraditionalForm]}], 
-              SqrtBox["3"]]}], "+", 
+                   "RowDefault"]]},
+                "RowDefault"],
+               TraditionalForm]}], 
+             SqrtBox["3"]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -16227,7 +15742,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"2", " ", 
-              SqrtBox["3"]}]], "+", 
+              SqrtBox["6"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -16266,7 +15781,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"2", " ", 
-              SqrtBox["3"]}]]}]},
+              SqrtBox["6"]}]]}]},
           {
            FormBox[
             TemplateBox[{
@@ -16361,66 +15876,63 @@ Cell[BoxData[
                "Superscript", SyntaxForm -> SuperscriptBox]},
              "RowDefault"],
             TraditionalForm], 
-           RowBox[{"-", 
-            FormBox[
-             TemplateBox[{
-               SubscriptBox[
-                TemplateBox[{
-                  TagBox["C", HoldForm], 
+           FormBox[
+            TemplateBox[{
+              SubscriptBox[
+               TemplateBox[{
+                 TagBox["C", HoldForm], 
+                 SubscriptBox["\"i\"", 
+                  OverscriptBox[
+                   StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]]}, 
+                "Superscript", SyntaxForm -> SuperscriptBox], 
+               TemplateBox[{
+                 SubscriptBox["\"i\"", 
+                  StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                 StyleBox[
                   SubscriptBox["\"i\"", 
-                   OverscriptBox[
-                    StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]]}, 
-                 "Superscript", SyntaxForm -> SuperscriptBox], 
-                TemplateBox[{
+                   StyleBox["\"20\"", Bold, StripOnInput -> False]], 
+                  RGBColor[
+                  0.6666666666666666, 0.6666666666666666, 0.6666666666666666],
+                   StripOnInput -> False]}, "RowDefault"]], 
+              SubscriptBox["\"\[PartialD]\"", 
+               TemplateBox[{
+                 StyleBox[
+                  TagBox["\[Alpha]", HoldForm], 
+                  RGBColor[
+                  0.6666666666666666, 0.6666666666666666, 0.6666666666666666],
+                   StripOnInput -> False], 
+                 OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+              SubscriptBox[
+               TemplateBox[{
+                 TagBox["\[Chi]", HoldForm], 
+                 StyleBox[
                   SubscriptBox["\"i\"", 
-                   StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                  StyleBox[
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"20\"", Bold, StripOnInput -> False]], 
-                   RGBColor[
-                   0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                 "RowDefault"]], 
-               SubscriptBox["\"\[PartialD]\"", 
+                   StyleBox["\"20\"", Bold, StripOnInput -> False]], 
+                  RGBColor[
+                  0.6666666666666666, 0.6666666666666666, 0.6666666666666666],
+                   StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+                SuperscriptBox], 
+               StyleBox[
+                TagBox["\[Beta]", HoldForm], 
+                RGBColor[
+                0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+                StripOnInput -> False]], 
+              TemplateBox[{
+                TagBox["\[Epsilon]", HoldForm], 
                 TemplateBox[{
                   StyleBox[
                    TagBox["\[Alpha]", HoldForm], 
                    RGBColor[
                    0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False], 
-                  OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-               SubscriptBox[
-                TemplateBox[{
-                  TagBox["\[Chi]", HoldForm], 
                   StyleBox[
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"20\"", Bold, StripOnInput -> False]], 
+                   TagBox["\[Beta]", HoldForm], 
                    RGBColor[
                    0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                 "Superscript", SyntaxForm -> SuperscriptBox], 
-                StyleBox[
-                 TagBox["\[Beta]", HoldForm], 
-                 RGBColor[
-                 0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
-                 StripOnInput -> False]], 
-               TemplateBox[{
-                 TagBox["\[Epsilon]", HoldForm], 
-                 TemplateBox[{
-                   StyleBox[
-                    TagBox["\[Alpha]", HoldForm], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False], 
-                   StyleBox[
-                    TagBox["\[Beta]", HoldForm], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]}, "Superscript", SyntaxForm -> 
-                SuperscriptBox]},
-              "RowDefault"],
-             TraditionalForm]}]},
+                 "RowDefault"]}, "Superscript", SyntaxForm -> SuperscriptBox]},
+             "RowDefault"],
+            TraditionalForm]},
           {
            FormBox[
             TemplateBox[{
@@ -16441,8 +15953,7 @@ Cell[BoxData[
                TagBox["\[Beta]", HoldForm]]},
              "RowDefault"],
             TraditionalForm], 
-           RowBox[{
-            RowBox[{"-", "2"}], " ", "\[ImaginaryI]", " ", 
+           RowBox[{"2", " ", "\[ImaginaryI]", " ", 
             SqrtBox["2"], " ", 
             FormBox[
              TemplateBox[{
@@ -16561,8 +16072,7 @@ Cell[BoxData[
             TraditionalForm], 
            RowBox[{
             RowBox[{
-             RowBox[{"-", 
-              FractionBox["1", "2"]}], " ", 
+             FractionBox["1", "2"], " ", 
              SqrtBox["3"], " ", 
              FormBox[
               TemplateBox[{
@@ -16600,7 +16110,7 @@ Cell[BoxData[
                    TagBox["\[Beta]", HoldForm], 
                    TagBox["\[Gamma]", HoldForm]}, "RowDefault"]]},
                "RowDefault"],
-              TraditionalForm]}], "+", 
+              TraditionalForm]}], "-", 
             FractionBox[
              FormBox[
               TemplateBox[{
@@ -16640,7 +16150,7 @@ Cell[BoxData[
                "RowDefault"],
               TraditionalForm], 
              RowBox[{"2", " ", 
-              SqrtBox["3"]}]], "+", 
+              SqrtBox["3"]}]], "-", 
             FractionBox[
              FormBox[
               TemplateBox[{
@@ -16862,7 +16372,7 @@ Cell[BoxData[
            RowBox[{
             RowBox[{
              RowBox[{"-", 
-              SqrtBox["5"]}], " ", 
+              SqrtBox["10"]}], " ", 
              FormBox[
               TemplateBox[{
                 TemplateBox[{
@@ -16903,9 +16413,8 @@ Cell[BoxData[
                "RowDefault"],
               TraditionalForm]}], "+", 
             RowBox[{
-             FractionBox["1", "4"], " ", "\[ImaginaryI]", " ", 
-             SqrtBox[
-              FractionBox["3", "2"]], " ", 
+             FractionBox["1", "8"], " ", "\[ImaginaryI]", " ", 
+             SqrtBox["3"], " ", 
              FormBox[
               TemplateBox[{
                 TemplateBox[{
@@ -16945,9 +16454,8 @@ Cell[BoxData[
                "RowDefault"],
               TraditionalForm]}], "+", 
             RowBox[{
-             FractionBox["1", "4"], " ", "\[ImaginaryI]", " ", 
-             SqrtBox[
-              FractionBox["3", "2"]], " ", 
+             FractionBox["1", "8"], " ", "\[ImaginaryI]", " ", 
+             SqrtBox["3"], " ", 
              FormBox[
               TemplateBox[{
                 TemplateBox[{
@@ -17026,8 +16534,8 @@ Cell[BoxData[
                     OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
                 "RowDefault"],
                TraditionalForm]}], 
-             RowBox[{"4", " ", 
-              SqrtBox["6"]}]], "-", 
+             RowBox[{"8", " ", 
+              SqrtBox["3"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17068,8 +16576,8 @@ Cell[BoxData[
                     OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
                 "RowDefault"],
                TraditionalForm]}], 
-             RowBox[{"4", " ", 
-              SqrtBox["6"]}]]}], 
+             RowBox[{"8", " ", 
+              SqrtBox["3"]}]]}], 
            FormBox[
             TemplateBox[{
               SubscriptBox[
@@ -17095,8 +16603,7 @@ Cell[BoxData[
             TraditionalForm], 
            RowBox[{
             RowBox[{
-             RowBox[{"-", 
-              SqrtBox["5"]}], " ", 
+             SqrtBox["10"], " ", 
              FormBox[
               TemplateBox[{
                 SubscriptBox[
@@ -17134,48 +16641,47 @@ Cell[BoxData[
                     OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, 
                     "RowDefault"]}, "RowDefault"]]},
                "RowDefault"],
+              TraditionalForm]}], "+", 
+            RowBox[{
+             FractionBox["1", "8"], " ", "\[ImaginaryI]", " ", 
+             SqrtBox["3"], " ", 
+             FormBox[
+              TemplateBox[{
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox["C", HoldForm], 
+                   SubscriptBox["\"i\"", 
+                    StyleBox["\"4\"", Bold, StripOnInput -> False]]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   SubscriptBox["\"j\"", 
+                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                   StyleBox[
+                    SubscriptBox["\"i\"", 
+                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
+                    RGBColor[
+                    0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                  "RowDefault"]], 
+                SubscriptBox["\"\[PartialD]\"", 
+                 TemplateBox[{
+                   TagBox["\[Alpha]", HoldForm], 
+                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox["J", HoldForm], 
+                   StyleBox[
+                    SubscriptBox["\"i\"", 
+                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
+                    RGBColor[
+                    0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   TagBox["\[Beta]", HoldForm], 
+                   OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
+               "RowDefault"],
               TraditionalForm]}], "-", 
-            RowBox[{
-             FractionBox["1", "4"], " ", "\[ImaginaryI]", " ", 
-             SqrtBox[
-              FractionBox["3", "2"]], " ", 
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"j\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox["\"\[PartialD]\"", 
-                 TemplateBox[{
-                   TagBox["\[Alpha]", HoldForm], 
-                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["J", HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    StyleBox["\"15\"", Bold, StripOnInput -> False]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   TagBox["\[Beta]", HoldForm], 
-                   OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
-               "RowDefault"],
-              TraditionalForm]}], "+", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17215,12 +16721,11 @@ Cell[BoxData[
                     OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
                 "RowDefault"],
                TraditionalForm]}], 
-             RowBox[{"4", " ", 
-              SqrtBox["6"]}]], "-", 
+             RowBox[{"8", " ", 
+              SqrtBox["3"]}]], "+", 
             RowBox[{
-             FractionBox["1", "4"], " ", "\[ImaginaryI]", " ", 
-             SqrtBox[
-              FractionBox["3", "2"]], " ", 
+             FractionBox["1", "8"], " ", "\[ImaginaryI]", " ", 
+             SqrtBox["3"], " ", 
              FormBox[
               TemplateBox[{
                 SubscriptBox[
@@ -17257,7 +16762,7 @@ Cell[BoxData[
                    TagBox["\[Alpha]", HoldForm], 
                    OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]]},
                "RowDefault"],
-              TraditionalForm]}], "+", 
+              TraditionalForm]}], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17297,8 +16802,8 @@ Cell[BoxData[
                     OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
                 "RowDefault"],
                TraditionalForm]}], 
-             RowBox[{"4", " ", 
-              SqrtBox["6"]}]]}]},
+             RowBox[{"8", " ", 
+              SqrtBox["3"]}]]}]},
           {
            FormBox[
             TemplateBox[{
@@ -17356,56 +16861,55 @@ Cell[BoxData[
                "RowDefault"],
               TraditionalForm], 
              SqrtBox["6"]], "+", 
-            FractionBox[
-             RowBox[{"\[ImaginaryI]", " ", 
-              FormBox[
-               TemplateBox[{
-                 TemplateBox[{
-                   SubscriptBox[
-                    TagBox["C", HoldForm], 
-                    StyleBox[
+            RowBox[{"\[ImaginaryI]", " ", 
+             FormBox[
+              TemplateBox[{
+                TemplateBox[{
+                  SubscriptBox[
+                   TagBox["C", HoldForm], 
+                   StyleBox[
                     SubscriptBox["\"i\"", 
                     StyleBox["\"6\"", Bold, StripOnInput -> False]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]], 
-                   TemplateBox[{
+                  TemplateBox[{
                     SubscriptBox["\"i\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     SubscriptBox["\"j\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]]}, 
-                    "RowDefault"]}, "Superscript", SyntaxForm -> 
-                  SuperscriptBox], 
-                 SubscriptBox["\"\[PartialD]\"", 
-                  TemplateBox[{
-                    TagBox["\[Alpha]", HoldForm], 
-                    StyleBox[
+                   "RowDefault"]}, "Superscript", SyntaxForm -> 
+                 SuperscriptBox], 
+                SubscriptBox["\"\[PartialD]\"", 
+                 TemplateBox[{
+                   TagBox["\[Alpha]", HoldForm], 
+                   StyleBox[
                     OverscriptBox["\"\[Beta]\"", "."], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                   "RowDefault"]], 
-                 SubscriptBox[
-                  TemplateBox[{
-                    TagBox[
+                  "RowDefault"]], 
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox[
                     OverscriptBox["F", "_"], HoldForm], 
-                    StyleBox[
+                   StyleBox[
                     SubscriptBox["\"i\"", 
                     StyleBox["\"6\"", Bold, StripOnInput -> False]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                   "Superscript", SyntaxForm -> SuperscriptBox], 
-                  TemplateBox[{
-                    StyleBox[
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   StyleBox[
                     OverscriptBox["\"\[Gamma]\"", "."], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False], 
-                    OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-                 TemplateBox[{
-                   TagBox["\[Epsilon]", HoldForm], 
-                   TemplateBox[{
+                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+                TemplateBox[{
+                  TagBox["\[Epsilon]", HoldForm], 
+                  TemplateBox[{
                     StyleBox[
                     OverscriptBox["\"\[Beta]\"", "."], 
                     RGBColor[
@@ -17416,11 +16920,10 @@ Cell[BoxData[
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                    "RowDefault"]}, "Superscript", SyntaxForm -> 
-                  SuperscriptBox]},
-                "RowDefault"],
-               TraditionalForm]}], 
-             SqrtBox["2"]]}], 
+                   "RowDefault"]}, "Superscript", SyntaxForm -> 
+                 SuperscriptBox]},
+               "RowDefault"],
+              TraditionalForm]}]}], 
            FormBox[
             TemplateBox[{
               SubscriptBox[
@@ -17441,46 +16944,8 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            FractionBox[
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
-                    OverscriptBox[
-                    StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    OverscriptBox[
-                    StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox["\"\[PartialD]\"", 
-                 TemplateBox[{
-                   TagBox["\[Alpha]", HoldForm], 
-                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-                TemplateBox[{
-                  TagBox["P", HoldForm], 
-                  StyleBox[
-                   SubscriptBox["\"i\"", 
-                    OverscriptBox[
-                    StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]], 
-                   RGBColor[
-                   0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                 "Superscript", SyntaxForm -> SuperscriptBox]},
-               "RowDefault"],
-              TraditionalForm], 
-             SqrtBox["6"]], "+", 
-            FractionBox[
-             RowBox[{"\[ImaginaryI]", " ", 
+            RowBox[{"-", 
+             FractionBox[
               FormBox[
                TemplateBox[{
                  SubscriptBox[
@@ -17495,39 +16960,77 @@ Cell[BoxData[
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     StyleBox[
                     SubscriptBox["\"i\"", 
-                    StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+                    OverscriptBox[
+                    StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
                    "RowDefault"]], 
                  SubscriptBox["\"\[PartialD]\"", 
                   TemplateBox[{
-                    StyleBox[
-                    TagBox["\[Beta]", HoldForm], 
+                    TagBox["\[Alpha]", HoldForm], 
+                    OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+                 TemplateBox[{
+                   TagBox["P", HoldForm], 
+                   StyleBox[
+                    SubscriptBox["\"i\"", 
+                    OverscriptBox[
+                    StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False], 
-                    OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-                 SubscriptBox[
-                  TemplateBox[{
-                    TagBox["F", HoldForm], 
-                    StyleBox[
+                    0.6666666666666666], StripOnInput -> False]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox]},
+                "RowDefault"],
+               TraditionalForm], 
+              SqrtBox["6"]]}], "-", 
+            RowBox[{"\[ImaginaryI]", " ", 
+             FormBox[
+              TemplateBox[{
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox["C", HoldForm], 
+                   SubscriptBox["\"i\"", 
+                    OverscriptBox[
+                    StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   SubscriptBox["\"i\"", 
+                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                   StyleBox[
                     SubscriptBox["\"i\"", 
                     StyleBox["\"6\"", Bold, StripOnInput -> False]], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                   "Superscript", SyntaxForm -> SuperscriptBox], 
-                  TemplateBox[{
-                    StyleBox[
+                  "RowDefault"]], 
+                SubscriptBox["\"\[PartialD]\"", 
+                 TemplateBox[{
+                   StyleBox[
+                    TagBox["\[Beta]", HoldForm], 
+                    RGBColor[
+                    0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False], 
+                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+                SubscriptBox[
+                 TemplateBox[{
+                   TagBox["F", HoldForm], 
+                   StyleBox[
+                    SubscriptBox["\"i\"", 
+                    StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+                    RGBColor[
+                    0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                  "Superscript", SyntaxForm -> SuperscriptBox], 
+                 TemplateBox[{
+                   StyleBox[
                     TagBox["\[Gamma]", HoldForm], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False], 
-                    TagBox["\[Alpha]", HoldForm]}, "RowDefault"]], 
-                 TemplateBox[{
-                   TagBox["\[Epsilon]", HoldForm], 
-                   TemplateBox[{
+                   TagBox["\[Alpha]", HoldForm]}, "RowDefault"]], 
+                TemplateBox[{
+                  TagBox["\[Epsilon]", HoldForm], 
+                  TemplateBox[{
                     StyleBox[
                     TagBox["\[Beta]", HoldForm], 
                     RGBColor[
@@ -17538,11 +17041,10 @@ Cell[BoxData[
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                    "RowDefault"]}, "Superscript", SyntaxForm -> 
-                  SuperscriptBox]},
-                "RowDefault"],
-               TraditionalForm]}], 
-             SqrtBox["2"]]}]},
+                   "RowDefault"]}, "Superscript", SyntaxForm -> 
+                 SuperscriptBox]},
+               "RowDefault"],
+              TraditionalForm]}]}]},
           {
            FormBox[
             TemplateBox[{
@@ -17604,13 +17106,12 @@ Cell[BoxData[
              "RowDefault"],
             TraditionalForm], 
            RowBox[{
-            RowBox[{"-", 
-             FractionBox[
-              RowBox[{"\[ImaginaryI]", " ", 
-               FormBox[
-                TemplateBox[{
-                  TemplateBox[{
-                    SubscriptBox[
+            FractionBox[
+             RowBox[{"\[ImaginaryI]", " ", 
+              FormBox[
+               TemplateBox[{
+                 TemplateBox[{
+                   SubscriptBox[
                     TagBox["C", HoldForm], 
                     StyleBox[
                     SubscriptBox["\"j\"", 
@@ -17618,19 +17119,19 @@ Cell[BoxData[
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]], 
-                    TemplateBox[{
+                   TemplateBox[{
                     SubscriptBox["\"i\"", 
                     StyleBox["\"4\"", Bold, StripOnInput -> False]], 
                     SubscriptBox["\"i\"", 
                     StyleBox["\"1\"", Bold, StripOnInput -> False]]}, 
                     "RowDefault"]}, "Superscript", SyntaxForm -> 
-                   SuperscriptBox], 
-                  SubscriptBox["\"\[PartialD]\"", 
-                   TemplateBox[{
+                  SuperscriptBox], 
+                 SubscriptBox["\"\[PartialD]\"", 
+                  TemplateBox[{
                     TagBox["\[Alpha]", HoldForm], 
                     OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-                  SubscriptBox[
-                   TemplateBox[{
+                 SubscriptBox[
+                  TemplateBox[{
                     TagBox["\[Psi]", HoldForm], 
                     StyleBox[
                     SubscriptBox["\"j\"", 
@@ -17638,16 +17139,16 @@ Cell[BoxData[
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                    "Superscript", SyntaxForm -> SuperscriptBox], 
-                   TemplateBox[{
+                   "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TemplateBox[{
                     TagBox["\[Beta]", HoldForm], 
                     TemplateBox[{
                     TagBox["\[Gamma]", HoldForm], 
                     OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, 
-                    "RowDefault"]]},
-                 "RowDefault"],
-                TraditionalForm]}], 
-              SqrtBox["5"]]}], "-", 
+                   "RowDefault"]]},
+                "RowDefault"],
+               TraditionalForm]}], 
+             SqrtBox["10"]], "+", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17690,7 +17191,7 @@ Cell[BoxData[
                    "RowDefault"]]},
                 "RowDefault"],
                TraditionalForm]}], 
-             SqrtBox["5"]], "+", 
+             SqrtBox["10"]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17734,7 +17235,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]], "+", 
+              SqrtBox["10"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17778,7 +17279,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]], "+", 
+              SqrtBox["10"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17822,7 +17323,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]], "+", 
+              SqrtBox["10"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17866,7 +17367,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]]}], 
+              SqrtBox["10"]}]]}], 
            FormBox[
             TemplateBox[{
               SubscriptBox[
@@ -17939,7 +17440,7 @@ Cell[BoxData[
                     "RowDefault"]]},
                  "RowDefault"],
                 TraditionalForm]}], 
-              SqrtBox["5"]]}], "+", 
+              SqrtBox["10"]]}], "+", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -17986,7 +17487,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]], "+", 
+              SqrtBox["10"]}]], "+", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -18033,7 +17534,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]], "-", 
+              SqrtBox["10"]}]], "-", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -18079,7 +17580,7 @@ Cell[BoxData[
                    "RowDefault"]]},
                 "RowDefault"],
                TraditionalForm]}], 
-             SqrtBox["5"]], "+", 
+             SqrtBox["10"]], "+", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -18126,7 +17627,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]], "+", 
+              SqrtBox["10"]}]], "+", 
             FractionBox[
              RowBox[{"\[ImaginaryI]", " ", 
               FormBox[
@@ -18173,7 +17674,7 @@ Cell[BoxData[
                 "RowDefault"],
                TraditionalForm]}], 
              RowBox[{"4", " ", 
-              SqrtBox["5"]}]]}]},
+              SqrtBox["10"]}]]}]},
           {
            FormBox[
             TemplateBox[{
@@ -18270,69 +17771,68 @@ Cell[BoxData[
                "Superscript", SyntaxForm -> SuperscriptBox]},
              "RowDefault"],
             TraditionalForm], 
-           RowBox[{"-", 
-            FractionBox[
-             FormBox[
-              TemplateBox[{
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["C", HoldForm], 
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"1\"", Bold, StripOnInput -> False]]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 TemplateBox[{
-                   SubscriptBox["\"i\"", 
-                    StyleBox["\"4\"", Bold, StripOnInput -> False]], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    OverscriptBox[
-                    StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "RowDefault"]], 
-                SubscriptBox["\"\[PartialD]\"", 
-                 TemplateBox[{
-                   StyleBox[
-                    TagBox["\[Alpha]", HoldForm], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False], 
-                   OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
-                SubscriptBox[
-                 TemplateBox[{
-                   TagBox["\[Lambda]", HoldForm], 
-                   StyleBox[
-                    SubscriptBox["\"i\"", 
-                    OverscriptBox[
-                    StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
-                    RGBColor[
-                    0.6666666666666666, 0.6666666666666666, 
-                    0.6666666666666666], StripOnInput -> False]}, 
-                  "Superscript", SyntaxForm -> SuperscriptBox], 
-                 StyleBox[
-                  TagBox["\[Beta]", HoldForm], 
-                  RGBColor[
-                  0.6666666666666666, 0.6666666666666666, 0.6666666666666666],
-                   StripOnInput -> False]], 
+           FractionBox[
+            FormBox[
+             TemplateBox[{
+               SubscriptBox[
                 TemplateBox[{
-                  TagBox["\[Epsilon]", HoldForm], 
-                  TemplateBox[{
-                    StyleBox[
+                  TagBox["C", HoldForm], 
+                  SubscriptBox["\"i\"", 
+                   StyleBox["\"1\"", Bold, StripOnInput -> False]]}, 
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                TemplateBox[{
+                  SubscriptBox["\"i\"", 
+                   StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+                  StyleBox[
+                   SubscriptBox["\"i\"", 
+                    OverscriptBox[
+                    StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                 "RowDefault"]], 
+               SubscriptBox["\"\[PartialD]\"", 
+                TemplateBox[{
+                  StyleBox[
+                   TagBox["\[Alpha]", HoldForm], 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False], 
+                  OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+               SubscriptBox[
+                TemplateBox[{
+                  TagBox["\[Lambda]", HoldForm], 
+                  StyleBox[
+                   SubscriptBox["\"i\"", 
+                    OverscriptBox[
+                    StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
+                   RGBColor[
+                   0.6666666666666666, 0.6666666666666666, 
+                    0.6666666666666666], StripOnInput -> False]}, 
+                 "Superscript", SyntaxForm -> SuperscriptBox], 
+                StyleBox[
+                 TagBox["\[Beta]", HoldForm], 
+                 RGBColor[
+                 0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+                 StripOnInput -> False]], 
+               TemplateBox[{
+                 TagBox["\[Epsilon]", HoldForm], 
+                 TemplateBox[{
+                   StyleBox[
                     TagBox["\[Alpha]", HoldForm], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False], 
-                    StyleBox[
+                   StyleBox[
                     TagBox["\[Beta]", HoldForm], 
                     RGBColor[
                     0.6666666666666666, 0.6666666666666666, 
                     0.6666666666666666], StripOnInput -> False]}, 
-                   "RowDefault"]}, "Superscript", SyntaxForm -> 
-                 SuperscriptBox]},
-               "RowDefault"],
-              TraditionalForm], 
-             SqrtBox["2"]]}]}
+                  "RowDefault"]}, "Superscript", SyntaxForm -> 
+                SuperscriptBox]},
+              "RowDefault"],
+             TraditionalForm], 
+            SqrtBox["2"]]}
          },
          AutoDelete->False,
          GridBoxAlignment->{"Columns" -> {{Left}}},
@@ -18356,7 +17856,7 @@ Cell[BoxData[
                   TensorTools`Lowered[SCWIGE`Spinor]}, {
                  "\!\(\*FormBox[\"S\", TraditionalForm]\)", 
                   TensorTools`Raised[
-                   SCWIGE`RIndex[{0, 2, 0}]]}}], Complex[0, 2] 
+                   SCWIGE`RIndex[{0, 2, 0}]]}}], Complex[0, -2] 
                TensorTools`Contract[
                  TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -18396,8 +17896,8 @@ TraditionalForm]\)",
                  "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", 
                   TensorTools`Raised[
                    SCWIGE`RIndex[{0, 1, 1}]], 
-                  TensorTools`Lowered[SCWIGE`Spinor]}}], -3^Rational[1, 2] 
-                TensorTools`Contract[
+                  TensorTools`Lowered[SCWIGE`Spinor]}}], 
+               6^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 1, 0}]], 
@@ -18410,7 +17910,7 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{0, 1, 0}]], 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {{1, 4}}] + 
-               Complex[0, -2] TensorTools`Contract[
+               Complex[0, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 0, 2}]], 
@@ -18432,7 +17932,7 @@ TraditionalForm]\)",
                   TensorTools`Raised[
                    SCWIGE`RIndex[{1, 1, 0}]], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
-               3^Rational[1, 2] TensorTools`Contract[
+               6^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{1, 1, 0}]], 
@@ -18503,7 +18003,7 @@ TraditionalForm]\)",
                   TensorTools`Raised[
                    SCWIGE`RIndex[{0, 1, 1}]], 
                   TensorTools`Lowered[SCWIGE`Spinor]}}], 
-               Complex[0, 1] 6^Rational[1, 2] TensorTools`Contract[
+               Complex[0, -1] 6^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 1}]], 
@@ -18516,7 +18016,7 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{1, 0, 1}]], 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{3, 4}}] + 
-               Rational[-1, 2] TensorTools`Contract[
+               Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 1}]], 
@@ -18537,8 +18037,8 @@ TraditionalForm]\)",
                   TensorTools`Raised[
                    SCWIGE`RIndex[{1, 0, 1}]], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
-                  TensorTools`Lowered[SCWIGE`DottedSpinor]}}], (-2) 
-                Rational[2, 3]^Rational[1, 2] TensorTools`Contract[
+                  TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
+               4 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{1, 0, 0}]], 
@@ -18551,9 +18051,9 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{1, 0, 0}]], 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor], 
-                    TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 4}}] + 
+                    TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 4}}] - 
                Rational[2, 3]^Rational[1, 2] TensorTools`Contract[
-                  TensorTools`Tensor[{{"C", 
+                 TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 1, 1}]], 
                     TensorTools`Raised[
@@ -18562,13 +18062,13 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{1, 0, 1}]]}, {"\[PartialD]", 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}, {
-                    "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", 
+                   "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 1}]], 
-                    TensorTools`Lowered[SCWIGE`Spinor]}}], {{1, 6}}] - 
+                    TensorTools`Lowered[SCWIGE`Spinor]}}], {{1, 6}}] + 
                6^Rational[-1, 2] TensorTools`Contract[
-                 TensorTools`TensorPermute[
-                  TensorTools`Tensor[{{"C", 
+                  TensorTools`TensorPermute[
+                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 1, 1}]], 
                     TensorTools`Raised[
@@ -18581,7 +18081,7 @@ TraditionalForm]\)",
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 1}]], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {1, 2, 3, 7, 5, 6, 
-                  4}], {{1, 6}}], 
+                   4}], {{1, 6}}], 
                TensorTools`Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", 
                   TensorTools`Lowered[
                    SCWIGE`RIndex[{1, 0, 0}]], 
@@ -18591,7 +18091,7 @@ TraditionalForm]\)",
                    SCWIGE`RIndex[{1, 0, 1}]], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
-               2 Rational[2, 3]^Rational[1, 2] TensorTools`Contract[
+               4 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{1, 0, 1}]], 
@@ -18616,6 +18116,7 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{1, 1, 0}]]}, {"\[PartialD]", 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}, {
+                   
                    "\!\(\*FormBox[OverscriptBox[\"\[Chi]\", \"_\"], \
 TraditionalForm]\)", 
                     TensorTools`Raised[
@@ -18644,7 +18145,7 @@ TraditionalForm]\)",
                   TensorTools`Lowered[SCWIGE`Spinor]}, {
                  "\!\(\*FormBox[\"P\", TraditionalForm]\)", 
                   TensorTools`Raised[
-                   SCWIGE`RIndex[{0, 0, 2}]]}}], Complex[0, 1] 
+                   SCWIGE`RIndex[{0, 0, 2}]]}}], Complex[0, -1] 
                6^Rational[1, 2] TensorTools`Contract[
                  TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -18686,8 +18187,7 @@ TraditionalForm]\)",
                   TensorTools`Raised[
                    SCWIGE`RIndex[{0, 1, 0}]], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
-                  TensorTools`Lowered[SCWIGE`Spinor]}}], 
-               2^Rational[1, 2] TensorTools`Contract[
+                  TensorTools`Lowered[SCWIGE`Spinor]}}], -TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -18702,22 +18202,22 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor]}, {"\[Epsilon]", 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {1, 2, 3, 4, 6, 5, 
-                   7}], {{1, 4}}] + 2^Rational[1, 2] TensorTools`Contract[
-                  TensorTools`TensorPermute[
-                   TensorTools`Tensor[{{"C", 
+                   7}], {{1, 4}}] - TensorTools`Contract[
+                TensorTools`TensorPermute[
+                 TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 0, 1}]], 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{1, 0, 0}]], 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 0}]]}, {
-                    "\!\(\*FormBox[\"\[Lambda]\", TraditionalForm]\)", 
+                   "\!\(\*FormBox[\"\[Lambda]\", TraditionalForm]\)", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 0, 1}]], 
                     TensorTools`Lowered[SCWIGE`Spinor]}, {"\[Epsilon]", 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {1, 2, 3, 4, 7, 5, 
-                   6}], {{1, 4}}], 
+                 6}], {{1, 4}}], 
                TensorTools`Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", 
                   TensorTools`Lowered[
                    SCWIGE`RIndex[{1, 0, 0}]], 
@@ -18728,9 +18228,9 @@ TraditionalForm]\)",
                    SCWIGE`RIndex[{0, 1, 0}]], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
-               2^Rational[1, 2] TensorTools`Contract[
-                  TensorTools`TensorPermute[
-                   TensorTools`Tensor[{{"C", 
+               TensorTools`Contract[
+                 TensorTools`TensorPermute[
+                  TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 0}]], 
                     TensorTools`Lowered[
@@ -18744,10 +18244,9 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}, {"\[Epsilon]", 
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
-                   6, 5, 7}], {{3, 4}}] + 
-               2^Rational[1, 2] TensorTools`Contract[
-                  TensorTools`TensorPermute[
-                   TensorTools`Tensor[{{"C", 
+                  6, 5, 7}], {{3, 4}}] + TensorTools`Contract[
+                 TensorTools`TensorPermute[
+                  TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 0}]], 
                     TensorTools`Lowered[
@@ -18761,7 +18260,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}, {"\[Epsilon]", 
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
-                   7, 5, 6}], {{3, 4}}]}, {
+                  7, 5, 6}], {{3, 4}}]}, {
                TensorTools`Tensor[{{"Q", 
                   TensorTools`Raised[
                    SCWIGE`RIndex[{1, 0, 0}]], 
@@ -18788,7 +18287,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 4}}] + 
                Complex[0, 
-                  Rational[-1, 2]] 3^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 2]] 6^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{1, 1, 0}]], 
@@ -18804,7 +18303,7 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{1, 1, 0}]], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 6}}] + 
                Complex[0, 
-                  Rational[-1, 2]] 3^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 2]] 6^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -18830,7 +18329,7 @@ TraditionalForm]\)",
                    SCWIGE`RIndex[{0, 1, 0}]], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`Spinor]}}], 
-               Complex[0, -4] 3^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, 4] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 0}]], 
@@ -18845,7 +18344,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{3, 4}}] + 
                Complex[0, 
-                  Rational[1, 2]] 3^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 2]] 6^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 0}]], 
@@ -18860,7 +18359,7 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{0, 1, 1}]], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {{3, 6}}] + 
                Complex[0, 
-                  Rational[1, 2]] 3^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 2]] 6^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -18908,23 +18407,24 @@ TraditionalForm]\)",
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}, {
                  "\!\(\*FormBox[\"P\", TraditionalForm]\)", 
                   TensorTools`Raised[
-                   SCWIGE`RIndex[{0, 0, 2}]]}}], -TensorTools`Contract[
-                 TensorTools`Tensor[{{"C", 
-                    TensorTools`Raised[
+                   SCWIGE`RIndex[{0, 0, 2}]]}}], 
+               TensorTools`Contract[
+                TensorTools`Tensor[{{"C", 
+                   TensorTools`Raised[
                     SCWIGE`RIndex[{0, 0, 2}]], 
-                    TensorTools`Lowered[
+                   TensorTools`Lowered[
                     SCWIGE`RIndex[{1, 0, 0}]], 
-                    TensorTools`Lowered[
+                   TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 1, 1}]]}, {"\[PartialD]", 
-                    TensorTools`Lowered[SCWIGE`Spinor], 
-                    TensorTools`Lowered[SCWIGE`DottedSpinor]}, {
-                   "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", 
-                    TensorTools`Raised[
+                   TensorTools`Lowered[SCWIGE`Spinor], 
+                   TensorTools`Lowered[SCWIGE`DottedSpinor]}, {
+                  "\!\(\*FormBox[\"\[Chi]\", TraditionalForm]\)", 
+                   TensorTools`Raised[
                     SCWIGE`RIndex[{0, 1, 1}]], 
-                    TensorTools`Lowered[SCWIGE`Spinor]}, {"\[Epsilon]", 
-                    TensorTools`Raised[SCWIGE`Spinor], 
-                    TensorTools`Raised[SCWIGE`Spinor]}}], {{4, 8}, {7, 9}, {3,
-                  6}}]}, {
+                   TensorTools`Lowered[SCWIGE`Spinor]}, {"\[Epsilon]", 
+                   TensorTools`Raised[SCWIGE`Spinor], 
+                   TensorTools`Raised[SCWIGE`Spinor]}}], {{4, 8}, {7, 9}, {3, 
+                6}}]}, {
                TensorTools`Tensor[{{"Q", 
                   TensorTools`Raised[
                    SCWIGE`RIndex[{1, 0, 0}]], 
@@ -18932,7 +18432,7 @@ TraditionalForm]\)",
                  "\!\(\*FormBox[\"\[Lambda]\", TraditionalForm]\)", 
                   TensorTools`Raised[
                    SCWIGE`RIndex[{0, 0, 1}]], 
-                  TensorTools`Lowered[SCWIGE`Spinor]}}], Complex[0, -2] 
+                  TensorTools`Lowered[SCWIGE`Spinor]}}], Complex[0, 2] 
                2^Rational[1, 2] TensorTools`Contract[
                  TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -18979,7 +18479,7 @@ TraditionalForm]\)",
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
-               Rational[-1, 2] 3^Rational[1, 2] TensorTools`Contract[
+               Rational[1, 2] 3^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 1, 0}]], 
@@ -18994,7 +18494,7 @@ TraditionalForm]\)",
                     SCWIGE`RIndex[{0, 1, 0}]], 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {{1, 6}}] + 
-               Rational[1, 2] 3^Rational[-1, 2] TensorTools`Contract[
+               Rational[-1, 2] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19011,7 +18511,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor]}}], {1, 2, 3, 7, 5, 6, 
                    4, 8}], {{1, 6}}] + 
-               Rational[1, 2] 3^Rational[-1, 2] TensorTools`Contract[
+               Rational[-1, 2] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19101,7 +18601,7 @@ TraditionalForm]\)",
                    SCWIGE`RIndex[{0, 0, 1}]], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor], 
-                  TensorTools`Lowered[SCWIGE`DottedSpinor]}}], -5^
+                  TensorTools`Lowered[SCWIGE`DottedSpinor]}}], -10^
                  Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19118,8 +18618,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 4}}] + 
                Complex[0, 
-                  Rational[1, 4]] Rational[3, 2]^Rational[1, 2] 
-                TensorTools`Contract[
+                  Rational[1, 8]] 3^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{1, 0, 1}]], 
@@ -19135,8 +18634,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 6}}] + 
                Complex[0, 
-                  Rational[1, 4]] Rational[3, 2]^Rational[1, 2] 
-                TensorTools`Contract[
+                  Rational[1, 8]] 3^Rational[1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19153,7 +18651,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
                    8, 6, 7, 5}], {{1, 6}}] + Complex[0, 
-                  Rational[-1, 4]] 6^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 8]] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19170,7 +18668,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 7, 
                    5, 6, 4, 8}], {{1, 6}}] + Complex[0, 
-                  Rational[-1, 4]] 6^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 8]] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19196,8 +18694,8 @@ TraditionalForm]\)",
                    SCWIGE`RIndex[{1, 0, 0}]], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`Spinor], 
-                  TensorTools`Lowered[SCWIGE`DottedSpinor]}}], -5^
-                 Rational[1, 2] TensorTools`Contract[
+                  TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
+               10^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{1, 0, 0}]], 
@@ -19213,8 +18711,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{3, 4}}] + 
                Complex[0, 
-                  Rational[-1, 4]] Rational[3, 2]^Rational[1, 2] 
-                TensorTools`Contract[
+                  Rational[1, 8]] 3^Rational[1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{1, 0, 0}]], 
@@ -19230,7 +18727,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{3, 6}}] + 
                Complex[0, 
-                  Rational[1, 4]] 6^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 8]] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19247,8 +18744,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
                    8, 6, 7, 5}], {{3, 6}}] + Complex[0, 
-                  Rational[-1, 4]] Rational[3, 2]^Rational[1, 2] 
-                TensorTools`Contract[
+                  Rational[1, 8]] 3^Rational[1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19265,7 +18761,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 7, 
                    5, 6, 4, 8}], {{3, 6}}] + Complex[0, 
-                  Rational[1, 4]] 6^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 8]] 3^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19305,7 +18801,7 @@ TraditionalForm]\)",
 TraditionalForm]\)", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{2, 0, 0}]]}}], {{1, 6}}] + 
-               Complex[0, 1] 2^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, 1] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{0, 1, 0}]], 
@@ -19331,8 +18827,8 @@ TraditionalForm]\)",
                  "\!\(\*FormBox[\"\[Lambda]\", TraditionalForm]\)", 
                   TensorTools`Raised[
                    SCWIGE`RIndex[{0, 0, 1}]], 
-                  TensorTools`Lowered[SCWIGE`Spinor]}}], 
-               6^Rational[-1, 2] TensorTools`Contract[
+                  TensorTools`Lowered[SCWIGE`Spinor]}}], -6^Rational[-1, 2] 
+                TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 0, 1}]], 
@@ -19345,7 +18841,7 @@ TraditionalForm]\)",
                     "\!\(\*FormBox[\"P\", TraditionalForm]\)", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 0, 2}]]}}], {{3, 6}}] + 
-               Complex[0, 1] 2^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, -1] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 0, 1}]], 
@@ -19389,7 +18885,7 @@ TraditionalForm]\)",
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
-               Complex[0, -1] 5^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, 1] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
                     SCWIGE`RIndex[{1, 0, 0}]], 
@@ -19405,7 +18901,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{1, 6}}] + 
-               Complex[0, -1] 5^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, 1] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19423,7 +18919,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
                    9, 6, 7, 8, 5}], {{1, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19441,7 +18937,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 7, 
                    5, 6, 4, 8, 9}], {{1, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19459,7 +18955,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 7, 
                    9, 6, 4, 8, 5}], {{1, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19477,7 +18973,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`Spinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 8, 
                    5, 6, 4, 7, 9}], {{1, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[-1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Lowered[
@@ -19506,7 +19002,7 @@ TraditionalForm]\)",
                   TensorTools`Lowered[SCWIGE`Spinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor], 
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}}], 
-               Complex[0, -1] 5^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, -1] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
                     SCWIGE`RIndex[{0, 0, 0}]], 
@@ -19524,7 +19020,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {{3, 6}}] + 
                Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19543,7 +19039,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
                    8, 6, 7, 5, 9}], {{3, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19562,7 +19058,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 4, 
                    9, 6, 7, 5, 8}], {{3, 6}}] + 
-               Complex[0, -1] 5^Rational[-1, 2] TensorTools`Contract[
+               Complex[0, -1] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19581,7 +19077,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 7, 
                    5, 6, 4, 8, 9}], {{3, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19600,7 +19096,7 @@ TraditionalForm]\)",
                     TensorTools`Lowered[SCWIGE`DottedSpinor], 
                     TensorTools`Lowered[SCWIGE`DottedSpinor]}}], {1, 2, 3, 7, 
                    8, 6, 4, 5, 9}], {{3, 6}}] + Complex[0, 
-                  Rational[1, 4]] 5^Rational[-1, 2] TensorTools`Contract[
+                  Rational[1, 4]] 10^Rational[-1, 2] TensorTools`Contract[
                   TensorTools`TensorPermute[
                    TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19651,7 +19147,7 @@ TraditionalForm]\)",
                   TensorTools`Lowered[SCWIGE`DottedSpinor]}, {
                  "\!\(\*FormBox[\"\[Phi]\", TraditionalForm]\)", 
                   TensorTools`Raised[
-                   SCWIGE`RIndex[{0, 0, 0}]]}}], -2^Rational[-1, 2] 
+                   SCWIGE`RIndex[{0, 0, 0}]]}}], 2^Rational[-1, 2] 
                TensorTools`Contract[
                  TensorTools`Tensor[{{"C", 
                     TensorTools`Raised[
@@ -19685,8 +19181,11 @@ TraditionalForm]\)",
    3.9054444745112696`*^9, 3.912347377251216*^9, 3.9123491225866575`*^9, 
    3.9123539414154425`*^9, 3.9123575729207087`*^9, {3.9123579114131584`*^9, 
    3.9123579413620186`*^9}, 3.9123580086050425`*^9, 3.912358074769337*^9, 
-   3.912360372715865*^9, 3.912461207398673*^9},
- CellLabel->"Out[11]=",ExpressionUUID->"9d29d736-880f-4433-be8e-c88db7f83627"]
+   3.912360372715865*^9, 3.912461207398673*^9, 3.9126962053734026`*^9, 
+   3.9126982380003595`*^9, 3.912698963108823*^9, 3.9126989945027*^9, 
+   3.912707084483134*^9, 3.9127075684882097`*^9, 3.9127159937367396`*^9, 
+   3.9127172543711147`*^9, 3.9127179447459574`*^9, 3.912718099851289*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"61643abb-4a22-48dd-8813-ac33d8c528e2"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -19750,7 +19249,7 @@ Cell[BoxData[{
       RowBox[{"u", ",", "v"}], "]"}]}]}], "]"}], ";"}]}], "Input",
  CellChangeTimes->{{3.889868012112029*^9, 3.8898680701255493`*^9}, {
   3.8898686750524583`*^9, 3.889868741846121*^9}},
- CellLabel->"In[12]:=",ExpressionUUID->"4eeaeb34-0fd4-47a8-b972-c9d52164fd46"],
+ CellLabel->"In[4]:=",ExpressionUUID->"4eeaeb34-0fd4-47a8-b972-c9d52164fd46"],
 
 Cell[CellGroupData[{
 
@@ -19784,7 +19283,7 @@ Cell[BoxData[
   ";"}]], "Input",
  CellChangeTimes->{{3.899292918822644*^9, 3.8992929242949915`*^9}, {
   3.8992934381783357`*^9, 3.899293440869329*^9}},
- CellLabel->"In[18]:=",ExpressionUUID->"be2dea1c-0312-4b6d-beaa-7e2cd32d4cbb"],
+ CellLabel->"In[10]:=",ExpressionUUID->"be2dea1c-0312-4b6d-beaa-7e2cd32d4cbb"],
 
 Cell[CellGroupData[{
 
@@ -19864,7 +19363,7 @@ Cell[BoxData[
    3.8910060082321196`*^9, 3.8910060356200933`*^9}, {3.8910065774902287`*^9, 
    3.8910065824242187`*^9}, {3.8910077948101177`*^9, 3.891007807919799*^9}, 
    3.894697741011346*^9, {3.899293449797917*^9, 3.899293483173663*^9}},
- CellLabel->"In[19]:=",ExpressionUUID->"5a0d7a06-6688-48d1-b269-738f4371f43c"],
+ CellLabel->"In[11]:=",ExpressionUUID->"5a0d7a06-6688-48d1-b269-738f4371f43c"],
 
 Cell[BoxData[
  FormBox[
@@ -20000,8 +19499,9 @@ TraditionalForm]\\)\\!\\(\\*FormBox[\\\"S\\\", TraditionalForm]\\)\"\>"],
    3.8914438263988466`*^9, 3.8928422758490343`*^9, {3.8946977379705887`*^9, 
    3.8946977416855383`*^9}, 3.8946981442695656`*^9, 3.8946985781248207`*^9, 
    3.899293483738793*^9, 3.9123491655206366`*^9, 3.912353974046395*^9, 
-   3.9124612454758596`*^9},
- CellLabel->"Out[19]=",ExpressionUUID->"e69e4df8-b3fd-4eaa-ba57-31eab9544a7d"]
+   3.9124612454758596`*^9, 3.9126985808325405`*^9, 3.91269901279558*^9, 
+   3.912717335118863*^9, 3.9127181910294504`*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"c252acd3-0955-45a9-918a-c0bf2e16d55e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -20018,7 +19518,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.8910057587440615`*^9, 3.8910057858604045`*^9}, {
   3.8910060448143835`*^9, 3.8910060466830387`*^9}, {3.8910078255021534`*^9, 
   3.8910078314081745`*^9}},
- CellLabel->"In[20]:=",ExpressionUUID->"5614eac9-fd4f-460b-a7cf-8261faf18c01"],
+ CellLabel->"In[12]:=",ExpressionUUID->"5614eac9-fd4f-460b-a7cf-8261faf18c01"],
 
 Cell[BoxData[
  FormBox[
@@ -20501,8 +20001,9 @@ TraditionalForm]\\)\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\\!\\(\
    3.8912935500029087`*^9, 3.891443826455847*^9, 3.892842275895929*^9, 
    3.894697745939374*^9, 3.894698144358163*^9, 3.894698578158045*^9, 
    3.899293496479969*^9, 3.9123491671520576`*^9, 3.9123539741486983`*^9, 
-   3.9124612455733414`*^9},
- CellLabel->"Out[20]=",ExpressionUUID->"2e7200a3-f17f-45ce-8d3a-7add392a03ff"]
+   3.9124612455733414`*^9, 3.9126985809085493`*^9, 3.9126990128367643`*^9, 
+   3.912717335200271*^9, 3.912718191111516*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"66eba333-7fa8-4642-b6dc-7c80a926ab7d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -20517,7 +20018,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.8910058124154935`*^9, 3.8910058138989835`*^9}, {
   3.8910060573956566`*^9, 3.8910060586898465`*^9}, {3.8910061922705216`*^9, 
   3.8910062239384565`*^9}},
- CellLabel->"In[21]:=",ExpressionUUID->"47a36b7d-568b-473e-b9af-a68bbfd2830f"],
+ CellLabel->"In[13]:=",ExpressionUUID->"47a36b7d-568b-473e-b9af-a68bbfd2830f"],
 
 Cell[BoxData[
  FormBox[
@@ -21541,8 +21042,7 @@ rZSznCsu75G5+o/J5T0mfwOD0X/1
                     RowBox[{"1", ",", "1"}], "}"}], "\[Rule]", 
                     StyleBox[
                     PaneBox[
-                    RowBox[{
-                    RowBox[{"-", "\[ImaginaryI]"}], " ", 
+                    RowBox[{"\[ImaginaryI]", " ", 
                     SuperscriptBox["v", "3"]}], ContentPadding -> False, 
                     FrameMargins -> 0, StripOnInput -> True, BaselinePosition -> 
                     Baseline, ImageSize -> {{1, 300}, Automatic}], 
@@ -21552,11 +21052,10 @@ rZSznCsu75G5+o/J5T0mfwOD0X/1
                     RowBox[{"1", ",", "2"}], "}"}], "\[Rule]", 
                     StyleBox[
                     PaneBox[
-                    RowBox[{"-", 
                     FractionBox[
                     RowBox[{"\[ImaginaryI]", " ", 
                     SuperscriptBox["v", "3"]}], 
-                    SuperscriptBox["u", "3"]]}], ContentPadding -> False, 
+                    SuperscriptBox["u", "3"]], ContentPadding -> False, 
                     FrameMargins -> 0, StripOnInput -> True, BaselinePosition -> 
                     Baseline, ImageSize -> {{1, 300}, Automatic}], 
                     LineBreakWithin -> False]}]}, {
@@ -21565,8 +21064,7 @@ rZSznCsu75G5+o/J5T0mfwOD0X/1
                     RowBox[{"1", ",", "3"}], "}"}], "\[Rule]", 
                     StyleBox[
                     PaneBox[
-                    RowBox[{
-                    RowBox[{"-", "2"}], " ", "\[ImaginaryI]", " ", 
+                    RowBox[{"2", " ", "\[ImaginaryI]", " ", 
                     SuperscriptBox["v", "3"]}], ContentPadding -> False, 
                     FrameMargins -> 0, StripOnInput -> True, BaselinePosition -> 
                     Baseline, ImageSize -> {{1, 300}, Automatic}], 
@@ -21576,11 +21074,10 @@ rZSznCsu75G5+o/J5T0mfwOD0X/1
                     RowBox[{"1", ",", "4"}], "}"}], "\[Rule]", 
                     StyleBox[
                     PaneBox[
-                    RowBox[{"-", 
                     FractionBox[
                     RowBox[{"2", " ", "\[ImaginaryI]", " ", 
                     SuperscriptBox["v", "3"]}], 
-                    SuperscriptBox["u", "3"]]}], ContentPadding -> False, 
+                    SuperscriptBox["u", "3"]], ContentPadding -> False, 
                     FrameMargins -> 0, StripOnInput -> True, BaselinePosition -> 
                     Baseline, ImageSize -> {{1, 300}, Automatic}], 
                     LineBreakWithin -> False]}]}, {
@@ -21638,200 +21135,201 @@ rZSznCsu75G5+o/J5T0mfwOD0X/1
         14}, {4}, {12}, {40}, {13}, {2}, {14}, {4}, {12}, {5}, {7}, {13}, {
         1}, {2}, {8}, {14}, {4}, {16}, {12}, {40}, {39}, {2}, {10}, {41}, {
         2}, {14}, {42}, {2}, {14}, {42}, {7}, {2}, {14}, {42}}}, {
-       Complex[0, -1] SCWIGE`v^3, Complex[0, -1] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, -2] SCWIGE`v^3, Complex[0, -2] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, Rational[-1, 2]] SCWIGE`u, Complex[0, Rational[1, 2]] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`u, Complex[0, 1] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]]/SCWIGE`u, 
-        Complex[0, -1]/SCWIGE`u, Complex[0, Rational[-1, 4]] SCWIGE`u^2, 
-        Complex[0, Rational[1, 4]], Complex[0, Rational[1, 4]] SCWIGE`u^3, 
-        Complex[0, Rational[1, 4]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
-        Complex[0, Rational[-1, 2]] SCWIGE`u^2, Complex[0, Rational[1, 2]], 
-        Complex[0, Rational[1, 2]] SCWIGE`u^3, Complex[0, Rational[1, 2]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`v^3, 
-        Complex[0, 1] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2], 
-        Complex[0, -2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2], 
-        Complex[0, -2] SCWIGE`v^3, Complex[0, 2] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, Rational[-1, 2]] SCWIGE`u, Complex[0, 1] SCWIGE`u 
-        SCWIGE`v^(-2), Complex[0, Rational[-1, 2]] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, 1] SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`u, 
-        Complex[0, -1] SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[1, 2]]/SCWIGE`u, 
-        Complex[0, -1] SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, -1]/SCWIGE`u, 
-        Complex[0, 1]/SCWIGE`u, Complex[0, Rational[-1, 4]] SCWIGE`u^2, 
-        Complex[0, Rational[-1, 4]], Complex[0, Rational[1, 2]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 4]] SCWIGE`u^3, 
-        Complex[0, Rational[-1, 4]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
-        0, Rational[1, 2]], Complex[0, Rational[1, 2]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 2]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]] SCWIGE`u^2,
-         Complex[0, Rational[-1, 2]], Complex[0, Rational[1, 2]] SCWIGE`u^3, 
+       Complex[0, 1] SCWIGE`v^3, Complex[0, 1] SCWIGE`u^(-3) SCWIGE`v^3, 
+        Complex[0, 2] SCWIGE`v^3, Complex[0, 2] SCWIGE`u^(-3) SCWIGE`v^3, 
+        Complex[0, Rational[1, 2]] SCWIGE`u, Complex[0, Rational[-1, 2]] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u, Complex[0, -1] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]]/SCWIGE`u, 
+        Complex[0, 1]/SCWIGE`u, Complex[0, Rational[1, 4]] SCWIGE`u^2, 
+        Complex[0, Rational[-1, 4]], Complex[0, Rational[-1, 4]] SCWIGE`u^3, 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
+        Complex[0, Rational[1, 2]] SCWIGE`u^2, Complex[0, Rational[-1, 2]], 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^3, Complex[0, Rational[-1, 2]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`v^3, 
+        Complex[0, -1] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2], Complex[0, 2] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2], Complex[0, 2] SCWIGE`v^3, 
+        Complex[0, -2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, Rational[1, 2]] 
+        SCWIGE`u, Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[1, 2]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), Complex[0, -1] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u, Complex[0, 1] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u^2 SCWIGE`v^(-3),
+         Complex[0, Rational[-1, 2]]/SCWIGE`u, Complex[0, 1] SCWIGE`u^2 
+        SCWIGE`v^(-3), Complex[0, 1]/SCWIGE`u, Complex[0, -1]/SCWIGE`u, 
+        Complex[0, Rational[1, 4]] SCWIGE`u^2, Complex[0, Rational[1, 4]], 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^2 SCWIGE`v^(-2), 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^3, Complex[0, Rational[1, 4]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]], 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^2 SCWIGE`v^(-2), 
         Complex[0, Rational[-1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
-        Complex[0, 1] SCWIGE`v^3, Complex[0, 1] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, -2], Complex[0, 2], Complex[0, Rational[1, 2]] SCWIGE`u, 
-        Complex[0, Rational[-1, 2]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, 1] SCWIGE`u SCWIGE`v^(-2), Complex[0, -1] SCWIGE`u 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 2]]/SCWIGE`u, Complex[0, -1] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, 1] SCWIGE`u^2 SCWIGE`v^(-3), 
-        Complex[0, Rational[1, 4]] SCWIGE`u^2, Complex[0, Rational[-1, 4]], 
-        Complex[0, Rational[-1, 4]] SCWIGE`u^3, Complex[0, Rational[-1, 4]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[-1, 2]] SCWIGE`u^2 SCWIGE`v^(-2), 
-        Complex[0, Rational[-1, 8]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[
-        0, Rational[-1, 8]], Complex[0, Rational[1, 4]], 
-        Complex[0, Rational[1, 4]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
-        SCWIGE`u, Complex[0, Rational[1, 16]] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, Rational[1, 16]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, Rational[-1, 8]] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, Rational[-1, 8]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, -1] SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
-        Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, Complex[0, -1] 
-        Rational[3, 2]^Rational[1, 2]/SCWIGE`v, Complex[0, Rational[-1, 16]] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[-1, 16]]/SCWIGE`u, 
-        Complex[0, Rational[1, 8]] SCWIGE`u^2 SCWIGE`v^(-3), 
-        Complex[0, Rational[1, 8]]/SCWIGE`u, Complex[0, 1]/SCWIGE`u, Complex[
-        0, Rational[1, 32]], Complex[0, Rational[1, 32]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 32]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 16]] 
-        SCWIGE`u^2 SCWIGE`v^(-2), Complex[0, Rational[-1, 16]], 
-        Complex[0, Rational[-1, 16]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
-        0, Rational[-1, 2]], Complex[0, Rational[-1, 2]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 8]] SCWIGE`v^3, 
+        Complex[0, Rational[1, 2]] SCWIGE`u^2, Complex[0, Rational[1, 2]], 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^3, Complex[0, Rational[1, 2]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`v^3, 
+        Complex[0, -1] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2], Complex[
+        0, -2], Complex[0, Rational[-1, 2]] SCWIGE`u, 
+        Complex[0, Rational[1, 2]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), Complex[0, 1] SCWIGE`u 
+        SCWIGE`v^(-2), Complex[0, Rational[-1, 2]]/SCWIGE`u, Complex[0, 1] 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, -1] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^2, Complex[0, Rational[1, 4]], 
+        Complex[0, Rational[1, 4]] SCWIGE`u^3, Complex[0, Rational[1, 4]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, Rational[1, 2]] SCWIGE`u^2 SCWIGE`v^(-2), 
         Complex[0, Rational[1, 8]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[
-        0, Rational[1, 8]], Complex[0, Rational[1, 4]] SCWIGE`u^(-3) 
-        SCWIGE`v^3, Complex[0, Rational[-1, 4]], Complex[0, Rational[-1, 4]] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2] SCWIGE`v^3, Complex[0, -1] 
-        Rational[3, 2]^Rational[1, 2]/SCWIGE`u, Complex[0, Rational[1, 16]] 
+        0, Rational[1, 8]], Complex[0, Rational[-1, 4]], 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
         SCWIGE`u, Complex[0, Rational[-1, 16]] SCWIGE`u SCWIGE`v^(-2), 
         Complex[0, Rational[-1, 16]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
         Complex[0, Rational[1, 8]] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, Rational[-1, 8]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
         Complex[0, Rational[1, 8]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, -1] SCWIGE`u, Complex[0, 1] Rational[3, 2]^Rational[1, 2] 
-        SCWIGE`u^(-1)/SCWIGE`v, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
-        SCWIGE`v, Complex[0, Rational[1, 16]] SCWIGE`u^2 SCWIGE`v^(-3), 
-        Complex[0, Rational[1, 16]]/SCWIGE`u, Complex[0, Rational[-1, 8]] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[1, 8]]/SCWIGE`u, 
-        Complex[0, Rational[-1, 8]]/SCWIGE`u, Complex[0, Rational[1, 32]] 
-        SCWIGE`u^2, Complex[0, Rational[-1, 32]], 
-        Complex[0, Rational[-1, 32]] SCWIGE`u^2 SCWIGE`v^(-2), 
-        Complex[0, Rational[-1, 32]] SCWIGE`u^3, Complex[0, Rational[-1, 32]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 16]], 
-        Complex[0, Rational[1, 16]] SCWIGE`u^2 SCWIGE`v^(-2), 
-        Complex[0, Rational[-1, 16]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
-        0, Rational[1, 16]], Complex[0, Rational[1, 16]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]] SCWIGE`u^2,
-         Complex[0, Rational[1, 2]] SCWIGE`u^3, Complex[0, Rational[-1, 4]] 
-        SCWIGE`v^3, Complex[0, Rational[1, 8]] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, Rational[-1, 4]], Complex[0, Rational[-1, 2]] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, Rational[-1, 4]], 
-        Complex[0, Rational[1, 2]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2], 
-        Complex[0, 1] Rational[3, 2]^Rational[1, 2]/SCWIGE`u, 
-        Complex[0, Rational[-1, 8]] SCWIGE`u, Complex[0, Rational[1, 8]] 
-        SCWIGE`u SCWIGE`v^(-2), Complex[0, Rational[-1, 16]] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, Rational[1, 8]] SCWIGE`u 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 4]] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, Rational[-1, 4]] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, -1] Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, 
-        Complex[0, -1] Rational[3, 2]^Rational[1, 2]/SCWIGE`v, 
-        Complex[0, Rational[-1, 8]] SCWIGE`u^2 SCWIGE`v^(-3), 
-        Complex[0, Rational[1, 16]]/SCWIGE`u, Complex[0, Rational[-1, 8]] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[-1, 4]]/SCWIGE`u, 
-        Complex[0, Rational[1, 4]]/SCWIGE`u, Complex[0, 1] SCWIGE`u^2 
-        SCWIGE`v^(-3), Complex[0, Rational[-1, 16]] SCWIGE`u^2, Complex[
-        0, Rational[-1, 32]], Complex[0, Rational[1, 16]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 16]] SCWIGE`u^3, 
-        Complex[0, Rational[-1, 32]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
-        0, Rational[1, 8]], Complex[0, Rational[1, 16]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[1, 8]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 8]], 
-        Complex[0, Rational[-1, 8]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
-        Complex[0, Rational[-1, 2]] SCWIGE`u^2 SCWIGE`v^(-2), 
-        Complex[0, Rational[1, 4]] SCWIGE`v^3, Complex[0, Rational[1, 2]] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, 1] Rational[3, 2]^Rational[1, 2]/SCWIGE`u, 
-        Complex[0, Rational[1, 8]] SCWIGE`u, Complex[0, Rational[-1, 4]] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
+        Complex[0, 1] SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
         Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, Complex[0, -1] 
-        Rational[3, 2]^Rational[1, 2]/SCWIGE`v, Complex[0, Rational[1, 4]]/
-        SCWIGE`u, Complex[0, 1]/SCWIGE`u, Complex[0, Rational[1, 16]] 
-        SCWIGE`u^2, Complex[0, Rational[-1, 16]] SCWIGE`u^3, Complex[
-        0, Rational[-1, 8]], Complex[0, Rational[-1, 8]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]], 
-        Complex[0, Rational[-1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
-        Complex[0, Rational[1, 4]] SCWIGE`v^3, Complex[0, Rational[1, 2]] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2] SCWIGE`v^3, Complex[0, -1] 
-        Rational[3, 2]^Rational[1, 2]/SCWIGE`u, Complex[0, Rational[1, 8]] 
-        SCWIGE`u, Complex[0, Rational[-1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, -1] SCWIGE`u, Complex[0, 1] Rational[3, 2]^Rational[1, 2] 
-        SCWIGE`u^(-1)/SCWIGE`v, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
-        SCWIGE`v, Complex[0, Rational[1, 4]]/SCWIGE`u, 
-        Complex[0, Rational[1, 16]] SCWIGE`u^2, Complex[0, Rational[-1, 16]] 
-        SCWIGE`u^3, Complex[0, Rational[-1, 8]], Complex[0, Rational[-1, 8]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]] SCWIGE`u^2,
-         Complex[0, Rational[1, 2]] SCWIGE`u^3, Complex[0, Rational[-1, 2]] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, Rational[1, 4]], Complex[0, 1], 
-        Complex[0, Rational[-1, 2]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2], 
-        Complex[0, -1] Rational[3, 2]^Rational[1, 2]/SCWIGE`u, 
+        Rational[3, 2]^Rational[1, 2]/SCWIGE`v, Complex[0, Rational[1, 16]] 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[1, 16]]/SCWIGE`u, 
+        Complex[0, Rational[-1, 8]] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, Rational[-1, 8]]/SCWIGE`u, Complex[0, -1]/SCWIGE`u, 
+        Complex[0, Rational[-1, 32]], Complex[0, Rational[-1, 32]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, Rational[-1, 32]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 16]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, Rational[1, 16]], 
+        Complex[0, Rational[1, 16]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
+        0, Rational[1, 2]], Complex[0, Rational[1, 2]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 8]] SCWIGE`v^3,
+         Complex[0, Rational[-1, 8]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[
+        0, Rational[-1, 8]], Complex[0, Rational[-1, 4]] SCWIGE`u^(-3) 
+        SCWIGE`v^3, Complex[0, Rational[1, 4]], Complex[0, Rational[1, 4]] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2] SCWIGE`v^3, Complex[0, -1] 
+        Rational[3, 2]^Rational[1, 2]/SCWIGE`u, Complex[0, Rational[-1, 16]] 
+        SCWIGE`u, Complex[0, Rational[1, 16]] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[1, 16]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
         Complex[0, Rational[-1, 8]] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[1, 8]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, Rational[-1, 8]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, 1] SCWIGE`u, Complex[0, 1] Rational[3, 2]^Rational[1, 2] 
+        SCWIGE`u^(-1)/SCWIGE`v, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
+        SCWIGE`v, Complex[0, Rational[-1, 16]] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, Rational[-1, 16]]/SCWIGE`u, Complex[0, Rational[1, 8]] 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[-1, 8]]/SCWIGE`u, 
+        Complex[0, Rational[1, 8]]/SCWIGE`u, Complex[0, Rational[-1, 32]] 
+        SCWIGE`u^2, Complex[0, Rational[1, 32]], Complex[0, Rational[1, 32]] 
+        SCWIGE`u^2 SCWIGE`v^(-2), Complex[0, Rational[1, 32]] SCWIGE`u^3, 
+        Complex[0, Rational[1, 32]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
+        0, Rational[1, 16]], Complex[0, Rational[-1, 16]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, Rational[1, 16]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 16]], 
+        Complex[0, Rational[-1, 16]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
+        Complex[0, Rational[1, 2]] SCWIGE`u^2, Complex[0, Rational[-1, 2]] 
+        SCWIGE`u^3, Complex[0, Rational[1, 4]] SCWIGE`v^3, 
+        Complex[0, Rational[-1, 8]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[
+        0, Rational[1, 4]], Complex[0, Rational[1, 2]] SCWIGE`u^(-3) 
+        SCWIGE`v^3, Complex[0, Rational[1, 4]], Complex[0, Rational[-1, 2]] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2], Complex[0, 1] 
+        Rational[3, 2]^Rational[1, 2]/SCWIGE`u, Complex[0, Rational[1, 8]] 
+        SCWIGE`u, Complex[0, Rational[-1, 8]] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[1, 16]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, Rational[-1, 8]] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
         Complex[0, Rational[1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, Rational[-1, 2]] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, Rational[1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), Complex[0, 1] 
-        Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, Complex[0, 1] 
+        Complex[0, 1] SCWIGE`u SCWIGE`v^(-2), Complex[0, -1] 
+        Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, Complex[0, -1] 
         Rational[3, 2]^Rational[1, 2]/SCWIGE`v, Complex[0, Rational[1, 8]] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[-1, 4]]/SCWIGE`u, 
-        Complex[0, Rational[1, 2]] SCWIGE`u^2 SCWIGE`v^(-3), 
-        Complex[0, Rational[-1, 4]]/SCWIGE`u, Complex[0, 1] SCWIGE`u^2 
-        SCWIGE`v^(-3), Complex[0, Rational[1, 8]], 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[-1, 16]]/SCWIGE`u, 
+        Complex[0, Rational[1, 8]] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, Rational[1, 4]]/SCWIGE`u, Complex[0, Rational[-1, 4]]/
+        SCWIGE`u, Complex[0, -1] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, Rational[1, 16]] SCWIGE`u^2, Complex[0, Rational[1, 32]], 
         Complex[0, Rational[-1, 16]] SCWIGE`u^2 SCWIGE`v^(-2), 
-        Complex[0, Rational[1, 8]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
-        Complex[0, Rational[-1, 4]] SCWIGE`u^2 SCWIGE`v^(-2), Complex[
+        Complex[0, Rational[-1, 16]] SCWIGE`u^3, Complex[0, Rational[1, 32]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 8]], 
+        Complex[0, Rational[-1, 16]] SCWIGE`u^2 SCWIGE`v^(-2), 
+        Complex[0, Rational[-1, 8]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
         0, Rational[1, 8]], Complex[0, Rational[1, 8]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, 2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2],
-         Complex[0, -4], Complex[0, 4] SCWIGE`u^(-3) SCWIGE`v^3, 
-        Complex[0, 2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 1] SCWIGE`u 
-        SCWIGE`v^(-2), Complex[0, -1] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
-        Complex[0, 2] SCWIGE`u SCWIGE`v^(-2), Complex[0, -2] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`u^2 
-        SCWIGE`v^(-3), Complex[0, 1]/SCWIGE`u, Complex[0, -2] SCWIGE`u^2 
-        SCWIGE`v^(-3), Complex[0, 2]/SCWIGE`u, Complex[0, 1]/SCWIGE`u, 
-        Complex[0, Rational[-1, 2]], Complex[0, Rational[1, 2]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[-1, 2]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u^2 SCWIGE`v^(-2),
-         Complex[0, -1], Complex[0, -1] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
-        Complex[0, Rational[-1, 2]], Complex[0, Rational[-1, 2]] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, 2] SCWIGE`v^3, 
-        Complex[0, -2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2], Complex[0, 4] 
-        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 4], Complex[0, -4] SCWIGE`u^(-3) 
-        SCWIGE`v^3, Complex[0, -2] SCWIGE`v^3, Complex[0, 1] SCWIGE`u, 
-        Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), Complex[0, 1] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -2] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, -2] SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 2] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`u, Complex[0, 1] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, -1]/SCWIGE`u, Complex[0, 2] 
-        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, 2]/SCWIGE`u, Complex[0, -2]/
-        SCWIGE`u, Complex[0, Rational[1, 2]] SCWIGE`u^2, Complex[
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, Rational[-1, 4]] SCWIGE`v^3, 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
+        SCWIGE`u, Complex[0, Rational[-1, 8]] SCWIGE`u, 
+        Complex[0, Rational[1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, 1] SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -1] 
+        Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, Complex[0, -1] 
+        Rational[3, 2]^Rational[1, 2]/SCWIGE`v, Complex[0, Rational[-1, 4]]/
+        SCWIGE`u, Complex[0, -1]/SCWIGE`u, Complex[0, Rational[-1, 16]] 
+        SCWIGE`u^2, Complex[0, Rational[1, 16]] SCWIGE`u^3, Complex[
+        0, Rational[1, 8]], Complex[0, Rational[1, 8]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]], 
+        Complex[0, Rational[1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
+        Complex[0, Rational[-1, 4]] SCWIGE`v^3, Complex[0, Rational[-1, 2]] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2] SCWIGE`v^3, Complex[0, -1] 
+        Rational[3, 2]^Rational[1, 2]/SCWIGE`u, Complex[0, Rational[-1, 8]] 
+        SCWIGE`u, Complex[0, Rational[1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, 1] SCWIGE`u, Complex[0, 1] Rational[3, 2]^Rational[1, 2] 
+        SCWIGE`u^(-1)/SCWIGE`v, Complex[0, 1] Rational[3, 2]^Rational[1, 2]/
+        SCWIGE`v, Complex[0, Rational[-1, 4]]/SCWIGE`u, 
+        Complex[0, Rational[-1, 16]] SCWIGE`u^2, Complex[0, Rational[1, 16]] 
+        SCWIGE`u^3, Complex[0, Rational[1, 8]], Complex[0, Rational[1, 8]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]] SCWIGE`u^2, 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^3, Complex[0, Rational[1, 2]] 
+        SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, Rational[-1, 4]], Complex[0, -1],
+         Complex[0, Rational[1, 2]] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -2], 
+        Complex[0, -1] Rational[3, 2]^Rational[1, 2]/SCWIGE`u, 
+        Complex[0, Rational[1, 8]] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, Rational[1, 2]] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, Rational[-1, 4]] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, 1] SCWIGE`u SCWIGE`v^(-2), Complex[0, 1] 
+        Rational[3, 2]^Rational[1, 2] SCWIGE`u^(-1)/SCWIGE`v, Complex[0, 1] 
+        Rational[3, 2]^Rational[1, 2]/SCWIGE`v, Complex[0, Rational[-1, 8]] 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, Rational[1, 4]]/SCWIGE`u, 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, Rational[1, 4]]/SCWIGE`u, Complex[0, -1] SCWIGE`u^2 
+        SCWIGE`v^(-3), Complex[0, Rational[-1, 8]], 
+        Complex[0, Rational[1, 16]] SCWIGE`u^2 SCWIGE`v^(-2), 
+        Complex[0, Rational[-1, 8]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
+        Complex[0, Rational[1, 4]] SCWIGE`u^2 SCWIGE`v^(-2), Complex[
+        0, Rational[-1, 8]], Complex[0, Rational[-1, 8]] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, -2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2],
+         Complex[0, 4], Complex[0, -4] SCWIGE`u^(-3) SCWIGE`v^3, 
+        Complex[0, -2] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, -1] SCWIGE`u 
+        SCWIGE`v^(-2), Complex[0, 1] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, -2] SCWIGE`u SCWIGE`v^(-2), Complex[0, 2] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u^2 SCWIGE`v^(-3),
+         Complex[0, -1]/SCWIGE`u, Complex[0, 2] SCWIGE`u^2 SCWIGE`v^(-3), 
+        Complex[0, -2]/SCWIGE`u, Complex[0, -1]/SCWIGE`u, Complex[
         0, Rational[1, 2]], Complex[0, Rational[-1, 2]] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[-1, 2]] SCWIGE`u^3, 
-        Complex[0, Rational[1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
-        0, -1], Complex[0, -1] SCWIGE`u^2 SCWIGE`v^(-2), Complex[0, -1] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, 1], Complex[0, 1] 
-        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[-1, 2]] SCWIGE`u^2,
-         Complex[0, Rational[1, 2]] SCWIGE`u^3, Complex[0, -2] SCWIGE`u^(-3) 
-        SCWIGE`v^3, Complex[0, 4], Complex[0, 2], Complex[0, 1] 
-        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -2] SCWIGE`u SCWIGE`v^(-2), 
-        Complex[0, -1] SCWIGE`u SCWIGE`v^(-2), Complex[0, -1]/SCWIGE`u, 
-        Complex[0, 2] SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, 1] SCWIGE`u^2 
-        SCWIGE`v^(-3), Complex[0, Rational[1, 2]], Complex[0, Rational[1, 2]] 
+        SCWIGE`v^(-2), Complex[0, Rational[1, 2]] 
         SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, -1] SCWIGE`u^2 
-        SCWIGE`v^(-2), Complex[0, Rational[-1, 2]] SCWIGE`u^2 SCWIGE`v^(-2)}}],
+        SCWIGE`v^(-2), Complex[0, 1], Complex[0, 1] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]], 
+        Complex[0, Rational[1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
+        Complex[0, -2] SCWIGE`v^3, Complex[0, 2] SCWIGE`u^(-3) SCWIGE`v^3, 
+        Complex[0, -2], Complex[0, -4] SCWIGE`u^(-3) SCWIGE`v^3, Complex[
+        0, -4], Complex[0, 4] SCWIGE`u^(-3) SCWIGE`v^3, Complex[0, 2] 
+        SCWIGE`v^3, Complex[0, -1] SCWIGE`u, Complex[0, 1] SCWIGE`u 
+        SCWIGE`v^(-2), Complex[0, -1] SCWIGE`u^(-2) (-1 + SCWIGE`v), 
+        Complex[0, 2] SCWIGE`u SCWIGE`v^(-2), Complex[0, 2] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, -2] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 1] SCWIGE`u, Complex[0, -1] 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, 1]/SCWIGE`u, Complex[0, -2] 
+        SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, -2]/SCWIGE`u, Complex[0, 2]/
+        SCWIGE`u, Complex[0, Rational[-1, 2]] SCWIGE`u^2, Complex[
+        0, Rational[-1, 2]], Complex[0, Rational[1, 2]] SCWIGE`u^2 
+        SCWIGE`v^(-2), Complex[0, Rational[1, 2]] SCWIGE`u^3, 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[
+        0, 1], Complex[0, 1] SCWIGE`u^2 SCWIGE`v^(-2), Complex[0, 1] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, -1], Complex[0, -1] 
+        SCWIGE`u^(-1) (-1 + SCWIGE`v), Complex[0, Rational[1, 2]] SCWIGE`u^2, 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^3, Complex[0, 2] SCWIGE`u^(-3) 
+        SCWIGE`v^3, Complex[0, -4], Complex[0, -2], Complex[0, -1] 
+        SCWIGE`u^(-2) (-1 + SCWIGE`v), Complex[0, 2] SCWIGE`u SCWIGE`v^(-2), 
+        Complex[0, 1] SCWIGE`u SCWIGE`v^(-2), Complex[0, 1]/SCWIGE`u, 
+        Complex[0, -2] SCWIGE`u^2 SCWIGE`v^(-3), Complex[0, -1] SCWIGE`u^2 
+        SCWIGE`v^(-3), Complex[0, Rational[-1, 2]], 
+        Complex[0, Rational[-1, 2]] SCWIGE`u^(-1) (-1 + SCWIGE`v), 
+        Complex[0, 1] SCWIGE`u^2 SCWIGE`v^(-2), Complex[0, Rational[1, 2]] 
+        SCWIGE`u^2 SCWIGE`v^(-2)}}],
      Editable->False,
      SelectWithContents->True,
      Selectable->False]}], "}"}], TraditionalForm]], "Output",
@@ -21845,8 +21343,9 @@ rZSznCsu75G5+o/J5T0mfwOD0X/1
    3.891293550240305*^9, 3.8914438266853933`*^9, 3.892842276181088*^9, 
    3.8946977480998497`*^9, 3.8946981446689377`*^9, 3.8946985785516553`*^9, 
    3.899293500810689*^9, 3.9123491693069744`*^9, 3.912353974584197*^9, 
-   3.912461246132794*^9},
- CellLabel->"Out[21]=",ExpressionUUID->"ef1bfe38-f81a-4b96-bdd1-8421dbcac20e"]
+   3.912461246132794*^9, 3.9126985815768414`*^9, 3.9126990131007586`*^9, 
+   3.9127173355690775`*^9, 3.9127181914840865`*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"67b24663-7b30-4cf8-b277-602520e2eae3"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -21860,7 +21359,7 @@ Cell[BoxData[
      "Simplify"}], ")"}]}], ";"}]], "Input",
  CellChangeTimes->{{3.8910062317375135`*^9, 3.8910062595260005`*^9}, {
    3.8910063221820154`*^9, 3.8910063241248264`*^9}, 3.899293529438459*^9},
- CellLabel->"In[22]:=",ExpressionUUID->"838ae5a6-a2f3-4d73-90ea-e2dbeea5a72d"],
+ CellLabel->"In[14]:=",ExpressionUUID->"838ae5a6-a2f3-4d73-90ea-e2dbeea5a72d"],
 
 Cell[CellGroupData[{
 
@@ -21923,7 +21422,7 @@ Cell[BoxData[{
    3.8910066865109987`*^9}, {3.891006764290845*^9, 3.891006783987897*^9}, 
    3.891006907477767*^9, {3.891007855502716*^9, 3.891007873098343*^9}, {
    3.899293535556349*^9, 3.899293557148168*^9}},
- CellLabel->"In[23]:=",ExpressionUUID->"ba052dc1-84b3-47b1-ba73-9ca8f14defa8"],
+ CellLabel->"In[15]:=",ExpressionUUID->"ba052dc1-84b3-47b1-ba73-9ca8f14defa8"],
 
 Cell[BoxData[
  FormBox[
@@ -22069,11 +21568,7 @@ Cell[BoxData[
           RowBox[{
             TemplateBox[{"1"}, "OutputSizeLimit`Skeleton"], "\[LongEqual]", 
             "0"}], ",", 
-          RowBox[{
-            TemplateBox[{"1"}, "OutputSizeLimit`Skeleton"], "\[LongEqual]", 
-            "0"}], ",", 
-          TemplateBox[{"8"}, "OutputSizeLimit`Skeleton"], ",", 
-          TemplateBox[{"1"}, "OutputSizeLimit`Skeleton"], ",", 
+          TemplateBox[{"10"}, "OutputSizeLimit`Skeleton"], ",", 
           RowBox[{
             TemplateBox[{"1"}, "OutputSizeLimit`Skeleton"], "\[LongEqual]", 
             "0"}], ",", 
@@ -22137,8 +21632,8 @@ Cell[BoxData[
                     RowBox[{
                     SuperscriptBox["v", "2"], " ", 
                     RowBox[{"\[Xi]", "(", "6", ")"}]}]}], ")"}], " ", "u"}]}],
-             "\[LongEqual]", "0"}]}], "}"}], Short[#, 5]& ], "line" -> 24, 
-    "sessionID" -> 33497843854558211803, "byteCount" -> 413176, "size" -> 5, 
+             "\[LongEqual]", "0"}]}], "}"}], Short[#, 5]& ], "line" -> 16, 
+    "sessionID" -> 33499555955749874580, "byteCount" -> 413176, "size" -> 5, 
     "stored" -> False, "expr" -> Missing["NotStored"], "wrap" -> 
     OutputSizeLimit`Defer, "version" -> 1|>,
    "OutputSizeLimitTemplate"], TraditionalForm]], "Output",
@@ -22153,8 +21648,9 @@ Cell[BoxData[
    3.891291639608573*^9, 3.891293550682953*^9, 3.8914438271833367`*^9, 
    3.8928422766220474`*^9, 3.894697755126849*^9, 3.894698145156636*^9, 
    3.8946985791900263`*^9, 3.8992935611276217`*^9, 3.912349174547473*^9, 
-   3.912353977942813*^9, 3.9124612502802486`*^9},
- CellLabel->"Out[24]=",ExpressionUUID->"8bf69c9c-d216-43ac-8940-0e473bac60aa"]
+   3.912353977942813*^9, 3.9124612502802486`*^9, 3.912698584725716*^9, 
+   3.91269901530334*^9, 3.9127173386821437`*^9, 3.912718194540172*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"1d29809f-6109-42f7-b8c0-e0b28477b6b1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -22175,7 +21671,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.891006644793561*^9, 3.8910067088921056`*^9}, {
   3.8910067883421645`*^9, 3.8910067887160063`*^9}, {3.8910069105875897`*^9, 
   3.891006910683425*^9}, {3.891007875188998*^9, 3.89100789223372*^9}},
- CellLabel->"In[25]:=",ExpressionUUID->"21cc1619-2403-475d-9da4-f48f2cb7314d"],
+ CellLabel->"In[17]:=",ExpressionUUID->"21cc1619-2403-475d-9da4-f48f2cb7314d"],
 
 Cell[BoxData[
  FormBox[
@@ -22281,8 +21777,9 @@ Cell[BoxData[
    3.8912935507929955`*^9, 3.891443827293867*^9, 3.8928422767640076`*^9, 
    3.894697757086648*^9, 3.89469814543647*^9, 3.894698579356177*^9, 
    3.899293576755115*^9, 3.912349183880028*^9, 3.9123539843940215`*^9, 
-   3.912461265946277*^9},
- CellLabel->"Out[25]=",ExpressionUUID->"763cdb0e-4d69-4c5c-bdbf-af9b988b2c39"]
+   3.912461265946277*^9, 3.9126985905399857`*^9, 3.9126990196945314`*^9, 
+   3.912717344736322*^9, 3.9127182011795635`*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"73b248b6-6ff5-4e8a-8cc5-2f003244aa6e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -22308,7 +21805,7 @@ Cell[BoxData[
   3.89100790863894*^9, 3.891007909184151*^9}, {3.8910137020819216`*^9, 
   3.8910137029738183`*^9}, {3.8992935825658593`*^9, 3.89929359412018*^9}, {
   3.912349206815956*^9, 3.912349284701948*^9}},
- CellLabel->"In[26]:=",ExpressionUUID->"ede1c96f-f811-4588-9266-a73029e16e21"],
+ CellLabel->"In[18]:=",ExpressionUUID->"ede1c96f-f811-4588-9266-a73029e16e21"],
 
 Cell[BoxData[
  FormBox[
@@ -22340,10 +21837,11 @@ Cell[BoxData[
    3.8946981455150566`*^9, 3.8946985794199123`*^9, {3.8992935883335853`*^9, 
    3.899293594429824*^9}, {3.9123491885370054`*^9, 3.9123492076091766`*^9}, {
    3.9123492517544847`*^9, 3.9123492853606215`*^9}, 3.912353984507049*^9, 
-   3.912461266072482*^9},
- CellLabel->"Out[26]=",ExpressionUUID->"dcd6fd0a-d5ee-4baa-9451-302211eb6a18"]
+   3.912461266072482*^9, 3.912698590652469*^9, 3.9126990197532897`*^9, 
+   3.9127173448566217`*^9, 3.912718201277675*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"fb8d7d1a-f363-4c9a-87a1-35e1e23918b4"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -22381,7 +21879,7 @@ Cell[BoxData[
    3.899292794277485*^9, 3.899292834461237*^9}, {3.8992936353225*^9, 
    3.8992936668878183`*^9}, {3.8992938531178436`*^9, 
    3.8992938539473476`*^9}, {3.912349289066923*^9, 3.912349295351138*^9}},
- CellLabel->"In[27]:=",ExpressionUUID->"3907405f-a7ea-49fd-a05e-4535b1611004"],
+ CellLabel->"In[19]:=",ExpressionUUID->"3907405f-a7ea-49fd-a05e-4535b1611004"],
 
 Cell[BoxData[
  RowBox[{
@@ -22396,7 +21894,7 @@ Cell[BoxData[
    3.889867918963501*^9, 3.8898679223833675`*^9}, 3.889868762150709*^9, {
    3.8898716876653852`*^9, 3.889871689403585*^9}, {3.889872107643817*^9, 
    3.8898721198997297`*^9}, {3.8992939397560134`*^9, 3.899293946719247*^9}},
- CellLabel->"In[28]:=",ExpressionUUID->"fcefd263-64ae-490e-9706-31c306b0fb19"],
+ CellLabel->"In[20]:=",ExpressionUUID->"fcefd263-64ae-490e-9706-31c306b0fb19"],
 
 Cell[BoxData[
  RowBox[{
@@ -22409,7 +21907,7 @@ Cell[BoxData[
      "}"}], "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.8902357876283436`*^9, 3.8902358232845397`*^9}, 
    3.890321631418971*^9, {3.8992939521640415`*^9, 3.8992939537649574`*^9}},
- CellLabel->"In[29]:=",ExpressionUUID->"2447fc4a-9b71-4f65-b9f9-660d12a01eab"],
+ CellLabel->"In[21]:=",ExpressionUUID->"2447fc4a-9b71-4f65-b9f9-660d12a01eab"],
 
 Cell[BoxData[
  RowBox[{
@@ -22421,7 +21919,7 @@ Cell[BoxData[
       "}"}], "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.8903216515912747`*^9, 3.890321666853963*^9}, {
   3.8992940020275564`*^9, 3.899294003405201*^9}},
- CellLabel->"In[30]:=",ExpressionUUID->"d32fcb7d-45bd-431d-8d0e-3c708debb676"],
+ CellLabel->"In[22]:=",ExpressionUUID->"d32fcb7d-45bd-431d-8d0e-3c708debb676"],
 
 Cell[BoxData[
  RowBox[{
@@ -22436,7 +21934,7 @@ Cell[BoxData[
      RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.8903216887228613`*^9, 3.8903217016586523`*^9}, {
   3.899294046488592*^9, 3.8992940478858337`*^9}},
- CellLabel->"In[31]:=",ExpressionUUID->"d64280ff-208a-4c0c-bb5f-2d9402e911cf"],
+ CellLabel->"In[23]:=",ExpressionUUID->"d64280ff-208a-4c0c-bb5f-2d9402e911cf"],
 
 Cell[BoxData[
  RowBox[{
@@ -22450,7 +21948,7 @@ Cell[BoxData[
      RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.8903217208028126`*^9, 3.8903217212247505`*^9}, {
   3.8992940513158684`*^9, 3.8992940520347333`*^9}},
- CellLabel->"In[32]:=",ExpressionUUID->"e4106750-36f5-4927-9d00-3e7ba2734b04"],
+ CellLabel->"In[24]:=",ExpressionUUID->"e4106750-36f5-4927-9d00-3e7ba2734b04"],
 
 Cell[BoxData[
  RowBox[{
@@ -22466,7 +21964,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.890427212177334*^9, 3.8904272159562955`*^9}, 
    3.8904279235703573`*^9, {3.89042809545158*^9, 3.890428100272047*^9}, {
    3.8992940558573446`*^9, 3.899294056635353*^9}},
- CellLabel->"In[33]:=",ExpressionUUID->"08a54b3a-d435-45f8-a88f-6a0dd18c3a64"],
+ CellLabel->"In[25]:=",ExpressionUUID->"08a54b3a-d435-45f8-a88f-6a0dd18c3a64"],
 
 Cell[BoxData[
  RowBox[{
@@ -22480,7 +21978,7 @@ Cell[BoxData[
    "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.8904211032638397`*^9, 3.890421106589506*^9}, {
   3.8992947785549583`*^9, 3.8992947792494974`*^9}},
- CellLabel->"In[34]:=",ExpressionUUID->"f37c58e8-b8c7-4145-8568-45677ad50cbe"],
+ CellLabel->"In[26]:=",ExpressionUUID->"f37c58e8-b8c7-4145-8568-45677ad50cbe"],
 
 Cell[BoxData[
  RowBox[{
@@ -22494,7 +21992,7 @@ Cell[BoxData[
      RowBox[{"\"\<QBar\>\"", "->", "True"}]}], "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.8904281634504833`*^9, 3.890428170590518*^9}, {
   3.899294787299486*^9, 3.899294788549374*^9}},
- CellLabel->"In[35]:=",ExpressionUUID->"06344f63-48df-443c-b2a5-3b9adad71abb"],
+ CellLabel->"In[27]:=",ExpressionUUID->"06344f63-48df-443c-b2a5-3b9adad71abb"],
 
 Cell[BoxData[
  RowBox[{
@@ -22506,8 +22004,9 @@ Cell[BoxData[
       "\"\<\!\(\*OverscriptBox[\(F\), \(_\)]\)\>\"", ",", "\"\<\[Chi]\>\""}], 
      "}"}], "]"}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.890428390442074*^9, 3.89042839786165*^9}, {
-  3.899295049457576*^9, 3.8992950501984673`*^9}},
- CellLabel->"In[36]:=",ExpressionUUID->"dab792f4-d362-484f-87f5-1ef0c7d4ebe8"],
+  3.899295049457576*^9, 3.8992950501984673`*^9}, {3.9127184378246765`*^9, 
+  3.9127184385305457`*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"dab792f4-d362-484f-87f5-1ef0c7d4ebe8"],
 
 Cell[CellGroupData[{
 
@@ -22523,15 +22022,16 @@ Cell[BoxData[
  CellChangeTimes->{{3.891512103466279*^9, 3.891512107660494*^9}, {
    3.8992952045734425`*^9, 3.8992952054817715`*^9}, {3.903169022205022*^9, 
    3.903169028325613*^9}, 3.903209021320857*^9},
- CellLabel->"In[37]:=",ExpressionUUID->"fa43aafe-b2c2-4cac-9950-192cd6dddcfd"],
+ CellLabel->"In[29]:=",ExpressionUUID->"fa43aafe-b2c2-4cac-9950-192cd6dddcfd"],
 
 Cell[BoxData[
  FormBox[
   RowBox[{"{", 
-   RowBox[{"333.5502247`", ",", "Null"}], "}"}], TraditionalForm]], "Output",
+   RowBox[{"233.027422`", ",", "Null"}], "}"}], TraditionalForm]], "Output",
  CellChangeTimes->{3.903209811474827*^9, 3.9043273088896837`*^9, 
-  3.9123547322996006`*^9, 3.9124621945604753`*^9},
- CellLabel->"Out[37]=",ExpressionUUID->"86754a8e-1d54-4a51-bec7-a4f3885279ec"]
+  3.9123547322996006`*^9, 3.9124621945604753`*^9, 3.9126995509126186`*^9, 
+  3.9127190502529197`*^9},
+ CellLabel->"Out[29]=",ExpressionUUID->"d92dd7cb-ae40-4dcd-8577-05b7686ad253"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -25112,8 +24612,8 @@ Cell[BoxData[
 }, Closed]]
 },
 Evaluator->"Kernel 2",
-WindowSize->{1430.25, 737.625},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{1429.5, 732.},
+WindowMargins->{{0.375, Automatic}, {Automatic, 0.375}},
 TaggingRules-><|"TryRealOnly" -> False|>,
 CommonDefaultFormatTypes->{"Output"->TraditionalForm},
 FrontEndVersion->"13.1 for Microsoft Windows (64-bit) (June 16, 2022)",
@@ -25133,194 +24633,177 @@ CellTagsIndex->{}
 Notebook[{
 Cell[558, 20, 209, 4, 28, "Input",ExpressionUUID->"793dcc62-c11a-49c1-9056-0560e61aee7d"],
 Cell[770, 26, 351, 5, 28, "Input",ExpressionUUID->"e6ea2357-b4cf-45c9-a763-19a70fab190a"],
-Cell[1124, 33, 236, 5, 22, InheritFromParent,ExpressionUUID->"5d4cdd5a-fbaf-4cb1-bea1-e132503f0b62"],
+Cell[1124, 33, 3899, 90, 178, InheritFromParent,ExpressionUUID->"1b75c7c0-f6c4-4fd1-a3fa-f28d8a8d3dac"],
 Cell[CellGroupData[{
-Cell[1385, 42, 802, 20, 28, "Input",ExpressionUUID->"5cfd0e56-22fa-4152-ae34-6f6cc7bedd47"],
-Cell[2190, 64, 2492, 67, 87, "Output",ExpressionUUID->"14269589-7030-47f5-b0e3-32ccdfbb24b4"]
-}, Open  ]],
-Cell[4697, 134, 834, 23, 53, "Input",ExpressionUUID->"aee7f941-6b3e-4d85-83f9-e732a6e89574"],
+Cell[5048, 127, 219, 4, 67, "Section",ExpressionUUID->"6c52ec97-f152-46c0-a1f2-3c2a6fee157f"],
+Cell[5270, 133, 378, 9, 28, "Input",ExpressionUUID->"65e77684-4b0d-466f-9e83-4d3de2b25ba2"],
+Cell[5651, 144, 12349, 316, 788, "Input",ExpressionUUID->"faecba33-d4e2-4f58-9d07-b38614e41eda"],
 Cell[CellGroupData[{
-Cell[5556, 161, 846, 22, 28, "Input",ExpressionUUID->"5acff8df-0b3f-453c-8c7c-6c5a001179a7"],
-Cell[6405, 185, 10191, 344, 61, "Output",ExpressionUUID->"77da9465-83f7-4802-8ae8-4a1efb46b2dc"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[16633, 534, 988, 26, 28, "Input",ExpressionUUID->"e7d58b67-7d45-40c1-8598-10e66535925f"],
-Cell[17624, 562, 711, 20, 53, "Output",ExpressionUUID->"5e953e6d-cb5d-4dc8-80b2-846654de1d20"]
+Cell[18025, 464, 438, 6, 28, "Input",ExpressionUUID->"daed30ef-c5e9-479e-aca4-080a86d1b5a1"],
+Cell[18466, 472, 389892, 8600, 282, "Output",ExpressionUUID->"4f8f97ae-587a-49ed-9a78-1ae0e4afbbf7"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18372, 587, 232, 4, 28, "Input",ExpressionUUID->"7d5240da-0849-4953-9c39-c8b480319438"],
-Cell[18607, 593, 286, 6, 34, "Output",ExpressionUUID->"2679294e-539c-4367-a31c-f625694eb6a2"]
+Cell[408395, 9077, 225, 4, 53, "Subsection",ExpressionUUID->"0cbcb25e-9888-4928-826b-8e6e9ac3af55"],
+Cell[CellGroupData[{
+Cell[408645, 9085, 458, 10, 70, "Input",ExpressionUUID->"6eaa4953-132b-484c-b53f-0aae6e463d0b"],
+Cell[409106, 9097, 41993, 1098, 70, "Output",ExpressionUUID->"ad30beaf-67e8-4818-89e0-594e8e47db24"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18930, 604, 219, 4, 67, "Section",ExpressionUUID->"6c52ec97-f152-46c0-a1f2-3c2a6fee157f"],
-Cell[19152, 610, 378, 9, 28, "Input",ExpressionUUID->"65e77684-4b0d-466f-9e83-4d3de2b25ba2"],
-Cell[19533, 621, 12349, 316, 788, "Input",ExpressionUUID->"faecba33-d4e2-4f58-9d07-b38614e41eda"],
-Cell[CellGroupData[{
-Cell[31907, 941, 438, 6, 28, "Input",ExpressionUUID->"daed30ef-c5e9-479e-aca4-080a86d1b5a1"],
-Cell[32348, 949, 389892, 8600, 282, "Output",ExpressionUUID->"4f8f97ae-587a-49ed-9a78-1ae0e4afbbf7"]
+Cell[451136, 10200, 1746, 49, 70, "Input",ExpressionUUID->"552f755c-f8db-4854-9661-7b30a95356d6"],
+Cell[452885, 10251, 3077, 73, 70, "Output",ExpressionUUID->"b724f4c3-a840-4200-bf00-4dde0eeddb13"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[422277, 9554, 225, 4, 53, "Subsection",ExpressionUUID->"0cbcb25e-9888-4928-826b-8e6e9ac3af55"],
-Cell[CellGroupData[{
-Cell[422527, 9562, 458, 10, 70, "Input",ExpressionUUID->"6eaa4953-132b-484c-b53f-0aae6e463d0b"],
-Cell[422988, 9574, 41993, 1098, 70, "Output",ExpressionUUID->"ad30beaf-67e8-4818-89e0-594e8e47db24"]
+Cell[455999, 10329, 517, 12, 70, "Input",ExpressionUUID->"e396722d-bbdf-48d5-9c5a-6e093847c73a"],
+Cell[456519, 10343, 7414, 168, 70, "Output",ExpressionUUID->"df4c13d6-7777-4ce5-82e9-71f954005f9d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[465018, 10677, 1746, 49, 70, "Input",ExpressionUUID->"552f755c-f8db-4854-9661-7b30a95356d6"],
-Cell[466767, 10728, 3077, 73, 70, "Output",ExpressionUUID->"b724f4c3-a840-4200-bf00-4dde0eeddb13"]
+Cell[463970, 10516, 455, 10, 70, "Input",ExpressionUUID->"a4e087be-72d8-4dcd-a5be-6b59a3a79a7a"],
+Cell[464428, 10528, 36642, 744, 70, "Output",ExpressionUUID->"98e08c64-bae1-4304-86bd-ece5f3ecd775"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[469881, 10806, 517, 12, 70, "Input",ExpressionUUID->"e396722d-bbdf-48d5-9c5a-6e093847c73a"],
-Cell[470401, 10820, 7414, 168, 70, "Output",ExpressionUUID->"df4c13d6-7777-4ce5-82e9-71f954005f9d"]
+Cell[501107, 11277, 418, 10, 70, "Input",ExpressionUUID->"9259ebb5-aa80-4c3d-945e-dcadd09acc6b"],
+Cell[501528, 11289, 15371, 398, 70, "Output",ExpressionUUID->"2a4cdc52-5495-4da5-abd6-fb2988f27031"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[477852, 10993, 455, 10, 70, "Input",ExpressionUUID->"a4e087be-72d8-4dcd-a5be-6b59a3a79a7a"],
-Cell[478310, 11005, 36642, 744, 70, "Output",ExpressionUUID->"98e08c64-bae1-4304-86bd-ece5f3ecd775"]
+Cell[516936, 11692, 1894, 50, 70, "Input",ExpressionUUID->"75198645-704f-4a6d-afb0-bb7f6f0bd62d"],
+Cell[518833, 11744, 10465, 273, 70, "Output",ExpressionUUID->"4dc36dd9-dca5-44c7-8336-8d641f99884e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[514989, 11754, 418, 10, 70, "Input",ExpressionUUID->"9259ebb5-aa80-4c3d-945e-dcadd09acc6b"],
-Cell[515410, 11766, 15371, 398, 70, "Output",ExpressionUUID->"2a4cdc52-5495-4da5-abd6-fb2988f27031"]
+Cell[529335, 12022, 705, 16, 70, "Input",ExpressionUUID->"d1365baf-1b1b-496c-8c7c-48dc14d3226f"],
+Cell[530043, 12040, 1732, 40, 70, "Output",ExpressionUUID->"dcf31253-f672-422d-9511-b5f1eeb3906c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[530818, 12169, 1894, 50, 70, "Input",ExpressionUUID->"75198645-704f-4a6d-afb0-bb7f6f0bd62d"],
-Cell[532715, 12221, 10465, 273, 70, "Output",ExpressionUUID->"4dc36dd9-dca5-44c7-8336-8d641f99884e"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[543217, 12499, 705, 16, 70, "Input",ExpressionUUID->"d1365baf-1b1b-496c-8c7c-48dc14d3226f"],
-Cell[543925, 12517, 1732, 40, 70, "Output",ExpressionUUID->"dcf31253-f672-422d-9511-b5f1eeb3906c"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[545694, 12562, 632, 17, 70, "Input",ExpressionUUID->"60286fe2-ed25-4917-96bf-3fe6aeee5bd2"],
-Cell[546329, 12581, 879, 16, 70, "Output",ExpressionUUID->"3b0d74e4-422b-4560-86ab-e5c1f8d7ad91"]
+Cell[531812, 12085, 632, 17, 70, "Input",ExpressionUUID->"60286fe2-ed25-4917-96bf-3fe6aeee5bd2"],
+Cell[532447, 12104, 879, 16, 70, "Output",ExpressionUUID->"3b0d74e4-422b-4560-86ab-e5c1f8d7ad91"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[547257, 12603, 1237, 29, 40, "Subsection",ExpressionUUID->"13b71a6b-8b27-45e5-924e-aa86ec3af919"],
-Cell[548497, 12634, 2722, 71, 70, "Input",ExpressionUUID->"e39d4180-caf4-4914-97a6-b156e877deba"],
-Cell[551222, 12707, 1646, 42, 70, "Input",ExpressionUUID->"5bc1f113-f08e-4e8f-8fc6-d1a5b7684db0"],
-Cell[552871, 12751, 565, 11, 70, "Input",ExpressionUUID->"7df31a55-68e8-4d8d-9610-20b3d89a95b2"],
-Cell[553439, 12764, 536, 12, 70, "Input",ExpressionUUID->"96027a01-64d8-4df7-bd40-03382db4d6fb"],
-Cell[553978, 12778, 584, 13, 70, "Input",ExpressionUUID->"9c722b88-f8ce-4cc4-bf0f-a59a8be783c2"],
-Cell[554565, 12793, 661, 13, 70, "Input",ExpressionUUID->"2740ecec-023a-44c7-9aec-3171247b59e4"],
-Cell[555229, 12808, 624, 13, 70, "Input",ExpressionUUID->"14fdb4db-90c2-461d-88e1-42821de470cf"],
-Cell[555856, 12823, 617, 14, 70, "Input",ExpressionUUID->"3bbbe61e-0d1e-4834-b7fe-3914fd65926a"],
-Cell[556476, 12839, 559, 12, 70, "Input",ExpressionUUID->"c32dd02d-fbd0-467b-aae7-234541bd6994"],
-Cell[557038, 12853, 552, 12, 70, "Input",ExpressionUUID->"d86337d0-c924-48cc-8fe0-8fdab288ef5f"]
+Cell[533375, 12126, 1237, 29, 40, "Subsection",ExpressionUUID->"13b71a6b-8b27-45e5-924e-aa86ec3af919"],
+Cell[534615, 12157, 2722, 71, 70, "Input",ExpressionUUID->"e39d4180-caf4-4914-97a6-b156e877deba"],
+Cell[537340, 12230, 1646, 42, 70, "Input",ExpressionUUID->"5bc1f113-f08e-4e8f-8fc6-d1a5b7684db0"],
+Cell[538989, 12274, 565, 11, 70, "Input",ExpressionUUID->"7df31a55-68e8-4d8d-9610-20b3d89a95b2"],
+Cell[539557, 12287, 536, 12, 70, "Input",ExpressionUUID->"96027a01-64d8-4df7-bd40-03382db4d6fb"],
+Cell[540096, 12301, 584, 13, 70, "Input",ExpressionUUID->"9c722b88-f8ce-4cc4-bf0f-a59a8be783c2"],
+Cell[540683, 12316, 661, 13, 70, "Input",ExpressionUUID->"2740ecec-023a-44c7-9aec-3171247b59e4"],
+Cell[541347, 12331, 624, 13, 70, "Input",ExpressionUUID->"14fdb4db-90c2-461d-88e1-42821de470cf"],
+Cell[541974, 12346, 617, 14, 70, "Input",ExpressionUUID->"3bbbe61e-0d1e-4834-b7fe-3914fd65926a"],
+Cell[542594, 12362, 559, 12, 70, "Input",ExpressionUUID->"c32dd02d-fbd0-467b-aae7-234541bd6994"],
+Cell[543156, 12376, 552, 12, 70, "Input",ExpressionUUID->"d86337d0-c924-48cc-8fe0-8fdab288ef5f"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[557627, 12870, 749, 19, 40, "Subsection",ExpressionUUID->"e77c2c35-a395-49ed-95d0-57bfeb095ed7"],
-Cell[558379, 12891, 2689, 63, 70, "Input",ExpressionUUID->"b4f0a67c-9964-4b83-a270-ef49d797c6aa"],
-Cell[561071, 12956, 1496, 36, 70, "Input",ExpressionUUID->"76b6234d-f296-4b78-b3a0-54202c3e08a4"],
-Cell[562570, 12994, 542, 13, 70, "Input",ExpressionUUID->"d3733be3-805e-4002-a412-fec7a35be317"],
-Cell[563115, 13009, 514, 12, 70, "Input",ExpressionUUID->"f5f5950f-a650-4094-8022-c51935d0ea7d"],
-Cell[563632, 13023, 499, 12, 70, "Input",ExpressionUUID->"63a7e4e2-74d6-4117-ab52-5f9fd2bb86a7"]
+Cell[543745, 12393, 749, 19, 40, "Subsection",ExpressionUUID->"e77c2c35-a395-49ed-95d0-57bfeb095ed7"],
+Cell[544497, 12414, 2689, 63, 70, "Input",ExpressionUUID->"b4f0a67c-9964-4b83-a270-ef49d797c6aa"],
+Cell[547189, 12479, 1496, 36, 70, "Input",ExpressionUUID->"76b6234d-f296-4b78-b3a0-54202c3e08a4"],
+Cell[548688, 12517, 542, 13, 70, "Input",ExpressionUUID->"d3733be3-805e-4002-a412-fec7a35be317"],
+Cell[549233, 12532, 514, 12, 70, "Input",ExpressionUUID->"f5f5950f-a650-4094-8022-c51935d0ea7d"],
+Cell[549750, 12546, 499, 12, 70, "Input",ExpressionUUID->"63a7e4e2-74d6-4117-ab52-5f9fd2bb86a7"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[564168, 13040, 1815, 50, 40, "Subsection",ExpressionUUID->"07f84d08-6886-493f-bde1-25ae50954aad"],
-Cell[565986, 13092, 2037, 54, 123, "Input",ExpressionUUID->"08eacd21-0d05-4f59-b193-1df58798770b"],
-Cell[568026, 13148, 1592, 36, 28, "Input",ExpressionUUID->"e6a6e159-74d3-49f8-aaa2-8fdf9414821f"],
-Cell[569621, 13186, 578, 12, 30, "Input",ExpressionUUID->"d79a8e91-8265-4e54-a4d5-d855c17356fb"],
-Cell[570202, 13200, 509, 11, 30, "Input",ExpressionUUID->"34dbc2bc-4741-4335-85ad-ea2f51420e3c"],
-Cell[570714, 13213, 528, 11, 30, "Input",ExpressionUUID->"1e7aee57-003e-42cd-91a4-201f195597da"],
-Cell[571245, 13226, 549, 12, 30, "Input",ExpressionUUID->"8d2bea82-5781-4d7b-891a-f9469f19b695"],
-Cell[571797, 13240, 531, 11, 30, "Input",ExpressionUUID->"44a13a82-1e48-427e-a5a3-4c158228a39f"],
-Cell[572331, 13253, 506, 11, 30, "Input",ExpressionUUID->"5eb15799-a5ab-43bb-9b1f-c6d9549c5094"],
-Cell[572840, 13266, 478, 10, 30, "Input",ExpressionUUID->"4e66ab1e-7e31-46bb-bc05-5d41f9c4c246"],
-Cell[573321, 13278, 298, 6, 29, "Input",ExpressionUUID->"1cc61b52-5c8e-41c6-8f10-74e0b025606e"]
+Cell[550286, 12563, 1815, 50, 40, "Subsection",ExpressionUUID->"07f84d08-6886-493f-bde1-25ae50954aad"],
+Cell[552104, 12615, 2037, 54, 123, "Input",ExpressionUUID->"08eacd21-0d05-4f59-b193-1df58798770b"],
+Cell[554144, 12671, 1592, 36, 28, "Input",ExpressionUUID->"e6a6e159-74d3-49f8-aaa2-8fdf9414821f"],
+Cell[555739, 12709, 578, 12, 30, "Input",ExpressionUUID->"d79a8e91-8265-4e54-a4d5-d855c17356fb"],
+Cell[556320, 12723, 509, 11, 30, "Input",ExpressionUUID->"34dbc2bc-4741-4335-85ad-ea2f51420e3c"],
+Cell[556832, 12736, 528, 11, 30, "Input",ExpressionUUID->"1e7aee57-003e-42cd-91a4-201f195597da"],
+Cell[557363, 12749, 549, 12, 30, "Input",ExpressionUUID->"8d2bea82-5781-4d7b-891a-f9469f19b695"],
+Cell[557915, 12763, 531, 11, 30, "Input",ExpressionUUID->"44a13a82-1e48-427e-a5a3-4c158228a39f"],
+Cell[558449, 12776, 506, 11, 30, "Input",ExpressionUUID->"5eb15799-a5ab-43bb-9b1f-c6d9549c5094"],
+Cell[558958, 12789, 478, 10, 30, "Input",ExpressionUUID->"4e66ab1e-7e31-46bb-bc05-5d41f9c4c246"],
+Cell[559439, 12801, 298, 6, 29, "Input",ExpressionUUID->"1cc61b52-5c8e-41c6-8f10-74e0b025606e"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[573668, 13290, 228, 4, 53, "Section",ExpressionUUID->"c8a48e7f-90d2-4091-84cf-9880faf47126"],
-Cell[573899, 13296, 2243, 52, 104, "Input",ExpressionUUID->"608460bb-7d4e-495b-a366-c5617d08feb1"],
+Cell[559786, 12813, 228, 4, 53, "Section",ExpressionUUID->"c8a48e7f-90d2-4091-84cf-9880faf47126"],
+Cell[560017, 12819, 2243, 52, 104, "Input",ExpressionUUID->"608460bb-7d4e-495b-a366-c5617d08feb1"],
 Cell[CellGroupData[{
-Cell[576167, 13352, 312, 5, 26, "Input",ExpressionUUID->"c8d31240-3656-4b07-a741-04edc94351c6"],
-Cell[576482, 13359, 40924, 928, 230, "Output",ExpressionUUID->"9d673048-f37a-41b8-9637-d725e45ae9bd"]
+Cell[562285, 12875, 312, 5, 26, "Input",ExpressionUUID->"c8d31240-3656-4b07-a741-04edc94351c6"],
+Cell[562600, 12882, 40924, 928, 230, "Output",ExpressionUUID->"9d673048-f37a-41b8-9637-d725e45ae9bd"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[617455, 14293, 282, 4, 53, "Section",ExpressionUUID->"37e32fa1-b019-4084-8e4e-7451100a0a21"],
-Cell[617740, 14299, 211, 3, 28, "Input",ExpressionUUID->"8c6b1a01-3512-4d1a-ac4f-91906fce6fc6"],
-Cell[617954, 14304, 466, 11, 48, "Input",ExpressionUUID->"ee9ffd10-836b-4604-872f-4e2261e6829d"],
-Cell[618423, 14317, 3682, 103, 143, "Input",ExpressionUUID->"fae44433-e09d-4213-a8d5-38ec20c9e792"],
-Cell[622108, 14422, 4469, 120, 295, "Input",ExpressionUUID->"b2846188-09cb-4170-83cf-6d2ae9d8e3b8"],
-Cell[626580, 14544, 7362, 198, 390, "Input",ExpressionUUID->"51d4fa39-c557-4f5c-8731-d8f5cd758710"],
-Cell[633945, 14744, 689, 17, 48, "Input",ExpressionUUID->"d0daf8c1-bdf2-4bf5-a3b2-981c507e7130"],
-Cell[634637, 14763, 5705, 138, 293, "Input",ExpressionUUID->"dcd280db-ec31-4da4-9386-0344c3d7e698"],
+Cell[603573, 13816, 282, 4, 53, "Section",ExpressionUUID->"37e32fa1-b019-4084-8e4e-7451100a0a21"],
+Cell[603858, 13822, 211, 3, 58, "Input",ExpressionUUID->"8c6b1a01-3512-4d1a-ac4f-91906fce6fc6"],
+Cell[604072, 13827, 466, 11, 48, "Input",ExpressionUUID->"ee9ffd10-836b-4604-872f-4e2261e6829d"],
+Cell[604541, 13840, 3682, 103, 143, "Input",ExpressionUUID->"fae44433-e09d-4213-a8d5-38ec20c9e792"],
+Cell[608226, 13945, 4469, 120, 295, "Input",ExpressionUUID->"b2846188-09cb-4170-83cf-6d2ae9d8e3b8"],
+Cell[612698, 14067, 7362, 198, 390, "Input",ExpressionUUID->"51d4fa39-c557-4f5c-8731-d8f5cd758710"],
+Cell[620063, 14267, 689, 17, 48, "Input",ExpressionUUID->"d0daf8c1-bdf2-4bf5-a3b2-981c507e7130"],
+Cell[620755, 14286, 5704, 138, 293, "Input",ExpressionUUID->"dcd280db-ec31-4da4-9386-0344c3d7e698"],
 Cell[CellGroupData[{
-Cell[640367, 14905, 550, 8, 28, "Input",ExpressionUUID->"0a2f7b54-e566-4344-9bab-73a696282f8b"],
-Cell[640920, 14915, 220137, 4773, 610, "Output",ExpressionUUID->"9d29d736-880f-4433-be8e-c88db7f83627"]
+Cell[626484, 14428, 549, 8, 28, "Input",ExpressionUUID->"0a2f7b54-e566-4344-9bab-73a696282f8b"],
+Cell[627036, 14438, 219240, 4749, 610, "Output",ExpressionUUID->"61643abb-4a22-48dd-8813-ac33d8c528e2"]
 }, Open  ]],
-Cell[861072, 19691, 2127, 61, 173, "Input",ExpressionUUID->"4eeaeb34-0fd4-47a8-b972-c9d52164fd46"],
+Cell[846291, 19190, 2126, 61, 173, "Input",ExpressionUUID->"4eeaeb34-0fd4-47a8-b972-c9d52164fd46"],
 Cell[CellGroupData[{
-Cell[863224, 19756, 652, 17, 56, "Subsection",ExpressionUUID->"23dac4bc-e1cd-48b0-8817-3074b8f13a0b"],
-Cell[863879, 19775, 466, 11, 28, "Input",ExpressionUUID->"be2dea1c-0312-4b6d-beaa-7e2cd32d4cbb"],
+Cell[848442, 19255, 652, 17, 56, "Subsection",ExpressionUUID->"23dac4bc-e1cd-48b0-8817-3074b8f13a0b"],
+Cell[849097, 19274, 466, 11, 28, "Input",ExpressionUUID->"be2dea1c-0312-4b6d-beaa-7e2cd32d4cbb"],
 Cell[CellGroupData[{
-Cell[864370, 19790, 2687, 76, 67, "Input",ExpressionUUID->"5a0d7a06-6688-48d1-b269-738f4371f43c"],
-Cell[867060, 19868, 5389, 135, 35, "Output",ExpressionUUID->"e69e4df8-b3fd-4eaa-ba57-31eab9544a7d"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[872486, 20008, 518, 12, 28, "Input",ExpressionUUID->"5614eac9-fd4f-460b-a7cf-8261faf18c01"],
-Cell[873007, 20022, 20427, 482, 126, "Output",ExpressionUUID->"2e7200a3-f17f-45ce-8d3a-7add392a03ff"]
+Cell[849588, 19289, 2687, 76, 67, "Input",ExpressionUUID->"5a0d7a06-6688-48d1-b269-738f4371f43c"],
+Cell[852278, 19367, 5484, 136, 35, "Output",ExpressionUUID->"c252acd3-0955-45a9-918a-c0bf2e16d55e"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[893471, 20509, 456, 10, 28, "Input",ExpressionUUID->"47a36b7d-568b-473e-b9af-a68bbfd2830f"],
-Cell[893930, 20521, 70296, 1327, 65, "Output",ExpressionUUID->"ef1bfe38-f81a-4b96-bdd1-8421dbcac20e"]
-}, Open  ]],
-Cell[964241, 21851, 466, 11, 28, "Input",ExpressionUUID->"838ae5a6-a2f3-4d73-90ea-e2dbeea5a72d"],
-Cell[CellGroupData[{
-Cell[964732, 21866, 2250, 59, 50, "Input",ExpressionUUID->"ba052dc1-84b3-47b1-ba73-9ca8f14defa8"],
-Cell[966985, 21927, 11140, 229, 142, "Output",ExpressionUUID->"8bf69c9c-d216-43ac-8940-0e473bac60aa"]
+Cell[857799, 19508, 518, 12, 28, "Input",ExpressionUUID->"5614eac9-fd4f-460b-a7cf-8261faf18c01"],
+Cell[858320, 19522, 20523, 483, 126, "Output",ExpressionUUID->"66eba333-7fa8-4642-b6dc-7c80a926ab7d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[978162, 22161, 705, 16, 28, "Input",ExpressionUUID->"21cc1619-2403-475d-9da4-f48f2cb7314d"],
-Cell[978870, 22179, 4200, 105, 50, "Output",ExpressionUUID->"763cdb0e-4d69-4c5c-bdbf-af9b988b2c39"]
+Cell[878880, 20010, 456, 10, 28, "Input",ExpressionUUID->"47a36b7d-568b-473e-b9af-a68bbfd2830f"],
+Cell[879339, 20022, 70250, 1325, 65, "Output",ExpressionUUID->"67b24663-7b30-4cf8-b277-602520e2eae3"]
+}, Open  ]],
+Cell[949604, 21350, 466, 11, 28, "Input",ExpressionUUID->"838ae5a6-a2f3-4d73-90ea-e2dbeea5a72d"],
+Cell[CellGroupData[{
+Cell[950095, 21365, 2250, 59, 50, "Input",ExpressionUUID->"ba052dc1-84b3-47b1-ba73-9ca8f14defa8"],
+Cell[952348, 21426, 11049, 226, 142, "Output",ExpressionUUID->"1d29809f-6109-42f7-b8c0-e0b28477b6b1"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[983107, 22289, 842, 21, 45, "Input",ExpressionUUID->"ede1c96f-f811-4588-9266-a73029e16e21"],
-Cell[983952, 22312, 1420, 31, 49, "Output",ExpressionUUID->"dcd6fd0a-d5ee-4baa-9451-302211eb6a18"]
+Cell[963434, 21657, 705, 16, 28, "Input",ExpressionUUID->"21cc1619-2403-475d-9da4-f48f2cb7314d"],
+Cell[964142, 21675, 4298, 106, 50, "Output",ExpressionUUID->"73b248b6-6ff5-4e8a-8cc5-2f003244aa6e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[968477, 21786, 842, 21, 45, "Input",ExpressionUUID->"ede1c96f-f811-4588-9266-a73029e16e21"],
+Cell[969322, 21809, 1516, 32, 49, "Output",ExpressionUUID->"fb8d7d1a-f363-4c9a-87a1-35e1e23918b4"]
 }, Open  ]]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[985421, 22349, 168, 3, 38, "Subsection",ExpressionUUID->"4318c60a-4b93-4c61-b142-0e5eae34341a"],
-Cell[985592, 22354, 1180, 29, 28, "Input",ExpressionUUID->"3907405f-a7ea-49fd-a05e-4535b1611004"],
-Cell[986775, 22385, 652, 13, 28, "Input",ExpressionUUID->"fcefd263-64ae-490e-9706-31c306b0fb19"],
-Cell[987430, 22400, 506, 11, 32, "Input",ExpressionUUID->"2447fc4a-9b71-4f65-b9f9-660d12a01eab"],
-Cell[987939, 22413, 438, 10, 28, "Input",ExpressionUUID->"d32fcb7d-45bd-431d-8d0e-3c708debb676"],
-Cell[988380, 22425, 587, 13, 32, "Input",ExpressionUUID->"d64280ff-208a-4c0c-bb5f-2d9402e911cf"],
-Cell[988970, 22440, 547, 12, 28, "Input",ExpressionUUID->"e4106750-36f5-4927-9d00-3e7ba2734b04"],
-Cell[989520, 22454, 624, 14, 32, "Input",ExpressionUUID->"08a54b3a-d435-45f8-a88f-6a0dd18c3a64"],
-Cell[990147, 22470, 520, 12, 32, "Input",ExpressionUUID->"f37c58e8-b8c7-4145-8568-45677ad50cbe"],
-Cell[990670, 22484, 541, 12, 28, "Input",ExpressionUUID->"06344f63-48df-443c-b2a5-3b9adad71abb"],
-Cell[991214, 22498, 476, 11, 32, "Input",ExpressionUUID->"dab792f4-d362-484f-87f5-1ef0c7d4ebe8"],
-Cell[CellGroupData[{
-Cell[991715, 22513, 575, 12, 28, "Input",ExpressionUUID->"fa43aafe-b2c2-4cac-9950-192cd6dddcfd"],
-Cell[992293, 22527, 313, 6, 32, "Output",ExpressionUUID->"86754a8e-1d54-4a51-bec7-a4f3885279ec"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[992643, 22538, 386, 7, 28, "Input",ExpressionUUID->"6d9c500a-1cd0-49db-b794-2a7ea871b30e"],
-Cell[993032, 22547, 288, 4, 32, "Output",ExpressionUUID->"725f0783-dc84-4111-8790-f04affa34bc4"]
+Cell[970887, 21847, 168, 3, 54, "Subsection",ExpressionUUID->"4318c60a-4b93-4c61-b142-0e5eae34341a"],
+Cell[971058, 21852, 1180, 29, 28, "Input",ExpressionUUID->"3907405f-a7ea-49fd-a05e-4535b1611004"],
+Cell[972241, 21883, 652, 13, 28, "Input",ExpressionUUID->"fcefd263-64ae-490e-9706-31c306b0fb19"],
+Cell[972896, 21898, 506, 11, 32, "Input",ExpressionUUID->"2447fc4a-9b71-4f65-b9f9-660d12a01eab"],
+Cell[973405, 21911, 438, 10, 28, "Input",ExpressionUUID->"d32fcb7d-45bd-431d-8d0e-3c708debb676"],
+Cell[973846, 21923, 587, 13, 32, "Input",ExpressionUUID->"d64280ff-208a-4c0c-bb5f-2d9402e911cf"],
+Cell[974436, 21938, 547, 12, 28, "Input",ExpressionUUID->"e4106750-36f5-4927-9d00-3e7ba2734b04"],
+Cell[974986, 21952, 624, 14, 32, "Input",ExpressionUUID->"08a54b3a-d435-45f8-a88f-6a0dd18c3a64"],
+Cell[975613, 21968, 520, 12, 32, "Input",ExpressionUUID->"f37c58e8-b8c7-4145-8568-45677ad50cbe"],
+Cell[976136, 21982, 541, 12, 28, "Input",ExpressionUUID->"06344f63-48df-443c-b2a5-3b9adad71abb"],
+Cell[976680, 21996, 529, 12, 32, "Input",ExpressionUUID->"dab792f4-d362-484f-87f5-1ef0c7d4ebe8"],
+Cell[CellGroupData[{
+Cell[977234, 22012, 575, 12, 28, "Input",ExpressionUUID->"fa43aafe-b2c2-4cac-9950-192cd6dddcfd"],
+Cell[977812, 22026, 363, 7, 55, "Output",ExpressionUUID->"d92dd7cb-ae40-4dcd-8577-05b7686ad253"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[978212, 22038, 386, 7, 28, "Input",ExpressionUUID->"6d9c500a-1cd0-49db-b794-2a7ea871b30e"],
+Cell[978601, 22047, 288, 4, 32, "Output",ExpressionUUID->"725f0783-dc84-4111-8790-f04affa34bc4"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[993381, 22558, 151, 3, 67, "Section",ExpressionUUID->"9db1adbc-62a8-4195-a5c5-15e74e270aea"],
-Cell[993535, 22563, 215, 3, 26, "Input",ExpressionUUID->"9d0088ce-bcb9-4bb4-aa87-c252564ebe0c"],
-Cell[993753, 22568, 570, 10, 26, "Input",ExpressionUUID->"1123eaa7-f381-41fa-97b1-eba0012fd8e4"],
+Cell[978950, 22058, 151, 3, 67, "Section",ExpressionUUID->"9db1adbc-62a8-4195-a5c5-15e74e270aea"],
+Cell[979104, 22063, 215, 3, 26, "Input",ExpressionUUID->"9d0088ce-bcb9-4bb4-aa87-c252564ebe0c"],
+Cell[979322, 22068, 570, 10, 26, "Input",ExpressionUUID->"1123eaa7-f381-41fa-97b1-eba0012fd8e4"],
 Cell[CellGroupData[{
-Cell[994348, 22582, 619, 14, 26, "Input",ExpressionUUID->"0e837046-5cab-4910-9cf7-a5d42252a2a8"],
-Cell[994970, 22598, 34208, 903, 240, "Output",ExpressionUUID->"32687675-a75d-4aec-aaea-2da88d3e5393"]
+Cell[979917, 22082, 619, 14, 26, "Input",ExpressionUUID->"0e837046-5cab-4910-9cf7-a5d42252a2a8"],
+Cell[980539, 22098, 34208, 903, 240, "Output",ExpressionUUID->"32687675-a75d-4aec-aaea-2da88d3e5393"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1029215, 23506, 297, 5, 26, "Input",ExpressionUUID->"bf8c7006-d717-44dd-87e9-840c90497dfd"],
-Cell[1029515, 23513, 49998, 1291, 297, "Output",ExpressionUUID->"d22328d2-f53a-45e1-a754-45e199afd18d"]
+Cell[1014784, 23006, 297, 5, 26, "Input",ExpressionUUID->"bf8c7006-d717-44dd-87e9-840c90497dfd"],
+Cell[1015084, 23013, 49998, 1291, 297, "Output",ExpressionUUID->"d22328d2-f53a-45e1-a754-45e199afd18d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1079550, 24809, 616, 15, 26, "Input",ExpressionUUID->"d171e7f8-671c-4f88-bc09-dcf7ca629acc"],
-Cell[1080169, 24826, 10541, 261, 54, "Output",ExpressionUUID->"bbb71e11-b302-4d13-b0f6-9f79cf2d3c2a"]
+Cell[1065119, 24309, 616, 15, 26, "Input",ExpressionUUID->"d171e7f8-671c-4f88-bc09-dcf7ca629acc"],
+Cell[1065738, 24326, 10541, 261, 54, "Output",ExpressionUUID->"bbb71e11-b302-4d13-b0f6-9f79cf2d3c2a"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1090747, 25092, 367, 6, 26, "Input",ExpressionUUID->"9515596a-9134-471e-889f-f95fe0c5bbec"],
-Cell[1091117, 25100, 599, 9, 30, "Output",ExpressionUUID->"232e69c6-6191-46ea-9384-74282728208d"]
+Cell[1076316, 24592, 367, 6, 26, "Input",ExpressionUUID->"9515596a-9134-471e-889f-f95fe0c5bbec"],
+Cell[1076686, 24600, 599, 9, 30, "Output",ExpressionUUID->"232e69c6-6191-46ea-9384-74282728208d"]
 }, Open  ]]
 }, Closed]]
 }

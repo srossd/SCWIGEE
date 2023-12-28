@@ -1,35 +1,4 @@
 (* Wolfram Language package *)
-
-uvpt = {x[1, i_] :> -Boole[i == 4], x[2, _] :> 0, 
-   x[3, i_] :> Boole[i == 4], 
-   x[4, i_] :> 
-    Which[i == 3, -(
-      Sqrt[-u^2 - (-1 + v)^2 + 2 u (1 + v)]/(-1 + 2 u + 2 v)), 
-     i == 4, (-u + v)/(-1 + 2 u + 2 v), True, 0]};
-sct[x_, b_] := (x - b x . DiagonalMatrix[{-1, 1, 1, 1}] . x)/(1 - 
-     2 b . DiagonalMatrix[{-1, 1, 1, 1}] . 
-       x + (b . DiagonalMatrix[{-1, 1, 1, 1}] . b) (x . 
-        DiagonalMatrix[{-1, 1, 1, 1}] . x));
-sctuvpt[z_] = 
-  Simplify@
-   Flatten@Table[
-     x[i, j] -> 
-      sct[Table[x[i, kk] /. uvpt, {kk, 4}], {0, z, 0, 0}][[j]], {i, 
-      4}, {j, 4}];
-uvAssumptions = (1/2 < u < 2 && 1/2 < v < 2);
-
-SymbolicSpacetimeRelations[largebasis_] := If[# === {}, {}, 
-   FullSimplify[
-    RowReduce[#, 
-     ZeroTest -> (Function[expr, Simplify[expr, uvAssumptions] === 0])], 
-    uvAssumptions]] &@
- FullSimplify[
-  NullSpace[
-   Transpose[
-     ArrayFlatten[
-      Table[Flatten[
-        CanonicallyOrderedComponents[largebasis[[i]]]], {i, 
-        Length[largebasis]}]]] /. sctuvpt[2]], uvAssumptions];
         
 safeUVs = {{1, 36/25}, {1, 100/169}, {1, 256/289}, {1, 1600/841}, {1, 
     3136/2809}, {1, 4356/4225}, {1, 5184/7225}, {1, 6084/7921}, {1, 
@@ -102,6 +71,41 @@ safeUVs = {{1, 36/25}, {1, 100/169}, {1, 256/289}, {1, 1600/841}, {1,
     8464, 12321/8464}, {14161/9409, 8100/9409}, {14161/11236, 12769/
     11236}, {14161/12321, 8464/12321}, {14161/12769, 11236/
     12769}, {14400/11881, 1}};
+
+uvpt = {x[1, i_] :> -Boole[i == 4], x[2, _] :> 0, 
+   x[3, i_] :> Boole[i == 4], 
+   x[4, i_] :> 
+    Which[i == 3, -(
+      Sqrt[-u^2 - (-1 + v)^2 + 2 u (1 + v)]/(-1 + 2 u + 2 v)), 
+     i == 4, (-u + v)/(-1 + 2 u + 2 v), True, 0]};
+sct[x_, b_] := (x - b x . Components[\[Eta]Lower] . x)/(1 - 
+     2 (b . DiagonalMatrix[{-1, 1, 1, 1}] . x) + 
+     (b . Components[\[Eta]Lower] . b) (x . Components[\[Eta]Lower] . x));
+sctuvpt[z_] = 
+  Simplify@
+   Flatten@Table[
+     x[i, j] -> 
+      sct[Table[x[i, kk] /. uvpt, {kk, 4}], {0, z, 0, 0}][[j]], {i, 
+      4}, {j, 4}];
+uvAssumptions = (1/2 < u < 2 && 1/2 < v < 2);
+
+SymbolicSpacetimeRelations[largebasis_] := If[# === {}, {}, 
+   FullSimplify[
+    RowReduce[#, 
+     ZeroTest -> (Function[expr, Simplify[expr, uvAssumptions] === 0])], 
+    uvAssumptions]] &@
+ FullSimplify[
+  NullSpace[
+   Transpose[
+     ArrayFlatten[
+      Table[Flatten[
+        CanonicallyOrderedComponents[largebasis[[i]]]], {i, 
+        Length[largebasis]}]]] /. sctuvpt[2]], uvAssumptions];
+
+SpacetimeRelations[structs_] := 
+  If[Length[structs] > 5 && 
+    First@Cases[structs, s_SpacetimeStructure :> Length[s[[1]]], All] == 4, 
+   relations[structs, 188, 6], SymbolicSpacetimeRelations[structs]];
     
 spacetimePtData[structs_, len_] := 
  spacetimePtData[structs, len] = 
@@ -125,8 +129,6 @@ spacetimePtData[structs_, len_] :=
 		"CurrentDisplayFunction" -> None]}
     ]
    ];
-   
-
 
 KinematicPrefactor[{\[CapitalDelta]1_, \[CapitalDelta]2_}, {{l1_, lb1_}, {l2_, lb2_}}] := 1/XXSquared[1, 2]^(\[CapitalDelta]1 + l1 + lb1);
 KinematicPrefactor[deltas_, spins_] /; Length[deltas] == 3 := With[{kappas = deltas + Total /@ spins},
@@ -337,49 +339,6 @@ SpacetimeStructures[dims_, ls_, derivs_, derivtype_, perm_] := Table[Tensor[{{Sp
    Sequence @@ Flatten[Table[
       {Table[{Lowered[Spinor], Lowered[DottedSpinor]}, Count[derivs, j]], Table[Lowered[Spinor], 2 ls[[j, 1]]], Table[Lowered[DottedSpinor], 2 ls[[j, 2]]]},
       {j, Length[dims]}]]}}], {i, numSTStructures[ls]}];
-
-BuildTensor[{SpacetimeStructure[dims_, ls : {{l1_, lb1_}, {l2_, lb2_}}, {}, "\[PartialD]", perm : {1, 2}, 1], idxs___}] := 
-With[{
-	prodInds = Join[Flatten[Table[{{1, Spinor}, {2, DottedSpinor}}, 2 l1], 1], Flatten[Table[{{2, Spinor}, {1, DottedSpinor}}, 2 lb1], 1]],
-	myInds = Flatten[Table[ls[[idx]] /. {a_, b_} :> {Table[{idx, Spinor}, 2 a], Table[{idx, DottedSpinor}, 2 b]}, {idx, 2}], 2]
-  },
-  With[{
-	prod = KinematicPrefactor[dims, ls] I^(2 (l1 - lb1)) TensorProduct[Sequence @@ Table[StructureI[1, 2], 2 l1], Sequence @@ Table[StructureI[2, 1], 2 lb1]], 
-	indperm = FindPermutation[prodInds, myInds], 
-  	perms = Select[Permutations[Range[Length[{idxs}]]], myInds[[#]] === myInds &]
-  },
-  If[Length[{idxs}] == 0,
-  	CanonicallyOrderedComponents[prod] /. x[ii_, j_] :> x[perm[[ii]], j],
-  	With[{unsym = 
-     TensorTranspose[
-      TensorTranspose[
-       SparseArray[ArrayRules[CanonicallyOrderedComponents[prod]] /. x[ii_, j_] :> x[perm[[ii]], j], Table[2, Length[{idxs}]]], 
-      Ordering@prodInds[[;; , 2]]], 
-     indperm]
-    },
-   1/Sqrt[Length[perms]] Sum[TensorTranspose[unsym, p], {p, perms}]
-   ]
-  ]
- ]
-];
-
-BuildTensor[{SpacetimeStructure[dims_, {{l1_, lb1_}, {l2_, lb2_}}, derivs_, "\[PartialD]", {1, 2}, 1], idxs___}] /; derivs =!= {} :=
-  With[{bd = SpacetimeStructures[dims, {{l1, lb1}, {l2, lb2}}, {}, "\[PartialD]", {1, 2}][[1]]},
-   TensorTranspose[
-    CanonicallyOrderedComponents@
-     TensorPermute[
-      Fold[TensorSpinorDerivative, bd, ReverseSort[derivs]], 
-      PermutationList[
-       InversePermutation@
-        PermutationPower[
-         Cycles[{Join[
-            Range[2 Count[derivs, 1] + 1, 2 Length[derivs], 2], 
-            2 Length[derivs] + Range[2 l1]], 
-           Join[Range[2 Count[derivs, 1] + 2, 2 Length[derivs], 2], 
-            2 Length[derivs] + 2 l1 + Range[2 l2]]}], 
-         Count[derivs, 2]], Length@Indices[bd] + 2 Length[derivs]]], 
-    Ordering@{idxs}]
-   ];
       
 BuildTensor[{SpacetimeStructure[dims_, ls_, {}, derivtype_, perm_, i_], idxs___}] := With[{comps = Explicit[KinematicPrefactor[dims, ls]] (constructStructure @@ SpacetimeStructureExpressions[ls][[i]])},
  	If[Length[{idxs}] == 0, 

@@ -9,12 +9,12 @@ NonRPart[Tensor[names_]] :=
     names, ! (MatchQ[#[[1]], RInvariant[_]] || 
         MemberQ[{"C", "\[Delta]"}, #[[1]]]) &]];
 
-RPart[TensorPermute[t_, perm_]] := 
+RPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
   With[{rInds = 
      Position[Indices[t], Raised[_RIndex] | Lowered[_RIndex]][[;; , 
        1]]}, TensorPermute[RPart[t], 
     Ordering[InversePermutation[perm][[rInds]]]]];
-NonRPart[TensorPermute[t_, perm_]] := 
+NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
   With[{nonrInds = 
      Position[Indices[t], 
        Raised[Except[_RIndex]] | Lowered[Except[_RIndex]]][[;; , 1]]},
@@ -60,30 +60,6 @@ NonRPart[TensorDerivative[t_, i_]] := TensorDerivative[NonRPart[t], i];
 
 RPart[a_ b_] /; FreeQ[a, Tensor] := RPart[b];
 NonRPart[a_ b_] /; FreeQ[a, Tensor] := NonRPart[b];
-   
-ExpandCorrelator[Correlator[Tensor[names_]]] /; (AllTrue[names, MemberQ[Flatten[$multiplet /@ $multipletIndices][[;;, 1]], StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] &] && Length[names] == 2) :=
-With[{name2field = Association@Table[f[[1]] -> f, {f, Flatten[$multiplet /@ $multipletIndices]}]}, 
-  With[{fields = 
-     name2field[
-        StringDrop[#[[1]], 
-         Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names, 
-    derivs = 
-     Flatten@Table[
-       i, {i, 2}, {j, 
-        Count[Characters[names[[i, 1]]], "\[PartialD]"]}]},
-   If[ToExpression[Conjugate[fields[[1]]][[1]], InputForm, Hold] =!= 
-     ToExpression[fields[[2, 1]], InputForm, Hold], 0,
-    TensorProduct[
-     TwoPtRInvariant[RRep[fields[[1]]], RRep[fields[[2]]]], 
-     SpacetimeStructures[ScalingDimension /@ fields, Spin /@ fields, derivs, "\[PartialD]", {1, 2}][[1]]]
-    ]
-   ]
-];
-
-SpacetimeRelations[structs_] := 
-  If[Length[structs] > 5 && 
-    First@Cases[structs, s_SpacetimeStructure :> Length[s[[1]]], All] == 4, 
-   relations[structs, 188, 6], SymbolicSpacetimeRelations[structs]];
    
 Options[RRelations] = {"MonitorProgress" -> False};
 RRelations[largebasis_, OptionsPattern[]] := Module[{relations, choice, tmp},
@@ -164,7 +140,7 @@ ExpandCorrelator[Correlator[Tensor[names_]],
     OptionsPattern[]] /; (AllTrue[names, 
       !MissingQ[name2field@StringDrop[#[[1]], 
          Count[Characters[#[[1]]], "\[PartialD]"]]] &] && 
-     3 <= Length[names] <= 4) := 
+     2 <= Length[names] <= 4) := 
   With[{fields = 
      name2field[
         StringDrop[#[[1]], 
@@ -177,6 +153,9 @@ ExpandCorrelator[Correlator[Tensor[names_]],
      order = Ordering[fields, All, fieldOrder]},
     Module[{numinvs = numInvariants[RRep /@ sfields], 
       numsts = numSTStructures[Spin /@ sfields],
+      STstructs = SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, 
+             InversePermutation[order][[#]] & /@ derivs, 
+             "\[PartialD]", order],
       sign = 
        Signature@
         InversePermutation[order][[
@@ -185,18 +164,23 @@ ExpandCorrelator[Correlator[Tensor[names_]],
       STindperm = crossingPermutationST[Tensor[names], order], 
       Rindperm = crossingPermutationR[Tensor[names], order]},
      sign Sum[
-       If[Length[names] == 3, \[Lambda][sfields,i,j], g[sfields, i, j][u[order], v[order]]] TensorProduct[
+       Switch[Length[names],
+          2,
+          I^(2 Abs[Subtract @@ Spin[fields[[1]]]]),
+          3, 
+          \[Lambda][sfields,i,j], 
+          4,
+          g[sfields, i, j][u[order], v[order]]
+       ] TensorProduct[
           TensorPermute[
-           If[Length[names] == 4,
-           	FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields),
-           	ThreePtRInvariant @@ (RRep /@ sfields)
+           Switch[Length[names],
+            4, FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields),
+           	3, ThreePtRInvariant @@ (RRep /@ sfields),
+           	2, TwoPtRInvariant @@ (RRep /@ sfields)
            ], 
            Rindperm], 
-          TensorPermute[
-           SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, 
-             InversePermutation[order][[#]] & /@ derivs, 
-             "\[PartialD]", order][[j]], STindperm]] + 
-        If[derivs === {} || Length[names] == 3, 0,
+          TensorPermute[STstructs[[j]], STindperm]] + 
+        If[derivs === {} || Length[names] < 4, 0,
          
          Derivative[1, 0][g[sfields, i, j]][u[order], 
             v[order]] TensorProduct[
