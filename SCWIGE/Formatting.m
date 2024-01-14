@@ -11,7 +11,11 @@ Format[Field[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] :=
        
 Format[x[i_, j_], TraditionalForm] := Superscript[Subscript[x, i], j];
 Format[SpacetimePoint[i_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", i];
+Format[SpacetimePointDefect[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)" i];
+Format[SpacetimePointTransverse[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i];
 Format[SpacetimeSeparation[i_, j_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", Row[{i, j}]];
+Format[SpacetimeSeparationDefect[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", Row[{i, j}]];
+Format[SpacetimeSeparationTransverse[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", Row[{i, j}]];
 
 Format[XXSquared[i_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", Row[{i}]])^2;
 Format[XXSquared[i_, j_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", 
@@ -21,6 +25,28 @@ MakeBoxes[Power[XXSquared[xs__], n_], TraditionalForm] :=
    TemplateBox[{SubscriptBox["x", StringJoin @@ (ToString /@ {xs})]}, 
     "Abs"], SuperscriptBox[
     SubscriptBox["x", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    
+Format[XXSquaredDefect[i_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", Row[{i}]])^2;
+Format[XXSquaredDefect[i_, j_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", 
+   Row[{i, j}]])^2;
+MakeBoxes[Power[XXSquaredDefect[xs__], n_], TraditionalForm] := 
+  If[n === 1/2, 
+   TemplateBox[{SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", StringJoin @@ (ToString /@ {xs})]}, 
+    "Abs"], SuperscriptBox[
+    SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    
+Format[XXSquaredTransverse[i_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", Row[{i}]])^2;
+Format[XXSquaredTransverse[i_, j_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", 
+   Row[{i, j}]])^2;
+MakeBoxes[Power[XXSquaredTransverse[xs__], n_], TraditionalForm] := 
+  If[n === 1/2, 
+   TemplateBox[{SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", StringJoin @@ (ToString /@ {xs})]}, 
+    "Abs"], SuperscriptBox[
+    SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    
+Format[XXDot[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(TraditionalForm\`x\)", i], " \[CenterDot] ", Subscript["\!\(TraditionalForm\`x\)", j], ")"}];
+Format[XXDotDefect[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", i], " \[CenterDot] ", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", j], ")"}];
+Format[XXDotTransverse[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i], " \[CenterDot] ", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", j], ")"}];
 
 Format[SUSYCoefficient[name_, idx_, opt : OptionsPattern[]], TraditionalForm] := Subscript[
 	If[OptionValue[SUSYCoefficient, opt, "QBar"], "\!\(\*OverscriptBox[\(\[ScriptA]\), \(_\)]\)", "\[ScriptA]"],

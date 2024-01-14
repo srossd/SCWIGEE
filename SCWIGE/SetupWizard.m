@@ -28,6 +28,15 @@ Multiplet[i_] := $multiplet[i];
 $signatureFactor = 1;
 SignatureFactor[] := $signatureFactor;
 
+SetSignature["Lorentzian"] := ($signatureFactor = 1);
+SetSignature["Euclidean"] := ($signatureFactor = I);
+
+SetSignature::badsig = "The signature `` is not recognized; use \"Lorentzian\" or \"Euclidean\".";
+SetSignature[sig_] := Message[SetSignature::badsig, sig];
+
+SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
+SetDefectCodimension[q_] := If[!MemberQ[{None,1,2,3},q], ($qdefect = q)];
+
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
    Complement[
@@ -41,6 +50,7 @@ singRep[grp_] :=
    
 $RSymmetry = Null;
 $editing = True;
+$qdefect = None;
 $viewingMultiplet = 1;
 $multiplet = <||>;
 $multipletName = <||>;
@@ -205,38 +215,27 @@ conventions[1] := {\[Eta]Lower == MatrixForm[Components[\[Eta]Lower]], \[Epsilon
  Subscript["\[Epsilon]", Row[{0, 1, 2, 3}]] == 
   Components[\[Epsilon]Spacetime][[1, 2, 3, 4]]} /. (x_ == y_) :> conventionButton[x == y];
   
-conventions[2] := {MyInactive[StructureI]["i", "j"] == StructureI["i", "j"], 
- MyInactive[StructureI]["i", "j", "k", "l"] == 
-  StructureI["i", "j", "k", "l"], 
- MyInactive[StructureJ]["i", "j", "k"] == 
-  StructureJ["i", "j", "k"], 
- MyInactive[StructureK]["i", "j", "k"] == 
-  StructureK["i", "j", "k"], 
- MyInactive[StructureKBar]["i", "j", "k"] == 
-  StructureKBar["i", "j", "k"], 
- MyInactive[StructureL]["i", "j", "k", "l"] == 
-  StructureL["i", "j", "k", "l"], 
- MyInactive[StructureLBar]["i", "j", "k", "l"] == 
-  StructureLBar["i", "j", "k", "l"]} /. {
-  "i" -> "\!\(TraditionalForm\`i\)",
-  "j" -> "\!\(TraditionalForm\`j\)",
-  "k" -> "\!\(TraditionalForm\`k\)",
-  "l" -> "\!\(TraditionalForm\`l\)"
-  } /. (x_ == y_) :> conventionButton[x == y];
+conventions[2] := Flatten[Table[
+   MyInactive[Structure[struct, $qdefect]] @@ (FromCharacterCode /@ Range[105, 105 + m - 1]) == 
+   Structure[struct, $qdefect] @@ (FromCharacterCode /@ Range[105, 105 + m - 1]),  
+   {m, maxPts[$qdefect]}, {struct, allStructures[m, $qdefect]}]] /. (x_ == y_) :> conventionButton[x == y];
   
-conventionsPanel[] := Row[{Column[conventions[1], Spacings -> 2]//TraditionalForm, 
+conventionsPanel[] := Row[{Column[Prepend[conventions[1], Style["General conventions", Bold, 16]], Spacings -> 2]//TraditionalForm, 
    Spacer[20], 
-   Column[conventions[2], Spacings -> 1]//TraditionalForm
-}];
+   Column[Prepend[conventions[2], Style["Spacetime structure building blocks", Bold, 16]], Spacings -> 1]//TraditionalForm
+}, Alignment -> Top];
          
 wizardPanel[] := Panel[Grid[{{"", "", Style["Setup Wizard", 20], 
     Row[{Style["Editing: ", 16], Spacer[5], 
       Checkbox[Dynamic[$editing]]}]}, {"", "", 
-    Row[{Style["Signature: ", 14], 
+    Grid[{{Style["Signature: ", 14], 
       Dynamic[RadioButtonBar[
         Dynamic[$signatureFactor], {1 -> Style["Lorentzian", 12], 
-         I -> Style["Euclidean", 12]}, Enabled -> $editing]]}], 
-    Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {1000, 400}, WindowFloating -> False, WindowTitle -> "Conventions"]]}, {"", "", 
+         I -> Style["Euclidean", 12]}, Enabled -> $editing]]},
+      {Style["Defect: ", 14], Dynamic[RadioButtonBar[
+        Dynamic[$qdefect], {None -> Style["None", 12], 
+         3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"]}, Enabled -> $editing]]}}, Alignment -> Left], 
+    Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {900, 600}, WindowFloating -> False, WindowTitle -> "Conventions"]]}, {"", "", 
     Row[{Style["R-symmetry: ", 16], 
       Dynamic[InputField[
         Dynamic[$RSymmetry, {Automatic, SetRSymmetry[#1] &}], 

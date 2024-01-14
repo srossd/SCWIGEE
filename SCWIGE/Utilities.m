@@ -1,6 +1,6 @@
 (* Wolfram Language package *)
     
-indQ[basis_, vec_] := Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True];
+indQ[basis_, vec_] := !MatchQ[vec, {0..}] && Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True];
 
 Options[IndependentSet] = {"Rules" -> {}, "MonitorProgress" -> False, "MaxIndependent" -> 0, "Indices" -> False};
 IndependentSet[{}] := {};
@@ -12,7 +12,7 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 			Fold[
 			   If[OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"],
 				    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
-						If[Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp], 
+						If[indQ[runningComps[[;;Length[#1]]], comp], 
 							runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
 							#1
 						]
@@ -27,7 +27,7 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 		Fold[
 		    If[OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"],
 			    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
-					If[Length[#1] == 0 || indQ[runningComps[[;;Length[#1]]], comp], 
+					If[indQ[runningComps[[;;Length[#1]]], comp], 
 						runningComps[[Length[#1] + 1]] = comp; Append[#1, #2],
 						#1
 					]
@@ -85,22 +85,6 @@ fitRational[data_, deg_, step_, maxDeg_, opt : OptionsPattern[]] :=
      ]
     ]
    ];
-   
-relations[structs_, len_, deg_] := 
- With[{data = spacetimePtData[structs, len]},
-  With[{ind = data[[1]], 
-    other = Complement[Range@Length[structs], data[[1]]]},
-   ResourceFunction["MonitorProgress"][
-    Table[SparseArray[
-      Append[Table[{ind[[i]]} -> (-Simplify@
-            fitRational[
-             data[[2]] /. {{u_, v_}, b_} :> {u, v, b[[j, i]]}, 1, deg,
-              "Prefactors" -> {1, Sqrt[u], Sqrt[v], Sqrt[u v]}]), {i, 
-         Length[ind]}], {other[[j]]} -> 1], {Length[structs]}], {j, 
-      Length[other]}], "Label" -> "Fitting rational functions",
-		"CurrentDisplayFunction" -> None]
-   ]
-  ];
 
 expansion[structure_, basis_, relations_] := 
   With[{idx = Position[basis, structure, 1][[1, 1]], 

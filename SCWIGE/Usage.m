@@ -26,12 +26,18 @@ StyleBox[\"op2\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"...\",\nFontSlant->\"Italic\"]\).";
+SetSignature::usage = "SetSignature[\!\(\*
+StyleBox[\"sig\",\nFontSlant->\"Italic\"]\)] sets the signature to \!\(\*
+StyleBox[\"sig\",\nFontSlant->\"Italic\"]\), where \!\(\*
+StyleBox[\"sig\",\nFontSlant->\"Italic\"]\) is either \"Lorentzian\" or \"Euclidean\".";
 
 RSymmetry::usage = "RSymmetry[] gives the Cartan matrix R-symmetry group (or list of Cartan matrices for a non-simple group).";
 Multiplet::usage = "Multiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the list of fields in the \*
 StyleBox[\(\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] SUSY multiplet.";
+SignatureFactor::usage = "SignatureFactor[] gives the factor determining the signature, 1 for Lorentzian or \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) for Euclidean.";
 
 DisplayMultiplet::usage = "DisplayMultiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] displays the \*
@@ -113,6 +119,34 @@ StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the separation between spacetime 
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\) as a tensor";
 
+XXDefect::usage = "XXDefect[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the components of the spacetime point with index \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)parallel to the defect as a tensor\n"<>
+			"XXDefect[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the components of the separation between spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\) parallel to the defect as a tensor";
+
+XXTransverse::usage = "XXTransverse[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the components of the spacetime point with index \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)transverse to the defect as a tensor\n"<>
+			"XXTransverse[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the components of the separation between spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\) transverse to the defect as a tensor";
+
 x::usage = "x[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -134,7 +168,7 @@ StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\)].";
 
 XXSquared::usage = "XXSquared[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the Lorentzian norm of the spacetime point with index \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the norm of the spacetime point with index \!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)as a tensor\n"<>
 			"XXSquared[\!\(\*
@@ -143,9 +177,68 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the Lorentzian norm of the separation between spacetime points \!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the norm of the separation between spacetime points \!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\) as a tensor";
+
+XXSquaredDefect::usage = "XXSquaredDefect[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the norm of the components of the spacetime point with index \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)parallel to the defect as a tensor\n"<>
+			"XXSquared[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the norm of the components of the separation between spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\) parallel to the defect as a tensor";
+
+XXSquaredTransverse::usage = "XXSquaredTransverse[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the norm of the components of the spacetime point with index \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)transverse to the defect as a tensor\n"<>
+			"XXSquaredTransverse[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)gives the norm of the components of the separation between spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\) transverse to the defect as a tensor";
+
+XXDot::usage = "XXDot[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] gives the inner product between spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)";
+XXDotTransverse::usage = "XXDot[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] gives the inner product between the parts of spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)transverse to the defect";
+XXDotDefect::usage = "XXDot[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] gives the inner product between spacetime points \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\) and \!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"parallel\",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\"to\",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\"the\",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\"defect\",\nFontSlant->\"Plain\"]\)";
 			
 SpinorX::usage = "SpinorX[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -268,7 +361,10 @@ StyleBox[\"spins\",\nFontSlant->\"Italic\"]\)] gives the kinematic prefactor for
 StyleBox[\"dims\",\nFontSlant->\"Italic\"]\) and spins \!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\).";
 
-StructureI::usage = "StructureI[\!\(\*
+Structure::usage = "Structure[\!\(\*
+StyleBox[\"symbol\",\nFontSlant->\"Italic\"]\)] is a head for spacetime structures.";
+
+(*StructureI::usage = "StructureI[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -352,7 +448,7 @@ StyleBox[\"l\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"]\",\nFontSlant->\"Italic\"]\) gives \!\(\*SubsuperscriptBox[OverscriptBox[\(L\), OverscriptBox[\(_\), \(^\)]], 
 StyleBox[
 RowBox[{\"j\", \",\", \"k\", \",\", \"l\"}],\nFontSlant->\"Italic\"], 
-StyleBox[\"i\",\nFontSlant->\"Italic\"]]\) as in 1705.05401.";
+StyleBox[\"i\",\nFontSlant->\"Italic\"]]\) as in 1705.05401.";*)
 
 SpacetimeStructures::usage = "SpacetimeStructures[\!\(\*
 StyleBox[\"dims\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -412,6 +508,10 @@ DisplaySUSYVariations::usage = "DisplaySUSYVariations[] gives a table showing th
 
 \[Eta]Lower::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\)";
 \[Eta]Upper::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\).";
+\[Eta]LowerTransverse::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)], \(\[Mu]\[Nu]\)]\)";
+\[Eta]UpperTransverse::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\(\[UpTee]\)\(\[Mu]\[Nu]\)\)]\)";
+\[Eta]LowerDefect::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[SuperscriptBox[\(\[Eta]\), \(\[DoubleVerticalBar]\)], \(\[Mu]\[Nu]\)]\)";
+\[Eta]UpperDefect::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\(\[DoubleVerticalBar]\)\(\[Mu]\[Nu]\)\)]\)";
 
 \[Epsilon]Spacetime::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
 \[Epsilon]SpacetimeUpper::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
@@ -551,6 +651,17 @@ StyleBox[\"k\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"l\",\nFontSlant->\"Italic\"]\)}.";
+
+\[Xi]::usage = "\[Xi][{\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)}] is the defect cross-ratio \[Xi] with coordinates in the order {\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)}.";
+\[Eta]::usage = "\[Eta][{i, j}] is the defect cross-ratio \[Eta] with coordinates in the order {i, j}.";
 
 DeclareAlgebra::usage = "DeclareAlgebra[] computes ansatze for SUSY variations and sets the (anti)commutators between QTensor[] and the multiplet appropriately.";
 DeclareArbitraryFunction::usage = "DeclareArbitraryFunction[\!\(\*

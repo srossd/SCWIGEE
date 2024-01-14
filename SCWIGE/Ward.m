@@ -56,11 +56,11 @@ solveData[m_, b_, num_] :=
     Table[{uv, 
       Simplify@
         LinearSolve[
-         crM[[1]] /. Thread[{u, v} -> uv] /. _\[Theta] -> 0, 
+         crM[[1]] /. Thread[crossRatios[$qdefect] -> uv] /. _\[Theta] -> 0, 
          b /. Thread[terms -> Array[\[Alpha], Length[terms]]] /. 
-           Thread[{u, v} -> uv] /. 
+           Thread[crossRatios[$qdefect] -> safeCrossRatios[$qdefect]] /. 
           Thread[Array[\[Alpha], Length[terms]] -> 
-            terms]] crM[[2]]}, {uv, safeUVs}], 
+            terms]] crM[[2]]}, {uv, safeCrossRatios[$qdefect]}], 
     "Label" -> "Generating solution data", 
          "CurrentDisplayFunction" -> None]
    ];
@@ -74,9 +74,6 @@ clearRadicals[mat_] :=
    {mat . DiagonalMatrix[factors], factors}
    ];
 
-indQ[basis_, vec_] := 
-  Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True];
-
 wardSolveFit[eqs_, vars_] := 
   With[{bm = CoefficientArrays[eqs, vars]}, 
    With[{b = -bm[[1]], m = bm[[2]]}, 
@@ -86,9 +83,9 @@ wardSolveFit[eqs_, vars_] :=
          Fold[If[Length[#1] < Length[vars] && 
              indQ[
               crM[[1, #1]] /. 
-               Thread[{u, v} -> safeUVs[[25]]], 
+               Thread[crossRatios[$qdefect] -> safeCrossRatios[$qdefect][[100]]], 
               crM[[1, #2]] /. 
-               Thread[{u, v} -> safeUVs[[25]]]], 
+               Thread[crossRatios[$qdefect] -> safeCrossRatios[$qdefect][[100]]]], 
             Append[#1, #2], #1] &, {}, Range[Length[m]]], 
          "Label" -> "Finding set of independent equations", 
          "CurrentDisplayFunction" -> None]},
@@ -109,12 +106,13 @@ wardSolveFit[eqs_, vars_] :=
                fitRational[(sd /. {{u_?NumericQ, v_}, 
                     data_} :> {u, v, 
                     Coefficient[data[[vari]], term]}), 1, 6, 
-                "Prefactors" -> {1, Sqrt[u], Sqrt[v], 
-                  Sqrt[u v]}], {term, terms}]], {vari, Length[vars]}],
+                "Prefactors" -> Flatten@Outer[Times, Sequence @@ Table[{1, r}, {r, crossRatios[$qdefect]}]]
+                ], {term, terms}]], {vari, Length[vars]}],
            "Label" -> "Fitting rational functions", 
          "CurrentDisplayFunction" -> None]]]]]]];
 
-crosses = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
+crosses[_Integer] = {};
+crosses[None] = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
     v -> v/u}, {u -> v/u, v -> 1/u}, {u -> 1/v, v -> u/v}, {u -> v, 
     v -> u}};
     
@@ -129,19 +127,19 @@ AddSolutions[soln_] :=
       Values /@ 
        GroupBy[Select[
           Flatten[Table[
-            s /. cross, {s, soln}, {cross, crosses}]], 
-          MatchQ[#[[1]], g[__][u, v]] &] /. 
+            s /. cross, {s, soln}, {cross, crosses[$qdefect]}]], 
+          MatchQ[#[[1]], g[__][Sequence @@ crossRatios[$qdefect]]] &] /. 
          HoldPattern[
            a_ -> b_] :> (Head[
-             a] -> (Function[{u, v}, tmp] /. tmp -> b)), First]},
+             a] -> (Function[Evaluate[crossRatios[$qdefect]], tmp] /. tmp -> b)), First]},
     $SolvedCorrelators = 
      Merge[{$SolvedCorrelators, Association[uvVersions]}, 
       DeleteDuplicates@*Flatten@*List];
     $SolvedCorrelators = 
      Association @@ 
       Table[k -> 
-        Table[Function[{u, v}, 
-          Evaluate[Simplify[CrossingSimplify[val[u, v] /. (First /@ $SolvedCorrelators)], uvAssumptions]]], {val, $SolvedCorrelators[k]}], {k, 
+        Table[Function[Evaluate[crossRatios[$qdefect]], 
+          Evaluate[Simplify[CrossingSimplify[(val @@ crossRatios[$qdefect]) /. (First /@ $SolvedCorrelators)], crossRatioAssumptions[$qdefect]]]], {val, $SolvedCorrelators[k]}], {k, 
         Keys[$SolvedCorrelators]}];
     ]
    ];
@@ -166,5 +164,5 @@ CrossingSimplify[expr_] :=
   expr /. tterm : (Alternatives @@ 
         Table[f[args__] | 
           Derivative[__][f][args__], {f, $ArbitraryFunctions}]) /; 
-     Length[{args}] == 2 && {args} =!= {u, v} :> (tterm /. 
+     Length[{args}] == 2 && {args} =!= crossRatios[$qdefect] :> (tterm /. 
       Table[f -> $crossingRules[f[args]], {f, $ArbitraryFunctions}]);

@@ -76,6 +76,26 @@ BuildTensor[{"\[Eta]", Raised[SpaceTime], Raised[SpaceTime]}] :=
 BuildTensor[{"\[Eta]", Lowered[SpaceTime], Lowered[SpaceTime]}] := 
   SparseArray[DiagonalMatrix[{-SignatureFactor[]^2, 1, 1, 1}]];
 
+\[Eta]UpperDefect = 
+  Tensor[{{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[DoubleVerticalBar]\)]\)", Raised[SpaceTime], Raised[SpaceTime]}}];
+BuildTensor[{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[DoubleVerticalBar]\)]\)", Raised[SpaceTime], Raised[SpaceTime]}] := 
+  SparseArray[DiagonalMatrix[PadLeft[Table[1, 4-$qdefect], 4]]];
+
+\[Eta]LowerDefect = 
+  Tensor[{{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[DoubleVerticalBar]\)]\)", Lowered[SpaceTime], Lowered[SpaceTime]}}];
+BuildTensor[{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[DoubleVerticalBar]\)]\)", Lowered[SpaceTime], Lowered[SpaceTime]}] := 
+  SparseArray[DiagonalMatrix[PadLeft[Table[1, 4-$qdefect], 4]]];
+
+\[Eta]UpperTransverse = 
+  Tensor[{{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Raised[SpaceTime], Raised[SpaceTime]}}];
+BuildTensor[{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Raised[SpaceTime], Raised[SpaceTime]}] := 
+  SparseArray[DiagonalMatrix[PadRight[{-SignatureFactor[]^2, 1, 1, 1}[[;;$qdefect]], 4]]];
+
+\[Eta]LowerTransverse = 
+  Tensor[{{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Lowered[SpaceTime], Lowered[SpaceTime]}}];
+BuildTensor[{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Lowered[SpaceTime], Lowered[SpaceTime]}] := 
+  SparseArray[DiagonalMatrix[PadRight[{-SignatureFactor[]^2, 1, 1, 1}[[;;$qdefect]], 4]]];
+
 \[Sigma]Lower = 
   Tensor[{{"\[Sigma]", Lowered[SpaceTime], Lowered[Spinor], 
      Lowered[DottedSpinor]}}];
@@ -191,27 +211,77 @@ BuildTensor[{"\[Epsilon]", Lowered[SpaceTime], Lowered[SpaceTime],
     Lowered[SpaceTime], Lowered[SpaceTime]}] := -SignatureFactor[]^2 LeviCivitaTensor[4];
 BuildTensor[{"\[Epsilon]", Raised[SpaceTime], Raised[SpaceTime], 
     Raised[SpaceTime], Raised[SpaceTime]}] := LeviCivitaTensor[4];
+    
+\[Epsilon]LineDefect = Tensor[{{"\!\(\*OverscriptBox[\(\[Epsilon]\), \(~\)]\)", Lowered[SpaceTime], Lowered[SpaceTime], Lowered[SpaceTime]}}];
+BuildTensor[{"\!\(\*OverscriptBox[\(\[Epsilon]\), \(~\)]\)", Lowered[SpaceTime], Lowered[SpaceTime], Lowered[SpaceTime]}] := SparseArray@
+ TensorTranspose[
+ Join[ArrayPad[
+   LeviCivitaTensor[3], {{0, 0}, {0, 1}, {0, 1}}], {ArrayPad[
+    IdentityMatrix[3], {0, 1}]}], {3, 1, 2}];
 
 XX[i_] := Tensor[{{SpacetimePoint[i], Raised[SpaceTime]}}];
 BuildTensor[{SpacetimePoint[i_], Raised[SpaceTime]}] := SparseArray@Table[x[i, k], {k, 4}];
 
+XXDefect[i_] := Tensor[{{SpacetimePointDefect[i], Raised[SpaceTime]}}];
+BuildTensor[{SpacetimePointDefect[i_], Raised[SpaceTime]}] := SparseArray[Table[{k} -> x[i, k], {k, If[$qdefect === None, {}, Range[$qdefect + 1, 4]]}], {4}];
+
+XXTransverse[i_] := Tensor[{{SpacetimePointTransverse[i], Raised[SpaceTime]}}];
+BuildTensor[{SpacetimePointTransverse[i_], Raised[SpaceTime]}] := SparseArray[Table[{k} -> x[i, k], {k, If[$qdefect === None, Range[4], Range[$qdefect]]}], {4}];
+
 XX[i_, j_] := Tensor[{{SpacetimeSeparation[i, j], Raised[SpaceTime]}}];
-BuildTensor[{SpacetimeSeparation[i_, j_], Raised[SpaceTime]}] := SparseArray@Table[x[i, k] - x[j, k], {k, 4}];
+BuildTensor[{SpacetimeSeparation[i_, j_], Raised[SpaceTime]}] := Components[XX[i]] - Components[XX[j]];
+
+XXDefect[i_, j_] := Tensor[{{SpacetimeSeparationDefect[i, j], Raised[SpaceTime]}}];
+BuildTensor[{SpacetimeSeparationDefect[i_, j_], Raised[SpaceTime]}] := Components[XXDefect[i]] - Components[XXDefect[j]];
+
+XXTransverse[i_, j_] := Tensor[{{SpacetimeSeparationTransverse[i, j], Raised[SpaceTime]}}];
+BuildTensor[{SpacetimeSeparationTransverse[i_, j_], Raised[SpaceTime]}] := Components[XXTransverse[i]] - Components[XXTransverse[j]];
 
 SetAttributes[XXSquared, Orderless];
-AppendTo[TensorTools`Private`explicitRules, 
-  XXSquared[i_] :> 
+AddExplicitRule[
+  XXSquared[i__] :> 
    Components[
     Contract[
      TensorProduct[XX[i], \[Eta]Lower, XX[i]], {{1, 2}, {3, 4}}]]];
+
+SetAttributes[XXSquaredDefect, Orderless];
 AppendTo[TensorTools`Private`explicitRules, 
-  XXSquared[i_, j_] :> 
+  XXSquaredDefect[i__] :> 
    Components[
     Contract[
-     TensorProduct[XX[i, j], \[Eta]Lower, 
-      XX[i, j]], {{1, 2}, {3, 4}}]]];
+     TensorProduct[XXDefect[i], \[Eta]Lower, XXDefect[i]], {{1, 2}, {3, 4}}]]];
+
+SetAttributes[XXSquaredTransverse, Orderless];
+AddExplicitRule[
+  XXSquaredTransverse[i__] :> 
+   Components[
+    Contract[
+     TensorProduct[XXTransverse[i], \[Eta]Lower, XXTransverse[i]], {{1, 2}, {3, 4}}]]];
+
+SetAttributes[XXDot, Orderless];
+AddExplicitRule[
+  XXDot[i_, j_] :> 
+   Components[
+    Contract[
+     TensorProduct[XX[i], \[Eta]Lower, XX[j]], {{1, 2}, {3, 4}}]]];
+
+SetAttributes[XXDotDefect, Orderless];
+AddExplicitRule[
+  XXDotDefect[i_, j_] :> 
+   Components[
+    Contract[
+     TensorProduct[XXDefect[i], \[Eta]Lower, XXDefect[j]], {{1, 2}, {3, 4}}]]];
+
+SetAttributes[XXDotTransverse, Orderless];
+AddExplicitRule[
+  XXDotTransverse[i_, j_] :> 
+   Components[
+    Contract[
+     TensorProduct[XXTransverse[i], \[Eta]Lower, XXTransverse[j]], {{1, 2}, {3, 4}}]]];
     
-SpinorX[i_, j_] := Contract[TensorProduct[XX[i, j], \[Sigma]Lower], {{1, 2}}];
+SpinorX[i__] := Contract[TensorProduct[XX[i], \[Sigma]Lower], {{1, 2}}];
+SpinorXDefect[i__] := Contract[TensorProduct[XXDefect[i], \[Sigma]Lower], {{1, 2}}];
+SpinorXTransverse[i__] := Contract[TensorProduct[XXTransverse[i], \[Sigma]Lower], {{1, 2}}];
 
 SpinorX[{i_, j_}, {k_, l_}, {m_, n_}] := 
   Contract[
@@ -325,3 +395,6 @@ AddExplicitRule[u[{ii_, jj_, kk_, ll_}] :> (XXSquared[ii, jj] XXSquared[kk, ll])
    XXSquared[ii, kk] XXSquared[jj, ll])];
 AddExplicitRule[v[{ii_, jj_, kk_, ll_}] :> (XXSquared[ii, ll] XXSquared[jj, kk])/(
    XXSquared[ii, kk] XXSquared[jj, ll])];
+   
+AddExplicitRule[\[Xi][{ii_, jj_}] :> (XXSquaredDefect[ii, jj] + XXSquaredTransverse[ii] + XXSquaredTransverse[jj])/(2 Sqrt[XXSquaredTransverse[ii] XXSquaredTransverse[jj]])]; 
+AddExplicitRule[\[Eta][{ii_, jj_}] :> XXDotTransverse[ii, jj]/(Sqrt[XXSquaredTransverse[ii] XXSquaredTransverse[jj]])]; 
