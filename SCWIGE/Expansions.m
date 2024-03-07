@@ -17,7 +17,7 @@ RPart[TensorPermute[t_, perm_, OptionsPattern[]]] :=
 NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
   With[{nonrInds = 
      Position[Indices[t], 
-       Raised[Except[_RIndex]] | Lowered[Except[_RIndex]]][[;; , 1]]},
+       Raised[Except[_RIndex | _DefectRIndex]] | Lowered[Except[_RIndex | _DefectRIndex]]][[;; , 1]]},
     TensorPermute[NonRPart[t], 
     Ordering[InversePermutation[perm][[nonrInds]]]]
    ];
@@ -25,26 +25,26 @@ NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] :=
 RPart[Contract[t_, pairs_]] := 
   With[{dels = 
      Position[Indices[t], 
-       Raised[Except[_RIndex]] | Lowered[Except[_RIndex]]][[;; , 1]], 
+       Raised[Except[_RIndex | _DefectRIndex]] | Lowered[Except[_RIndex | _DefectRIndex | _DefectRIndex]]][[;; , 1]], 
     inner = RPart[t]},
    With[{pi = TensorPermutation[inner], 
      ip = InversePermutation[TensorPermutation[t]]},
     Contract[inner, 
      Sort /@ (Select[pairs, 
-         MatchQ[Indices[t][[#[[1]], 1]], _RIndex] &] /. 
+         MatchQ[Indices[t][[#[[1]], 1]], _RIndex | _DefectRIndex] &] /. 
         n_Integer :> 
          pi[[ip[[n]] - Length@Select[dels, # < ip[[n]] &]]])]
     ]
    ];
 NonRPart[Contract[t_, pairs_]] := 
   With[{dels = 
-     Position[Indices[t], Raised[_RIndex] | Lowered[_RIndex]][[;; , 
+     Position[Indices[t], Raised[_RIndex | _DefectRIndex] | Lowered[_RIndex | _DefectRIndex]][[;; , 
        1]], inner = NonRPart[t]},
    With[{pi = TensorPermutation[inner], 
      ip = InversePermutation[TensorPermutation[t]]},
     Contract[inner, 
      Sort /@ (Select[
-         pairs, ! MatchQ[Indices[t][[#[[1]], 1]], _RIndex] &] /. 
+         pairs, ! MatchQ[Indices[t][[#[[1]], 1]], _RIndex | _DefectRIndex] &] /. 
         n_Integer :> 
          pi[[ip[[n]] - Length@Select[dels, # < ip[[n]] &]]])]
     ]
@@ -94,9 +94,9 @@ ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _T
 ];
 
 ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms = List @@ Expand[Plus[a, rest]]},
-   With[{largeRBasis = DeleteDuplicates[RPart /@ allterms], largeSTBasis = SortBy[DeleteDuplicates[NonRPart /@ allterms], First@Cases[#, s_SpacetimeStructure :> {Length[s[[3]]], s[[5]], -s[[6]]}, All] &]},
+   With[{largeRBasis = DeleteDuplicates[RPart /@ allterms], largeSTBasis = SortBy[DeleteDuplicates[NonRPart /@ allterms], First@Cases[#, s_SpacetimeStructure :> {Length[s[[3]]], s[[5]], -s[[7]]}, All] &]},
       With[{RRels = RRelations[largeRBasis, opt], STRels = SpacetimeRelations[largeSTBasis]},
-      	Sum[ExpansionComponents[t /. u[perm_] :> (u^#1 v^#2 & @@ uvpowers[1, perm]) /. v[perm_] :> (u^#1 v^#2 & @@ uvpowers[2, perm]), {largeRBasis, RRels}, {largeSTBasis, STRels}], {t, List @@ Expand[Plus[a, rest]]}]
+      	Sum[ExpansionComponents[t /. u[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[1, perm], u] /. v[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[2, perm], v], {largeRBasis, RRels}, {largeSTBasis, STRels}], {t, List @@ Expand[Plus[a, rest]]}]
       ]
    ]
 ];
@@ -121,26 +121,25 @@ crossingPermutationR[t_Tensor, order_] :=
         Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], RIndex] &]]]]
    ];
 
-ExpandCorrelator[0, OptionsPattern[]] = 0;
+ExpandCorrelator[0] = 0;
 
-ExpandCorrelator[expr : Except[_Correlator], opt : OptionsPattern[]] /;
+ExpandCorrelator[expr : Except[_Correlator]] /;
     Length[Cases[expr, _Correlator, All]] == 1 := 
   With[{swap = 
-     ExpandCorrelator[First@Cases[expr, _Correlator, All], opt]},
+     ExpandCorrelator[First@Cases[expr, _Correlator, All]]},
    SwapIn[
-    expr /. Correlator -> Identity, {Min[#], Max[#]} &@
+    expr /. Correlator[t_, OptionsPattern[]] :> t, {Min[#], Max[#]} &@
      CorrelatedFields[expr], swap]
    ];
-ExpandCorrelator[a_ + b_, opt : OptionsPattern[]] := 
-  ExpandCorrelator[a, opt] + ExpandCorrelator[b, opt];
-ExpandCorrelator[a_ b_, opt : OptionsPattern[]] /; FreeQ[a, Tensor] :=
-   a ExpandCorrelator[b, opt];
+ExpandCorrelator[a_ + b_] := 
+  ExpandCorrelator[a] + ExpandCorrelator[b];
+ExpandCorrelator[a_ b_] /; FreeQ[a, Tensor] :=
+   a ExpandCorrelator[b];
 
-ExpandCorrelator[Correlator[Tensor[names_]], 
-    OptionsPattern[]] /; (AllTrue[names, 
+ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[names, 
       !MissingQ[name2field@StringDrop[#[[1]], 
          Count[Characters[#[[1]]], "\[PartialD]"]]] &] && 
-     2 <= Length[names] <= 4) := 
+     ((!OptionValue[Correlator, "Defect"] && 2 <= Length[names] <= 4) || (Length[names] <= 2))) := 
   With[{fields = 
      name2field[
         StringDrop[#[[1]], 
@@ -148,14 +147,15 @@ ExpandCorrelator[Correlator[Tensor[names_]],
     derivs = 
      Flatten@Table[
        i, {i, Length[names]}, {j, 
-        Count[Characters[names[[i, 1]]], "\[PartialD]"]}]},
+        Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
+    q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
+    rrep = If[OptionValue[Correlator, "Defect"], DefectRRep, RRep]},
    With[{sfields = Sort[fields, fieldOrder], 
      order = Ordering[fields, All, fieldOrder]},
-    Module[{numinvs = numInvariants[RRep /@ sfields], 
-      numsts = numSTStructures[Spin /@ sfields],
+    Module[{numinvs = numInvariants[rrep /@ sfields], 
       STstructs = SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, 
              InversePermutation[order][[#]] & /@ derivs, 
-             "\[PartialD]", order],
+             "\[PartialD]", order, q],
       sign = 
        Signature@
         InversePermutation[order][[
@@ -164,47 +164,48 @@ ExpandCorrelator[Correlator[Tensor[names_]],
       STindperm = crossingPermutationST[Tensor[names], order], 
       Rindperm = crossingPermutationR[Tensor[names], order]},
      sign Sum[
-       Switch[Length[names],
-          2,
+       Switch[{Length[names], OptionValue[Correlator, "Defect"]},
+          {2, False},
           I^(2 Abs[Subtract @@ Spin[fields[[1]]]]),
-          3, 
+          {3, False}, 
           \[Lambda][sfields,i,j], 
-          4,
-          g[sfields, i, j][u[order], v[order]]
+          {4, False},
+          g[sfields, i, j][u[order], v[order]],
+          {1, True},
+          a[sfields[[1]]],
+          {2, True},
+          g[sfields, i, j] @@ Table[c[order], {c, crossRatios[$qdefect]}]
        ] TensorProduct[
           TensorPermute[
            Switch[Length[names],
-            4, FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields),
-           	3, ThreePtRInvariant @@ (RRep /@ sfields),
-           	2, TwoPtRInvariant @@ (RRep /@ sfields)
+            4, FourPtRInvariant[{##}, i] & @@ (rrep /@ sfields),
+           	3, ThreePtRInvariant @@ (rrep /@ sfields),
+           	2, TwoPtRInvariant @@ (rrep /@ sfields),
+           	1, 1
            ], 
            Rindperm], 
           TensorPermute[STstructs[[j]], STindperm]] + 
-        If[derivs === {} || Length[names] < 4, 0,
-         
-         Derivative[1, 0][g[sfields, i, j]][u[order], 
-            v[order]] TensorProduct[
+        If[derivs === {} || Length[names] < 2 || (!OptionValue[Correlator, "Defect"] && Length[names] < 4), 0,
+            Sum[
+               (((Derivative @@ Normal[SparseArray[{idx} -> 1, {Length[crossRatios[q]]}]])[
+                  g[sfields, i, j]
+               ]) @@ Table[c[order], {c, crossRatios[$qdefect]}]) TensorProduct[
             TensorPermute[
-             FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields), 
+             Switch[Length[names],
+	            4, FourPtRInvariant[{##}, i] & @@ (rrep /@ sfields),
+	           	3, ThreePtRInvariant @@ (rrep /@ sfields),
+	           	2, TwoPtRInvariant @@ (rrep /@ sfields),
+	           	1, 1
+	         ], 
              Rindperm], 
             TensorPermute[
              SpacetimeStructures[ScalingDimension /@ sfields, 
                Spin /@ sfields, 
-               InversePermutation[order][[#]] & /@ derivs, "u", 
-               order][[j]], STindperm]] +
-          
-          Derivative[0, 1][g[sfields, i, j]][u[order], 
-            v[order]] TensorProduct[
-            TensorPermute[
-             FourPtRInvariant[{##}, i] & @@ (RRep /@ sfields), 
-             Rindperm], 
-            TensorPermute[
-             SpacetimeStructures[ScalingDimension /@ sfields, 
-               Spin /@ sfields, 
-               InversePermutation[order][[#]] & /@ derivs, "v", 
+               InversePermutation[order][[#]] & /@ derivs, ToString[crossRatios[q][[idx]]], 
                order][[j]], STindperm]]
-         ],
-       {i, numinvs}, {j, numsts}
+        ,{idx, Length[crossRatios[q]]}]
+        ],
+       {i, numinvs}, {j, Length[STstructs]}
        ]
      ]
     ]

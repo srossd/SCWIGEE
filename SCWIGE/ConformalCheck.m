@@ -37,7 +37,7 @@ BuildTensor[{"M", Raised[SpaceTime], Lowered[SpaceTime],
      Ordering[{Raised[SpaceTime], Lowered[SpaceTime], 
        Lowered[DottedSpinor], Raised[DottedSpinor]}]];
 
-ConformalCheck[t : Tensor[{{SpacetimeStructure[deltas_, spins_, {}, "\[PartialD]", perm_, i_], idxs___}}]] := ConformalCheck[deltas, spins, perm, t];
+ConformalCheck[t : Tensor[{{SpacetimeStructure[deltas_, spins_, {}, "\[PartialD]", perm_, q_, i_], idxs___}}]] := ConformalCheck[deltas, spins, perm, t];
 
 ConformalCheck[deltas_, spins_, perm_, t_] := 
   With[{xs = 

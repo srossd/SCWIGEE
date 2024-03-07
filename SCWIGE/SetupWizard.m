@@ -6,6 +6,18 @@ SetRSymmetry[group_] := (
 	$QBarTensor = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[RIndex[fundRep[$RSymmetry]]], Lowered[DottedSpinor]}}];
 );
 
+SetDefectRSymmetry::manyembed = "There is not a unique embedding of `1` into `2`; cannot proceed.";
+SetDefectRSymmetry::noembed = "There is no embedding of `1` into `2`; cannot proceed.";
+SetDefectRSymmetry[group_] := Module[{embeddings, defectFund},
+	$DefectRSymmetry = group;
+	embeddings = Embeddings[$RSymmetry, $DefectRSymmetry];
+	If[embeddings == {}, Message[SetDefectRSymmetry::noembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry]]; Return[]];
+	If[Length[embeddings] > 1, Message[SetDefectRSymmetry::manyembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry]]; Return[]];
+	defectFund = decomposeRepDefect[fundRep[$RSymmetry]];
+	$QTensorDefect = Tensor[{{"Q", Raised[DefectRIndex[defectFund]], Lowered[Spinor]}}];
+	$QBarTensorDefect = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[DefectRIndex[defectFund]], Lowered[DottedSpinor]}}];
+];
+
 SetSymmetries[ops_] := Do[
 	DeclareTensorSymmetry[op[[1]], Join[
 		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}],
@@ -23,6 +35,7 @@ SetMultiplet[ops_, name_, sc_, i_ : 1] := (
 );
 
 RSymmetry[] := $RSymmetry;
+DefectRSymmetry[] := $DefectRSymmetry;
 Multiplet[i_] := $multiplet[i];
 
 $signatureFactor = 1;
@@ -35,7 +48,7 @@ SetSignature::badsig = "The signature `` is not recognized; use \"Lorentzian\" o
 SetSignature[sig_] := Message[SetSignature::badsig, sig];
 
 SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
-SetDefectCodimension[q_] := If[!MemberQ[{None,1,2,3},q], ($qdefect = q)];
+SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q), Message[SetDefectCodimension::invalid, q]];
 
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
@@ -49,6 +62,7 @@ singRep[grp_] :=
    If[grp == {}, 0, PadRight[{}, Length[grp]]], singRep /@ grp];
    
 $RSymmetry = Null;
+$DefectRSymmetry = Null;
 $editing = True;
 $qdefect = None;
 $viewingMultiplet = 1;
@@ -188,7 +202,7 @@ opDialog[reps_, label_,
        DialogReturn[
         Field[ReleaseHold[
           ToString[#, TraditionalForm] & /@ 
-           Hold[$nfName]], $nfRep, $nfDim, {$nfL, $nfLb}/2, 
+           Hold[$nfName]], SimpleRepInputConversion[RSymmetry[], $nfRep], $nfDim, {$nfL, $nfLb}/2, 
          2 $nfRCharge]]]}]]);
          
 multipletDialog[] := ($multName = Null; $multSC = True;
@@ -198,7 +212,7 @@ multipletDialog[] := ($multName = Null; $multSC = True;
            InputField[Dynamic[$multName]]}, {"Self-conjugate:", 
            Checkbox[Dynamic[$multSC]]}}], 
         Style["Add Multiplet", 20], Top, Background -> LightBlue], 
-      DefaultButton[DialogReturn[{$multName, $multSC}]]}]]);
+      DefaultButton[DialogReturn[{ToString[$multName], $multSC}]]}]]);
       
 conventionButton[eq_] := With[{s = ToString@TeXForm[eq]},
    Button[ClickToCopy[
@@ -222,7 +236,7 @@ conventions[2] := Flatten[Table[
   
 conventionsPanel[] := Row[{Column[Prepend[conventions[1], Style["General conventions", Bold, 16]], Spacings -> 2]//TraditionalForm, 
    Spacer[20], 
-   Column[Prepend[conventions[2], Style["Spacetime structure building blocks", Bold, 16]], Spacings -> 1]//TraditionalForm
+   Column[{Style["Spacetime structure building blocks", Bold, 16], Pane[Column[conventions[2]] //TraditionalForm, ImageSize -> {700, 500}, Scrollbars -> True]}, Spacings -> 1]
 }, Alignment -> Top];
          
 wizardPanel[] := Panel[Grid[{{"", "", Style["Setup Wizard", 20], 
@@ -235,11 +249,14 @@ wizardPanel[] := Panel[Grid[{{"", "", Style["Setup Wizard", 20],
       {Style["Defect: ", 14], Dynamic[RadioButtonBar[
         Dynamic[$qdefect], {None -> Style["None", 12], 
          3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"]}, Enabled -> $editing]]}}, Alignment -> Left], 
-    Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {900, 600}, WindowFloating -> False, WindowTitle -> "Conventions"]]}, {"", "", 
-    Row[{Style["R-symmetry: ", 16], 
+    Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {1100, 800}, WindowFloating -> False, WindowTitle -> "Conventions"]]}, {"", "", 
+    Dynamic[Grid[{{Style["R-symmetry: ", 16], 
       Dynamic[InputField[
         Dynamic[$RSymmetry, {Automatic, SetRSymmetry[#1] &}], 
-        Enabled -> $editing, FieldSize -> {20, 1}]]}], "", ""}, {"", 
+        Enabled -> $editing, FieldSize -> {20, 1}]]},
+        If[$qdefect =!= None, {Style["Defect R-symmetry: ",16],Dynamic[InputField[
+        Dynamic[$DefectRSymmetry, {Automatic, SetDefectRSymmetry[#1] &}], 
+        Enabled -> $editing, FieldSize -> {20, 1}]]},Nothing]}, Alignment -> Right]], "", ""}, {"", 
     "", Dynamic[
      If[Length[$multipletIndices] == 0, 
       Style["Set the R-symmetry, and then add a multiplet.", 11, 

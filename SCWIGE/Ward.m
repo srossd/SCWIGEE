@@ -8,11 +8,16 @@ DeclareArbitraryFunction[head_] :=
 $SolvedCorrelators = {};
 SolvedCorrelators[] := $SolvedCorrelators;
   
-Options[WardEquations] = {"QBar" -> False};
+Options[WardEquations] = {"QBar" -> False, "Defect" -> False};
 WardEquations[names : {Except[_Field]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = With[{expr = Correlator@
-             NormalOrder[TensorProduct[QTensor["QBar" -> OptionValue["QBar"]], Tensor[fields]], 
-              "Vacuum" -> True]},
+WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = With[{expr = Correlator[
+             NormalOrder[TensorProduct[
+	             If[!OptionValue["Defect"],
+	                QTensor["QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"]],
+	                Contract[TensorProduct[\[Sigma]Upper, \[Eta]LowerDefect,\[Sigma]BarUpper,QTensor["QBar" -> OptionValue["QBar"]]], {{1,4},{5,6},{7,10},{8,9}}]
+	             ]
+             , Tensor[fields]], 
+              "Vacuum" -> True], "Defect" -> OptionValue["Defect"]]},
     If[expr === 0, {},
     DeleteCases[Thread[Flatten[
         ExpansionComponents[
@@ -26,18 +31,20 @@ superprimaryQ[f_Field] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f
 superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
-Options[SolveWard] = {"QBar" -> False, "Fit" -> False};
+Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False};
 SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 SolveWard[fields : {_Field..}, OptionsPattern[]] := Module[{eqs, vars, bm},
-   eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"]] /. Normal[First /@ SolvedCorrelators[]]], True];
+   eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"]] /. Normal[First /@ SolvedCorrelators[]]], True];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
    bm = CoefficientArrays[eqs, vars];
 	 If[OptionValue["Fit"],
 	    wardSolveFit[eqs, vars],
 	   If[ AllTrue[bm[[1]], # === 0 &],
 	      Thread[vars -> 0],
-	      Sort[solveGroups[Partition[eqs /. u -> Glaisher /. v -> EulerGamma, UpTo[1]], vars /. u -> Glaisher /. v -> EulerGamma, {}, {}] /. Glaisher -> u /. EulerGamma -> v]
+	      With[{rules = Thread[crossRatios[If[OptionValue["Defect"], $qdefect, None]] -> Take[{Glaisher, EulerGamma}, Length[crossRatios[If[OptionValue["Defect"], $qdefect, None]]]]]},
+	      Sort[solveGroups[Partition[eqs /. rules, UpTo[1]], vars /. rules, {}, {}] /. (Reverse /@ rules)]
+	      ]
 	   ]
 	 ]
    ];
@@ -152,7 +159,7 @@ DeclareArbitraryFunction.";
 DeclareCrossingRule::invalid = 
   "The function `` is not related by crossing to ``[u, v].";
 DeclareCrossingRule[head_[arg1_, arg2_], rhs_] := 
-  If[! MemberQ[crosses[[;; , ;; , 2]], {arg1, arg2}], 
+  If[! MemberQ[crosses[$qdefect][[;; , ;; , 2]], {arg1, arg2}], 
    Message[DeclareCrossingRule::invalid, head[arg1, arg2], head],
    If[! MemberQ[$ArbitraryFunctions, head], 
     Message[DeclareCrossingRule::unknown, head],

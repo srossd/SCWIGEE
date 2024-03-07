@@ -45,14 +45,14 @@ OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
     DeleteDuplicates@Flatten[{
         EpsilonProducts[Tensor[{#}], {j1, j2} - Spin[#]] & /@ 
          Select[multiplet, 
-             SimpleRepInputConversion[$RSymmetry, rep] == SimpleRepInputConversion[$RSymmetry, RRep[#]] && 
+             dynkin[rep] == dynkin[RRep[#]] && 
              y == #[[5]] && 
              ScalingDimension[#] == dim && 
              AllTrue[Spin[#] - {j1, j2}, IntegerQ] &
          ],
         EpsilonProducts[Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}, #}], {j1 - 1/2, j2 - 1/2} - Spin[#]] & /@ 
          Select[multiplet, 
-             SimpleRepInputConversion[$RSymmetry, rep] == SimpleRepInputConversion[$RSymmetry, RRep[#]] && 
+             dynkin[rep] == dynkin[RRep[#]] && 
              y == #[[5]] && 
              ScalingDimension[#] == dim - 1 && 
              AllTrue[Spin[#] - {j1 - 1/2, j2 - 1/2}, IntegerQ] &
@@ -124,17 +124,14 @@ qToQBar[TensorPermute[t_, perm_]] :=
        PermutationProduct[Cycles[{{4, 5}}], perm, Cycles[{{4, 5}}]], 
        perm], InversePermutation[fp]], 
      Length[perm]]]];
-qToQBar[t_Tensor] := (*If[
-   Indices[t][[3]] =!= Raised[RIndex[ConjugateIrrep[$RSymmetry, fundRep[$RSymmetry]]]], 
-   Identity, 
-   TensorPermute[#, PermutationList[Cycles[{{1,2}}], Length[Indices[t]]]] &] @ *)(
-t /. {{"C", Lowered[RIndex[i_]], Raised[RIndex[j_]], Raised[RIndex[k_]]} :> {"C", Raised[RIndex[ConjugateIrrep[$RSymmetry, k]]], Lowered[RIndex[j]], Lowered[RIndex[ConjugateIrrep[$RSymmetry, i]]]},
+     
+qToQBar[t_Tensor] := t /. {{"C", Lowered[RIndex[i_]], Raised[RIndex[j_]], Raised[RIndex[k_]]} :> {"C", Raised[RIndex[ConjugateIrrep[$RSymmetry, k]]], Lowered[RIndex[j]], Lowered[RIndex[ConjugateIrrep[$RSymmetry, i]]]},
    {"\[Epsilon]", Raised[Spinor], Raised[Spinor]} -> {"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]},
    {"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]} -> {"\[Epsilon]", Lowered[DottedSpinor], Lowered[DottedSpinor]},
    {"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]} -> {"\[Epsilon]", Raised[Spinor], Raised[Spinor]},
    {"\[Epsilon]", Lowered[DottedSpinor], Lowered[DottedSpinor]} -> {"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]},
    {name_, idxs___} /; MemberQ[Flatten[$multiplet /@ $multipletIndices][[;;,1]], name] :> Symbolic[ToTensor[Conjugate[name2field[name]]]][[1]]
-});
+};
 
 Options["QAnsatz"] = {"QBar" -> False, "Symmetrized" -> True};
 QAnsatz[f_Field, opt : OptionsPattern[]] := 
@@ -236,11 +233,17 @@ quadraticEquations[i_, OptionsPattern[]] := DeleteDuplicates@DeleteCases[Simplif
 	] == 0], True];
 
 Options[SUSYRules] = {"EquationGroupSize" -> 10, "MaxDepth" -> 0};
-SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, normsol, vars, rvars, quadgroups, quadsol, partialsol},
+SUSYRules::nosol = "No consistent SUSY transformations could be found for the multiplet '``'.";
+SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, normsol, vars, rvars, quadgroups, quadsol, partialsol},
 	DeclareAlgebra["MaxDepth" -> OptionValue["MaxDepth"]];
 	
 	linears = linearEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
-	linsol = First[Solve[linears]];
+	linsol = With[{tmp = Solve[linears]},
+	   If[tmp === {}, Missing[],
+	      First[tmp]
+	   ]
+	];
+	If[MissingQ[linsol], Message[SUSYRules::nosol, $multipletName[i]]; Return[{}]];
 	
 	quadratics = quadraticEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
 	
@@ -248,7 +251,10 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i, opt] = Module[{linears, lin
 	
 	vars = DeleteDuplicates@Cases[quadgroups, _SUSYCoefficient, All];
 	
-	quadsol = solveGroups[quadgroups, vars, {}, Thread[vars != 0]];
+	Off[Solve::ifun];
+	quadsol = Check[solveGroups[quadgroups, vars, {}, Thread[vars != 0]], Missing[], solveGroups::nosol];
+	On[Solve::ifun];
+	If[MissingQ[quadsol], Message[SUSYRules::nosol, $multipletName[i]]; Return[{}]];
 	
 	partialsol = Join[linsol /. quadsol, quadsol];
 	

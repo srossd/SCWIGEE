@@ -9,7 +9,11 @@ BeginPackage["SCWIGE`"]
 SetRSymmetry::usage = "SetRSymmetry[\!\(\*
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the R-symmetry to \!\(\*
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\).";
-SetMultiplet::usage = "SetMultiplet[{\!\(\*
+SetDefectRSymmetry::usage = "SetDefectRSymmetry[\!\(\*
+StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the R-symmetry in the presence of the defect to \!\(\*
+StyleBox[\"group\",\nFontSlant->\"Italic\"]\).";
+SetMultiplet::usage = "SetMultiplet[\!\(\*
+StyleBox[\"{\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"op1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -17,19 +21,24 @@ StyleBox[\"op2\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"...\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"}, i\",\nFontSlant->\"Italic\"]\)] sets the \!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th multiplet to the operators \!\(\*
-StyleBox[\"op1\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"op2\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"...\",\nFontSlant->\"Italic\"]\).";
+StyleBox[\"}\",\nFontSlant->\"Italic\"]\), \!\(\*
+StyleBox[\"name\",\nFontSlant->\"Italic\"]\), \!\(\*
+StyleBox[\"selfConjugate\",\nFontSlant->\"Italic\"]\), \!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] sets the \*
+StyleBox[\(\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] multiplet to be {op1, op2, ...} with name \!\(\*
+StyleBox[\"name\",\nFontSlant->\"Italic\"]\), and declared self-conjugate if \!\(\*
+StyleBox[\"selfConjugate\",\nFontSlant->\"Italic\"]\) is true.";
 SetSignature::usage = "SetSignature[\!\(\*
 StyleBox[\"sig\",\nFontSlant->\"Italic\"]\)] sets the signature to \!\(\*
 StyleBox[\"sig\",\nFontSlant->\"Italic\"]\), where \!\(\*
 StyleBox[\"sig\",\nFontSlant->\"Italic\"]\) is either \"Lorentzian\" or \"Euclidean\".";
+SetDefectCodimension::usage = "SetDefectCodimension\!\(\*
+StyleBox[\"[\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"q\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)sets the defect codimension to \!\(\*
+StyleBox[\"q\",\nFontSlant->\"Italic\"]\).";
 
 RSymmetry::usage = "RSymmetry[] gives the Cartan matrix R-symmetry group (or list of Cartan matrices for a non-simple group).";
 Multiplet::usage = "Multiplet[\!\(\*
@@ -515,6 +524,9 @@ DisplaySUSYVariations::usage = "DisplaySUSYVariations[] gives a table showing th
 
 \[Epsilon]Spacetime::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
 \[Epsilon]SpacetimeUpper::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
+
+\[Epsilon]Transverse::usage = "\[Epsilon]Transverse[\!\(\*
+StyleBox[\"q\",\nFontSlant->\"Italic\"]\)] is the spacetime \[Epsilon] invariant associated with directions transverse to the defect.";
 
 SpacetimeStructureExpressions::usage = "SpacetimeStructureExpressions[\!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\)] gives a list of symbolic expressions for the normalized spacetime structures with spins \!\(\*

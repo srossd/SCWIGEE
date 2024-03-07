@@ -101,9 +101,13 @@ expansion[structure_, basis_, relations_] :=
      Complement[Range@Length[basis], Keys@pivots]]]]
    ];
 
+solveGroups::nosol = "No solution could be found.";
 solveGroups[grps_, vars_, rules_, assum_] := 
  ResourceFunction["MonitorProgress"][Fold[
-   With[{sol = Quiet[Assuming[assum, Simplify@First@Solve[#2 /. #1, vars]]]},
+   With[{sol = Quiet[Assuming[assum, Simplify@With[{tmp = Solve[#2 /. #1, vars]},
+      If[tmp === {}, Missing[], First[tmp]]
+   ]]]},
+     If[MissingQ[sol], Message[solveGroups::nosol]; Return[{}]];
      Sort@Select[Join[Simplify[#1 /. sol, assum], sol], ! SameQ @@ # &]
      ] &,
    {}, grps
