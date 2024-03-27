@@ -8,13 +8,15 @@ DeclareArbitraryFunction[head_] :=
 $SolvedCorrelators = {};
 SolvedCorrelators[] := $SolvedCorrelators;
   
-Options[WardEquations] = {"QBar" -> False, "Defect" -> False};
+Options[WardEquations] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True};
 WardEquations[names : {Except[_Field]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = With[{expr = Correlator[
              NormalOrder[TensorProduct[
 	             If[!OptionValue["Defect"],
-	                QTensor["QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"]],
-	                Contract[TensorProduct[\[Sigma]Upper, \[Eta]LowerDefect,\[Sigma]BarUpper,QTensor["QBar" -> OptionValue["QBar"]]], {{1,4},{5,6},{7,10},{8,9}}]
+	                QTensor["QBar" -> OptionValue["QBar"]],
+	                If[$qdefect == 3, QTensor[] + Contract[TensorProduct[TwoPtRInvariant[{2, 1}, {2, 1}], \[Sigma]LowerSingle[4], \[Epsilon]UpperDot, QTensor["QBar" -> True]], {{2, 7}, {4, 5}, {6, 8}}],
+	                   Print["Defect SUSY variations not implemented for q \[NotEqual] 3"]; QTensor["QBar" -> OptionValue["QBar"]]
+	                ]
 	             ]
              , Tensor[fields]], 
               "Vacuum" -> True], "Defect" -> OptionValue["Defect"]]},
@@ -22,7 +24,7 @@ WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Wi
     DeleteCases[Thread[Flatten[
         ExpansionComponents[
          ExpandCorrelator@expr
-             /. Join@@ (SUSYRules /@ $multipletIndices),
+             /. If[OptionValue["UseSUSYRules"], Join@@ (SUSYRules /@ $multipletIndices), {}],
           "MonitorProgress" -> True]] == 0], True]
     ]
 ];
@@ -31,11 +33,11 @@ superprimaryQ[f_Field] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f
 superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
-Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False};
+Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False, "UseSUSYRules" -> True};
 SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 SolveWard[fields : {_Field..}, OptionsPattern[]] := Module[{eqs, vars, bm},
-   eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"]] /. Normal[First /@ SolvedCorrelators[]]], True];
+   eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] /. Normal[First /@ SolvedCorrelators[]]], True];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
    bm = CoefficientArrays[eqs, vars];
 	 If[OptionValue["Fit"],
@@ -118,7 +120,7 @@ wardSolveFit[eqs_, vars_] :=
            "Label" -> "Fitting rational functions", 
          "CurrentDisplayFunction" -> None]]]]]]];
 
-crosses[_Integer] = {};
+crosses[_Integer] = {{u -> u, v -> v}};
 crosses[None] = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
     v -> v/u}, {u -> v/u, v -> 1/u}, {u -> 1/v, v -> u/v}, {u -> v, 
     v -> u}};

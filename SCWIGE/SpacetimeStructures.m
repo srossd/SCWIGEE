@@ -13,8 +13,8 @@ crossRatios[None] = {u, v};
 crossRatios[_Integer] = {u, v};
         
 safeCrossRatios[3] := safeCrossRatios[3] = Module[{qs, vs},
-	qs = Select[FareySequence[60], FreeQ[Sqrt[2 # (Sqrt[1 + #^2] + #) + 1], Power[_, 1/2] | Power[_, -1/2]] &];
-	vs = Select[FareySequence[60], FreeQ[Sqrt[#^2 - 1], Power[_, 1/2] | Power[_, -1/2]] &];
+	qs = Select[Rest@Most@FareySequence[70], FreeQ[Sqrt[2 # (Sqrt[1 + #^2] + #) + 1], Power[_, 1/2] | Power[_, -1/2]] &];
+	vs = Select[Rest@Most@FareySequence[70], FreeQ[Sqrt[#^2 - 1], Power[_, 1/2] | Power[_, -1/2]] &];
 	Rest@Flatten[Table[{(Sqrt[1 + q^2] - v)/2, v}, {q, qs}, {v, vs}], 1]
 ];
    
@@ -104,24 +104,13 @@ uvptDefect = {x[1, 1] -> 1, x[1, 2] -> 0, x[1, 3] -> 0, x[1, 4] -> 0,
         4 u (2 v + Sqrt[-1 + 4 u^2 + 4 u v + v^2])))], x[2, 3] -> 0, 
  x[2, 4] -> 0};
 
-sct[x_, b_] := (x - b x . Components[\[Eta]Lower] . x)/(1 - 
-     2 (b . DiagonalMatrix[{-1, 1, 1, 1}] . x) + 
-     (b . Components[\[Eta]Lower] . b) (x . Components[\[Eta]Lower] . x));
-sctuvpt[z_] = 
-  Simplify@
-   Flatten@Table[
-     x[i, j] -> 
-      sct[Table[x[i, kk] /. uvpt, {kk, 4}], {0, z, 0, 0}][[j]], {i, 
-      4}, {j, 4}];
+sct[x_, b_] := (x - b x . Components[\[Eta]Lower] . x)/(1 - 2 (b . Components[\[Eta]Lower] . x) + (b . Components[\[Eta]Lower] . b) (x . Components[\[Eta]Lower] . x));
 
-sctuvptDefect[z_] = 
-  Simplify@
-   Flatten@Table[
-     x[i, j] -> 
-      sct[Table[x[i, kk] /. uvptDefect, {kk, 4}], {0, 0, 0, z}][[j]], {i, 
-      2}, {j, 4}];
+sctuvpt[z_] := Simplify@Flatten@Table[x[i, j] -> sct[Table[x[i, kk] /. uvpt, {kk, 4}], {0, z, 0, 0}][[j]], {i, 4}, {j, 4}];
+
+sctuvptDefect[z_] := Simplify@Flatten@Table[x[i, j] -> sct[Table[x[i, kk] /. uvptDefect, {kk, 4}], {0, 0, 0, z}][[j]], {i, 2}, {j, 4}];
       
-genericPoint[q_] := If[q === None, sctuvpt[2], sctuvptDefect[2]];
+genericPoint[q_, z_] := If[q === None, sctuvpt[z], sctuvptDefect[z]];
 
 crossRatioAssumptions[q_] := If[q === None, And @@ (1/2 < # < 2 & /@ crossRatios[q]), And @@ (0 < # & /@ crossRatios[q])];
 
@@ -131,18 +120,12 @@ SymbolicSpacetimeRelations[largebasis_] := With[{q = First@Cases[largebasis, Spa
     RowReduce[#, 
      ZeroTest -> (Function[expr, Simplify[expr, crossRatioAssumptions[q]] === 0])], 
     crossRatioAssumptions[q]]] &@
- FullSimplify[
-  NullSpace[
-   Transpose[
-     ArrayFlatten[
-      Table[Flatten[
-        CanonicallyOrderedComponents[largebasis[[i]]]], {i, 
-        Length[largebasis]}]]] /. genericPoint[q]], crossRatioAssumptions[q]]
+ FullSimplify[NullSpace[Flatten[Table[Transpose@ArrayFlatten[Flatten@*CanonicallyOrderedComponents /@ largebasis] /. genericPoint[q, z], {z, 2, 5}], 1]], crossRatioAssumptions[q]]
 ];
 
 SpacetimeRelations[structs_] := 
   If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None || (Length[structs] > 5 && First@Cases[structs, s_SpacetimeStructure :> Length[s[[1]]], All] == 4), 
-   relations[structs, 188, 6], SymbolicSpacetimeRelations[structs]];
+   relations[structs, If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None, 75, 188], 6], SymbolicSpacetimeRelations[structs]];
    
 relations[structs_, len_, deg_] := With[{q = First@Cases[structs, SpacetimeStructure[___, q_, _] :> q, All]},
  With[{data = spacetimePtData[structs, len]},
@@ -163,27 +146,30 @@ relations[structs_, len_, deg_] := With[{q = First@Cases[structs, SpacetimeStruc
     
 spacetimePtData[structs_, len_] := 
  spacetimePtData[structs, len] = With[{q = First@Cases[structs, SpacetimeStructure[___, q_, _] :> q, All]},
-  With[{structComps = ArrayFlatten[Flatten@*CanonicallyOrderedComponents /@ structs] /. genericPoint[q]},
-   With[{idxs = Sort[Length[structs] + 1 - IndependentSet[Reverse@structComps, "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], "Indices" -> True]]}, {idxs, 
-     ResourceFunction["MonitorProgress"][
-      Table[Simplify@
-        Quiet@Check[{safeCrossRatios[q][[ii]], 
-           Table[LinearSolve[
-             Transpose[structComps[[idxs]]] /. Thread[crossRatios[q] -> safeCrossRatios[q][[ii]]], 
-             structComps[[reli]] /. Thread[crossRatios[q] -> safeCrossRatios[q][[ii]]]], {reli, 
-             Complement[Range@Length[structs], idxs]}]}, 
-          Nothing], {ii, len}], 
-      "Label" -> "Generating spacetime structure relation data",
-		"CurrentDisplayFunction" -> None]}
+  With[{structComps = Flatten[Table[Transpose@ArrayFlatten[Flatten@*CanonicallyOrderedComponents /@ structs] /. genericPoint[q, z], {z, 2, 5}], 1]}, 
+   With[{idxs = Sort[Length[structs] + 1 - IndependentSet[Reverse@Transpose@structComps, "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], "Indices" -> True]]},
+   {idxs, 
+    ResourceFunction["MonitorProgress"][
+     Table[Simplify@
+       Quiet@Check[{safeCrossRatios[q][[ii]], 
+          Table[LinearSolve[
+            structComps[[;; , idxs]] /. Thread[crossRatios[q] -> safeCrossRatios[q][[ii]]], 
+            structComps[[;; , reli]] /. Thread[crossRatios[q] -> safeCrossRatios[q][[ii]]]], {reli, 
+            Complement[Range@Length[structs], idxs]}]}, Nothing], {ii, len}], 
+     "Label" -> "Generating spacetime structure relation data", 
+     "CurrentDisplayFunction" -> None]}
     ]
-   ]
- ];
+  ]
+]
 
-KinematicPrefactor[{\[CapitalDelta]1_, \[CapitalDelta]2_}, {{l1_, lb1_}, {l2_, lb2_}}] := 1/XXSquared[1, 2]^(\[CapitalDelta]1 + l1 + lb1);
-KinematicPrefactor[deltas_, spins_] /; Length[deltas] == 3 := With[{kappas = deltas + Total /@ spins},
+KinematicPrefactor[{\[CapitalDelta]1_, \[CapitalDelta]2_}, {{l1_, lb1_}, {l2_, lb2_}}, q_ : None] := If[q === None,
+   1/XXSquared[1, 2]^(\[CapitalDelta]1 + l1 + lb1),
+   1/(XXSquaredTransverse[1]^((\[CapitalDelta]1 + l1 + lb1)/2) XXSquaredTransverse[2]^((\[CapitalDelta]2 + l2 + lb2)/2))
+];
+KinematicPrefactor[deltas_, spins_, None] /; Length[deltas] == 3 := With[{kappas = deltas + Total /@ spins},
    XXSquared[1,2]^((kappas[[3]] - kappas[[1]] - kappas[[2]])/2) XXSquared[1,3]^((-kappas[[3]] - kappas[[1]] + kappas[[2]])/2) XXSquared[2,3]^((-kappas[[3]] + kappas[[1]] - kappas[[2]])/2)
 ];
-KinematicPrefactor[deltas_, spins_] /; Length[deltas] == 4 := With[{kappas = deltas + Total /@ spins},
+KinematicPrefactor[deltas_, spins_, None] /; Length[deltas] == 4 := With[{kappas = deltas + Total /@ spins},
    (XXSquared[2, 4]/XXSquared[1, 4])^((kappas[[1]] - kappas[[2]])/2) (XXSquared[1, 4]/XXSquared[1, 3])^((kappas[[3]] - kappas[[4]])/2) XXSquared[1, 2]^(-(kappas[[1]] + kappas[[2]])/2) XXSquared[3, 4]^(-(kappas[[3]] + kappas[[4]])/2)
 ];
 
@@ -267,7 +253,7 @@ AddSpacetimeStructure["J", 3, 2, {{#1, Spinor}, {#1, DottedSpinor}} &,
    1/XXDotTransverse[#1, #2] ((2 XXSquaredTransverse[#1] - 2 XXDotTransverse[#1, #2] -  XXSquared[#1, #2]) SpinorXTransverse[#1] + 2 XXSquaredTransverse[#1] SpinorXDefect[#1, #2]) &]
 AddSpacetimeStructure["\!\(\*OverscriptBox[\(J\), \(~\)]\)", 3, 2, {{#1, Spinor}, {#1, DottedSpinor}} &,
    2(SpinorXTransverse[#1] - XXSquaredTransverse[#1]/XXDotTransverse[#1, #2] SpinorXTransverse[#2]) &];
-AddSpacetimeStructure["I", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &, SpinorX[#1, #2] &];
+AddSpacetimeStructure["I", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &, SpinorX[#2, #1] &];
 AddSpacetimeStructure["\!\(\*OverscriptBox[\(I\), \(~\)]\)", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &, 
 	1/XXDotTransverse[#1, #2] (XXSquaredTransverse[#1] SpinorXTransverse[#2] - XXSquaredTransverse[#2] SpinorXTransverse[#1] + XXDotTransverse[#1, #2] SpinorXDefect[#1, #2]
 		+ Contract[TensorProduct[XXTransverse[1], XXTransverse[2], XXDefect[1, 2], \[Epsilon]Spacetime, \[Sigma]Upper], {{1, 4}, {2, 5}, {3, 6}, {7, 8}}]) &];
@@ -302,7 +288,7 @@ AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(J\), \(~\)], \(*\)]\
 AddSpacetimeStructure["\!\(\*SuperscriptBox[\(K\), \(*\)]\)", 3, 2, {{#1, Spinor}, {#2, Spinor}} &,
    Contract[TensorProduct[XXTransverse[#1] + XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}] + (x[#1, 4] - x[#2, 4]) \[Epsilon]Lower &];
 AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(K\), \(_\)], \(*\)]\)", 3, 2, {{#1, DottedSpinor}, {#2, DottedSpinor}} &,
-   Contract[TensorProduct[XXTransverse[#1] + XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] + (x[#1, 4] - x[#2, 4]) \[Epsilon]LowerDot &];
+   Contract[TensorProduct[XXTransverse[#1] + XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] - (x[#1, 4] - x[#2, 4]) \[Epsilon]LowerDot &];
 AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(K\), \(~\)], \(*\)]\)", 3, 2, {{#1, Spinor}, {#2, Spinor}} &,
    ((1/XXDotTransverse[#1, #2])(- XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}] 
     - XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}]
@@ -311,7 +297,7 @@ AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(K\), \(~\)], \(*\)]\
 AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[OverscriptBox[\(K\), \(_\)], \(~\)], \(*\)]\)", 3, 2, {{#1, DottedSpinor}, {#2, DottedSpinor}} &,
    ((1/XXDotTransverse[#1, #2])(- XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] 
     - XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}]
-    - XXDotTransverse[#1, #2] (x[#1, 4] - x[#2, 4]) \[Epsilon]LowerDot
+    + XXDotTransverse[#1, #2] (x[#1, 4] - x[#2, 4]) \[Epsilon]LowerDot
     -2 Contract[TensorProduct[XXTransverse[#1], XXTransverse[#2], XX[#1, #2], \[Epsilon]Transverse[3], \[Eta]Lower, \[Sigma]CommUpperDot], {{1, 4}, {2, 5}, {3, 7}, {6, 9}, {8, 10}}])) &];
 
 AddSpacetimeStructure["\!\(\*SuperscriptBox[\(L\), \(*\)]\)", 3, 1, {{#1, Spinor}, {#1, Spinor}} &,
@@ -376,9 +362,9 @@ SpacetimeStructureExpressions[ls_, q_, opt : OptionsPattern[]] := SpacetimeStruc
         Select[{#, FindPermutation[If[Total[Flatten[ls]] == 0, {}, structIndices[#]], cinds]}& /@ s2p, True || EvenQ@Length[Cases[#, s_String /; StringContainsQ[s, "*"] || s == "\!\(\*OverscriptBox[\(I\), \(~\)]\)", All, Heads -> True]] &]
    	],
    	With[{structs = SpacetimeStructureExpressions[ls, q, "Overcomplete" -> True]},
-   	   If[structs == {}, {},
+   	   If[Length[structs] <= 1, structs,
 	   	With[{comps = constructStructure @@@ structs},
-	   		structs[[IndependentSet[comps, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rules" -> (genericPoint[q] /. Thread[crossRatios[q] -> Last[safeCrossRatios[q]]]), "MaxIndependent" -> numSTStructures[ls, q], "Indices" -> True]]]
+	   		structs[[IndependentSet[Transpose@Flatten[Table[Transpose@ArrayFlatten[Flatten /@ comps] /. genericPoint[q, z], {z, 2, 5}], 1], "MonitorProgress" -> OptionValue["MonitorProgress"], "Rules" -> Thread[crossRatios[q] -> Last[safeCrossRatios[q]]], "MaxIndependent" -> numSTStructures[ls, q], "Indices" -> True]]]
 	   	]
    	   ]
    	]
@@ -391,7 +377,7 @@ SpacetimeStructures[dims_, ls_, derivs_, derivtype_, perm_, q_] := Table[Tensor[
       {Table[{Lowered[Spinor], Lowered[DottedSpinor]}, Count[derivs, j]], Table[Lowered[Spinor], 2 ls[[j, 1]]], Table[Lowered[DottedSpinor], 2 ls[[j, 2]]]},
       {j, Length[dims]}]]}}], {i, Length[SpacetimeStructureExpressions[ls, q]]}];
       
-BuildTensor[{SpacetimeStructure[dims_, ls_, {}, derivtype_, perm_, q_, i_], idxs___}] := With[{comps = Explicit[KinematicPrefactor[dims, ls]] (constructStructure @@ SpacetimeStructureExpressions[ls, q][[i]])},
+BuildTensor[{SpacetimeStructure[dims_, ls_, {}, derivtype_, perm_, q_, i_], idxs___}] := With[{comps = Explicit[KinematicPrefactor[dims, ls, q]] (constructStructure @@ SpacetimeStructureExpressions[ls, q][[i]])},
  	If[Length[{idxs}] == 0, 
  	   comps /. x[ii_, j_] :> x[perm[[ii]], j],
  	   SparseArray[ArrayRules[comps] /. x[ii_, j_] :> x[perm[[ii]], j]]

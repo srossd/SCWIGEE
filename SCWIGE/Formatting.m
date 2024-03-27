@@ -52,6 +52,11 @@ Format[XXDotTransverse[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*Su
 Format[SUSYCoefficient[name_, idx_, opt : OptionsPattern[]], TraditionalForm] := Subscript[
 	If[OptionValue[SUSYCoefficient, opt, "QBar"], "\!\(\*OverscriptBox[\(\[ScriptA]\), \(_\)]\)", "\[ScriptA]"],
    Row[{name, ",", idx}]];
+   
+Format[\[Sigma]LowerTensor[i_], TraditionalForm] := Subscript["\[Sigma]", i];
+Format[\[Sigma]UpperTensor[i_], TraditionalForm] := Superscript["\[Sigma]", i];
+Format[\[Sigma]BarLowerTensor[i_], TraditionalForm] := Subscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i];
+Format[\[Sigma]BarUpperTensor[i_], TraditionalForm] := Superscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i];
 
 Format[Correlator[t_, opt: OptionsPattern[]], TraditionalForm] := 
   Row[{"\[LeftAngleBracket]", t, If[OptionValue[Correlator, "Defect"], "\!\(\*SubscriptBox[\(\[RightAngleBracket]\), \(\[ScriptCapitalD]\)]\)", "\[RightAngleBracket]"]}];

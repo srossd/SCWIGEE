@@ -89,6 +89,9 @@ StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 RRep::usage = "RRep[\!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the R-symmetry representation of \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
+DefectRRep::usage = "RRep[\!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the defect R-symmetry representation of \!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
 ToTensor::usage = "ToTensor[\!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives a tensor corresponding to \!\(\*
@@ -103,6 +106,9 @@ DottedSpinor::usage = "DottedSpinor represents a dotted spinor index.";
 SpaceTime::usage = "SpaceTime represents a spacetime index.";
 RIndex::usage = "RIndex[\!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] represents an index for the R-symmetry representation \!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\).";
+DefectRIndex::usage = "DefectRIndex[\!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] represents an index for the defect R-symmetry representation \!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\).";
 
 QAnsatz::usage = "QAnsatz[\!\(\*
@@ -505,6 +511,15 @@ DisplaySUSYVariations::usage = "DisplaySUSYVariations[] gives a table showing th
 \[Epsilon]Upper::usage = "\[Epsilon]Lower is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[Alpha]\[Beta]\)]\).";
 \[Epsilon]UpperDot::usage = "\[Epsilon]Lower is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\).";
 
+\[Sigma]LowerSingle::usage = "\[Sigma]LowerSingle[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)\!\(\*SubscriptBox[\()\), \(\[Alpha]\[InvisibleComma]\*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\)";
+\[Sigma]UpperSingle::usage = "\[Sigma]LowerSingle[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SuperscriptBox[\(\[Sigma]\), \(i\)]\)\!\(\*SubscriptBox[\()\), \(\[Alpha]\[InvisibleComma]\*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\)";
+\[Sigma]BarLowerSingle::usage = "\[Sigma]LowerSingle[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SubscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(i\)]\)\!\(\*SuperscriptBox[\()\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)]\[InvisibleComma]\[Alpha]\)]\)";
+\[Sigma]BarUpperSingle::usage = "\[Sigma]LowerSingle[\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SuperscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(i\)]\)\!\(\*SuperscriptBox[\()\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)]\[InvisibleComma]\[Alpha]\)]\)";
+
 \[Sigma]Lower::usage = "\[Sigma]Lower is the tensor \!\(\*SubscriptBox[\(\[Sigma]\), \(\[Mu]\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\).";
 \[Sigma]Upper::usage = "\[Sigma]Upper is the tensor \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \)\(\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)\), \(\[Mu]\)]\).";
 \[Sigma]BarLower::usage = "\[Sigma]BarLower is the tensor \!\(\*SubsuperscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(\[Mu]\), \(\(\\\ \)\(\*OverscriptBox[\(\[Alpha]\), \(.\)] \[Alpha]\)\)]\).";
@@ -745,6 +760,10 @@ StyleBox[
 RowBox[{\"r1\", \",\", \" \", \"r2\", \",\", \" \", \"r3\"}],\nFontSlant->\"Italic\"]]\) to \!\(\*
 StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
+
+AlternateRep::usage = "AlternateRep[\!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] indicates an alternate basis for the irrep \!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) of the defect R-symmetry, which is a projection of a distinct irrep of the full R-symmetry."
 
 
 EndPackage[]

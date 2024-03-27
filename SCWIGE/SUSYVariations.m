@@ -183,6 +183,10 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 		]
 	];
 	
+	Commutator[$QTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
+	Commutator[$QBarTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
+	Commutator[$QTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
+	Commutator[$QBarTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
 	Commutator[$QTensor, Tensor[{{"C", ___}}]] = 0;
 	Commutator[$QBarTensor, Tensor[{{"C", ___}}]] = 0;
 	Commutator[$QTensor, Tensor[{{"\[Epsilon]", ___}}]] = 0;

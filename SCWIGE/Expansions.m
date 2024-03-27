@@ -152,7 +152,7 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
     rrep = If[OptionValue[Correlator, "Defect"], DefectRRep, RRep]},
    With[{sfields = Sort[fields, fieldOrder], 
      order = Ordering[fields, All, fieldOrder]},
-    Module[{numinvs = numInvariants[rrep /@ sfields], 
+    Module[{numinvs = numInvariants[(rrep /@ sfields) /. AlternateRep -> Identity], (* don't care about alternate reps for counting *) 
       STstructs = SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, 
              InversePermutation[order][[#]] & /@ derivs, 
              "\[PartialD]", order, q],
