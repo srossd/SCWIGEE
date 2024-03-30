@@ -183,9 +183,9 @@ Structure[label_] := Structure[label, None];
 
 AddSpacetimeStructure[symbol_, q_, npts_, indices_, expr_] := Module[{},
    MyInactive /: MakeBoxes[MyInactive[Structure[symbol, q]][idxs__], TraditionalForm] /; Length[{idxs}] == npts :=
-   	SubsuperscriptBox[symbol, 
-   	   	RowBox[Riffle[{idxs}[[Select[Range[npts], ! MemberQ[(indices @@ Range[npts])[[;;,1]], #] &]]], ","]],
-   	   	RowBox[Riffle[{idxs}[[Select[Range[npts],   MemberQ[(indices @@ Range[npts])[[;;,1]], #] &]]], ","]]
+   	SubsuperscriptBox[ToBoxes@symbol, 
+   	   	RowBox[Riffle[MakeBoxes /@ {idxs}[[Select[Range[npts], ! MemberQ[(indices @@ Range[npts])[[;;,1]], #] &]]], ","]],
+   	   	RowBox[Riffle[MakeBoxes /@ {idxs}[[Select[Range[npts],   MemberQ[(indices @@ Range[npts])[[;;,1]], #] &]]], ","]]
    	];
    	
    Structure[symbol, q][idxs__] /; Length[{idxs}] == npts := expr[idxs];
@@ -270,45 +270,45 @@ AddSpacetimeStructure["\!\(\*OverscriptBox[\(L\), \(_\)]\)", 3, 2, {{#1, DottedS
    	- 4 XXSquaredTransverse[#1] Contract[TensorProduct[XXTransverse[#2], XX[#1, #2], \[Sigma]CommLowerDot], {{1,3},{2,4}}]
    	+ 4 XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#1], XX[#1, #2], \[Sigma]CommLowerDot], {{1,3},{2,4}}]) &]
    
-AddSpacetimeStructure["\!\(\*SuperscriptBox[\(I\), \(*\)]\)", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[\(I\), \(Y\)]\))", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &,
    ((1/Sqrt[XXSquaredTransverse[#1]])(Contract[TensorProduct[XX[#1], XX[#2], \[Epsilon]Transverse[3], \[Sigma]Upper], {{1, 3}, {2, 4}, {5,6}}]
    + (x[#2, 4] - x[#1, 4]) SpinorXTransverse[#1]
-   + (1/6)(XXSquaredTransverse[#1] - XXDotTransverse[#1, #2]) Contract[TensorProduct[\[Epsilon]Transverse[3], \[Epsilon]SpacetimeUpper, \[Sigma]Lower], {{1, 4}, {2, 5}, {3, 6}, {7, 8}}]))&]
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(I\), \(~\)], \(*\)]\)", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &,
+   + (XXSquaredTransverse[#1] - XXDotTransverse[#1, #2]) \[Sigma]LowerSingle[4]))&]
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[\(I\), \(~\)], \(Y\)]\))", 3, 2, {{#1, Spinor}, {#2, DottedSpinor}} &,
    ((1/Sqrt[XXSquaredTransverse[#2]])(Contract[TensorProduct[XX[#1], XX[#2], \[Epsilon]Transverse[3], \[Sigma]Upper], {{1, 3}, {2, 4}, {5,6}}]
    - (x[#2, 4] - x[#1, 4]) SpinorXTransverse[#2]
-   + (1/6)(XXSquaredTransverse[#2] - XXDotTransverse[#1, #2]) Contract[TensorProduct[\[Epsilon]Transverse[3], \[Epsilon]SpacetimeUpper, \[Sigma]Lower], {{1, 4}, {2, 5}, {3, 6}, {7, 8}}]))&]
+   + (XXSquaredTransverse[#2] - XXDotTransverse[#1, #2]) \[Sigma]LowerSingle[4]))&]
     
-AddSpacetimeStructure["\!\(\*SuperscriptBox[\(J\), \(*\)]\)", 3, 2, {{#1, Spinor}, {#1, DottedSpinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[\(J\), \(Y\)]\))", 3, 2, {{#1, Spinor}, {#1, DottedSpinor}} &,
    (2 (x[#1, 4] - x[#2, 4])/Sqrt[XXSquaredTransverse[#2]] SpinorXTransverse[#1] 
-   + (XXSquaredTransverse[#2] - XXSquaredTransverse[#1] + XXSquaredDefect[#1, #2])/(6 Sqrt[XXSquaredTransverse[#2]]) Contract[TensorProduct[\[Epsilon]Transverse[3], \[Epsilon]SpacetimeUpper, \[Sigma]Lower], {{1, 4}, {2, 5}, {3, 6}, {7, 8}}])&]
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(J\), \(~\)], \(*\)]\)", 3, 2, {{#1, Spinor}, {#1, DottedSpinor}} &,
+   + (XXSquaredTransverse[#2] - XXSquaredTransverse[#1] + XXSquaredDefect[#1, #2])/(Sqrt[XXSquaredTransverse[#2]]) \[Sigma]LowerSingle[4])&]
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[\(J\), \(~\)], \(Y\)]\))", 3, 2, {{#1, Spinor}, {#1, DottedSpinor}} &,
    1/Sqrt[XXSquaredTransverse[#2]] Contract[TensorProduct[XXTransverse[#1], XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]Upper], {{1, 3}, {2, 4}, {5, 6}}] &]
    
-AddSpacetimeStructure["\!\(\*SuperscriptBox[\(K\), \(*\)]\)", 3, 2, {{#1, Spinor}, {#2, Spinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[\(K\), \(Y\)]\))", 3, 2, {{#1, Spinor}, {#2, Spinor}} &,
    Contract[TensorProduct[XXTransverse[#1] + XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}] + (x[#1, 4] - x[#2, 4]) \[Epsilon]Lower &];
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(K\), \(_\)], \(*\)]\)", 3, 2, {{#1, DottedSpinor}, {#2, DottedSpinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[\(K\), \(_\)], \(Y\)]\))", 3, 2, {{#1, DottedSpinor}, {#2, DottedSpinor}} &,
    Contract[TensorProduct[XXTransverse[#1] + XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] - (x[#1, 4] - x[#2, 4]) \[Epsilon]LowerDot &];
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(K\), \(~\)], \(*\)]\)", 3, 2, {{#1, Spinor}, {#2, Spinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[\(K\), \(~\)], \(Y\)]\))", 3, 2, {{#1, Spinor}, {#2, Spinor}} &,
    ((1/XXDotTransverse[#1, #2])(- XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}] 
     - XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}]
     - XXDotTransverse[#1, #2] (x[#1, 4] - x[#2, 4]) \[Epsilon]Lower
     -2 Contract[TensorProduct[XXTransverse[#1], XXTransverse[#2], XX[#1, #2], \[Epsilon]Transverse[3], \[Eta]Lower, \[Sigma]CommUpper], {{1, 4}, {2, 5}, {3, 7}, {6, 9}, {8, 10}}])) &];
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[OverscriptBox[\(K\), \(_\)], \(~\)], \(*\)]\)", 3, 2, {{#1, DottedSpinor}, {#2, DottedSpinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[OverscriptBox[\(K\), \(_\)], \(~\)], \(Y\)]\))", 3, 2, {{#1, DottedSpinor}, {#2, DottedSpinor}} &,
    ((1/XXDotTransverse[#1, #2])(- XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] 
     - XXDotTransverse[#1, #2] Contract[TensorProduct[XXTransverse[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}]
     + XXDotTransverse[#1, #2] (x[#1, 4] - x[#2, 4]) \[Epsilon]LowerDot
     -2 Contract[TensorProduct[XXTransverse[#1], XXTransverse[#2], XX[#1, #2], \[Epsilon]Transverse[3], \[Eta]Lower, \[Sigma]CommUpperDot], {{1, 4}, {2, 5}, {3, 7}, {6, 9}, {8, 10}}])) &];
 
-AddSpacetimeStructure["\!\(\*SuperscriptBox[\(L\), \(*\)]\)", 3, 1, {{#1, Spinor}, {#1, Spinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[\(L\), \(Y\)]\))", 3, 1, {{#1, Spinor}, {#1, Spinor}} &,
    Contract[TensorProduct[XX[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}] &];
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(L\), \(_\)], \(*\)]\)", 3, 1, {{#1, DottedSpinor}, {#1, DottedSpinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[\(L\), \(_\)], \(Y\)]\))", 3, 1, {{#1, DottedSpinor}, {#1, DottedSpinor}} &,
    Contract[TensorProduct[XX[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] &];
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[\(L\), \(~\)], \(*\)]\)", 3, 2, {{#1, Spinor}, {#1, Spinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[\(L\), \(~\)], \(Y\)]\))", 3, 2, {{#1, Spinor}, {#1, Spinor}} &,
    ( (1/XXSquaredTransverse[#2])(-(2 XXDot[#1, #2] - XXSquared[#1] - XXSquared[#2]) Contract[TensorProduct[XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1, 2}, {3, 5}, {4, 6}}] 
    + 2 XXSquaredTransverse[#2] Contract[TensorProduct[XXTransverse[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpper], {{1,2}, {3, 5}, {4, 6}}]
    -4 Contract[TensorProduct[XXTransverse[#1], XXTransverse[#2], XX[#1, #2], \[Epsilon]Transverse[3], \[Eta]Lower, \[Sigma]CommUpper], {{1, 4}, {2, 5}, {3, 7}, {6, 9}, {8, 10}}])) &];
-AddSpacetimeStructure["\!\(\*SuperscriptBox[OverscriptBox[OverscriptBox[\(L\), \(_\)], \(~\)], \(*\)]\)", 3, 2, {{#1, DottedSpinor}, {#1, DottedSpinor}} &,
+AddSpacetimeStructure["(\!\(\*SubscriptBox[OverscriptBox[OverscriptBox[\(L\), \(_\)], \(~\)], \(Y\)]\))", 3, 2, {{#1, DottedSpinor}, {#1, DottedSpinor}} &,
    ( (1/XXSquaredTransverse[#2])(-(2 XXDot[#1, #2] - XXSquared[#1] - XXSquared[#2]) Contract[TensorProduct[XXTransverse[#2], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1, 2}, {3, 5}, {4, 6}}] 
    + 2 XXSquaredTransverse[#2] Contract[TensorProduct[XXTransverse[#1], \[Epsilon]Transverse[3], \[Sigma]CommUpperDot], {{1,2}, {3, 5}, {4, 6}}]
    -4 Contract[TensorProduct[XXTransverse[1], XXTransverse[2], XX[1, 2], \[Epsilon]Transverse[3], \[Eta]Lower, \[Sigma]CommUpperDot], {{1, 4}, {2, 5}, {3, 7}, {6, 9}, {8, 10}}])) &];

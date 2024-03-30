@@ -14,49 +14,46 @@ MakeBoxes[Power[x[i_,j_], n_], TraditionalForm] := SuperscriptBox[RowBox[{"(", S
 Format[SpacetimePoint[i_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", i];
 Format[SpacetimePointDefect[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)" i];
 Format[SpacetimePointTransverse[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i];
-Format[SpacetimeSeparation[i_, j_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", Row[{i, j}]];
-Format[SpacetimeSeparationDefect[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", Row[{i, j}]];
-Format[SpacetimeSeparationTransverse[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", Row[{i, j}]];
+Format[SpacetimeSeparation[i_, j_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", i, j];
+Format[SpacetimeSeparationDefect[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", i, j];
+Format[SpacetimeSeparationTransverse[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i, j];
 
-Format[XXSquared[i_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", Row[{i}]])^2;
-Format[XXSquared[i_, j_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", 
-   Row[{i, j}]])^2;
+Format[XXSquared[i_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", i])^2;
+Format[XXSquared[i_, j_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", i, j])^2;
 MakeBoxes[Power[XXSquared[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
    TemplateBox[{SubscriptBox["x", StringJoin @@ (ToString /@ {xs})]}, 
     "Abs"], SuperscriptBox[
     SubscriptBox["x", StringJoin @@ (ToString /@ {xs})], 2 n]];
     
-Format[XXSquaredDefect[i_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", Row[{i}]])^2;
-Format[XXSquaredDefect[i_, j_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", 
-   Row[{i, j}]])^2;
+Format[XXSquaredDefect[i_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", i])^2;
+Format[XXSquaredDefect[i_, j_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", i, j])^2;
 MakeBoxes[Power[XXSquaredDefect[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
-   TemplateBox[{SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", StringJoin @@ (ToString /@ {xs})]}, 
+   TemplateBox[{SubscriptBox[SuperscriptBox["x", "\[DoubleVerticalBar]"], RowBox[ToString /@ {xs}]]}, 
     "Abs"], SuperscriptBox[
-    SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", StringJoin @@ (ToString /@ {xs})], 2 n]];
     
-Format[XXSquaredTransverse[i_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", Row[{i}]])^2;
-Format[XXSquaredTransverse[i_, j_], TraditionalForm] := (Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", 
-   Row[{i, j}]])^2;
+Format[XXSquaredTransverse[i_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", i])^2;
+Format[XXSquaredTransverse[i_, j_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", i, j])^2;
 MakeBoxes[Power[XXSquaredTransverse[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
-   TemplateBox[{SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", StringJoin @@ (ToString /@ {xs})]}, 
+   TemplateBox[{SubscriptBox[SuperscriptBox["x", "\[UpTee]"], StringJoin @@ (ToString /@ {xs})]}, 
     "Abs"], SuperscriptBox[
-    SubscriptBox["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", RowBox[ToString /@ {xs}]], 2 n]];
     
-Format[XXDot[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(TraditionalForm\`x\)", i], " \[CenterDot] ", Subscript["\!\(TraditionalForm\`x\)", j], ")"}];
-Format[XXDotDefect[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", i], " \[CenterDot] ", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", j], ")"}];
-Format[XXDotTransverse[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i], " \[CenterDot] ", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", j], ")"}];
+Format[XXDot[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(TraditionalForm\`x\)", i], "\[CenterDot]", Subscript["\!\(TraditionalForm\`x\)", j], ")"}];
+Format[XXDotDefect[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", i], "\[CenterDot]", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", j], ")"}];
+Format[XXDotTransverse[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i], "\[CenterDot]", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", j], ")"}];
 
 Format[SUSYCoefficient[name_, idx_, opt : OptionsPattern[]], TraditionalForm] := Subscript[
 	If[OptionValue[SUSYCoefficient, opt, "QBar"], "\!\(\*OverscriptBox[\(\[ScriptA]\), \(_\)]\)", "\[ScriptA]"],
    Row[{name, ",", idx}]];
    
-Format[\[Sigma]LowerTensor[i_], TraditionalForm] := Subscript["\[Sigma]", i];
-Format[\[Sigma]UpperTensor[i_], TraditionalForm] := Superscript["\[Sigma]", i];
-Format[\[Sigma]BarLowerTensor[i_], TraditionalForm] := Subscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i];
-Format[\[Sigma]BarUpperTensor[i_], TraditionalForm] := Superscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i];
+Format[\[Sigma]LowerTensor[i_], TraditionalForm] := Row[{"(",Subscript["\[Sigma]", i],")"}];
+Format[\[Sigma]UpperTensor[i_], TraditionalForm] := Row[{"(",Superscript["\[Sigma]", i],")"}];
+Format[\[Sigma]BarLowerTensor[i_], TraditionalForm] := Row[{"(",Subscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i],")"}];
+Format[\[Sigma]BarUpperTensor[i_], TraditionalForm] := Row[{"(",Superscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i],")"}];
 
 Format[Correlator[t_, opt: OptionsPattern[]], TraditionalForm] := 
   Row[{"\[LeftAngleBracket]", t, If[OptionValue[Correlator, "Defect"], "\!\(\*SubscriptBox[\(\[RightAngleBracket]\), \(\[ScriptCapitalD]\)]\)", "\[RightAngleBracket]"]}];
@@ -146,4 +143,4 @@ Format[g[fields_, i_, j_], TraditionalForm] :=
      
 Format[\[Lambda][fields_, i_, j_], TraditionalForm] := 
 \!\(\*SubsuperscriptBox[\("\<\[Lambda]\>"\), \(Row[{ToString[i], 
-     ToString[j]}]\), \(StringJoin @@ \((First /@ fields)\)\)]\);
+     ToString[j]}]\), \(StringJoin @@ \((First /@ fields)\)\)]\);	

@@ -230,8 +230,8 @@ conventions[1] := {\[Eta]Lower == MatrixForm[Components[\[Eta]Lower]], \[Epsilon
   Components[\[Epsilon]Spacetime][[1, 2, 3, 4]]} /. (x_ == y_) :> conventionButton[x == y];
   
 conventions[2] := Flatten[Table[
-   MyInactive[Structure[struct, $qdefect]] @@ (FromCharacterCode /@ Range[105, 105 + m - 1]) == 
-   Structure[struct, $qdefect] @@ (FromCharacterCode /@ Range[105, 105 + m - 1]),  
+   MyInactive[Structure[struct, $qdefect]] @@ Take[{HoldForm[Global`i], HoldForm[Global`j], HoldForm[Global`k], HoldForm[Global`l]}, m] == 
+   Structure[struct, $qdefect] @@ Take[{HoldForm[Global`i], HoldForm[Global`j], HoldForm[Global`k], HoldForm[Global`l]}, m],  
    {m, maxPts[$qdefect]}, {struct, allStructures[m, $qdefect]}]] /. (x_ == y_) :> conventionButton[x == y];
   
 conventionsPanel[] := Row[{Column[Prepend[conventions[1], Style["General conventions", Bold, 16]], Spacings -> 2]//TraditionalForm, 
