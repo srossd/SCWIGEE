@@ -6,24 +6,24 @@ QTensor[OptionsPattern[]] := Switch[{OptionValue["QBar"]},
    {True}, $QBarTensor
 ];
 
-ScalingDimension[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
-Spin[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := {j1, j2};
-RRep[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
-DefectRRep[Field[name_, rep_, dim_, {j1_, j2_}, y_]] := decomposeRepDefect[rep];
+ScalingDimension[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
+Spin[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := {j1, j2};
+RRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
+DefectRRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := decomposeRepDefect[rep];
 
-whichMultiplet[f_Field] := whichMultiplet[f[[1]]];
+whichMultiplet[f_Operator] := whichMultiplet[f[[1]]];
 whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] &];
 
-multipletOf[f_Field] := With[{mm = Multiplet[whichMultiplet[f]]},
+multipletOf[f_Operator] := With[{mm = Multiplet[whichMultiplet[f]]},
    If[MatchQ[mm[[1]], _List], SelectFirst[mm, MemberQ[#, f] &], mm]
 ];
 
-Field /: Conjugate[f : Field[name_, rep_, dim_, js_, y_]] := 
+Operator /: Conjugate[f : Operator[name_, rep_, dim_, js_, y_]] := 
  With[{r = ConjugateIrrep[RSymmetry[], rep]},
     First@SortBy[Select[Flatten[Multiplet[whichMultiplet[f]]], SimpleRepInputConversion[$RSymmetry, #[[2]]] == r && #[[3]] == dim && #[[4]] == Reverse[js] && #[[5]] == -y &], # === f &] 
  ];
  
-makeConjugate[f : Field[name_, rep_, dim_, js_, y_]] := Field[
+makeConjugate[f : Operator[name_, rep_, dim_, js_, y_]] := Operator[
    With[{nameExp = ToExpression[name, TraditionalForm]}, 
       If[FreeQ[nameExp, OverBar], 
          nameExp /. x_ :> ToString[OverBar[x], TraditionalForm],
@@ -41,14 +41,14 @@ IndexData[SpaceTime] = Index[4, "Greek", 12];
 IndexData[RIndex[rep_]] := 
   Index[Times @@ DimR[RSymmetry[], rep], "Latin", 9, Subscript[#, RepName[RSymmetry[], rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
-RIndex[rep_Integer] /; RSymmetry[] =!= U1 := RIndex[SimpleRepInputConversion[RSymmetry[], rep]];
+RIndex[rep:(_Integer | _List)] /; rep =!= SimpleRepInputConversion[RSymmetry[], rep] := RIndex[SimpleRepInputConversion[RSymmetry[], rep]];
 
 Options[DefectRIndex] := {"Alternate" -> False};
 IndexData[DefectRIndex[defectRep_, opt:OptionsPattern[DefectRIndex]]] := 
   Index[Times @@ DimR[DefectRSymmetry[], defectRep], "Latin", 9, Subscript[Capitalize[#], If[OptionValue[DefectRIndex, "Alternate"], OverDot, Identity][RepName[DefectRSymmetry[], defectRep]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
 DefectRIndex[rep_] := DefectRIndex[rep, "Alternate" -> False];
-DefectRIndex[defectRep_Integer, opt:OptionsPattern[]] /; DefectRSymmetry[] =!= U1 := DefectRIndex[SimpleRepInputConversion[DefectRSymmetry[], defectRep], opt];
+DefectRIndex[rep:(_Integer | _List), opt:OptionsPattern[]] /; rep =!= SimpleRepInputConversion[DefectRSymmetry[], rep] := DefectRIndex[SimpleRepInputConversion[DefectRSymmetry[], rep], opt];
 
 convertRToDefect[expr_] := expr /. RIndex[rep_] :> toIndex[decomposeRepDefect[rep]];
 
@@ -76,7 +76,7 @@ BuildTensor[{"\[Epsilon]", Raised[DottedSpinor],
 DeclareTensorSymmetry["\[Epsilon]", {{Cycles[{{1,2}}], -1}}];
 
 Unprotect[Tensor];
-Tensor[{x___, f_Field, y___}] := Tensor[{x, ToTensor[f][[1, 1]], y}];
+Tensor[{x___, f_Operator, y___}] := Tensor[{x, ToTensor[f][[1, 1]], y}];
 Tensor[names: {__String}] := Tensor[name2field[ToString[ToExpression[#], TraditionalForm]] & /@ names];
 Protect[Tensor];
 

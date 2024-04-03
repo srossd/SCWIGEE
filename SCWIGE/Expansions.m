@@ -11,7 +11,7 @@ NonRPart[Tensor[names_]] :=
 
 RPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
   With[{rInds = 
-     Position[Indices[t], Raised[_RIndex] | Lowered[_RIndex]][[;; , 
+     Position[Indices[t], Raised[_RIndex | _DefectRIndex] | Lowered[_RIndex | _DefectRIndex]][[;; , 
        1]]}, TensorPermute[RPart[t], 
     Ordering[InversePermutation[perm][[rInds]]]]];
 NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
@@ -25,7 +25,7 @@ NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] :=
 RPart[Contract[t_, pairs_]] := 
   With[{dels = 
      Position[Indices[t], 
-       Raised[Except[_RIndex | _DefectRIndex]] | Lowered[Except[_RIndex | _DefectRIndex | _DefectRIndex]]][[;; , 1]], 
+       Raised[Except[_RIndex | _DefectRIndex]] | Lowered[Except[_RIndex | _DefectRIndex]]][[;; , 1]], 
     inner = RPart[t]},
    With[{pi = TensorPermutation[inner], 
      ip = InversePermutation[TensorPermutation[t]]},
@@ -118,7 +118,7 @@ crossingPermutationR[t_Tensor, order_] :=
     Ordering[
      TensorPermutation[ordered][[
       Select[Range@
-        Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], RIndex] &]]]]
+        Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], RIndex | DefectRIndex] &]]]]
    ];
 
 ExpandCorrelator[0] = 0;

@@ -114,9 +114,9 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
           Button[plusIcon, 
            With[{res = 
               opDialog[{}, "New Operator", 
-               Field[Null, 1, Null, {0, 0}, If[$multipletSC[i], 0, Null]]]},
+               Operator[Null, 1, Null, {0, 0}, If[$multipletSC[i], 0, Null]]]},
                If[FailureQ[Enclose[ConfirmQuiet[RepName[RSymmetry[], RRep[res]]]]], MessageDialog[StringForm["`` is not a valid R-symmetry representation.", RRep[res]]],
-            If[MatchQ[res, _Field], $multiplet[i] = If[$multipletSC[i], {res}, ReverseSortBy[{{res}, {makeConjugate[res]}}, #[[1,-1]]&]]]]],
+            If[MatchQ[res, _Operator], $multiplet[i] = If[$multipletSC[i], {res}, ReverseSortBy[{{res}, {makeConjugate[res]}}, #[[1,-1]]&]]]]],
            Method -> "Queued", ImageSize -> Small, 
            Appearance -> "Frameless", Enabled -> ($RSymmetry =!= Null)]], 20, 
          FontFamily -> "CMU Serif"], {0, 0}]}],
@@ -137,7 +137,7 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                     1]], {diff, {{-1, -1/2}, {1, -1/2}}}, {f, 
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "Edit Operator", 
-                    x]}, If[MatchQ[res, _Field] && StringQ[res[[1]]], 
+                    x]}, If[MatchQ[res, _Operator] && StringQ[res[[1]]], 
                     $multiplet[i] = $multiplet[i] /. {x -> res, makeConjugate[x] -> makeConjugate[res]}]],
                    Method -> "Queued", Appearance -> "Frameless"
                    ]] /@ #[[2]],
@@ -153,8 +153,8 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                     1]], {diff, {{-1, -1/2}, {1, -1/2}}}, {f, 
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "New Operator", 
-                    Field[Null, 1, #[[1, 2]], {0, 0}, #[[1, 1]]]]}, 
-                 If[MatchQ[res, _Field] && StringQ[res[[1]]], 
+                    Operator[Null, 1, #[[1, 2]], {0, 0}, #[[1, 1]]]]}, 
+                 If[MatchQ[res, _Operator] && StringQ[res[[1]]], 
                     If[$multipletSC[i], 
                        AppendTo[$multiplet[i], res];
                        If[res[[-1]] != 0, AppendTo[$multiplet[i], makeConjugate[res]]], 
@@ -179,7 +179,7 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
    ] /. Global`\[CapitalDelta] -> 0);
    
 opDialog[reps_, label_, 
-   init_ : Field[Null, 1, 2, {0, 0}, 0]] := ($nfName = 
+   init_ : Operator[Null, 1, 2, {0, 0}, 0]] := ($nfName = 
     init[[1]]; $nfRep = init[[2]]; $nfL = 2 init[[4, 1]]; $nfLb = 
     2 init[[4, 2]]; $nfDim = init[[3]]; $nfRCharge = If[init[[5]] === Null, Null, init[[5]]/2];
    DialogInput[
@@ -200,7 +200,7 @@ opDialog[reps_, label_,
         Style[label, 20], Top, Background -> LightBlue], 
       DefaultButton[
        DialogReturn[
-        Field[ReleaseHold[
+        Operator[ReleaseHold[
           ToString[#, TraditionalForm] & /@ 
            Hold[$nfName]], SimpleRepInputConversion[RSymmetry[], $nfRep], $nfDim, {$nfL, $nfLb}/2, 
          2 $nfRCharge]]]}]]);

@@ -9,7 +9,7 @@ $SolvedCorrelators = {};
 SolvedCorrelators[] := $SolvedCorrelators;
   
 Options[WardEquations] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True};
-WardEquations[names : {Except[_Field]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
+WardEquations[names : {Except[_Operator]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = With[{expr = Correlator[
              NormalOrder[TensorProduct[
 	             If[!OptionValue["Defect"],
@@ -29,14 +29,14 @@ WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Wi
     ]
 ];
 
-superprimaryQ[f_Field] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f];
+superprimaryQ[f_Operator] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension], f];
 superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
 Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False, "UseSUSYRules" -> True};
-SolveWard[names : {Except[_Field]..}, opt : OptionsPattern[]] :=
+SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-SolveWard[fields : {_Field..}, OptionsPattern[]] := Module[{eqs, vars, bm},
+SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm},
    eqs = DeleteCases[CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] /. Normal[First /@ SolvedCorrelators[]]], True];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
    bm = CoefficientArrays[eqs, vars];

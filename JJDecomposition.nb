@@ -169,7 +169,7 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"{", 
      RowBox[{
-      RowBox[{"Field", "[", 
+      RowBox[{"Operator", "[", 
        RowBox[{
        "\"\<\\!\\(\\*FormBox[\\\"\[Phi]\\\",TraditionalForm]\\)\>\"", ",", 
         RowBox[{"{", 
@@ -177,7 +177,7 @@ Cell[BoxData[{
           RowBox[{"{", "2", "}"}], ",", "0"}], "}"}], ",", "2", ",", 
         RowBox[{"{", 
          RowBox[{"0", ",", "0"}], "}"}], ",", "0"}], "]"}], ",", 
-      RowBox[{"Field", "[", 
+      RowBox[{"Operator", "[", 
        RowBox[{
        "\"\<\\!\\(\\*FormBox[\\\"\[Chi]\\\", TraditionalForm]\\)\>\"", ",", 
         RowBox[{"{", 
@@ -187,7 +187,7 @@ Cell[BoxData[{
         RowBox[{"{", 
          RowBox[{
           RowBox[{"1", "/", "2"}], ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
-      RowBox[{"Field", "[", 
+      RowBox[{"Operator", "[", 
        RowBox[{
        "\"\<\\!\\(\\*FormBox[OverscriptBox[\\\"\[Chi]\\\", \\\"_\\\"], \
 TraditionalForm]\\)\>\"", ",", 
@@ -200,7 +200,7 @@ TraditionalForm]\\)\>\"", ",",
          RowBox[{"0", ",", 
           RowBox[{"1", "/", "2"}]}], "}"}], ",", 
         RowBox[{"-", "1"}]}], "]"}], ",", 
-      RowBox[{"Field", "[", 
+      RowBox[{"Operator", "[", 
        RowBox[{"\"\<\\!\\(\\*FormBox[\\\"J\\\", TraditionalForm]\\)\>\"", ",", 
         RowBox[{"{", 
          RowBox[{
@@ -209,7 +209,7 @@ TraditionalForm]\\)\>\"", ",",
          RowBox[{
           RowBox[{"1", "/", "2"}], ",", 
           RowBox[{"1", "/", "2"}]}], "}"}], ",", "0"}], "]"}], ",", 
-      RowBox[{"Field", "[", 
+      RowBox[{"Operator", "[", 
        RowBox[{
        "\"\<\\!\\(\\*FormBox[\\\"\[CapitalSigma]\\\", \
 TraditionalForm]\\)\>\"", ",", 
@@ -218,7 +218,7 @@ TraditionalForm]\\)\>\"", ",",
           RowBox[{"{", "0", "}"}], ",", "2"}], "}"}], ",", "3", ",", 
         RowBox[{"{", 
          RowBox[{"0", ",", "0"}], "}"}], ",", "2"}], "]"}], ",", 
-      RowBox[{"Field", "[", 
+      RowBox[{"Operator", "[", 
        RowBox[{
        "\"\<\\!\\(\\*FormBox[OverscriptBox[\\\"\[CapitalSigma]\\\", \
 \\\"_\\\"], TraditionalForm]\\)\>\"", ",", 

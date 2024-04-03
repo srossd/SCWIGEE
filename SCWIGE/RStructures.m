@@ -50,6 +50,9 @@ BuildTensor[arg : {"\[Delta]", Raised[i1_], Raised[i2_]}] := twopt[i1, i2];
 BuildTensor[arg : {"\[Delta]", Lowered[i1_], Lowered[i2_]}] := SparseArray@Inverse[Components@Tensor[{{"\[Delta]", Raised[i2], Raised[i1]}}]];
 
 $customInvariants = False;
+
+createDefectTwoPt[r1_, r2_] := Components[Tensor[{{"C", Lowered[DefectRIndex[singRep[DefectRSymmetry[]]]], Raised[DefectRIndex[r1]], Raised[DefectRIndex[r2]]}}]][[1]];
+createDefectTwoPt[a1: AlternateRep[r1_], a2: AlternateRep[r2_]] := Components[Contract[Tensor[{{"\[Delta]", Raised[toIndex[a1]], Raised[toIndex[r1]]}, {"\[Delta]", Lowered[toIndex[r1]], Lowered[toIndex[r2]]}, {"\[Delta]", Raised[toIndex[r2]], Raised[toIndex[a2]]}}],{{2,3},{4,5}}]];
      
 twopt::undefined = "The two-point invariant for representations (``, ``) has not been defined.";
 twopt[RIndex[r1_], RIndex[r2_]] := twopt[r1, r2];
@@ -57,7 +60,7 @@ twopt[i1_DefectRIndex, i2_DefectRIndex] := twopt @@ (toRep /@ {i1, i2});
 twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 =!= dynkin[r1] := twopt[dynkin[r1], r2];
 twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r2 =!= dynkin[r2] := twopt[r1, dynkin[r2]];
 twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && !OrderedQ[{r1, r2}] := Transpose[twopt[r2, r1]];
-twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && OrderedQ[{r1, r2}] := 
+twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && OrderedQ[{r1, r2}] := twopt[r1, r2] =
 If[$customInvariants,
     Message[twopt::undefined, r1, r2],
 	With[{grp = appropriateGroup[r1]},
@@ -65,7 +68,7 @@ If[$customInvariants,
 	      IrrepInProduct[RSymmetry[], {r1, r2}, singRep[RSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]],
 	      With[{pair = SelectFirst[Tuples[preimageReps /@ {r1, r2}], numInvariants[#] > 0 &]},
 	         If[MissingQ[pair],
-	            Components[Tensor[{{"C", Lowered[DefectRIndex[singRep[DefectRSymmetry[]]]], Raised[DefectRIndex[r1]], Raised[DefectRIndex[r2]]}}]][[1]],
+	            createDefectTwoPt[r1, r2],
 	         	twopt @@ pair
 	         ]
 	      ]
@@ -82,7 +85,7 @@ threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _Alter
 threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && r3 === dynkin[r3] && !OrderedQ[{r1, r2, r3}] := 
    TensorTranspose[threept @@ Sort[{r1,r2,r3}], Ordering[{r1,r2,r3}]];
    
-threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && r3 === dynkin[r3] && OrderedQ[{r1, r2, r3}] := 
+threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && r3 === dynkin[r3] && OrderedQ[{r1, r2, r3}] := threept[r1, r2, r3] =
 If[$customInvariants,
     Message[threept::undefined, r1, r2, r3],
       With[{grp = appropriateGroup[r1]},
@@ -236,12 +239,12 @@ dynkin[AlternateRep[rep_]] := AlternateRep[dynkin[rep]];
 conjRep[rep_] := ConjugateIrrep[appropriateGroup[rep], rep];
 toIndex[rep_] := If[appropriateGroup[rep] == RSymmetry[], RIndex[rep], If[MatchQ[rep, AlternateRep[_]], DefectRIndex[rep[[1]], "Alternate" -> True], DefectRIndex[rep]]];
 conjIndex[RIndex[rep_]] := RIndex[conjRep[rep]];
-(*conjIndex[DefectRIndex[rep_, opt: OptionsPattern[]]] := DefectRIndex[conjRep[rep], "Alternate" -> If[MemberQ[Values[branchingRules[]], AlternateRep[rep]], !OptionValue[DefectRIndex, {opt}, "Alternate"], False]];*)
-conjIndex[DefectRIndex[rep_, opt: OptionsPattern[]]] := DefectRIndex[conjRep[rep], "Alternate" -> OptionValue[DefectRIndex, {opt}, "Alternate"]];
+conjIndex[DefectRIndex[rep_, opt: OptionsPattern[]]] := DefectRIndex[conjRep[rep], "Alternate" -> If[MemberQ[Values[branchingRules[]], AlternateRep[rep]], !OptionValue[DefectRIndex, {opt}, "Alternate"], False]];
+(*conjIndex[DefectRIndex[rep_, opt: OptionsPattern[]]] := DefectRIndex[conjRep[rep], "Alternate" -> OptionValue[DefectRIndex, {opt}, "Alternate"]];*)
 toRep[RIndex[rep_]] := rep;
 toRep[DefectRIndex[rep_, opt:OptionsPattern[]]] := If[OptionValue[DefectRIndex, {opt}, "Alternate"], AlternateRep, Identity][rep];
 
-numInvariants[reps_] := 
+numInvariants[reps_] := numInvariants[reps] =
    With[{grp = appropriateGroup[reps[[1]]]},
   	 If[# == {}, 0, #[[1, 2]]] &@ Select[ReduceRepProduct[grp, reps], #[[1]] == singRep[grp] &]
 	];

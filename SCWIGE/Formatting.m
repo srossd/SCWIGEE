@@ -1,6 +1,6 @@
 (* Wolfram Language package *)
 
-Format[Field[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] := 
+Format[Operator[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] := 
   With[{indices = 
      Join[{"\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]"}[[;; 
         2 j1]], {"\!\(\*OverscriptBox[\(\[Alpha]\), \(.\)]\)", 

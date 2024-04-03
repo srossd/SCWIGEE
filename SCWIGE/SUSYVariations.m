@@ -60,7 +60,7 @@ OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
         }
     ];
 
-ToTensor[f_Field] := 
+ToTensor[f_Operator] := 
   Tensor[{{f[[1]], Raised[RIndex[RRep[f]]], 
      Sequence @@ Table[Lowered[Spinor], 2 Spin[f][[1]]], 
      Sequence @@ Table[Lowered[DottedSpinor], 2 Spin[f][[2]]]}}];
@@ -81,7 +81,7 @@ BuildTensor[{name_String, idxs___}] :=
 symmetryInconsistent[gen1_, gen2_] := Max[Length /@ Values[GroupBy[DeleteDuplicates@Join[SymmetryPermutations[gen1], SymmetryPermutations[gen2]], First]]] > 1;
 
 Options[PossibleQActions] = {"QBar" -> False};
-PossibleQActions[f : Field[_, rep_, dim_, {j1_, j2_}, y_], opt: OptionsPattern[]] := PossibleQActions[f, opt] = If[TrueQ[OptionValue["QBar"]],
+PossibleQActions[f : Operator[_, rep_, dim_, {j1_, j2_}, y_], opt: OptionsPattern[]] := PossibleQActions[f, opt] = If[TrueQ[OptionValue["QBar"]],
    qToQBar /@ PossibleQActions[Conjugate[f], "QBar" -> False],
    DeleteDuplicates[(SymmetryReduce /@
     Select[
@@ -134,7 +134,7 @@ qToQBar[t_Tensor] := t /. {{"C", Lowered[RIndex[i_]], Raised[RIndex[j_]], Raised
 };
 
 Options["QAnsatz"] = {"QBar" -> False, "Symmetrized" -> True};
-QAnsatz[f_Field, opt : OptionsPattern[]] := 
+QAnsatz[f_Operator, opt : OptionsPattern[]] := 
   QAnsatz[f, opt] = If[OptionValue["Symmetrized"],
    If[OptionValue["QBar"],
       QAnsatz[Conjugate[f], "QBar" -> False] /. SUSYCoefficient[name_, idx_, "QBar" -> False] t_ :> SUSYCoefficient[Conjugate[name2field[name]][[1]], idx, "QBar" -> True] qToQBar[t],
@@ -203,7 +203,7 @@ opGroup[m_, i_, j_, OptionsPattern[]] := With[{bottom = First@MinimalBy[If[$mult
    Select[If[$multipletSC[m], Multiplet[m], Multiplet[m][[If[OptionValue["Conjugate"], 2, 1]]]], ScalingDimension[#] - ScalingDimension[bottom] == (i + j)/2 && Last[#] - Last[bottom] == i - j & ]
 ];
 
-groupOf[f_Field] := Module[{mult, conj, bottom, dimdiff, ydiff},
+groupOf[f_Operator] := Module[{mult, conj, bottom, dimdiff, ydiff},
    mult = whichMultiplet[f];
    conj = (! $multipletSC[mult] && MemberQ[Multiplet[mult][[2]], f]);
    bottom = First@opGroup[mult, 0, 0, "Conjugate" -> conj];
@@ -286,6 +286,6 @@ susyTable[ops_, OptionsPattern[]] := With[{g = Grid[Table[{TensorProduct[$QTenso
   ];
 
 Options[DisplaySUSYVariations] = {"Solved" -> True, "MaxDepth" -> 0};
-DisplaySUSYVariations[opt:OptionsPattern[]] := TabView[
+DisplaySUSYVariations[opt:OptionsPattern[]] := (DeclareAlgebra[]; TabView[
    Table[$multipletName[i] -> susyTable[If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"]}, {k, 0, OptionValue["MaxDepth"] - j}]]],opt], {i, $multipletIndices}], 
-   Alignment -> Center, ImageSize -> Automatic];
+   Alignment -> Center, ImageSize -> Automatic]);

@@ -53,7 +53,7 @@ StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] displays the \*
 StyleBox[\(\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] SUSY multiplet.";
 
-Field::usage = "Field[\!\(\*
+Operator::usage = "Operator[\!\(\*
 StyleBox[\"name\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*

@@ -120,12 +120,12 @@ SymbolicSpacetimeRelations[largebasis_] := With[{q = First@Cases[largebasis, Spa
     RowReduce[#, 
      ZeroTest -> (Function[expr, Simplify[expr, crossRatioAssumptions[q]] === 0])], 
     crossRatioAssumptions[q]]] &@
- FullSimplify[NullSpace[Flatten[Table[Transpose@ArrayFlatten[Flatten@*CanonicallyOrderedComponents /@ largebasis] /. genericPoint[q, z], {z, 2, 5}], 1]], crossRatioAssumptions[q]]
+ FullSimplify[NullSpace[Flatten[Table[Transpose@ArrayFlatten[Flatten@*List@*CanonicallyOrderedComponents /@ largebasis] /. genericPoint[q, z], {z, 2, 5}], 1]], crossRatioAssumptions[q]]
 ];
 
 SpacetimeRelations[structs_] := 
   If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None || (Length[structs] > 5 && First@Cases[structs, s_SpacetimeStructure :> Length[s[[1]]], All] == 4), 
-   relations[structs, If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None, 75, 188], 6], SymbolicSpacetimeRelations[structs]];
+   relations[structs, If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None, 100, 188], 6], SymbolicSpacetimeRelations[structs]];
    
 relations[structs_, len_, deg_] := With[{q = First@Cases[structs, SpacetimeStructure[___, q_, _] :> q, All]},
  With[{data = spacetimePtData[structs, len]},
@@ -146,7 +146,7 @@ relations[structs_, len_, deg_] := With[{q = First@Cases[structs, SpacetimeStruc
     
 spacetimePtData[structs_, len_] := 
  spacetimePtData[structs, len] = With[{q = First@Cases[structs, SpacetimeStructure[___, q_, _] :> q, All]},
-  With[{structComps = Flatten[Table[Transpose@ArrayFlatten[Flatten@*CanonicallyOrderedComponents /@ structs] /. genericPoint[q, z], {z, 2, 5}], 1]}, 
+  With[{structComps = Flatten[Table[Transpose@ArrayFlatten[Flatten@*List@*CanonicallyOrderedComponents /@ structs] /. genericPoint[q, z], {z, 2, 5}], 1]}, 
    With[{idxs = Sort[Length[structs] + 1 - IndependentSet[Reverse@Transpose@structComps, "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], "Indices" -> True]]},
    {idxs, 
     ResourceFunction["MonitorProgress"][
