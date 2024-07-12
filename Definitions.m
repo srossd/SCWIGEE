@@ -8,8 +8,8 @@ QTensor[OptionsPattern[]] := Switch[{OptionValue["QBar"]},
 
 ScalingDimension[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
 Spin[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := {j1, j2};
-RRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
-DefectRRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := decomposeRepDefect[rep];
+GlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
+DefectGlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := decomposeRepDefect[rep];
 
 whichMultiplet[f_Operator] := whichMultiplet[f[[1]]];
 whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] &];
@@ -19,7 +19,7 @@ multipletOf[f_Operator] := With[{mm = Multiplet[whichMultiplet[f]]},
 ];
 
 Operator /: Conjugate[f : Operator[name_, rep_, dim_, js_, y_]] := 
- With[{r = ConjugateIrrep[RSymmetry[], rep]},
+ With[{r = ConjugateIrrep[GlobalSymmetry[], rep]},
     First@SortBy[Select[Flatten[Multiplet[whichMultiplet[f]]], SimpleRepInputConversion[$RSymmetry, #[[2]]] == r && #[[3]] == dim && #[[4]] == Reverse[js] && #[[5]] == -y &], # === f &] 
  ];
  
@@ -30,7 +30,7 @@ makeConjugate[f : Operator[name_, rep_, dim_, js_, y_]] := Operator[
          nameExp /. x_ :> ToString[x /. OverBar -> Identity, TraditionalForm]
       ]
    ],
-   ConjugateIrrep[RSymmetry[], rep],
+   ConjugateIrrep[GlobalSymmetry[], rep],
    dim, Reverse[js], -y];
  
 name2field[name_] := SelectFirst[Flatten[Multiplet[whichMultiplet[name]]], #[[1]] == name &];
@@ -38,19 +38,19 @@ name2field[name_] := SelectFirst[Flatten[Multiplet[whichMultiplet[name]]], #[[1]
 IndexData[Spinor] = Index[2, "Greek", 1];
 IndexData[DottedSpinor] = Index[2, "Greek", 1, OverDot];
 IndexData[SpaceTime] = Index[4, "Greek", 12];
-IndexData[RIndex[rep_]] := 
-  Index[Times @@ DimR[RSymmetry[], rep], "Latin", 9, Subscript[#, RepName[RSymmetry[], rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
+IndexData[GlobalIndex[rep_]] := 
+  Index[Times @@ DimR[GlobalSymmetry[], rep], "Latin", 9, Subscript[#, RepName[GlobalSymmetry[], rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
-RIndex[rep:(_Integer | _List)] /; rep =!= SimpleRepInputConversion[RSymmetry[], rep] := RIndex[SimpleRepInputConversion[RSymmetry[], rep]];
+GlobalIndex[rep:(_Integer | _List)] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[GlobalSymmetry[], rep] := GlobalIndex[SimpleRepInputConversion[GlobalSymmetry[], rep]];
 
-Options[DefectRIndex] := {"Alternate" -> False};
-IndexData[DefectRIndex[defectRep_, opt:OptionsPattern[DefectRIndex]]] := 
-  Index[Times @@ DimR[DefectRSymmetry[], defectRep], "Latin", 9, Subscript[Capitalize[#], If[OptionValue[DefectRIndex, "Alternate"], OverDot, Identity][RepName[DefectRSymmetry[], defectRep]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
+Options[DefectGlobalIndex] := {"Alternate" -> False};
+IndexData[DefectGlobalIndex[defectRep_, opt:OptionsPattern[DefectGlobalIndex]]] := 
+  Index[Times @@ DimR[DefectGlobalSymmetry[], defectRep], "Latin", 9, Subscript[Capitalize[#], If[OptionValue[DefectGlobalIndex, "Alternate"], OverDot, Identity][RepName[DefectGlobalSymmetry[], defectRep]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
-DefectRIndex[rep_] := DefectRIndex[rep, "Alternate" -> False];
-DefectRIndex[rep:(_Integer | _List), opt:OptionsPattern[]] /; rep =!= SimpleRepInputConversion[DefectRSymmetry[], rep] := DefectRIndex[SimpleRepInputConversion[DefectRSymmetry[], rep], opt];
+DefectGlobalIndex[rep_] := DefectGlobalIndex[rep, "Alternate" -> False];
+DefectGlobalIndex[rep:(_Integer | _List), opt:OptionsPattern[]] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[DefectGlobalSymmetry[], rep] := DefectGlobalIndex[SimpleRepInputConversion[DefectGlobalSymmetry[], rep], opt];
 
-convertRToDefect[expr_] := expr /. RIndex[rep_] :> toIndex[decomposeRepDefect[rep]];
+convertRToDefect[expr_] := expr /. GlobalIndex[rep_] :> toIndex[decomposeRepDefect[rep]];
 
 \[Epsilon]Lower = 
   Tensor[{{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}}];
@@ -238,7 +238,11 @@ BuildTensor[{"\[Epsilon]", Raised[SpaceTime], Raised[SpaceTime],
 \[Epsilon]Transverse[q_] := 
   Tensor[{{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[UpTee]\)]\)", Sequence @@ Table[Lowered[SpaceTime], q]}}];
 BuildTensor[{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[UpTee]\)]\)", idxs : Lowered[SpaceTime]..}] /; Length[{idxs}] < 4 := 
-  ArrayPad[LeviCivitaTensor[Length[{idxs}]], Table[{0, 1}, Length[{idxs}]]];
+  ArrayPad[LeviCivitaTensor[Length[{idxs}]], Table[{0, 4-Length[{idxs}]}, Length[{idxs}]]];
+\[Epsilon]Defect[q_] := 
+  Tensor[{{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[DoubleVerticalBar]\)]\)", Sequence @@ Table[Lowered[SpaceTime], 4 - q]}}];
+BuildTensor[{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[DoubleVerticalBar]\)]\)", idxs : Lowered[SpaceTime]..}] /; Length[{idxs}] < 4 := 
+  ArrayPad[LeviCivitaTensor[Length[{idxs}]], Table[{4-Length[{idxs}], 0}, Length[{idxs}]]];
 
 XX[i_] := Tensor[{{SpacetimePoint[i], Raised[SpaceTime]}}];
 BuildTensor[{SpacetimePoint[i_], Raised[SpaceTime]}] := SparseArray@Table[x[i, k], {k, 4}];
@@ -354,7 +358,7 @@ TensorSpinorDerivative[t_, i_] :=(*1/Sqrt[2]*)
 
 Options[Correlator] = {"Defect" -> False};
 AddTensorHead[Correlator];
-Correlator[expr_, opt : OptionsPattern[]] := Correlator[convertRToDefect[expr], opt] /; OptionValue[Correlator, "Defect"] && !FreeQ[expr, RIndex]; 
+Correlator[expr_, opt : OptionsPattern[]] := Correlator[convertRToDefect[expr], opt] /; OptionValue[Correlator, "Defect"] && !FreeQ[expr, GlobalIndex]; 
 Correlator[x_?NumericQ, OptionsPattern[]] := x;
 Correlator[a_ b_, opt: OptionsPattern[]] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := a Correlator[b, opt];
 Correlator[a_ + b_, opt: OptionsPattern[]] := Correlator[a, opt] + Correlator[b, opt];
@@ -367,25 +371,28 @@ readyToCorrelate[names_, already_] :=
 findSwap[{1, ys___}, n_] := findSwap[{ys} - 1, n + 1];
 findSwap[{x_, ys___}, n_] := {n + x, n + 1};
 
+epsPattern = "\[Epsilon]" | "\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[DoubleVerticalBar]\)]\)";
+sigmaPattern = \[Sigma]LowerTensor[_] | "\[Sigma]" | "\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)";
+
 Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; !readyToCorrelate[Symbolic[t], {"C"}] := 
   With[{swap = findSwap[Position[Symbolic[t], "C"][[;; , 1]], 0]}, 
    Correlator[SwapFactors[t, swap[[1]], swap[[2]]], opt]];
-Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; readyToCorrelate[Symbolic[t], {"C"}] && !readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]"}] := 
+Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; readyToCorrelate[Symbolic[t], {"C"}] && !readyToCorrelate[Symbolic[t], {"C", epsPattern}] := 
   With[{swap = 
-     findSwap[Position[Symbolic[t], "C" | "\[Epsilon]"][[;; , 1]], 
+     findSwap[Position[Symbolic[t], "C" | epsPattern][[;; , 1]], 
       0]}, Correlator[SwapFactors[t, swap[[1]], swap[[2]]], opt]];
-Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]"}] && ! readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]", "\[Delta]"}] :=
+Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; readyToCorrelate[Symbolic[t], {"C", epsPattern}] && ! readyToCorrelate[Symbolic[t], {"C", epsPattern, "\[Delta]"}] :=
    With[{swap = 
      findSwap[
-      Position[Symbolic[t], "C" | "\[Epsilon]" | "\[Delta]"][[;; , 
+      Position[Symbolic[t], "C" | epsPattern | "\[Delta]"][[;; , 
         1]], 0]}, Correlator[SwapFactors[t, swap[[1]], swap[[2]]], opt]];
-Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]", "\[Delta]"}] && ! readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]", "\[Delta]", \[Sigma]LowerTensor[_]}] :=
+Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; readyToCorrelate[Symbolic[t], {"C", epsPattern, "\[Delta]"}] && ! readyToCorrelate[Symbolic[t], {"C", epsPattern, "\[Delta]", sigmaPattern}] :=
    With[{swap = 
      findSwap[
-      Position[Symbolic[t], "C" | "\[Epsilon]" | "\[Delta]" | \[Sigma]LowerTensor[_]][[;; , 
+      Position[Symbolic[t], "C" | epsPattern | "\[Delta]" | sigmaPattern][[;; , 
         1]], 0]}, Correlator[SwapFactors[t, swap[[1]], swap[[2]]], opt]];
 Correlator[
-   Tensor[{{s : "C" | "\[Epsilon]" | "\[Delta]" | \[Sigma]LowerTensor[_], rest__}, y___}], opt: OptionsPattern[]] := 
+   Tensor[{{s : "C" | epsPattern | "\[Delta]" | sigmaPattern, rest__}, y___}], opt: OptionsPattern[]] := 
   TensorProduct[Tensor[{{s, rest}}], Correlator[Tensor[{y}], opt]];
 Correlator[
     Tensor[{x___, {"\[PartialD]", Lowered[Spinor], 
@@ -395,10 +402,10 @@ Correlator[
    Tensor[{x, {"\[PartialD]" <> f, Lowered[Spinor], 
       Lowered[DottedSpinor], idxs}, y}], opt];
 Correlator[Contract[t_, pairs_, opt : OptionsPattern[]], opt2: OptionsPattern[]] /; 
-   readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]", "\[Delta]", \[Sigma]LowerTensor[_]}] := 
+   readyToCorrelate[Symbolic[t], {"C", epsPattern, "\[Delta]", sigmaPattern}] := 
   Contract[Correlator[t, opt2], pairs];
 Correlator[TensorPermute[t_, perm_, OptionsPattern[]], opt2: OptionsPattern[]] /; 
-   readyToCorrelate[Symbolic[t], {"C", "\[Epsilon]", "\[Delta]", \[Sigma]LowerTensor[_]}] := 
+   readyToCorrelate[Symbolic[t], {"C", epsPattern, "\[Delta]", sigmaPattern}] := 
   TensorPermute[Correlator[t, opt2], perm];
   
 Symbolic[Correlator[t_, opt: OptionsPattern[]]] := {{"\[LeftAngleBracket]"}, 

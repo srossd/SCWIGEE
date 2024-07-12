@@ -18,24 +18,21 @@ Format[SpacetimeSeparation[i_, j_], TraditionalForm] := Subscript["\!\(Tradition
 Format[SpacetimeSeparationDefect[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", i, j];
 Format[SpacetimeSeparationTransverse[i_, j_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i, j];
 
-Format[XXSquared[i_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", i])^2;
-Format[XXSquared[i_, j_], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", i, j])^2;
+Format[XXSquared[xs__], TraditionalForm] := (Subscript["\!\(TraditionalForm\`x\)", StringJoin @@ (ToString /@ {xs})])^2;
 MakeBoxes[Power[XXSquared[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
    TemplateBox[{SubscriptBox["x", StringJoin @@ (ToString /@ {xs})]}, 
     "Abs"], SuperscriptBox[
     SubscriptBox["x", StringJoin @@ (ToString /@ {xs})], 2 n]];
     
-Format[XXSquaredDefect[i_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", i])^2;
-Format[XXSquaredDefect[i_, j_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", i, j])^2;
+Format[XXSquaredDefect[xs___], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", StringJoin @@ (ToString /@ {xs})])^2;
 MakeBoxes[Power[XXSquaredDefect[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
    TemplateBox[{SubscriptBox[SuperscriptBox["x", "\[DoubleVerticalBar]"], RowBox[ToString /@ {xs}]]}, 
     "Abs"], SuperscriptBox[
     SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", StringJoin @@ (ToString /@ {xs})], 2 n]];
     
-Format[XXSquaredTransverse[i_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", i])^2;
-Format[XXSquaredTransverse[i_, j_], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", i, j])^2;
+Format[XXSquaredTransverse[xs__], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", StringJoin @@ (ToString /@ {xs})])^2;
 MakeBoxes[Power[XXSquaredTransverse[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
    TemplateBox[{SubscriptBox[SuperscriptBox["x", "\[UpTee]"], StringJoin @@ (ToString /@ {xs})]}, 
@@ -58,7 +55,7 @@ Format[\[Sigma]BarUpperTensor[i_], TraditionalForm] := Row[{"(",Superscript["\!\
 Format[Correlator[t_, opt: OptionsPattern[]], TraditionalForm] := 
   Row[{"\[LeftAngleBracket]", t, If[OptionValue[Correlator, "Defect"], "\!\(\*SubscriptBox[\(\[RightAngleBracket]\), \(\[ScriptCapitalD]\)]\)", "\[RightAngleBracket]"]}];
   
-Format[RInvariant[i_], TraditionalForm] := Subscript["C", i];
+Format[GlobalInvariant[i_], TraditionalForm] := Subscript["C", i];
 
 cols = {Darker@Green, Blue, Black, Orange, Red, Purple, Yellow};
 arrow[{p1_, p2_}] := {Line[{p1, p2}], Arrow[{p1, .4 p1 + .6 p2}]};
@@ -66,9 +63,9 @@ reverseArrow[{p1_, p2_}] := arrow[{p2, p1}];
 repStyles[multreps_] := 
  Association@With[{reps = 
     SortBy[#, Function[rep, {Times @@ repDim[rep], MatchQ[repName[rep], _OverBar]}]] & /@ 
-     GroupBy[DeleteDuplicates[DeleteCases[multreps, singRep[RSymmetry[]] | singRep[DefectRSymmetry[]]]], 
+     GroupBy[DeleteDuplicates[DeleteCases[multreps, singRep[GlobalSymmetry[]] | singRep[DefectGlobalSymmetry[]]]], 
       conjRep[#] === dynkin[#] &]}, 
-  Join[{singRep[appropriateGroup[reps[[1]]]] -> {White, Line}},Thread[
+  Join[{singRep[appropriateGroup[reps[[1,1]]]] -> {White, Line}},Thread[
     reps[True] -> 
      Table[{cols[[i]], Thick, Dashed, Line}, {i, Length[reps[True]]}]],
    Thread[
@@ -79,18 +76,14 @@ repStyles[multreps_] :=
   ];
 
 Format[TreeInvariant[edges_], TraditionalForm] := 
- Module[{vertices = 
-    DeleteDuplicates@Cases[edges, _Internal | _External, All], 
-   potential = 100 #^2 + 10/#^2 &, pos, sol},
-  pos = Association@
-    Thread[vertices -> (vertices /. {Internal[i_] :> {x[i], y[i]}, 
-         External[
-           i_] :> {Cos[(2 Pi (i - 1/2))/Count[vertices, _External]], 
-           Sin[(2 Pi (i - 1/2))/Count[vertices, _External]]}})];
-  sol = NMinimize[
-     Sum[If[MatchQ[e[[1]], _External] || MatchQ[e[[2]], _External], 3,
-         1] Boole[!MatchQ[Last[e], singRep[RSymmetry[]] | singRep[DefectRSymmetry[]] | 1]] potential[Norm[pos[e[[1]]] - pos[e[[2]]]]], {e, edges}], 
-     Cases[Values[pos], _x | _y, All]];
+ Module[{
+    vertices = DeleteDuplicates@Cases[edges, _Internal | _External, All],
+    internalPos,
+    externalPos,
+    pos},
+  externalPos = Association@Thread[Cases[vertices, External[i_] :> (External[i] -> {Cos[(2 Pi (i - 1/2))/Count[vertices, _External]], Sin[(2 Pi (i - 1/2))/Count[vertices, _External]]})]];
+  internalPos = Association@Thread[Cases[vertices, Internal[i_] :> (Internal[i] -> If[# == {0,0}, # + {.5 (-1)^i, 0}, #] & @ Mean[Flatten[Table[externalPos[e], {e, Keys[externalPos]}, {n, 1 + 2 Count[edges, {Internal[i], e, _}]}], 1]])]];
+  pos = Merge[{externalPos, internalPos}, Mean];
   Graphics[{PointSize[.05], Arrowheads[.1], 
     Join[Table[{Sequence @@ 
         Most[repStyles[allReps[]][
@@ -103,9 +96,9 @@ Format[TreeInvariant[edges_], TraditionalForm] :=
              If[MatchQ[e[[1]], _External] || 
                MatchQ[e[[2]], _External], e[[3]], 
               conjRep[e[[3]]]]]]][{pos[e[[1]]], 
-           pos[e[[2]]]}], repName[e[[3]]]] /. sol[[2]]}, {e, edges}], 
+           pos[e[[2]]]}], repName[e[[3]]]]}, {e, edges}], 
      Table[{If[MatchQ[v, _External], Black, Gray], 
-       Tooltip[Point[pos[v] /. sol[[2]]], v]}, {v, vertices}]]}, 
+       Tooltip[Point[pos[v]], v]}, {v, vertices}]]}, 
    ImageSize -> 150]
   ]
 
@@ -137,10 +130,6 @@ Format[v[perm : {_,_,_,_}], TraditionalForm] := "U"^#1 "V"^#2 & @@ uvpowers[2, p
 Format[u[perm : {_,_}], TraditionalForm] := "U";
 Format[v[perm : {_,_}], TraditionalForm] := "V";
    
-Format[g[fields_, i_, j_], TraditionalForm] := 
-\!\(\*SubsuperscriptBox[\("\<g\>"\), \(Row[{ToString[i], 
-     ToString[j]}]\), \(StringJoin @@ \((First /@ fields)\)\)]\);
+Format[g[fields_, i_, j_], TraditionalForm] := Subsuperscript["g", Row[{i, ",", j}], Row[First /@ fields]];
      
-Format[\[Lambda][fields_, i_, j_], TraditionalForm] := 
-\!\(\*SubsuperscriptBox[\("\<\[Lambda]\>"\), \(Row[{ToString[i], 
-     ToString[j]}]\), \(StringJoin @@ \((First /@ fields)\)\)]\);	
+Format[\[Lambda][fields_, i_, j_], TraditionalForm] := Subsuperscript["\[Lambda]", Row[{i, ",", j}], Row[First /@ fields]];
