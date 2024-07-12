@@ -2,22 +2,22 @@
 
 RPart[Tensor[names_]] := 
   Tensor[Select[names, 
-    MatchQ[#[[1]], RInvariant[_]] || 
+    MatchQ[#[[1]], GlobalInvariant[_]] || 
       MemberQ[{"C", "\[Delta]"}, #[[1]]] &]];
 NonRPart[Tensor[names_]] := 
   Tensor[Select[
-    names, ! (MatchQ[#[[1]], RInvariant[_]] || 
+    names, ! (MatchQ[#[[1]], GlobalInvariant[_]] || 
         MemberQ[{"C", "\[Delta]"}, #[[1]]]) &]];
 
 RPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
   With[{rInds = 
-     Position[Indices[t], Raised[_RIndex | _DefectRIndex] | Lowered[_RIndex | _DefectRIndex]][[;; , 
+     Position[Indices[t], Raised[_GlobalIndex | _DefectGlobalIndex] | Lowered[_GlobalIndex | _DefectGlobalIndex]][[;; , 
        1]]}, TensorPermute[RPart[t], 
     Ordering[InversePermutation[perm][[rInds]]]]];
 NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
   With[{nonrInds = 
      Position[Indices[t], 
-       Raised[Except[_RIndex | _DefectRIndex]] | Lowered[Except[_RIndex | _DefectRIndex]]][[;; , 1]]},
+       Raised[Except[_GlobalIndex | _DefectGlobalIndex]] | Lowered[Except[_GlobalIndex | _DefectGlobalIndex]]][[;; , 1]]},
     TensorPermute[NonRPart[t], 
     Ordering[InversePermutation[perm][[nonrInds]]]]
    ];
@@ -25,26 +25,26 @@ NonRPart[TensorPermute[t_, perm_, OptionsPattern[]]] :=
 RPart[Contract[t_, pairs_]] := 
   With[{dels = 
      Position[Indices[t], 
-       Raised[Except[_RIndex | _DefectRIndex]] | Lowered[Except[_RIndex | _DefectRIndex]]][[;; , 1]], 
+       Raised[Except[_GlobalIndex | _DefectGlobalIndex]] | Lowered[Except[_GlobalIndex | _DefectGlobalIndex]]][[;; , 1]], 
     inner = RPart[t]},
    With[{pi = TensorPermutation[inner], 
      ip = InversePermutation[TensorPermutation[t]]},
     Contract[inner, 
      Sort /@ (Select[pairs, 
-         MatchQ[Indices[t][[#[[1]], 1]], _RIndex | _DefectRIndex] &] /. 
+         MatchQ[Indices[t][[#[[1]], 1]], _GlobalIndex | _DefectGlobalIndex] &] /. 
         n_Integer :> 
          pi[[ip[[n]] - Length@Select[dels, # < ip[[n]] &]]])]
     ]
    ];
 NonRPart[Contract[t_, pairs_]] := 
   With[{dels = 
-     Position[Indices[t], Raised[_RIndex | _DefectRIndex] | Lowered[_RIndex | _DefectRIndex]][[;; , 
+     Position[Indices[t], Raised[_GlobalIndex | _DefectGlobalIndex] | Lowered[_GlobalIndex | _DefectGlobalIndex]][[;; , 
        1]], inner = NonRPart[t]},
    With[{pi = TensorPermutation[inner], 
      ip = InversePermutation[TensorPermutation[t]]},
     Contract[inner, 
      Sort /@ (Select[
-         pairs, ! MatchQ[Indices[t][[#[[1]], 1]], _RIndex | _DefectRIndex] &] /. 
+         pairs, ! MatchQ[Indices[t][[#[[1]], 1]], _GlobalIndex | _DefectGlobalIndex] &] /. 
         n_Integer :> 
          pi[[ip[[n]] - Length@Select[dels, # < ip[[n]] &]]])]
     ]
@@ -118,7 +118,7 @@ crossingPermutationR[t_Tensor, order_] :=
     Ordering[
      TensorPermutation[ordered][[
       Select[Range@
-        Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], RIndex | DefectRIndex] &]]]]
+        Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], GlobalIndex | DefectGlobalIndex] &]]]]
    ];
 
 ExpandCorrelator[0] = 0;
@@ -149,7 +149,7 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
        i, {i, Length[names]}, {j, 
         Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
     q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
-    rrep = If[OptionValue[Correlator, "Defect"], DefectRRep, RRep]},
+    rrep = If[OptionValue[Correlator, "Defect"], DefectGlobalRep, GlobalRep]},
    With[{sfields = Sort[fields, fieldOrder], 
      order = Ordering[fields, All, fieldOrder]},
     Module[{numinvs = numInvariants[(rrep /@ sfields) /. AlternateRep -> Identity], (* don't care about alternate reps for counting *) 
@@ -178,9 +178,9 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
        ] TensorProduct[
           TensorPermute[
            Switch[Length[names],
-            4, FourPtRInvariant[{##}, i] & @@ (rrep /@ sfields),
-           	3, ThreePtRInvariant @@ (rrep /@ sfields),
-           	2, TwoPtRInvariant @@ (rrep /@ sfields),
+            4, FourPtGlobalInvariant[{##}, i] & @@ (rrep /@ sfields),
+           	3, ThreePtGlobalInvariant @@ (rrep /@ sfields),
+           	2, TwoPtGlobalInvariant @@ (rrep /@ sfields),
            	1, 1
            ], 
            Rindperm], 
@@ -192,9 +192,9 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
                ]) @@ Table[c[order], {c, crossRatios[$qdefect]}]) TensorProduct[
             TensorPermute[
              Switch[Length[names],
-	            4, FourPtRInvariant[{##}, i] & @@ (rrep /@ sfields),
-	           	3, ThreePtRInvariant @@ (rrep /@ sfields),
-	           	2, TwoPtRInvariant @@ (rrep /@ sfields),
+	            4, FourPtGlobalInvariant[{##}, i] & @@ (rrep /@ sfields),
+	           	3, ThreePtGlobalInvariant @@ (rrep /@ sfields),
+	           	2, TwoPtGlobalInvariant @@ (rrep /@ sfields),
 	           	1, 1
 	         ], 
              Rindperm], 

@@ -45,14 +45,14 @@ OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
     DeleteDuplicates@Flatten[{
         EpsilonProducts[Tensor[{#}], {j1, j2} - Spin[#]] & /@ 
          Select[multiplet, 
-             dynkin[rep] == dynkin[RRep[#]] && 
+             dynkin[rep] == dynkin[GlobalRep[#]] && 
              y == #[[5]] && 
              ScalingDimension[#] == dim && 
              AllTrue[Spin[#] - {j1, j2}, IntegerQ] &
          ],
         EpsilonProducts[Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}, #}], {j1 - 1/2, j2 - 1/2} - Spin[#]] & /@ 
          Select[multiplet, 
-             dynkin[rep] == dynkin[RRep[#]] && 
+             dynkin[rep] == dynkin[GlobalRep[#]] && 
              y == #[[5]] && 
              ScalingDimension[#] == dim - 1 && 
              AllTrue[Spin[#] - {j1 - 1/2, j2 - 1/2}, IntegerQ] &
@@ -61,7 +61,7 @@ OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
     ];
 
 ToTensor[f_Operator] := 
-  Tensor[{{f[[1]], Raised[RIndex[RRep[f]]], 
+  Tensor[{{f[[1]], Raised[GlobalIndex[GlobalRep[f]]], 
      Sequence @@ Table[Lowered[Spinor], 2 Spin[f][[1]]], 
      Sequence @@ Table[Lowered[DottedSpinor], 2 Spin[f][[2]]]}}];
      
@@ -85,10 +85,10 @@ PossibleQActions[f : Operator[_, rep_, dim_, {j1_, j2_}, y_], opt: OptionsPatter
    qToQBar /@ PossibleQActions[Conjugate[f], "QBar" -> False],
    DeleteDuplicates[(SymmetryReduce /@
     Select[
-     With[ {reps = ReduceRepProduct[$RSymmetry, {fundRep[$RSymmetry], rep}][[;; , 1]]},
+     With[ {reps = ReduceRepProduct[$RSymmetry, {QGlobalRep[], rep}][[;; , 1]]},
         Flatten[
          Table[
-             Contract[TensorProduct[ConjugateThreePtRInvariant[{fundRep[$RSymmetry], rep}, rep2], op], {{1, 3 + Position[Indices[op], _Raised][[1, 1]]}}], 
+             Contract[TensorProduct[ConjugateThreePtGlobalInvariant[{QGlobalRep[], rep}, rep2], op], {{1, 3 + Position[Indices[op], _Raised][[1, 1]]}}], 
             {rep2, reps}, 
             {op, OperatorsWithQuantumNumbers[multipletOf[f], rep2, dim + 1/2, {j1 + 1/2, j2}, y + 1]}
          ]
@@ -125,7 +125,7 @@ qToQBar[TensorPermute[t_, perm_]] :=
        perm], InversePermutation[fp]], 
      Length[perm]]]];
      
-qToQBar[t_Tensor] := t /. {{"C", Lowered[RIndex[i_]], Raised[RIndex[j_]], Raised[RIndex[k_]]} :> {"C", Raised[RIndex[ConjugateIrrep[$RSymmetry, k]]], Lowered[RIndex[j]], Lowered[RIndex[ConjugateIrrep[$RSymmetry, i]]]},
+qToQBar[t_Tensor] := t /. {{"C", Lowered[GlobalIndex[i_]], Raised[GlobalIndex[j_]], Raised[GlobalIndex[k_]]} :> {"C", Raised[GlobalIndex[ConjugateIrrep[$RSymmetry, k]]], Lowered[GlobalIndex[j]], Lowered[GlobalIndex[ConjugateIrrep[$RSymmetry, i]]]},
    {"\[Epsilon]", Raised[Spinor], Raised[Spinor]} -> {"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]},
    {"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]} -> {"\[Epsilon]", Lowered[DottedSpinor], Lowered[DottedSpinor]},
    {"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]} -> {"\[Epsilon]", Raised[Spinor], Raised[Spinor]},
@@ -195,8 +195,8 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 	Commutator[$QBarTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
 ];
 
-quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] - 
- 2 I TensorProduct[Kronecker[RIndex[fundRep[$RSymmetry]]], Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}}], Tensor[{op}]];
+quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] + 
+ 2 I TensorProduct[Kronecker[GlobalIndex[QGlobalRep[]]], Tensor[{{"\[PartialD]", Lowered[Spinor], Lowered[DottedSpinor]}}], Tensor[{op}]];
 
 Options[opGroup] = {"Conjugate" -> False};
 opGroup[m_, i_, j_, OptionsPattern[]] := With[{bottom = First@MinimalBy[If[$multipletSC[m], Multiplet[m], Multiplet[m][[If[OptionValue["Conjugate"], 2, 1]]]], ScalingDimension]},

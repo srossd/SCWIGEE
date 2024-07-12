@@ -69,9 +69,11 @@ fitRational[data_, deg_, step_, maxDeg_, opt : OptionsPattern[]] :=
       If[MatrixRank[N@mats[[i]]] != Min[Dimensions[mats[[i]]]],
        With[{null = NullSpace[mats[[i]]]},
         If[null =!= {},
-         found = True;
          ans = rat ansatzes[[i]] /. Thread[vars -> null[[1]]];
-         Break[];
+         If[ans =!= 0,
+            found = True;
+         	Break[]
+         ];
          ]
         ]
        ],

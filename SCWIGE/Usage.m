@@ -6,11 +6,11 @@ BeginPackage["SCWIGE`"]
 (* Exported symbols added here with SymbolName::usage *)  
 
 
-SetRSymmetry::usage = "SetRSymmetry[\!\(\*
-StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the R-symmetry to \!\(\*
+SetGlobalSymmetry::usage = "SetGlobalSymmetry[\!\(\*
+StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the global symmetry to \!\(\*
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\).";
-SetDefectRSymmetry::usage = "SetDefectRSymmetry[\!\(\*
-StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the R-symmetry in the presence of the defect to \!\(\*
+SetDefectGlobalSymmetry::usage = "SetDefectGlobalSymmetry[\!\(\*
+StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the global symmetry in the presence of the defect to \!\(\*
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\).";
 SetMultiplet::usage = "SetMultiplet[\!\(\*
 StyleBox[\"{\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -39,8 +39,13 @@ StyleBox[\"q\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"]\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)sets the defect codimension to \!\(\*
 StyleBox[\"q\",\nFontSlant->\"Italic\"]\).";
+QGlobalRep::usage = "QGlobalRep[] gives the representation of the supercharge under the global symmetry.";
+SetQGlobalRep::usage = "SetQGlobalRep[\!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] sets the representation of the supercharge under the global symmetry to \!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\).";
 
-RSymmetry::usage = "RSymmetry[] gives the Cartan matrix R-symmetry group (or list of Cartan matrices for a non-simple group).";
+GlobalSymmetry::usage = "GlobalSymmetry[] gives the Cartan matrix of the global symmetry group (or list of Cartan matrices for a non-simple group).";
+DefectGlobalSymmetry::usage = "DefectGlobalSymmetry[] gives the Cartan matrix of the global symmetry group in the presence of the defect (or list of Cartan matrices for a non-simple group).";
 Multiplet::usage = "Multiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the list of fields in the \*
 StyleBox[\(\!\(\*
@@ -72,7 +77,7 @@ StyleBox[\"}\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"u1\",\nFontSlant->\"Italic\"]\)] represents a field \!\(\*
-StyleBox[\"name\",\nFontSlant->\"Italic\"]\) with R-symmetry representation \!\(\*
+StyleBox[\"name\",\nFontSlant->\"Italic\"]\) with global symmetry representation \!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\), scaling dimension \!\(\*
 StyleBox[\"dim\",\nFontSlant->\"Italic\"]\), spin (\!\(\*
 StyleBox[\"l\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -86,11 +91,11 @@ StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 Spin::usage = "Spin[\!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the spin of \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
-RRep::usage = "RRep[\!\(\*
-StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the R-symmetry representation of \!\(\*
+GlobalRep::usage = "GlobalRep[\!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the global symmetry representation of \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
-DefectRRep::usage = "RRep[\!\(\*
-StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the defect R-symmetry representation of \!\(\*
+DefectGlobalRep::usage = "GlobalRep[\!\(\*
+StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the defect global symmetry representation of \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
 ToTensor::usage = "ToTensor[\!\(\*
@@ -104,11 +109,11 @@ StyleBox[\"tensors\",\nFontSlant->\"Italic\"]\) that are linearly independent."
 Spinor::usage = "Spinor represents a spinor index.";
 DottedSpinor::usage = "DottedSpinor represents a dotted spinor index.";
 SpaceTime::usage = "SpaceTime represents a spacetime index.";
-RIndex::usage = "RIndex[\!\(\*
-StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] represents an index for the R-symmetry representation \!\(\*
+GlobalIndex::usage = "GlobalIndex[\!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] represents an index for the global symmetry representation \!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\).";
-DefectRIndex::usage = "DefectRIndex[\!\(\*
-StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] represents an index for the defect R-symmetry representation \!\(\*
+DefectGlobalIndex::usage = "DefectGlobalIndex[\!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] represents an index for the defect global symmetry representation \!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\).";
 
 QAnsatz::usage = "QAnsatz[\!\(\*
@@ -282,7 +287,7 @@ StyleBox[\"idx\",\nFontSlant->\"Italic\"]\)] is the derivative of \!\(\*
 StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\) with respect to the spacime point with index \!\(\*
 StyleBox[\"idx\",\nFontSlant->\"Italic\"]\) in spinor form.";
 
-TwoPtRInvariant::usage = "TwoPtRInvariant[\!\(\*
+TwoPtGlobalInvariant::usage = "TwoPtGlobalInvariant[\!\(\*
 StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -292,7 +297,7 @@ StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)).";
-ConjugateTwoPtRInvariant::usage = "ConjugateTwoPtRInvariant[\!\(\*
+ConjugateTwoPtGlobalInvariant::usage = "ConjugateTwoPtGlobalInvariant[\!\(\*
 StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -303,7 +308,7 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)).";
 
-ThreePtRInvariant::usage = "ThreePtRInvariant[{\!\(\*
+ThreePtGlobalInvariant::usage = "ThreePtGlobalInvariant[{\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -316,7 +321,7 @@ StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"\[Times]\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\".\",\nFontSlant->\"Italic\"]\)";
-ConjugateThreePtRInvariant::usage = "ConjugateThreePtRInvariant[{\!\(\*
+ConjugateThreePtGlobalInvariant::usage = "ConjugateThreePtGlobalInvariant[{\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -332,9 +337,9 @@ StyleBox[\".\",\nFontSlant->\"Italic\"]\)";
 
 RPart::usage = "RPart[\!\(\*
 StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\)] extracts the part of \!\(\*
-StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\) composed of R-symmetry invariants.";
+StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\) composed of global symmetry invariants.";
 NonRPart::usage = "NonRPart[\!\(\*
-StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\)] removes the R-symmetry invariants from \!\(\*
+StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\)] removes the global symmetry invariants from \!\(\*
 StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\).";
 
 InvariantFourPts::usage = "InvariantFourPts[\!\(\*
@@ -347,7 +352,7 @@ StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"rep3\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep4\",\nFontSlant->\"Italic\"]\)] gives a list of invariant tensors with raised R-symmetry indices in the representations \!\(\*
+StyleBox[\"rep4\",\nFontSlant->\"Italic\"]\)] gives a list of invariant tensors with raised global symmetry indices in the representations \!\(\*
 StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -366,7 +371,7 @@ StyleBox[\"reps\",\nFontSlant->\"Italic\"]\)] gives the graphs of three-pt invar
 StyleBox[\"reps\",\nFontSlant->\"Italic\"]\)].";
 
 ExpansionComponents::usage = "ExpansionComponents[\!\(\*
-StyleBox[\"expr\",\nFontSlant->\"Italic\"]\)] takes a tensor expression consisting of R-symmetry invariants and spacetime structures, and expands both into a complete basis to give a highly compressed set of components.";
+StyleBox[\"expr\",\nFontSlant->\"Italic\"]\)] takes a tensor expression consisting of global symmetry invariants and spacetime structures, and expands both into a complete basis to give a highly compressed set of components.";
 
 KinematicPrefactor::usage = "KinematicPrefactor[\!\(\*
 StyleBox[\"dims\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -500,7 +505,7 @@ StyleBox[\"expr\",\nFontSlant->\"Italic\"]\)] represents the VEV of \!\(\*
 StyleBox[\"expr\",\nFontSlant->\"Italic\"]\), with constant tensors factored out.";
 ExpandCorrelator::usage = "ExpandCorrelator[\!\(\*
 StyleBox[\"expr\",\nFontSlant->\"Italic\"]\)] expands correlators in \!\(\*
-StyleBox[\"expr\",\nFontSlant->\"Italic\"]\) in terms of R-symmetry invariants and spacetime structures.";
+StyleBox[\"expr\",\nFontSlant->\"Italic\"]\) in terms of global symmetry invariants and spacetime structures.";
 
 SUSYRules::usage = "SUSYRules[] gives the coefficients of the SUSY variations.";
 
@@ -542,12 +547,14 @@ StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SuperscriptBo
 
 \[Epsilon]Transverse::usage = "\[Epsilon]Transverse[\!\(\*
 StyleBox[\"q\",\nFontSlant->\"Italic\"]\)] is the spacetime \[Epsilon] invariant associated with directions transverse to the defect.";
+\[Epsilon]Defect::usage = "\[Epsilon]Defect[\!\(\*
+StyleBox[\"q\",\nFontSlant->\"Italic\"]\)] is the spacetime \[Epsilon] invariant associated with directions parallel to the defect.";
 
 SpacetimeStructureExpressions::usage = "SpacetimeStructureExpressions[\!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\)] gives a list of symbolic expressions for the normalized spacetime structures with spins \!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\).";
 
-RInvariant::usage = "RInvariant[\!\(\*
+GlobalInvariant::usage = "GlobalInvariant[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] labels the \*
 StyleBox[\(\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -567,7 +574,7 @@ StyleBox[\"invariant\",\nFontSlant->\"Plain\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Plain\"]\)\!\(\*
 StyleBox[\"tensors\",\nFontSlant->\"Plain\"]\)\!\(\*
 StyleBox[\".\",\nFontSlant->\"Plain\"]\)";
-FourPtRInvariant::usage = "FourPtRInvariant[{\!\(\*
+FourPtGlobalInvariant::usage = "FourPtGlobalInvariant[{\!\(\*
 StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -611,7 +618,7 @@ StyleBox[\"r4\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"}\",\nFontSlant->\"Plain\"]\)\!\(\*
 StyleBox[\".\",\nFontSlant->\"Plain\"]\)";
 
-QTensor::usage = "QTensor[] gives the tensor of supersymmetry generators.";
+QTensor::usage = "QTensor[] gives the tensor of supercharges.";
 
 u::usage = "u[{\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -733,7 +740,7 @@ ToTensor::usage = "ToTensor[\!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the tensor corresponding to \!\(\*
 StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
-SetTwoPtRInvariant::usage = "SetTwoPtRInvariant[\!\(\*
+SetTwoPtGlobalInvariant::usage = "SetTwoPtGlobalInvariant[\!\(\*
 StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -745,7 +752,7 @@ StyleBox[
 RowBox[{\"r1\", \",\", \" \", \"r2\"}],\nFontSlant->\"Italic\"]]\) to \!\(\*
 StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
-SetThreePtRInvariant::usage = "SetThreePtRInvariant[\!\(\*
+SetThreePtGlobalInvariant::usage = "SetThreePtGlobalInvariant[\!\(\*
 StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -763,7 +770,7 @@ StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
 
 AlternateRep::usage = "AlternateRep[\!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] indicates an alternate basis for the irrep \!\(\*
-StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) of the defect R-symmetry, which is a projection of a distinct irrep of the full R-symmetry."
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) of the defect global symmetry, which is a projection of a distinct irrep of the full global symmetry."
 
 
 EndPackage[]

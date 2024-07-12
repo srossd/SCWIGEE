@@ -250,7 +250,7 @@ Cell[BoxData[{
            "\"\<\\!\\(\\*FormBox[\\\"\[CapitalSigma]\\\", TraditionalForm]\\)\
 \>\"", ",", 
             RowBox[{"Raised", "[", 
-             RowBox[{"DefectRIndex", "[", 
+             RowBox[{"DefectGlobalIndex", "[", 
               RowBox[{
                RowBox[{"{", "0", "}"}], ",", 
                RowBox[{"\"\<Alternate\>\"", "\[Rule]", "False"}]}], "]"}], 
@@ -262,7 +262,7 @@ TraditionalForm]\\)\>\"", ",",
             RowBox[{"Lowered", "[", "Spinor", "]"}], ",", 
             RowBox[{"Lowered", "[", "DottedSpinor", "]"}], ",", 
             RowBox[{"Raised", "[", 
-             RowBox[{"DefectRIndex", "[", 
+             RowBox[{"DefectGlobalIndex", "[", 
               RowBox[{
                RowBox[{"{", "0", "}"}], ",", 
                RowBox[{"\"\<Alternate\>\"", "\[Rule]", "False"}]}], "]"}], 
