@@ -81,8 +81,7 @@ fitRational[data_, deg_, step_, maxDeg_, opt : OptionsPattern[]] :=
       ];
      If[found, ans,
       If[deg < maxDeg, 
-       fitRational[data, deg + step, step, maxDeg, opt], Print["!"]; 
-       Null]
+       fitRational[data, deg + step, step, maxDeg, opt], None]
       ]
      ]
     ]

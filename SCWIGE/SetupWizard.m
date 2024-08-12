@@ -56,6 +56,9 @@ SetSignature[sig_] := Message[SetSignature::badsig, sig];
 SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
 SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q), Message[SetDefectCodimension::invalid, q]];
 
+SetDefectCodimension[3, \[CurlyPhi]_] := ($qdefect = 3; $q3angle = \[CurlyPhi]);
+SetDefectCodimension[2, type_] := ($qdefect = 2; $q2type = type);
+
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
    Complement[
@@ -78,7 +81,7 @@ $multipletSC = <||>;
 
 
 $qdefect = None;
-$q1angle = 0;
+$q3angle = 0;
 $q2type = {2,2};
 
 plusIcon = 
@@ -343,7 +346,7 @@ preservedSusyPanel[q_] := Which[
 	        }],
 	        Style[" with \[CurlyPhi] = ", 16]
 	     }],
-	     Dynamic[InputField[Dynamic[$q1angle, {Automatic, Set[$q1angle, #] &}], Enabled -> $editing, FieldSize -> {20, 1}]]
+	     Dynamic[InputField[Dynamic[$q3angle, {Automatic, Set[$q3angle, #] &}], Enabled -> $editing, FieldSize -> {20, 1}]]
    	  }
    },
    
@@ -462,7 +465,7 @@ wizardPanel[] := Panel[Dynamic[Grid[
                    		   Cell[
                    		      BoxData[
  								RowBox[{"SetMultiplet", "[", 
-  									RowBox[{ToBoxes[Multiplet[$viewingMultiplet]], ",", ToString[$multipletName[$viewingMultiplet]], ",", $multipletSC[$viewingMultiplet], ",", $viewingMultiplet}], 
+  									RowBox[{ToBoxes[Multiplet[$viewingMultiplet]], ",", "\""<>ToString[$multipletName[$viewingMultiplet]]<>"\"", ",", $multipletSC[$viewingMultiplet], ",", $viewingMultiplet}], 
   								"]"}]
   							  ], 
   							"Input"
@@ -499,7 +502,7 @@ wizardPanel[] := Panel[Dynamic[Grid[
              "", 
              "", 
       		 Style[ToString@StringForm["Progress: `` correlators computed", Length[GroupBy[Normal[First /@ SolvedCorrelators[]], #[[1,1]] &]]], 16],
-      		 Button["Write Results Notebook", resultsNotebook[]]
+      		 Style[Button["Write Results Notebook", resultsNotebook[]], DynamicEvaluationTimeout -> Infinity]
       	  }
      ]
     }, 

@@ -41,14 +41,14 @@ IndexData[SpaceTime] = Index[4, "Greek", 12];
 IndexData[GlobalIndex[rep_]] := 
   Index[Times @@ DimR[GlobalSymmetry[], rep], "Latin", 9, Subscript[#, RepName[GlobalSymmetry[], rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
-GlobalIndex[rep:(_Integer | _List)] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[GlobalSymmetry[], rep] := GlobalIndex[SimpleRepInputConversion[GlobalSymmetry[], rep]];
+(*GlobalIndex[rep:(_Integer | _List)] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[GlobalSymmetry[], rep] := GlobalIndex[SimpleRepInputConversion[GlobalSymmetry[], rep]];*)
 
 Options[DefectGlobalIndex] := {"Alternate" -> False};
 IndexData[DefectGlobalIndex[defectRep_, opt:OptionsPattern[DefectGlobalIndex]]] := 
   Index[Times @@ DimR[DefectGlobalSymmetry[], defectRep], "Latin", 9, Subscript[Capitalize[#], If[OptionValue[DefectGlobalIndex, "Alternate"], OverDot, Identity][RepName[DefectGlobalSymmetry[], defectRep]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
 DefectGlobalIndex[rep_] := DefectGlobalIndex[rep, "Alternate" -> False];
-DefectGlobalIndex[rep:(_Integer | _List), opt:OptionsPattern[]] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[DefectGlobalSymmetry[], rep] := DefectGlobalIndex[SimpleRepInputConversion[DefectGlobalSymmetry[], rep], opt];
+(*DefectGlobalIndex[rep:(_Integer | _List), opt:OptionsPattern[]] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[DefectGlobalSymmetry[], rep] := DefectGlobalIndex[SimpleRepInputConversion[DefectGlobalSymmetry[], rep], opt];*)
 
 convertRToDefect[expr_] := expr /. GlobalIndex[rep_] :> toIndex[decomposeRepDefect[rep]];
 

@@ -97,12 +97,12 @@ uvpt = {x[1, i_] :> -Boole[i == 4], x[2, _] :> 0,
       Sqrt[-u^2 - (-1 + v)^2 + 2 u (1 + v)]/(-1 + 2 u + 2 v)), 
      i == 4, (-u + v)/(-1 + 2 u + 2 v), True, 0]};
 
-uvptDefect = {x[1, 1] -> 1, x[1, 2] -> 0, x[1, 3] -> 0, x[1, 4] -> 0, 
+uvptDefect := ({x[1, 1] -> 1, x[1, 2] -> 0, x[1, 3] -> 0, x[1, 4] -> 0, 
  x[2, 1] -> v (2 u + v + Sqrt[-1 + 4 u^2 + 4 u v + v^2]), 
  x[2, 2] -> -Sqrt[-((-1 + v^2) (-1 + 8 u^2 + 2 v^2 + 
         2 v Sqrt[-1 + 4 u^2 + 4 u v + v^2] + 
         4 u (2 v + Sqrt[-1 + 4 u^2 + 4 u v + v^2])))], x[2, 3] -> 0, 
- x[2, 4] -> 0};
+ x[2, 4] -> 0});
 
 sct[x_, b_] := (x - b x . Components[\[Eta]Lower] . x)/(1 - 2 (b . Components[\[Eta]Lower] . x) + (b . Components[\[Eta]Lower] . b) (x . Components[\[Eta]Lower] . x));
 
@@ -124,8 +124,79 @@ SymbolicSpacetimeRelations[largebasis_] := With[{q = First@Cases[largebasis, Spa
 ];
 
 SpacetimeRelations[structs_] := 
-  If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None || (Length[structs] > 5 && First@Cases[structs, s_SpacetimeStructure :> Length[s[[1]]], All] == 4), 
-   relations[structs, If[First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None, 100, 188], 6], SymbolicSpacetimeRelations[structs]];
+  If[
+     First@Cases[structs, s_SpacetimeStructure :> s[[-2]], All] =!= None || (Length[structs] > 5 && First@Cases[structs, s_SpacetimeStructure :> Length[s[[1]]], All] == 4), 
+   	 fittedRelations[structs],
+   	 SymbolicSpacetimeRelations[structs]
+  ];
+  
+fittedRelations[structs_] := fittedRelations[structs] =
+  Module[{q, structComps, idxs, other, ans, step, sols, safes},
+   q = First@
+     Cases[structs, SpacetimeStructure[___, q_, _] :> q, All];
+   structComps = 
+    Flatten[Table[
+      Transpose@
+        ArrayFlatten[
+         Flatten@*List@*CanonicallyOrderedComponents /@ structs] /. 
+       genericPoint[q, z], {z, 2, 5}], 1];
+   idxs = 
+    Sort[Length[structs] + 1 - 
+      IndependentSet[Reverse@Transpose@structComps, 
+       "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], 
+       "Indices" -> True]];
+   other = Complement[Range@Length[structs], idxs];
+   ans = 
+    Association@
+     Table[{j, idxs[[i]]} -> -None, {j, Length[other]}, {i, 
+       Length[idxs]}];
+   step = 0;
+   sols = {};
+   safes = RandomSample[safeCrossRatios[q]];
+   Monitor[While[! FreeQ[ans, None], 
+     sols = 
+      Join[sols, 
+       Table[Simplify@
+         Quiet@Check[{safes[[ii]], 
+            Table[LinearSolve[
+              structComps[[;; , idxs]] /. 
+               Thread[crossRatios[q] -> safes[[ii]]], 
+              structComps[[;; , reli]] /. 
+               Thread[crossRatios[q] -> safes[[ii]]]], {reli, 
+              Complement[Range@Length[structs], idxs]}]}, 
+           Nothing], {ii, 
+         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
+     Do[If[ans[{j, idxs[[i]]}] === -None, 
+       ans[{j, idxs[[i]]}] = -Simplify@
+          fitRational[sols /. {{u_, v_}, b_} :> {u, v, b[[j, i]]}, 
+           step, 1, step, 
+           "Prefactors" -> 
+            Which[q === None, {1, Sqrt[u], Sqrt[v], Sqrt[u  v]}, 
+             q === 2, {1, Sqrt[1 - v^2]}, True, {1}]]], {j, 
+       Length[other]}, {i, Length[idxs]}];
+       step = step + 1],
+    Panel[Row[{ToString@StringForm["Degree ``", step], Spacer[50], 
+      MatrixPlot[
+       Table[If[ans[{j, idxs[[i]]}] === -None, Gray, White], {j, 
+         Length[other]}, {i, Length[idxs]}], FrameTicks -> None]}]]
+    ];
+    
+   (* Correction to deal with 1 <-> 2 exchange flipping sign of sqrt(1-v^2) for q=2 defect *)
+   Do[
+      If[$qdefect == 2 && AnyTrue[Cases[structs, s_SpacetimeStructure :> s[[5]], All], # == {2,1} &], 
+         ans[{j, idxs[[i]]}] = ans[{j, idxs[[i]]}] /. x : Power[1-v^2, n_] /; !IntegerQ[n] :> -x
+      ],
+      {j, Length[other]}, {i, Length[idxs]}
+   ];
+   
+   If[Length[other] == 0,
+      {},
+	   SparseArray[
+	    Join[Normal[ans], 
+	     Table[{j, other[[j]]} -> 1, {j, Length[other]}]]]
+   ]
+     
+];
    
 relations[structs_, len_, deg_] := With[{q = First@Cases[structs, SpacetimeStructure[___, q_, _] :> q, All]},
  With[{data = spacetimePtData[structs, len]},
