@@ -5,6 +5,9 @@ SetGlobalSymmetry[group_] := (
 	SetQGlobalRep[fundRep[$RSymmetry]];
 	$QTensor = Tensor[{{"Q", Raised[GlobalIndex[QGlobalRep[]]], Lowered[Spinor]}}];
 	$QBarTensor = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[GlobalIndex[QGlobalRep[]]], Lowered[DottedSpinor]}}];
+	
+	$DefectRSymmetry = Null;
+	$embedding = Null;
 );
 
 SetQGlobalRep[rep_] := If[FailureQ[Enclose[ConfirmQuiet[RepName[GlobalSymmetry[], rep]]]], 
@@ -14,14 +17,20 @@ SetQGlobalRep[rep_] := If[FailureQ[Enclose[ConfirmQuiet[RepName[GlobalSymmetry[]
    $QBarTensor = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[GlobalIndex[QGlobalRep[]]], Lowered[DottedSpinor]}}];
 ];
 
-SetDefectGlobalSymmetry::manyembed = "There is not a unique embedding of `1` into `2`; cannot proceed.";
 SetDefectGlobalSymmetry::noembed = "There is no embedding of `1` into `2`; cannot proceed.";
 SetDefectGlobalSymmetry[group_] := Module[{embeddings},
-	$DefectRSymmetry = group;
-	embeddings = Embeddings[$RSymmetry, $DefectRSymmetry];
-	If[embeddings == {}, Message[SetDefectGlobalSymmetry::noembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry]]; Return[]];
-	If[Length[embeddings] > 1, Message[SetDefectGlobalSymmetry::manyembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry]]; Return[]];
+	embeddings = Embeddings[$RSymmetry, group];
+	If[embeddings == {}, 
+	   Message[SetDefectGlobalSymmetry::noembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry]],
+	
+		$DefectRSymmetry = group;
+		If[$RSymmetry === {SU2, U1} && $qdefect === 2, Which[group === SU2, $q2type = {4, 0}, group === U1, $q2type = {2,2}]];
+		
+		$embedding = allEmbeddings[$RSymmetry, $DefectRSymmetry][[1,2]] /. _embeddingParameter -> 1;
+	]
 ];
+
+SetDefectGlobalSymmetry[group_, embedding_] := ($DefectRSymmetry = group; $embedding = embedding;);
 
 SetSymmetries[ops_] := Do[
 	DeclareTensorSymmetry[op[[1]], Join[
@@ -58,6 +67,7 @@ SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q), Message[
 
 SetDefectCodimension[3, \[CurlyPhi]_] := ($qdefect = 3; $q3angle = \[CurlyPhi]);
 SetDefectCodimension[2, type_] := ($qdefect = 2; $q2type = type);
+SetDefectCodimension[1, \[CurlyPhi]_] := ($qdefect = 3; $q1angle = \[CurlyPhi]);
 
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
@@ -73,6 +83,7 @@ singRep[grp_] :=
 $RSymmetry = Null;
 $QGlobalRep = Null;
 $DefectRSymmetry = Null;
+$embedding = Null;
 $editing = True;
 $viewingMultiplet = 1;
 $multiplet = <||>;
@@ -83,6 +94,7 @@ $multipletSC = <||>;
 $qdefect = None;
 $q3angle = 0;
 $q2type = {2,2};
+$q1angle = 0;
 
 plusIcon = 
   Graphics[{Darker@Orange, Disk[], Thickness[.15], White, 
@@ -295,11 +307,11 @@ resultsNotebook[] := CreateDocument[{
       	   CellGroup[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
       	      ExpressionCell[Module[{rrep = If[$qdefect =!= None, DefectGlobalRep, GlobalRep], numinvs},
-      	       numinvs = numInvariants[(rrep /@ grp[[1]]) /. AlternateRep -> Identity];
+      	       numinvs = numInvariants[(rrep /@ grp[[1]])];
       	       Components /@ Switch[Length[grp[[1]]],
-		            4, Table[FourPtGlobalInvariant[{##}, i] & @@ (rrep /@ grp[[1]]), {i, numinvs}],
-		           	3, {ThreePtGlobalInvariant @@ (rrep /@ grp[[1]])},
-		           	2, {TwoPtGlobalInvariant @@ (rrep /@ grp[[1]])},
+      	          	4, Table[FourPtGlobalInvariant[{##}, i] & @@ rreps, {i, numinvs}],
+		           	3, {Tensor[{{"C", Sequence @@ (Raised /@ rreps)}}]},
+		           	2, {Tensor[{{"\[Delta]", Sequence @@ (Raised /@ rreps)}}]},
 		           	1, {1}
 		      ]
       	      ], "Output"]
@@ -314,7 +326,7 @@ resultsNotebook[] := CreateDocument[{
       	   CellGroup[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
       	   	  TextCell["The spinor indices appear in the same order in which they appear in the correlator. X[i, j] denotes the jth coordinate of the ith operator position.", "Text"],
-      	      ExpressionCell[If[ArrayQ[#], SparseArray[#], #] & /@ (Normal@*Components /@ SpacetimeStructures[ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], {}, "\[PartialD]", Range[Length[grp[[1]]]], $qdefect] /. SCWIGE`x -> Global`X), "Output"]
+      	      ExpressionCell[If[ArrayQ[#], SparseArray[#], #] & /@ (Normal@*Components /@ SpacetimeStructures[ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], {}, Range[Length[grp[[1]]]], $qdefect] /. SCWIGE`x -> Global`X), "Output"]
       	   }, Closed]
       	},Closed],
       	Cell["Coefficients", "Subsection"],
@@ -346,7 +358,7 @@ preservedSusyPanel[q_] := Which[
 	        }],
 	        Style[" with \[CurlyPhi] = ", 16]
 	     }],
-	     Dynamic[InputField[Dynamic[$q3angle, {Automatic, Set[$q3angle, #] &}], Enabled -> $editing, FieldSize -> {20, 1}]]
+	     Dynamic[InputField[Dynamic[$q3angle, {Automatic, (If[NumericQ[#], Set[$q3angle, #]]) &}], Enabled -> $editing, FieldSize -> {20, 1}]]
    	  }
    },
    
@@ -354,7 +366,7 @@ preservedSusyPanel[q_] := Which[
    {
       {
 	     Style["Supersymmetry type: ", 16], 
-         Dynamic[RadioButtonBar[Dynamic[$q2type], 
+         Dynamic[RadioButtonBar[Dynamic[$q2type, {Automatic, (If[# == {4,0}, SetDefectGlobalSymmetry[SU2], SetDefectGlobalSymmetry[U1]]; Set[$q2type, #]) &}], 
             {
       			{4,0} -> Style["\[ScriptCapitalN] = (4,0)", 16], 
       			{2,2} -> Style["\[ScriptCapitalN] = (2,2)", 16]
@@ -375,6 +387,20 @@ preservedSusyPanel[q_] := Which[
 	         
 	      }
       ]
+   },
+   
+   q === 1,
+   {
+     {
+	     Row[{
+	        Column[{
+	           Style["Preserved supercharge: ", 16],
+	           Style[ToString[StringForm["``", defectSupercharge[1, "\[CurlyPhi]"]], TraditionalForm], 12]
+	        }],
+	        Style[ToString[StringForm[" with \[CurlyPhi] = ", SU2BreakingTensor[$q1angle]], TraditionalForm], 16]
+	     }],
+	     Dynamic[InputField[Dynamic[$q1angle, {Automatic, (If[NumericQ[#], Set[$q1angle, #]]) &}], Enabled -> $editing, FieldSize -> {20, 1}, ImageSize -> 50]]
+	 } 
    }   
 ]
 
@@ -418,22 +444,32 @@ wizardPanel[] := Panel[Dynamic[Grid[
             {
                {
                   Tooltip[Style["Global symmetry: ", 16], "The R-symmetry, along with any additional symmetries. For instance, for an \[ScriptCapitalN] = 2 theory with SU(2) flavor symmetry, enter {SU2, SU2, U1}"], 
-      			  Dynamic[InputField[Dynamic[$RSymmetry, {Automatic, SetGlobalSymmetry[#1] &}], Enabled -> ($multipletIndices === {} && $editing), FieldSize -> {20, 1}]]
+      			  Dynamic[InputField[Dynamic[$RSymmetry, {Automatic, SetGlobalSymmetry[#1] &}], Enabled -> ($multipletIndices === {} && $editing), FieldSize -> {20, 1}, ImageSize -> 50]],
+      			  Style[If[$RSymmetry =!= Null && Head[$RSymmetry] =!= Symbol, CMtoName[$RSymmetry], ""], 14]
       		   },
         	   {
         	      Tooltip[Style["Supercharge representation: ",16], "The global symmetry representation of Q. For instance, for an \[ScriptCapitalN] = 2 theory with SU(2) flavor symmetry, and thus SU(2)_F \[Times] SU(2)_R \[Times] U(1)_R global symmetry, enter {1, 2, 1}."],
-        	      Dynamic[InputField[Dynamic[$QGlobalRep, {Automatic, SetQGlobalRep[#1] &}], Enabled -> ($multipletIndices === {} && $editing), FieldSize -> {20, 1}]]
+        	      Dynamic[InputField[Dynamic[$QGlobalRep, {Automatic, If[#1 =!= Null, SetQGlobalRep[#1]] &}], Enabled -> ($multipletIndices === {} && $editing), FieldSize -> {20, 1}, ImageSize -> 50]],
+      			  Style[If[$RSymmetry =!= Null && $QGlobalRep =!= Null && Head[$RSymmetry] =!= Symbol && Head[$QGlobalRep] =!= Symbol, RepName[$RSymmetry, $QGlobalRep], ""], 14]
         	   },
         	   If[$qdefect =!= None, 
         	      {
         	         Style["Defect global symmetry: ",16],
-        	         Dynamic[InputField[Dynamic[$DefectRSymmetry, {Automatic, SetDefectGlobalSymmetry[#1] &}], Enabled -> $editing, FieldSize -> {20, 1}]]
+        	         Dynamic[InputField[Dynamic[$DefectRSymmetry, {Automatic, SetDefectGlobalSymmetry[#1] &}], Enabled -> $editing, FieldSize -> {20, 1}, ImageSize -> 50]],
+      			  	 If[$DefectRSymmetry =!= Null && Head[$DefectRSymmetry] =!= Symbol,
+	      			   Button[Style[CMtoName[$DefectRSymmetry], 14], DialogInput[{embeddingSelector[$RSymmetry, $DefectRSymmetry], DefaultButton[]}], Method -> "Queued"],
+      			  	   ""
+      			  	 ]
         	      },
         	   	  Nothing
         	   ],
-        	   If[$qdefect =!= None && ($RSymmetry =!= Null && $DefectRSymmetry =!= Null && $QGlobalRep =!= Null),
-        	      Sequence @@ preservedSusyPanel[$qdefect],
-        	   	  Nothing
+        	   If[$DefectRSymmetry =!= Null && $RSymmetry =!= Null && $embedding =!= Null && Head[$RSymmetry] =!= Symbol && Head[$DefectRSymmetry] =!= Null && Head[$embedding] =!= Null,
+        	      {
+        	         "",
+        	         displayBranching[$RSymmetry, $DefectRSymmetry, $embedding],
+        	         SpanFromLeft
+        	      },
+        	      Nothing  
         	   ]
         	}, 
         	Alignment -> Right
@@ -443,11 +479,15 @@ wizardPanel[] := Panel[Dynamic[Grid[
         If[
            Head[$QTensor] =!= Tensor, 
            "", 
-           Graphics[{AbsoluteThickness[1], Arrowheads[.1], Arrow[{{0, 0}, {-1,-.75}}], Text[Style[TraditionalForm[$QTensor], 14], {-.35,-.6}]}, ImageSize -> 75]
+           Row[{Spacer[20], Framed@Graphics[{AbsoluteThickness[1], Arrowheads[.1], Arrow[{{0, 0}, {-1,-.75}}], Text[Style[TraditionalForm[$QTensor], 14], {-.35,-.6}]}, ImageSize -> 75]}]
         ]
      ], 
      ""
     }, 
+	If[$qdefect =!= None && ($RSymmetry === {SU2, U1} && MemberQ[{SU2, U1}, $DefectRSymmetry] && $QGlobalRep =!= Null),
+	   {"", "", Grid[preservedSusyPanel[$qdefect]], ""},
+	   Nothing
+	],
     {
      "", 
      "", 

@@ -768,9 +768,52 @@ RowBox[{\"r1\", \",\", \" \", \"r2\", \",\", \" \", \"r3\"}],\nFontSlant->\"Ital
 StyleBox[\"inv\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
 
-AlternateRep::usage = "AlternateRep[\!\(\*
-StyleBox[\"rep\",\nFontSlant->\"Italic\"]\)] indicates an alternate basis for the irrep \!\(\*
-StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) of the defect global symmetry, which is a projection of a distinct irrep of the full global symmetry."
+SetTwoPtDefectGlobalInvariant::usage = "SetTwoPtDefectGlobalInvariant[{\!\(\*
+StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\"p1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"}\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"{\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"r2\",\nFontSlant->\"Italic\"]\), \!\(\*
+StyleBox[\"p2\",\nFontSlant->\"Italic\"]\)}, \!\(\*
+StyleBox[\"mat\",\nFontSlant->\"Italic\"]\)] sets the two-point R-invariant \!\(\*SuperscriptBox[\(\[Delta]\), \(\*
+StyleBox[\"r1\",\nFontSlant->\"Italic\"] \((\*
+StyleBox[\"p1\",\nFontSlant->\"Italic\"])\), \*
+StyleBox[\"r2\",\nFontSlant->\"Italic\"] \((\*
+StyleBox[\"p2\",\nFontSlant->\"Italic\"])\)\)]\) to \!\(\*
+StyleBox[\"mat\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
+SetThreePtDefectGlobalInvariant::usage = "SetThreePtDefectGlobalInvariant[{\!\(\*
+StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Plain\"]\)\!\(\*
+StyleBox[\"p1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"}\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"{\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"r2\",\nFontSlant->\"Italic\"]\), \!\(\*
+StyleBox[\"p2\",\nFontSlant->\"Italic\"]\)}, \!\(\*
+StyleBox[\"{\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"r3\",\nFontSlant->\"Italic\"]\), \!\(\*
+StyleBox[\"p3\",\nFontSlant->\"Italic\"]\)}, \!\(\*
+StyleBox[\"mat\",\nFontSlant->\"Italic\"]\)] sets the three-point R-invariant \!\(\*SuperscriptBox[\(C\), \(\*
+StyleBox[\"r1\",\nFontSlant->\"Italic\"] \((\*
+StyleBox[\"p1\",\nFontSlant->\"Italic\"])\), \*
+StyleBox[\"r2\",\nFontSlant->\"Italic\"] \((\*
+StyleBox[\"p2\",\nFontSlant->\"Italic\"])\), \*
+StyleBox[\"r3\",\nFontSlant->\"Italic\"] \((\*
+StyleBox[\"p3\",\nFontSlant->\"Italic\"])\)\)]\) to \!\(\*
+StyleBox[\"mat\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\".\",\nFontSlant->\"Italic\"]\)"
+
+ConformalCheck::usage = "ConformalCheck[\!\(\*
+StyleBox[\"t\",\nFontSlant->\"Italic\"]\)] gives an expression for a special conformal generator \!\(\*SubscriptBox[\(K\), \(\[Mu]\)]\) acting on \!\(\*
+StyleBox[\"t\",\nFontSlant->\"Italic\"]\), which should vanish if \!\(\*
+StyleBox[\"t\",\nFontSlant->\"Italic\"]\) is a conformally-invariant spacetime structure.";
 
 
 EndPackage[]

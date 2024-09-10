@@ -1,10 +1,105 @@
 (* Wolfram Language package *)
 
-decomposeRepDefectFP::split = "When `1` is embedded into `2`, the representation `3` of `2` splits into several representations of `1`: `4`. This case has not yet been implemented.";
-decomposeRepDefectFP[rep_] := With[{decomp = DecomposeRep[$RSymmetry, rep, $DefectRSymmetry, Embeddings[$RSymmetry, $DefectRSymmetry][[1,2]]]},
-	If[Length[decomp] > 1, Message[decomposeRepDefectFP::manyembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry], RepName[$RSymmetry, rep], RepNameBatchMode[$DefectRSymmetry, defectFund]]; Return[]];
-	decomp[[1]]   
-];
+allEmbeddings[grp_, subgrp_] /; IsSimpleGroupQ[grp] := 
+  allEmbeddings[{grp}, subgrp];
+allEmbeddings[grp_, subgrp_] /; IsSimpleGroupQ[subgrp] := 
+  allEmbeddings[grp, {subgrp}];
+allEmbeddings[grp_, subgrp_] := allEmbeddings[grp, subgrp] =
+ With[{u1s = Position[subgrp, U1][[;; , 1]]},
+  Table[
+   {ReverseSort[emb[[2, 1]]],
+     If[Length[u1s] > 0,
+    If[Total[GroupRank /@ emb[[2, 1]]] - Count[emb[[2, 1]], U1] > 0,
+     ArrayFlatten[{
+        {IdentityMatrix[
+          Total[GroupRank /@ emb[[2, 1]]] - Count[emb[[2, 1]], U1]], 
+         0},
+        {0, 
+         Table[embeddingParameter[emb[[1]], i, j], {i, 
+           Length[u1s]}, {j, Count[emb[[2, 1]], U1]}]}
+        }] . emb[[2, 2]],
+        
+     Table[
+       embeddingParameter[emb[[1]], i, j], {i, Length[u1s]}, {j, 
+        Count[emb[[2, 1]], U1]}] . emb[[2, 2]]
+     ],
+     emb[[2,2,;;(Total[GroupRank /@ emb[[2, 1]]] - Count[emb[[2, 1]], U1])]]
+     ]
+    }
+   , {emb, Thread[{Range@Length[#], #}] &@Embeddings[grp, subgrp]}]
+  ]
+
+branching[grp_, subgrp_, prj_] /; IsSimpleGroupQ[grp] := 
+  branching[{grp}, subgrp, prj];
+branching[grp_, subgrp_, prj_] := branching[grp, subgrp] =
+  Table[{rep, DecomposeRep[grp, rep, subgrp, prj]}, {rep, 
+    TakeList[#,GroupRank /@ grp] & /@ IdentityMatrix[Total[GroupRank /@ grp]]}];
+displayBranching[grp_, subgrp_, prj_] /; IsSimpleGroupQ[grp] := 
+  displayBranching[{grp}, subgrp, prj];
+displayBranching[grp_, subgrp_, prj_] := displayBranching[grp, subgrp, prj] =
+ Column[Prepend[repName[#[[1]]] -> 
+     Table[repName[r], {r, #[[2]]}] & /@ 
+   branching[grp, subgrp, prj], "Branching:"]]
+
+embeddingSelector[grp_, subgrp_] /; IsSimpleGroupQ[grp] := 
+  embeddingSelector[{grp}, subgrp];
+embeddingSelector[grp_, subgrp_] /; IsSimpleGroupQ[subgrp] := 
+  embeddingSelector[grp, {subgrp}];
+embeddingSelector[grp_, subgrp_] /; !IsSimpleGroupQ[grp] && !IsSimpleGroupQ[subgrp] := (ClearAll[embeddingParameter]; 
+   Column[{Style[
+      ToString@
+       StringForm["Embedding of `` into ``", CMtoName[subgrp], 
+        CMtoName[grp]], 16],
+     Spacer[20],
+     Grid[Table[
+       With[{rules = 
+          Thread[Sort@
+             DeleteDuplicates[
+              Cases[emb[[2]], _embeddingParameter, All]] -> 
+            Alphabet[][[;; 
+               Length@DeleteDuplicates@
+                 Cases[emb[[2]], _embeddingParameter, All]]]], 
+         emb = emb},
+        {
+         MatrixForm[emb[[2]] /. rules],
+         Spacer[20],
+         If[!FreeQ[emb[[2]], embeddingParameter], "with", ""],
+         Spacer[20],
+         
+         With[{vars = 
+            Sort@DeleteDuplicates[
+              Cases[emb[[2]], _embeddingParameter, All]]},
+          DynamicModule[{params = vars /. _embeddingParameter -> Null},
+           Column[Table[
+             
+             Row[{Alphabet[][[i]], " = ", 
+               With[{i = i}, 
+                InputField[
+                 Dynamic[params[[i]], (If[IntegerQ[#], 
+                    params[[i]] = #; vars = params]) &], Number, 
+                 FieldSize -> 3, ImageSize -> 40]]}],
+             {i, Length[params]}
+             ]
+            ]
+           ]
+          ],
+         Spacer[20],
+         Button["Select", ($embedding = emb[[2]]) &]
+         }
+        ]
+       , {emb, allEmbeddings[grp, subgrp]}]
+      ],
+     Spacer[40],
+     Style["Fundamental branching rules:", 14],
+     Spacer[20],
+     Dynamic[
+      If[Head[$embedding] =!= Symbol && 
+        AllTrue[Flatten[$embedding], IntegerQ], 
+       displayBranching[grp, subgrp, $embedding], ""]]
+     }]
+   );
+
+decomposeRepDefectFP[rep_] := Sort@DecomposeRep[$RSymmetry, rep, $DefectRSymmetry, $embedding];
 
 branchingRules::overlap = "The representations `1` all branch to `2`, and are not related by conjugacy. This case has not yet been implemented.";
 branchingRules[] := With[{groups = GroupBy[Flatten[Table[dynkin@*GlobalRep /@ Multiplet[idx], {idx, $multipletIndices}], 1], decomposeRepDefectFP]},
@@ -13,27 +108,92 @@ branchingRules[] := With[{groups = GroupBy[Flatten[Table[dynkin@*GlobalRep /@ Mu
          SelectFirst[Values[groups], Length[#] > 1 && repDim[#[[1]]] != 1 && (Length[#] > 2 || conjRep[#[[1]]] =!= dynkin[#[[2]]]) &], 
          decomposeRepDefectFP@First@SelectFirst[Values[groups], Length[#] > 1 && repDim[#[[1]]] != 1 && (Length[#] > 2 || conjRep[#[[1]]] =!= dynkin[#[[2]]]) &]
       ],
-      Association[Flatten[Table[
-         Which[
-            DimR[DefectGlobalSymmetry[], k] == 1,
-            Thread[groups[k] -> Table[k, Length[groups[k]]]],
-            Length[groups[k]] == 1, 
-            groups[k][[1]] -> k, 
-            True,
-            (*transformer[k] = With[{
-               zero1 = SelectFirst[groups[singRep[DefectGlobalSymmetry[]]], numInvariants[{groups[k][[2]], groups[k][[2]], conjRep[#]}] > 0 &],
-               zero2 = SelectFirst[groups[singRep[DefectGlobalSymmetry[]]], numInvariants[{groups[k][[2]], groups[k][[1]], conjRep[#]}] > 0 &]
-            },
-            	Components[Tensor[{{"C", Lowered[GlobalIndex[zero1]], Raised[GlobalIndex[groups[k][[2]]]], Raised[GlobalIndex[groups[k][[2]]]]}}]][[1]] . Components[Tensor[{{"C", Raised[GlobalIndex[zero2]], Lowered[GlobalIndex[groups[k][[2]]]], Lowered[GlobalIndex[groups[k][[1]]]]}}]][[1]]
-            ];*)
-            Thread[ReverseSort[groups[k]] -> {k, AlternateRep[k]}]
-         ],
-      {k, Keys[groups]}]]]
+      Association[Flatten[Table[Thread[groups[k] -> Table[k, Length[groups[k]]]], {k, Keys[groups]}]]]
    ]
 ];
 
 decomposeRepDefect[rep_] := branchingRules[][dynkin[rep]];
-preimageReps[defectRep_] := Select[Keys[branchingRules[]], branchingRules[][#] == defectRep &];
+preimageReps[defectRep_] := Select[Keys[branchingRules[]], branchingRules[][#] == {defectRep} &];
+
+convertRToDefect[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := a convertRToDefect[b];
+convertRToDefect[a_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := a;
+convertRToDefect[a_ + b_] := convertRToDefect[a] + convertRToDefect[b];
+
+invSelectionRule = {(
+	Tensor[{___, {"C", Lowered[DefectGlobalIndex[i_, __]], Raised[DefectGlobalIndex[j_, __]], Raised[DefectGlobalIndex[k_, __]]}, ___}] | 
+	Tensor[{___, {"C", Raised[DefectGlobalIndex[i_, __]], Lowered[DefectGlobalIndex[j_, __]], Lowered[DefectGlobalIndex[k_, __]]}, ___}]
+  ) /; !MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {j, k}][[;;,1]], i] :> 0,
+  (
+	Tensor[{___, {SU2BreakingTensor[], Raised[DefectGlobalIndex[i_, __]], Raised[DefectGlobalIndex[j_, __]]}, ___}]
+  ) /; !MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {i, j}][[;;,1]], singRep[DefectGlobalSymmetry[]]] :> 0}; 
+ 
+
+fixPermutation[t_Tensor] := t;
+fixPermutation[TensorPermute[t_Tensor, perm_]] := Module[{symbolic, indexPos, wc, rearranged, wc2},
+  symbolic = Symbolic[t];
+  indexPos = Position[symbolic, _Raised | _Lowered];
+  wc = withCounts[Indices[t]];
+  rearranged = Tensor[ReplacePart[symbolic, Thread[indexPos -> (Part[symbolic, Sequence @@ #] & /@ (indexPos[[perm]]))]]];
+  wc2 = withCounts[Indices[rearranged]];
+  TensorPermute[rearranged, PermutationList[FindPermutation[wc[[perm]], wc2], Length[perm]]]
+];
+
+fixPermutation[Contract[t_, pairs_]] := Module[{newt},
+  newt = fixPermutation[t];
+  deltaperm = TensorPermutation[newt][[InversePermutation@TensorPermutation[t]]];
+  Contract[newt, pairs /. n_Integer :> deltaperm[[n]]]
+];
+
+convertRToDefect[t_Tensor | t_TensorPermute] := Module[{perm, symbolic, rIndexPos},
+   perm = TensorPermutation[t];
+   symbolic = Symbolic[t];
+   rIndexPos = SortBy[Position[symbolic, (Raised|Lowered)[_GlobalIndex]], {symbolic[[Sequence @@ #]], Total[(Length /@ symbolic[[;; #[[1]] - 1]]) - 1] + #[[2]] - 1} &];
+   Table[
+      fixPermutation@TensorPermute[
+         Tensor[
+            ReplacePart[
+               symbolic, 
+               Thread[
+                  (Append[#, 1] & /@ rIndexPos) -> 
+                  (toIndex @@@ Thread[{tup, symbolic[[Sequence @@ #,1,1]] & /@ rIndexPos}])
+               ]
+            ]
+         ], 
+      perm],
+      {tup, Tuples[branchingRules[][symbolic[[Sequence @@ #,1,1]]] & /@ rIndexPos]}   
+   ] /. invSelectionRule
+];
+
+convertRToDefect[Contract[t_, pairs_, OptionsPattern[]]] := Module[{perm, symbolic, rIndexPos, contracted, uncontracted},
+   perm = TensorPermutation[t];
+   symbolic = Symbolic[t];
+   rIndexPos = Position[symbolic, (Raised|Lowered)[_GlobalIndex]];
+   contracted = DeleteCases[pairs /. n_Integer :> SelectFirst[rIndexPos, Total[(Length /@ symbolic[[;; #[[1]] - 1]]) - 1] + #[[2]] - 1 == n &], {_?MissingQ, _?MissingQ}];
+   uncontracted = SortBy[Complement[rIndexPos, Flatten[contracted, 1]], {symbolic[[Sequence @@ #]], Total[(Length /@ symbolic[[;; #[[1]] - 1]]) - 1] + #[[2]] - 1} &];
+   Table[
+      Sum[
+      fixPermutation@Contract[
+         TensorPermute[
+            Tensor[
+               ReplacePart[
+                  symbolic, 
+                  Thread[
+                     (Append[#, 1] & /@ Join[uncontracted, contracted[[;;, 1]], contracted[[;;, 2]]]) -> 
+                     (toIndex @@@ Thread[{Join[uTup, cTup, cTup], symbolic[[Sequence @@ #,1,1]] & /@ Join[uncontracted, contracted[[;;, 1]], contracted[[;;, 2]]]}])
+                  ]
+               ]
+            ], 
+         perm], 
+      pairs],
+      {cTup, Tuples[branchingRules[][symbolic[[Sequence @@ #,1,1]]] & /@ contracted[[;;,1]]]} 
+      ],
+      {uTup, Tuples[branchingRules[][symbolic[[Sequence @@ #,1,1]]] & /@ uncontracted]}  
+   ] /. invSelectionRule  
+];
+
+SU2Breaker[] := 
+  Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[{{1}, 1}]], Raised[GlobalIndex[{{1}, 1}]]}}];
+BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Raised[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[r1 + r2 == 0]}}];
 
 (*transformer[rep_] := (branchingRules[]; transformer[rep]);*)
 
@@ -51,51 +211,56 @@ BuildTensor[arg : {"\[Delta]", Lowered[i1_], Lowered[i2_]}] := SparseArray@Inver
 
 $customInvariants = False;
 
-createDefectTwoPt[r1_, r2_] := Components[Tensor[{{"C", Lowered[DefectGlobalIndex[singRep[DefectGlobalSymmetry[]]]], Raised[DefectGlobalIndex[r1]], Raised[DefectGlobalIndex[r2]]}}]][[1]];
-createDefectTwoPt[a1: AlternateRep[r1_], a2: AlternateRep[r2_]] := Components[Contract[Tensor[{{"\[Delta]", Raised[toIndex[a1]], Raised[toIndex[r1]]}, {"\[Delta]", Lowered[toIndex[r1]], Lowered[toIndex[r2]]}, {"\[Delta]", Raised[toIndex[r2]], Raised[toIndex[a2]]}}],{{2,3},{4,5}}]];
-     
 twopt::undefined = "The two-point invariant for representations (``, ``) has not been defined.";
-twopt[GlobalIndex[r1_], GlobalIndex[r2_]] := twopt[r1, r2];
-twopt[i1_DefectGlobalIndex, i2_DefectGlobalIndex] := twopt @@ (toRep /@ {i1, i2});
-twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 =!= dynkin[r1] := twopt[dynkin[r1], r2];
-twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r2 =!= dynkin[r2] := twopt[r1, dynkin[r2]];
-twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && !OrderedQ[{r1, r2}] := Transpose[twopt[r2, r1]];
-twopt[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && OrderedQ[{r1, r2}] := twopt[r1, r2] =
-If[$customInvariants,
-    Message[twopt::undefined, r1, r2],
-	With[{grp = appropriateGroup[r1]},
-	   If[grp == GlobalSymmetry[],
-	      IrrepInProduct[GlobalSymmetry[], {r1, r2}, singRep[GlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]],
-	      With[{pair = SelectFirst[Tuples[preimageReps /@ {r1, r2}], numInvariants[#] > 0 &]},
-	         If[MissingQ[pair],
-	            createDefectTwoPt[r1, r2],
-	         	twopt @@ pair
-	         ]
-	      ]
-	   ]
+twopt::unable = "Cannot automatically construct two-point invariant for (`` from ``, `` from ``).";
+twopt[GlobalIndex[r1_], GlobalIndex[r2_]] := Module[{reps = {dynkin[r1], dynkin[r2]}},
+	TensorTranspose[twopt @@ Sort[reps], Ordering[reps]]
+];
+twopt[DefectGlobalIndex[r1_, p1_], DefectGlobalIndex[r2_, p2_]] := Module[{reps = {{dynkin[r1], dynkin[p1]}, {dynkin[r2], dynkin[p2]}}},
+	TensorTranspose[twopt @@ Flatten[stableSortBy[reps, Last], 1], stableOrderingBy[reps, Last]]
+];
+
+twopt[r1_, r2_] := twopt[r1, r2] = If[$customInvariants,
+   Message[twopt::undefined, r1, r2],
+   IrrepInProduct[GlobalSymmetry[], {r1, r2}, singRep[GlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
+];
+twopt[r1_, p1_, r2_, p2_] := twopt[r1, p1, r2, p2] = If[$customInvariants,
+   Message[twopt::undefined, {r1, p1}, {r2, p2}],
+   Which[DefectGlobalSymmetry[] === GlobalSymmetry[][[1]] && MatchQ[$embedding, {1, 0...}],
+      If[p1 === conjRep[p2], twopt[p1, p2], IrrepInProduct[DefectGlobalSymmetry[], {r1, r2}, singRep[DefectGlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]],
+      GlobalSymmetry[] === {SU2, U1} && DefectGlobalSymmetry[] === U1 && $embedding === {{1, 0}},
+      SparseArray[{{Boole[r1 + r2 == 0]}}],
+      True,
+      Message[twopt::unable, r1, p1, r2, p2]
    ]
 ];
+
+(* SortBy without breaking ties by canonical order *)
+stableSortBy[xs_, f_] := FixedPoint[Replace[#, {a___, x_, y_, b___} /; ! OrderedQ[{f[x], f[y]}] :> {a, y, x, b}] &, xs];
+stableOrderingBy[xs_, f_] := PermutationList[FindPermutation[stableSortBy[xs, f], xs], Length[xs]];
  
 threept::undefined = "The three-point invariant for representations (``, ``, ``) has not been defined.";
-threept[GlobalIndex[r1_], GlobalIndex[r2_], GlobalIndex[r3_]] := threept[r1, r2, r3];
-threept[i1_DefectGlobalIndex, i2_DefectGlobalIndex, i3_DefectGlobalIndex] := threept @@ (toRep /@ {i1, i2, i3});
-threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r1 =!= dynkin[r1] := threept[dynkin[r1], r2, r3];
-threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r2 =!= dynkin[r2] := threept[r1, dynkin[r2], r3];
-threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r3 =!= dynkin[r3] := threept[r1, r2, dynkin[r3]];
-threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && r3 === dynkin[r3] && !OrderedQ[{r1, r2, r3}] := 
-   TensorTranspose[threept @@ Sort[{r1,r2,r3}], Ordering[{r1,r2,r3}]];
-   
-threept[r1 : (_Integer | _List | _AlternateRep), r2 : (_Integer | _List | _AlternateRep), r3 : (_Integer | _List | _AlternateRep)] /; r1 === dynkin[r1] && r2 === dynkin[r2] && r3 === dynkin[r3] && OrderedQ[{r1, r2, r3}] := threept[r1, r2, r3] =
-If[$customInvariants,
-    Message[threept::undefined, r1, r2, r3],
-      With[{grp = appropriateGroup[r1]},
-		   If[grp == GlobalSymmetry[],
-		      IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,1]],
-		      With[{trip = SelectFirst[Tuples[preimageReps /@ {r1, r2, r3}], numInvariants[#] > 0 &]},
-		         threept @@ trip
-		      ]
-		   ]
-      ]
+threept::unable = "Cannot automatically construct three-point invariant for (`` from ``, `` from ``, `` from ``).";
+threept[GlobalIndex[r1_], GlobalIndex[r2_], GlobalIndex[r3_]] := Module[{reps = {dynkin[r1], dynkin[r2], dynkin[r3]}},
+	TensorTranspose[threept @@ Sort[reps], Ordering[reps]]
+];
+threept[DefectGlobalIndex[r1_, p1_], DefectGlobalIndex[r2_, p2_], DefectGlobalIndex[r3_, p3_]] := Module[{reps = {{dynkin[r1], dynkin[p1]}, {dynkin[r2], dynkin[p2]}, {dynkin[r3], dynkin[p3]}}},
+	TensorTranspose[threept @@ Flatten[stableSortBy[reps, Last], 1], stableOrderingBy[reps, Last]]
+];
+
+threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
+   Message[threept::undefined, r1, r2, r3],
+   IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,1]]
+];
+threept[r1_, p1_, r2_, p2_, r3_, p3_] := threept[r1, p1, r2, p2, r3, p3] = If[$customInvariants,
+   Message[threept::undefined, {r1, p1}, {r2, p2}, {r3, p3}],
+   Which[DefectGlobalSymmetry[] === GlobalSymmetry[][[1]] && MatchQ[$embedding, {1, 0...}],
+      If[MemberQ[ReduceRepProduct[GlobalSymmetry[], {p1, p2}][[;;,1]], conjRep[p3]], threept[p1, p2, p3], Message[threept::unable, r1, p1, r2, p2, r3, p3]],
+      GlobalSymmetry[] === {SU2, U1} && DefectGlobalSymmetry[] === U1 && $embedding === {{1, 0}},
+      SparseArray[{{{threept[p1, p2, p3][[1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2, 1 + (p3[[1,1]] + r3)/2]]}}}],
+      True,
+      Message[threept::unable, r1, p1, r2, p2, r3, p3]
+   ]
 ];
 
 SetTwoPtGlobalInvariant[r1_, r2_, mat_] := Module[{reps = dynkin /@ ({r1, r2}), sorted, order},
@@ -105,11 +270,25 @@ SetTwoPtGlobalInvariant[r1_, r2_, mat_] := Module[{reps = dynkin /@ ({r1, r2}), 
  	twopt[sorted[[1]], sorted[[2]]] = SparseArray@TensorTranspose[mat, order];
 ]
 
+SetTwoPtDefectGlobalInvariant[{r1_, p1_}, {r2_, p2_}, mat_] := Module[{reps = {{dynkin[r1], dynkin[p1]}, {dynkin[r2], dynkin[p2]}}, sorted, order},
+    $customInvariants = True;
+ 	sorted = stableSortBy[reps, Last];
+ 	order = stableOrderingBy[reps, Last];
+ 	twopt[sorted[[1,1]], sorted[[1,2]], sorted[[2,1]], sorted[[2,2]]] = SparseArray@TensorTranspose[mat, order];
+]
+
 SetThreePtGlobalInvariant[r1_, r2_, r3_, mat_] := Module[{reps = dynkin /@ {r1, r2, r3}, sorted, order},
     $customInvariants = True;
  	sorted = Sort[reps];
  	order = InversePermutation@Ordering[reps];
  	threept[sorted[[1]], sorted[[2]], sorted[[3]]] = SparseArray@TensorTranspose[mat, order];
+]
+
+SetThreePtDefectGlobalInvariant[{r1_, p1_}, {r2_, p2_}, {r3_, p3_}, mat_] := Module[{reps = {{dynkin[r1], dynkin[p1]}, {dynkin[r2], dynkin[p2]}, {dynkin[r3], dynkin[p3]}}, sorted, order},
+    $customInvariants = True;
+ 	sorted = stableSortBy[reps, Last];
+ 	order = InversePermutation@stableOrderingBy[reps, Last];
+ 	threept[sorted[[1,1]], sorted[[1,2]], sorted[[2,1]], sorted[[2,2]], sorted[[3,1]], sorted[[3,2]]] = SparseArray@TensorTranspose[mat, order];
 ]
 
 BuildTensor[{"C", Raised[i1_], Raised[i2_], Raised[i3_]}] := threept[i1, i2, i3];
@@ -230,19 +409,21 @@ treeGraphs[reps_] := treeGraphs[reps] = Flatten@Table[
      conjRep /@ (Select[ReduceRepProduct[appropriateGroup[reps[[1]]], reps[[p[[3 ;;]]]]], #[[2]] == 1 &][[;; , 1]])]}
    ];
 
-appropriateGroup[AlternateRep[rep_]] := appropriateGroup[rep];
-appropriateGroup[rep_] := If[Quiet@Check[fundRep[GlobalSymmetry[]] + rep; True, False], GlobalSymmetry[], DefectGlobalSymmetry[]];
+appropriateGroup[rep_] := If[IntegerQ[rep] && MemberQ[{GlobalSymmetry[], DefectGlobalSymmetry[]}, U1],
+   U1,
+   If[Quiet@Check[fundRep[GlobalSymmetry[]] + rep; True, False], GlobalSymmetry[], DefectGlobalSymmetry[]]
+];
 repDim[rep_] := Times @@ DimR[appropriateGroup[rep], rep];
 repName[rep_] := RepName[appropriateGroup[rep], rep];
 dynkin[rep_] := SimpleRepInputConversion[appropriateGroup[rep], rep];
-dynkin[AlternateRep[rep_]] := AlternateRep[dynkin[rep]];
 conjRep[rep_] := ConjugateIrrep[appropriateGroup[rep], rep];
-toIndex[rep_] := If[appropriateGroup[rep] == GlobalSymmetry[], GlobalIndex[rep], If[MatchQ[rep, AlternateRep[_]], DefectGlobalIndex[rep[[1]], "Alternate" -> True], DefectGlobalIndex[rep]]];
+toIndex::needparent = "To create an index from the defect global symmetry irrep `` you must specify the full global symmetry irrep from which it branches."; 
+toIndex[rep_] := If[appropriateGroup[rep] == GlobalSymmetry[], GlobalIndex[rep], Message[toIndex::needparent, repName[rep]]];
+toIndex[rep_, parent_] := If[appropriateGroup[rep] == DefectGlobalSymmetry[], DefectGlobalIndex[rep, parent], GlobalIndex[rep]];
 conjIndex[GlobalIndex[rep_]] := GlobalIndex[conjRep[rep]];
-conjIndex[DefectGlobalIndex[rep_, opt: OptionsPattern[]]] := DefectGlobalIndex[conjRep[rep], "Alternate" -> If[MemberQ[Values[branchingRules[]], AlternateRep[rep]], !OptionValue[DefectGlobalIndex, {opt}, "Alternate"], False]];
-(*conjIndex[DefectGlobalIndex[rep_, opt: OptionsPattern[]]] := DefectGlobalIndex[conjRep[rep], "Alternate" -> OptionValue[DefectGlobalIndex, {opt}, "Alternate"]];*)
+conjIndex[DefectGlobalIndex[rep_, parent_]] := DefectGlobalIndex[conjRep[rep], conjRep[parent]];
 toRep[GlobalIndex[rep_]] := rep;
-toRep[DefectGlobalIndex[rep_, opt:OptionsPattern[]]] := If[OptionValue[DefectGlobalIndex, {opt}, "Alternate"], AlternateRep, Identity][rep];
+toRep[DefectGlobalIndex[rep_, parent_]] := rep;
 
 numInvariants[reps_] := numInvariants[reps] =
    With[{grp = appropriateGroup[reps[[1]]]},

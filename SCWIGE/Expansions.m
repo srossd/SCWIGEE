@@ -2,11 +2,11 @@
 
 RPart[Tensor[names_]] := 
   Tensor[Select[names, 
-    MatchQ[#[[1]], GlobalInvariant[_]] || 
+    MatchQ[#[[1]], GlobalInvariant[_] | SU2BreakingTensor[]] || 
       MemberQ[{"C", "\[Delta]"}, #[[1]]] &]];
 NonRPart[Tensor[names_]] := 
   Tensor[Select[
-    names, ! (MatchQ[#[[1]], GlobalInvariant[_]] || 
+    names, ! (MatchQ[#[[1]], GlobalInvariant[_] | SU2BreakingTensor[]] || 
         MemberQ[{"C", "\[Delta]"}, #[[1]]]) &]];
 
 RPart[TensorPermute[t_, perm_, OptionsPattern[]]] := 
@@ -84,9 +84,12 @@ RRelations[largebasis_, OptionsPattern[]] := Module[{relations, choice, tmp},
 	relations
 ];
 
+uvReplace =  {u[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[1, perm], u], v[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[2, perm], v]};
+
 Options[ExpansionComponents] = {"MonitorProgress" -> False};
-ExpansionComponents[a_ b_, rest___, opt: OptionsPattern[]] /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] := Explicit[a] ExpansionComponents[b, rest, opt];
-ExpansionComponents[a_, rest___, OptionsPattern[]] /; FreeQ[a, Tensor | TensorDerivative] := Explicit[a];
+ExpansionComponents[a_ b_, rest___, opt: OptionsPattern[]] /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] := Explicit[a /. uvReplace] ExpansionComponents[b, rest, opt];
+ExpansionComponents[a_, rest___, OptionsPattern[]] /; FreeQ[a, Tensor | TensorDerivative] := Explicit[a /. uvReplace];
+ExpansionComponents[xs_List, rest___, opt : OptionsPattern[]] := ExpansionComponents[#, rest, opt] & /@ xs;
    
 ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), rExpansion_, spExpansion_, OptionsPattern[]] := SparseArray@TensorProduct[
  expansion[RPart[t], ##] & @@ rExpansion, 
@@ -94,15 +97,15 @@ ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _T
 ];
 
 ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms = List @@ Expand[Plus[a, rest]]},
-   With[{largeRBasis = DeleteDuplicates[RPart /@ allterms], largeSTBasis = SortBy[DeleteDuplicates[NonRPart /@ allterms], First@Cases[#, s_SpacetimeStructure :> {Length[s[[3]]], s[[5]], -s[[7]]}, All] &]},
+   With[{largeRBasis = DeleteDuplicates[RPart /@ allterms], largeSTBasis = SortBy[DeleteDuplicates[NonRPart /@ allterms], First@Cases[#, s_SpacetimeStructure :> {Length[s[[3]]], s[[4]], -s[[6]]}, All] &]},
       With[{RRels = RRelations[largeRBasis, opt], STRels = SpacetimeRelations[largeSTBasis]},
-      	Sum[ExpansionComponents[t /. u[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[1, perm], u] /. v[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[2, perm], v], {largeRBasis, RRels}, {largeSTBasis, STRels}], {t, List @@ Expand[Plus[a, rest]]}]
+      	Sum[ExpansionComponents[t /. uvReplace, {largeRBasis, RRels}, {largeSTBasis, STRels}], {t, List @@ Expand[Plus[a, rest]]}]
       ]
    ]
 ];
-ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> 1},{1,1}];
+ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> If[And @@ (Thread[Flatten[Normal@Components[t]] == 0]), 0, 1]},{1,1}];
       
-fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Reverse@Spin[#1], Abs[Last[#1]], -Last[#1]}, {N@ScalingDimension[#2], Reverse@Spin[#2], Abs[Last[#2]], -Last[#2]}}] &;
+fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Reverse@Spin[#1], GlobalRep[#1], Abs[Last[#1]], -Last[#1]}, {N@ScalingDimension[#2], Reverse@Spin[#2], GlobalRep[#2], Abs[Last[#2]], -Last[#2]}}] &;
       
 crossingPermutationST[t_Tensor, order_] := 
   With[{ordered = SwapFactors[t, order]},
@@ -121,6 +124,7 @@ crossingPermutationR[t_Tensor, order_] :=
         Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], GlobalIndex | DefectGlobalIndex] &]]]]
    ];
 
+SetAttributes[ExpandCorrelator, Listable];
 ExpandCorrelator[0] = 0;
 
 ExpandCorrelator[expr : Except[_Correlator]] /;
@@ -140,73 +144,47 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
       !MissingQ[name2field@StringDrop[#[[1]], 
          Count[Characters[#[[1]]], "\[PartialD]"]]] &] && 
      ((!OptionValue[Correlator, "Defect"] && 2 <= Length[names] <= 4) || (Length[names] <= 2))) := 
-  With[{fields = 
-     name2field[
-        StringDrop[#[[1]], 
-         Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names, 
-    derivs = 
-     Flatten@Table[
-       i, {i, Length[names]}, {j, 
-        Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
-    q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
-    rrep = If[OptionValue[Correlator, "Defect"], DefectGlobalRep, GlobalRep]},
-   With[{sfields = Sort[fields, fieldOrder], 
-     order = Ordering[fields, All, fieldOrder]},
-    Module[{numinvs = numInvariants[(rrep /@ sfields) /. AlternateRep -> Identity], (* don't care about alternate reps for counting *) 
-      STstructs = SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, 
-             InversePermutation[order][[#]] & /@ derivs, 
-             "\[PartialD]", order, q],
-      sign = 
-       Signature@
-        InversePermutation[order][[
-         Select[Range@
-           Length@fields, ! IntegerQ[ScalingDimension[fields[[#]]]] &]]], 
-      STindperm = crossingPermutationST[Tensor[names], order], 
-      Rindperm = crossingPermutationR[Tensor[names], order]},
-     sign Sum[
-       Switch[{Length[names], OptionValue[Correlator, "Defect"]},
-          {2, False},
-          I^(2 Abs[Subtract @@ Spin[fields[[1]]]]),
-          {3, False}, 
-          \[Lambda][sfields,i,j], 
-          {4, False},
-          g[sfields, i, j][u[order], v[order]],
-          {1, True},
-          a[sfields[[1]]],
-          {2, True},
-          g[sfields, i, j] @@ Table[c[order], {c, crossRatios[$qdefect]}]
-       ] TensorProduct[
+  Module[{
+     fields = name2field[StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names, 
+     derivs = Flatten@Table[i, {i, Length[names]}, {j, Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
+     q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
+     rreps = FirstCase[#, Raised[ind : (_GlobalIndex | _DefectGlobalIndex)] :> ind] & /@ names,
+     fieldsReplaced, sfields, order, numinvs, numSTs, sign, STindperm, Rindperm, arrangements},
+    	fieldsReplaced = ReplacePart[fields, Thread[Table[{i, 2}, {i, Length[fields]}] -> rreps[[;;, 1]]]];
+   		sfields = Sort[fieldsReplaced, fieldOrder]; 
+     	order = Ordering[fieldsReplaced, All, fieldOrder];
+    	numinvs = numInvariants[rreps[[;;,1]]];
+      	numSTs = Length@SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, {}, order, q];
+      	sign = Signature@InversePermutation[order][[Select[Range@Length@fields, ! IntegerQ[ScalingDimension[fields[[#]]]] &]]];
+      	STindperm = crossingPermutationST[Tensor[names], order]; 
+      	Rindperm = crossingPermutationR[Tensor[names], order];
+      	arrangements = Fold[Join[
+		   Table[{term[[1]], Append[term[[2]], {"\[PartialD]", #2}]}, {term, #1}],
+		   Flatten[Table[{term[[1]] + Table[Boole[icr == j], {j, Length@crossRatios[q]}], Append[term[[2]], {ToString[crossRatios[q][[icr]]], #2}]}, {icr, Length@crossRatios[q]}, {term, #1}], 1]
+		   ] &, {{Table[0, Length[crossRatios[q]]], {}}}, InversePermutation[order][[#]] & /@ derivs];
+     	sign Sum[
+       		Switch[{Length[names], OptionValue[Correlator, "Defect"]},
+          		{2, False},
+          		If[Total[derivArrangement[[1]]] != 0, 0, I^(2 Abs[Subtract @@ Spin[fields[[1]]]])],
+          		{3, False}, 
+          		If[Total[derivArrangement[[1]]] != 0, 0, \[Lambda][sfields,i,j]], 
+          		{4, False},
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][u[order], v[order]],
+          		{1, True},
+          		If[Total[derivArrangement[[1]]] != 0, 0, a[sfields[[1]]]],
+          		{2, True},
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[order], {c, crossRatios[$qdefect]}]]
+       		] TensorProduct[
           TensorPermute[
            Switch[Length[names],
-            4, FourPtGlobalInvariant[{##}, i] & @@ (rrep /@ sfields),
-           	3, ThreePtGlobalInvariant @@ (rrep /@ sfields),
-           	2, TwoPtGlobalInvariant @@ (rrep /@ sfields),
+            4, FourPtGlobalInvariant[rreps[[order,1]], i],
+           	3, Tensor[{{"C", Sequence @@ (Raised /@ rreps[[order]])}}],
+           	2, Tensor[{{"\[Delta]", Sequence @@ (Raised /@ rreps[[order]])}}],
            	1, 1
            ], 
            Rindperm], 
-          TensorPermute[STstructs[[j]], STindperm]] + 
-        If[derivs === {} || Length[names] < 2 || (!OptionValue[Correlator, "Defect"] && Length[names] < 4), 0,
-            Sum[
-               (((Derivative @@ Normal[SparseArray[{idx} -> 1, {Length[crossRatios[q]]}]])[
-                  g[sfields, i, j]
-               ]) @@ Table[c[order], {c, crossRatios[$qdefect]}]) TensorProduct[
-            TensorPermute[
-             Switch[Length[names],
-	            4, FourPtGlobalInvariant[{##}, i] & @@ (rrep /@ sfields),
-	           	3, ThreePtGlobalInvariant @@ (rrep /@ sfields),
-	           	2, TwoPtGlobalInvariant @@ (rrep /@ sfields),
-	           	1, 1
-	         ], 
-             Rindperm], 
-            TensorPermute[
-             SpacetimeStructures[ScalingDimension /@ sfields, 
-               Spin /@ sfields, 
-               InversePermutation[order][[#]] & /@ derivs, ToString[crossRatios[q][[idx]]], 
-               order][[j]], STindperm]]
-        ,{idx, Length[crossRatios[q]]}]
-        ],
-       {i, numinvs}, {j, Length[STstructs]}
+          TensorPermute[SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, derivArrangement[[2]], order, q][[j]], STindperm]
+       ],
+       {i, numinvs}, {j, numSTs}, {derivArrangement, arrangements}
        ]
-     ]
-    ]
-   ];
+     ];
