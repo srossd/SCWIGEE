@@ -9,7 +9,7 @@ QTensor[OptionsPattern[]] := Switch[{OptionValue["QBar"]},
 ScalingDimension[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
 Spin[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := {j1, j2};
 GlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
-DefectGlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := decomposeRepDefect[rep];
+DefectGlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := If[appropriateGroup[rep] === DefectGlobalSymmetry[], rep, decomposeRepDefect[rep]];
 
 whichMultiplet[f_Operator] := whichMultiplet[f[[1]]];
 whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] &];

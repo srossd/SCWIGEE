@@ -61,7 +61,7 @@ SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm, sw
    swapRules = Thread[crossRatios[If[OptionValue["Defect"], $qdefect, None]] -> Take[{Catalan, EulerGamma}, Length[crossRatios[If[OptionValue["Defect"], $qdefect, None]]]]];
    eqs = DeleteCases[
       Simplify[
-         CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] /. Normal[First /@ SolvedCorrelators[]]]
+         CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] //. Normal[First /@ SolvedCorrelators[]]]
     	/. swapRules
       ]     
     , True] /. (Reverse /@ swapRules);
@@ -150,33 +150,26 @@ wardSolveFit[eqs_, vars_] :=
 crosses[_Integer] = {{u -> u, v -> v}};
 crosses[None] = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
     v -> v/u}, {u -> v/u, v -> 1/u}, {u -> 1/v, v -> u/v}, {u -> v, 
-    v -> u}};
-    
-AddSolutions[soln_] := With[{uvVersions = Select[Flatten[Table[s /. cross, {s, soln}, {cross, crosses}]], MatchQ[#[[1]], g[__][u,v]]&] /. HoldPattern[a_ -> b_] :> (Head[a] -> Function[{u,v}, b])},
-  $SolvedCorrelators = Merge[{$SolvedCorrelators, Association[uvVersions]}, Flatten @* List];
-  $SolvedCorrelators = Association @@ Table[k -> Table[Function[{u,v}, Evaluate[val /. (First /@ $SolvedCorrelators)]], {val, $SolvedCorrelators[k]}], {k, Keys[$SolvedCorrelators]}]
-];    
+    v -> u}}; 
 
 AddSolutions[soln_] := 
   Block[{tmp}, 
-   With[{uvVersions = 
-      Values /@ 
-       GroupBy[Select[
-          Flatten[Table[
-            s /. cross, {s, soln}, {cross, crosses[$qdefect]}]], 
-          MatchQ[#[[1]], g[__][Sequence @@ crossRatios[$qdefect]]] &] /. 
-         HoldPattern[
-           a_ -> b_] :> (Head[
-             a] -> (Function[Evaluate[crossRatios[$qdefect]], tmp] /. tmp -> b)), First]},
-    $SolvedCorrelators = 
-     Merge[{$SolvedCorrelators, Association[uvVersions]}, 
-      DeleteDuplicates@*Flatten@*List];
-    $SolvedCorrelators = 
-     Association @@ 
-      Table[k -> 
-        Table[Function[Evaluate[crossRatios[$qdefect]], 
-          Evaluate[Simplify[CrossingSimplify[(val @@ crossRatios[$qdefect]) /. (First /@ $SolvedCorrelators)], crossRatioAssumptions[$qdefect]]]], {val, $SolvedCorrelators[k]}], {k, 
-        Keys[$SolvedCorrelators]}];
+   With[{uvVersions = Values /@ GroupBy[
+         Select[
+          Flatten[Table[s /. cross, {s, soln}, {cross, crosses[$qdefect]}]], 
+          MatchQ[#[[1]], g[__][Sequence @@ crossRatios[$qdefect]] | Derivative[__][g[__]][Sequence @@ crossRatios[$qdefect]]] &
+         ] /. HoldPattern[a_ -> b_] :> (Head[a] -> (Function[Evaluate[crossRatios[$qdefect]], tmp] /. tmp -> b)), 
+      First]
+    },
+    $SolvedCorrelators = Merge[{$SolvedCorrelators, Association[uvVersions]}, DeleteDuplicates@*Flatten@*List];
+    $SolvedCorrelators = Association @@ Table[k -> 
+        Table[
+           Function[
+              Evaluate[crossRatios[$qdefect]], 
+           	  Evaluate[Simplify[CrossingSimplify[(val @@ crossRatios[$qdefect]) /. (First /@ $SolvedCorrelators)], crossRatioAssumptions[$qdefect]]]
+           ], 
+        {val, $SolvedCorrelators[k]}], 
+        {k, Keys[$SolvedCorrelators]}];
     ]
    ];
 

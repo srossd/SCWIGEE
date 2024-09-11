@@ -227,17 +227,23 @@ twopt[r1_, r2_] := twopt[r1, r2] = If[$customInvariants,
 twopt[r1_, p1_, r2_, p2_] := twopt[r1, p1, r2, p2] = If[$customInvariants,
    Message[twopt::undefined, {r1, p1}, {r2, p2}],
    Which[DefectGlobalSymmetry[] === GlobalSymmetry[][[1]] && MatchQ[$embedding, {1, 0...}],
-      If[p1 === conjRep[p2], twopt[p1, p2], IrrepInProduct[DefectGlobalSymmetry[], {r1, r2}, singRep[DefectGlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]],
+      If[p1 === conjRep[p2], 
+         twopt[p1, p2], 
+         IrrepInProduct[DefectGlobalSymmetry[], {r1, r2}, singRep[DefectGlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
+      ],
       GlobalSymmetry[] === {SU2, U1} && DefectGlobalSymmetry[] === U1 && $embedding === {{1, 0}},
-      SparseArray[{{Boole[r1 + r2 == 0]}}],
+      Which[
+        p1 === conjRep[p2],
+      	SparseArray[{{twopt[p1, p2][[1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2]]}}],
+      	p1[[1]] === p2[[1]],
+      	SparseArray[{{IrrepInProduct[GlobalSymmetry[], {p1, p2}, {{0}, p1[[2]] + p2[[2]]}, TensorForm -> True][[1,1,1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2,1]]}}],
+      	True,
+      	SparseArray[{{1}}]
+      ],
       True,
       Message[twopt::unable, r1, p1, r2, p2]
    ]
 ];
-
-(* SortBy without breaking ties by canonical order *)
-stableSortBy[xs_, f_] := FixedPoint[Replace[#, {a___, x_, y_, b___} /; ! OrderedQ[{f[x], f[y]}] :> {a, y, x, b}] &, xs];
-stableOrderingBy[xs_, f_] := PermutationList[FindPermutation[stableSortBy[xs, f], xs], Length[xs]];
  
 threept::undefined = "The three-point invariant for representations (``, ``, ``) has not been defined.";
 threept::unable = "Cannot automatically construct three-point invariant for (`` from ``, `` from ``, `` from ``).";

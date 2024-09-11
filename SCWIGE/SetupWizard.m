@@ -271,6 +271,33 @@ resultsNotebook[] := CreateDocument[{
       TextCell["Conventions", "Chapter"],
    	  ExpressionCell[conventionsPanel[]]
    }, Closed],
+   CellGroup[{
+     TextCell["Operators", "Chapter"],
+     TextCell["SUSY Multiplets", "Section"],
+     TabView[
+  	      Table[$multipletName[i] -> Column[{Framed@DisplayMultiplet[i, "EditMode" -> False]}, Alignment -> Center], {i, $multipletIndices}], 
+       Dynamic[$viewingMultiplet], 
+       Alignment -> Center, 
+       ImageSize -> Automatic
+     ],
+     TextCell["SUSY Variations", "Section"],
+   	 ExpressionCell[DisplaySUSYVariations[]],
+   	 TextCell["Global Symmetry Invariants", "Section"],
+   	 ExpressionCell[TableForm[
+   	    Table[{TraditionalForm[Tensor[{c}]], Components[Tensor[{c}]]}, {c, 
+   	       DeleteDuplicates@Cases[
+			  Flatten@
+			   Table[QAnsatz[op, "QBar" -> qb], 
+			      {mult, $multipletIndices}, 
+			      {op, Multiplet[mult]}, 
+			      {qb, {False, True}}
+			   ],
+			  {"C", _, _, _},
+			  All
+		   ]
+  	  }]
+   	 ], "Output"]
+   }, Closed],
    Cell["Correlators", "Chapter"],
    Cell[TextData[{
  "For  each  correlator, we  expand  into  invariant  tensors  of  the  global symmetry  and  into  conformally  invariant  spacetime  structures. The function g[",
@@ -306,10 +333,9 @@ resultsNotebook[] := CreateDocument[{
       	   ],
       	   CellGroup[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
-      	      ExpressionCell[Module[{rrep = If[$qdefect =!= None, DefectGlobalRep, GlobalRep], numinvs},
-      	       numinvs = numInvariants[(rrep /@ grp[[1]])];
+      	      ExpressionCell[Module[{rreps = If[SCWIGE`Private`$qdefect =!= None, DefectGlobalIndex[DefectGlobalRep[#], GlobalRep[SCWIGE`Private`name2field[#[[1]]]]] & /@ grp[[1]], GlobalIndex@*GlobalRep /@ grp[[1]]]},
       	       Components /@ Switch[Length[grp[[1]]],
-      	          	4, Table[FourPtGlobalInvariant[{##}, i] & @@ rreps, {i, numinvs}],
+      	          	4, Table[FourPtGlobalInvariant[{##}, i] & @@ rreps, {i, numInvariants[rreps];}],
 		           	3, {Tensor[{{"C", Sequence @@ (Raised /@ rreps)}}]},
 		           	2, {Tensor[{{"\[Delta]", Sequence @@ (Raised /@ rreps)}}]},
 		           	1, {1}
@@ -336,12 +362,15 @@ resultsNotebook[] := CreateDocument[{
 			   	"=", 
       			ToBoxes[grp[[2]] 
       			   /. f: HoldPattern[Function[args_, _]] :> (f @@ args) 
-      			   /. g[ops_, i_, j_] :> g[ToString[ToExpression[#, InputForm], StandardForm] & /@ ops[[;;, 1]], i,j]
+      			   /. g[ops_, i_, j_] :> If[$qdefect === None || Max[Length /@ Values[branchingRules[]]] == 1,
+      			      g[ToString[ToExpression[#, InputForm], StandardForm] & /@ ops[[;;, 1]], i,j],
+      			      g[{ToString[ToExpression[#[[1]], InputForm], StandardForm], #[[2]]} & /@ ops, i,j]
+      				 ]
       			   /. \[Lambda][ops_, i_, j_] :> \[Lambda][ToString[ToExpression[#, InputForm], StandardForm] & /@ ops[[;;, 1]], i,j]]
       		}]
       	], "Output"]
       }
-      ,{grp, Normal@GroupBy[Normal[First /@ SolvedCorrelators[]], #[[1,1]] &]}]]
+      ,{grp, Normal@GroupBy[Normal[First /@ SolvedCorrelators[]], First@Cases[#, g[fields_, __] :> fields, All, Heads -> True] &]}]]
 }];
 
 preservedSusyPanel[q_] := Which[

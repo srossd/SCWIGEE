@@ -43,7 +43,7 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 
 
    
-Options[fitRational] = {"Prefactors" -> {1}};
+Options[fitRational] = {"Prefactors" -> {1 &}};
 fitRational[data_, deg_, opt : OptionsPattern[]] := 
   Module[{numParams = Dimensions[data][[2]] - 1, params, tups, 
     ansatzes, vars, rat, mats, found, ans},
@@ -125,3 +125,7 @@ withCounts[xs_] := Last@FoldList[
     {}, 
     xs
   ];
+  
+(* SortBy without breaking ties by canonical order *)
+stableSortBy[xs_, f_] := FixedPoint[Replace[#, {a___, x_, y_, b___} /; ! OrderedQ[{f[x], f[y]}] :> {a, y, x, b}] &, xs];
+stableOrderingBy[xs_, f_] := PermutationList[FindPermutation[stableSortBy[xs, f], xs], Length[xs]];
