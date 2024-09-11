@@ -52,6 +52,8 @@ Format[\[Sigma]UpperTensor[i_], TraditionalForm] := Row[{"(",Superscript["\[Sigm
 Format[\[Sigma]BarLowerTensor[i_], TraditionalForm] := Row[{"(",Subscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i],")"}];
 Format[\[Sigma]BarUpperTensor[i_], TraditionalForm] := Row[{"(",Superscript["\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)", i],")"}];
 
+Format[SU2BreakingTensor[], TraditionalForm] := "\[Tau]";
+
 Format[Correlator[t_, opt: OptionsPattern[]], TraditionalForm] := 
   Row[{"\[LeftAngleBracket]", t, If[OptionValue[Correlator, "Defect"], "\!\(\*SubscriptBox[\(\[RightAngleBracket]\), \(\[ScriptCapitalD]\)]\)", "\[RightAngleBracket]"]}];
   
@@ -105,12 +107,18 @@ Format[TreeInvariant[edges_], TraditionalForm] :=
 Format[LoopInvariant[edges_], TraditionalForm] := 
   Format[TreeInvariant[edges], TraditionalForm];
 
-Format[SpacetimeStructure[dims_, ls_, derivs_, derivtype_, perm_, q_, i_], 
-   TraditionalForm] := 
-\!\(\*SubsuperscriptBox[\("\<\[ScriptCapitalS]\>"\), \
-\(Row[{derivtype, \(Count[derivs, #] &\) /@ 
-      Range@Length[ls], "\<;\>", perm, "\<;\>", If[q =!= None, Sequence @@ {"q = ",q,"\<;\>"}, Nothing], i}]\), \(Row[
-    Riffle[Thread[{dims, ls}], "\<;\>"]]\)]\);
+Format[SpacetimeStructure[dims_, ls_, derivs_, perm_, q_, i_], TraditionalForm] := 
+   Subsuperscript[
+      Row[Append[Table[
+         If[d[[1]] == "\[PartialD]",
+            Superscript["\[PartialD]","("<>ToString[perm[[d[[2]]]]]<>")"],
+            Row[{Superscript["\[PartialD]","("<>ToString[perm[[d[[2]]]]]<>")"],"(",ToExpression[d[[1]]][perm],")"}]
+         ],
+         {d, derivs}
+      ], "\[ScriptCapitalS]"]], 
+      Row[{perm, ";", If[q =!= None, Sequence @@ {"q = ",q,";"}, Nothing], i}], 
+      Row[Riffle[Thread[{dims, ls}], ";"]]
+   ];
    
 uvpowers[i_, perm_] := 
  uvpowers[i, perm] = 
@@ -130,6 +138,6 @@ Format[v[perm : {_,_,_,_}], TraditionalForm] := "U"^#1 "V"^#2 & @@ uvpowers[2, p
 Format[u[perm : {_,_}], TraditionalForm] := "U";
 Format[v[perm : {_,_}], TraditionalForm] := "V";
    
-Format[g[fields_, i_, j_], TraditionalForm] := Subsuperscript["g", Row[{i, ",", j}], Row[First /@ fields]];
+Format[g[fields_, i_, j_], TraditionalForm] := Subsuperscript["g", Row[{i, ",", j}], Row[Table[If[field[[2]] === GlobalRep[name2field[field[[1]]]], field[[1]], Subscript[field[[1]], repName[field[[2]]]]], {field, fields}]]];
      
 Format[\[Lambda][fields_, i_, j_], TraditionalForm] := Subsuperscript["\[Lambda]", Row[{i, ",", j}], Row[First /@ fields]];

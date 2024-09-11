@@ -193,6 +193,8 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 	Commutator[$QBarTensor, Tensor[{{"\[Epsilon]", ___}}]] = 0;
 	Commutator[$QTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
 	Commutator[$QBarTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
+	Commutator[$QTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
+	Commutator[$QBarTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
 ];
 
 quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] + 

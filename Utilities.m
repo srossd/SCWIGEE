@@ -43,48 +43,47 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 
 
    
-Options[fitRational] = {"Prefactors" -> {1}};
-fitRational[data_, step_, maxDeg_, opt : OptionsPattern[]] := 
-  fitRational[data, 0, step, maxDeg, opt];
-fitRational[data_, deg_, step_, maxDeg_, opt : OptionsPattern[]] := 
-  If[AllTrue[data[[;; , 3]], # === 0 &], 0, 
-   With[{ansatzes = 
-      OptionValue[
-        "Prefactors"] (Sum[\[Beta]up[k, l] u^(k step) v^(l step), {k, 
-           0, deg/step}, {l, 0, deg/step - k}]/
-         Sum[\[Beta]down[k, l] u^(k step) v^(l step), {k, 0, 
-           deg/step}, {l, 0, deg/step - k}]), 
-     vars = Flatten[
-       Table[{\[Beta]up[k, l], \[Beta]down[k, l]}, {k, 0, 
-         deg/step}, {l, 0, deg/step - k}]], 
-     rat = FirstCase[data[[;; , 3]], 
-       x_ /; x =!= 0 :> (If[# == {}, 1, #[[1]]] &@
-          Cases[x, Power[y_, 1/2 | -1/2] :> Sqrt[y], All])]},
-    Module[{mats = 
-       Table[(Denominator[ansatz] Simplify[pt[[3]]/rat] - 
-            Numerator[ansatz] /. {u -> pt[[1]], v -> pt[[2]]}) /. 
-         Thread[vars -> IdentityMatrix[Length[vars]]], {ansatz, 
-         ansatzes}, {pt, data}], found = False, ans = 0},
-     Do[
-      If[MatrixRank[N@mats[[i]]] != Min[Dimensions[mats[[i]]]],
-       With[{null = NullSpace[mats[[i]]]},
-        If[null =!= {},
-         ans = rat ansatzes[[i]] /. Thread[vars -> null[[1]]];
-         If[ans =!= 0,
-            found = True;
-         	Break[]
-         ];
-         ]
-        ]
-       ],
-      {i, Length[mats]}
-      ];
-     If[found, ans,
-      If[deg < maxDeg, 
-       fitRational[data, deg + step, step, maxDeg, opt], Print["!"]; 
-       Null]
-      ]
-     ]
+Options[fitRational] = {"Prefactors" -> {1 &}};
+fitRational[data_, deg_, opt : OptionsPattern[]] := 
+  Module[{numParams = Dimensions[data][[2]] - 1, params, tups, 
+    ansatzes, vars, rat, mats, found, ans},
+   params = (ToExpression["\\[Formal" <> # <> "]"] & /@ 
+       RotateLeft[Capitalize@Alphabet[], 20])[[;; numParams]];
+   tups = 
+    Select[Tuples[Range[0, deg], numParams], Total[#] <= deg &];
+   If[AllTrue[data[[;; , -1]], # === 0 &], 0 &,
+    ansatzes = 
+     Table[f @@ params, {f, OptionValue[
+       "Prefactors"]}]  (Sum[(\[Beta]up @@ tup)  Times @@ 
+           Thread[params^tup], {tup, tups}]/
+        Sum[(\[Beta]down @@ tup)  Times @@ Thread[params^tup], {tup, 
+          tups}]);
+    vars = 
+     Flatten[Table[{\[Beta]up @@ tup, \[Beta]down @@ tup}, {tup, 
+        tups}]];
+    rat = 
+     FirstCase[data[[;; , -1]], 
+      x_ /; x =!= 0 :> (If[# == {}, 1, #[[1]]] &@
+         Cases[x, Power[y_, 1/2 | -1/2] :> Sqrt[y], All])]; 
+    mats = Table[(Denominator[ansatz]  Simplify[Last[pt]/rat] - 
+          Numerator[ansatz] /. Thread[params -> Most[pt]]) /. 
+       Thread[vars -> IdentityMatrix[Length[vars]]], {ansatz, 
+       ansatzes}, {pt, data}];
+    found = False;
+    ans = 0;
+    
+    Do[If[MatrixRank[N@mats[[i]]] != Min[Dimensions[mats[[i]]]], 
+      With[{null = NullSpace[mats[[i]]]}, 
+       If[null =!= {}, 
+        ans = rat  ansatzes[[i]] /. Thread[vars -> null[[1]]];
+        If[ans =!= 0, found = True;
+         Break[]];]]], {i, Length[mats]}];
+    If[found, 
+     With[{params2 = params, ans2 = Simplify[ans]}, 
+      Function[Evaluate@params2, ans2]
+     ], 
+     None
+    ]
     ]
    ];
 
@@ -96,12 +95,14 @@ expansion[structure_, basis_, relations_] :=
        Sort[#][[1, 1, 2]] & /@ 
         KeySelect[GroupBy[ArrayRules[relations], #[[1, 1]] &], 
          IntegerQ]]},
+   If[Length[pivots] == Length[basis], 0,
    If[KeyExistsQ[pivots, 
      idx], -relations[[pivots[idx], 
       Complement[Range@Length[basis], Keys@pivots]]], 
     Table[Boole[i == idx], {i, Length[basis]}][[
      Complement[Range@Length[basis], Keys@pivots]]]]
-   ];
+   ]
+  ];
 
 solveGroups::nosol = "No solution could be found.";
 solveGroups[grps_, vars_, rules_, assum_] := 
@@ -116,3 +117,15 @@ solveGroups[grps_, vars_, rules_, assum_] :=
    ], "Label" -> "Solving equations", 
   "CurrentDisplayFunction" -> None
   ]
+  
+withCounts[xs_] := Last@FoldList[
+    Function[{list, x}, 
+     Append[list, {x, Count[list[[;; , 1]], x] + 1}]
+    ], 
+    {}, 
+    xs
+  ];
+  
+(* SortBy without breaking ties by canonical order *)
+stableSortBy[xs_, f_] := FixedPoint[Replace[#, {a___, x_, y_, b___} /; ! OrderedQ[{f[x], f[y]}] :> {a, y, x, b}] &, xs];
+stableOrderingBy[xs_, f_] := PermutationList[FindPermutation[stableSortBy[xs, f], xs], Length[xs]];
