@@ -2,7 +2,7 @@ InstallSCWIGE::version="Warning: The package structure of `1` is only supported 
 
 InstallGroupMath[]:= Module[{
         pkgDir= FileNameJoin[{$UserBaseDirectory, "Applications", "GroupMath"}],
-        pkgLink= "https://srossd.com/files/GroupMath.zip",
+        pkgLink= "https://renatofonseca.net/groupmath/ProgramVersions/GroupMath-1.1.2.zip",
         pkgName= "GroupMath",
         proceed = True,
         questionOverwrite, tmpFile, unzipDir, zipDir},
