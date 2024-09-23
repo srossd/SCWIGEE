@@ -177,7 +177,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
            step,
            "Prefactors" -> 
             Which[q === None, {1 &, Sqrt[#1] &, Sqrt[#2] &, Sqrt[#1 #2] &}, 
-             q === 2, {1, Sqrt[1 - #2^2] &}, True, {1 &}]] @@ crossRatios[q]) /. _None -> None)], {j, 
+             q === 2, {1 &, Sqrt[1 - #2^2] &}, True, {1 &}]] @@ crossRatios[q]) /. _None -> None)], {j, 
        Length[other]}, {i, Length[idxs]}];
        step = step + 1],
     Panel[Row[{Column[{

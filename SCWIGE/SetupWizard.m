@@ -335,7 +335,7 @@ resultsNotebook[] := CreateDocument[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
       	      ExpressionCell[Module[{rreps = If[SCWIGE`Private`$qdefect =!= None, DefectGlobalIndex[DefectGlobalRep[#], GlobalRep[SCWIGE`Private`name2field[#[[1]]]]] & /@ grp[[1]], GlobalIndex@*GlobalRep /@ grp[[1]]]},
       	       Components /@ Switch[Length[grp[[1]]],
-      	          	4, Table[FourPtGlobalInvariant[{##}, i] & @@ rreps, {i, numInvariants[rreps];}],
+      	          	4, Table[Tensor[{{GlobalInvariant[i], Sequence @@ (Raised /@ rreps)}}], {i, numInvariants[rreps[[;;,1]]]}],
 		           	3, {Tensor[{{"C", Sequence @@ (Raised /@ rreps)}}]},
 		           	2, {Tensor[{{"\[Delta]", Sequence @@ (Raised /@ rreps)}}]},
 		           	1, {1}
@@ -413,7 +413,11 @@ preservedSusyPanel[q_] := Which[
 	     	 ""
 	      },
 	      {
-	         
+	         Column[{
+	           Style["Preserved supercharge: ", 16],
+	           Style[ToString[StringForm["``", defectSupercharge[2, {2, 2}, False]], TraditionalForm], 12]
+	         }],
+	     	 ""
 	      }
       ]
    },

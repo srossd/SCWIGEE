@@ -125,7 +125,10 @@ invSelectionRule = {(
   ) /; !MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {j, k}][[;;,1]], i] :> 0,
   (
 	Tensor[{___, {SU2BreakingTensor[], Raised[DefectGlobalIndex[i_, __]], Raised[DefectGlobalIndex[j_, __]]}, ___}]
-  ) /; !MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {i, j}][[;;,1]], singRep[DefectGlobalSymmetry[]]] :> 0}; 
+  ) /; !MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {i, j}][[;;,1]], singRep[DefectGlobalSymmetry[]]] :> 0,
+  (
+	Tensor[{___, {SU2BreakingTensor[], Raised[DefectGlobalIndex[i_, __]], Lowered[DefectGlobalIndex[j_, __]]}, ___}]
+  ) /; !MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {i, ConjugateIrrep[DefectGlobalSymmetry[], j]}][[;;,1]], singRep[DefectGlobalSymmetry[]]] :> 0}; 
  
 
 fixPermutation[t_Tensor] := t;
@@ -191,9 +194,14 @@ convertRToDefect[Contract[t_, pairs_, OptionsPattern[]]] := Module[{perm, symbol
    ] /. invSelectionRule  
 ];
 
-SU2Breaker[] := 
-  Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[{{1}, 1}]], Raised[GlobalIndex[{{1}, 1}]]}}];
+Options[SU2Breaker] = {"Mixed" -> False};
+SU2Breaker[OptionsPattern[]] := 
+	If[OptionValue["Mixed"],
+	   Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[{{1}, 1}]], Lowered[GlobalIndex[{{1}, 1}]]}}],
+  	   Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[{{1}, 1}]], Raised[GlobalIndex[{{1}, 1}]]}}]
+	];
 BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Raised[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[r1 + r2 == 0]}}];
+BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Lowered[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[r1 == r2]}}];
 
 (*transformer[rep_] := (branchingRules[]; transformer[rep]);*)
 
@@ -226,7 +234,7 @@ twopt[r1_, r2_] := twopt[r1, r2] = If[$customInvariants,
 ];
 twopt[r1_, p1_, r2_, p2_] := twopt[r1, p1, r2, p2] = If[$customInvariants,
    Message[twopt::undefined, {r1, p1}, {r2, p2}],
-   Which[DefectGlobalSymmetry[] === GlobalSymmetry[][[1]] && MatchQ[$embedding, {1, 0...}],
+   Which[MatchQ[GlobalSymmetry[], {U1 ..., DefectGlobalSymmetry[], U1 ...}] && MatchQ[$embedding, {{0 ..., 1, 0 ...}}] && Position[$embedding[[1]], 1][[1, 1]] == Position[GlobalSymmetry[], DefectGlobalSymmetry[], {1}][[1, 1]],
       If[p1 === conjRep[p2], 
          twopt[p1, p2], 
          IrrepInProduct[DefectGlobalSymmetry[], {r1, r2}, singRep[DefectGlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
@@ -260,7 +268,7 @@ threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
 ];
 threept[r1_, p1_, r2_, p2_, r3_, p3_] := threept[r1, p1, r2, p2, r3, p3] = If[$customInvariants,
    Message[threept::undefined, {r1, p1}, {r2, p2}, {r3, p3}],
-   Which[DefectGlobalSymmetry[] === GlobalSymmetry[][[1]] && MatchQ[$embedding, {1, 0...}],
+   Which[MatchQ[GlobalSymmetry[], {U1 ..., DefectGlobalSymmetry[], U1 ...}] && MatchQ[$embedding, {{0 ..., 1, 0 ...}}] && Position[$embedding[[1]], 1][[1, 1]] == Position[GlobalSymmetry[], DefectGlobalSymmetry[], {1}][[1, 1]],
       If[MemberQ[ReduceRepProduct[GlobalSymmetry[], {p1, p2}][[;;,1]], conjRep[p3]], threept[p1, p2, p3], Message[threept::unable, r1, p1, r2, p2, r3, p3]],
       GlobalSymmetry[] === {SU2, U1} && DefectGlobalSymmetry[] === U1 && $embedding === {{1, 0}},
       SparseArray[{{{threept[p1, p2, p3][[1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2, 1 + (p3[[1,1]] + r3)/2]]}}}],
