@@ -11,6 +11,8 @@ SolvedCorrelators[] := $SolvedCorrelators;
 defectSupercharge[3, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], \[Sigma]LowerSingle[4], \[Epsilon]UpperDot, QTensor["QBar" -> True]], {{1, 7}, {4, 5}, {6, 8}}];
 defectSupercharge[2, {4, 0}, True] := QTensor["QBar" -> True] - I Contract[TensorProduct[\[Epsilon]Defect[2], \[Sigma]CommUpperDot, \[Epsilon]UpperDot, QTensor["QBar" -> True]], {{1, 3}, {2, 4}, {6, 7}, {8, 10}}];
 defectSupercharge[2, {4, 0}, False] := QTensor[] - I Contract[TensorProduct[\[Epsilon]Defect[2], \[Sigma]CommUpper, \[Epsilon]Upper, QTensor[]], {{1, 3}, {2, 4}, {6, 7}, {8, 10}}];
+defectSupercharge[2, {2, 2}, True] := QTensor["QBar" -> True] - I Contract[TensorProduct[\[Epsilon]Defect[2], \[Sigma]CommUpperDot, \[Epsilon]UpperDot, SU2Breaker["Mixed" -> True], QTensor["QBar" -> True]], {{1, 3}, {2, 4}, {6, 7}, {8, 12}, {9, 11}}];
+defectSupercharge[2, {2, 2}, False] := QTensor[] - I Contract[TensorProduct[\[Epsilon]Defect[2], \[Sigma]CommUpper, \[Epsilon]Upper, SU2Breaker["Mixed" -> True], QTensor[]], {{1, 3}, {2, 4}, {6, 7}, {8, 12}, {10, 11}}];
 defectSupercharge[1, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[SU2Breaker[], \[Sigma]LowerSingle[1], \[Epsilon]UpperDot, QTensor["QBar"->True]], {{1, 7}, {4, 5}, {6, 8}}];
   
 Options[WardEquations] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True};
@@ -25,9 +27,7 @@ WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Mo
 	                   $qdefect == 2,
 	                   defectSupercharge[2, $q2type, OptionValue["QBar"]],
 	                   $qdefect == 1,
-	                   defectSupercharge[1, $q1angle],
-	                   True,
-	                   Print["Defect SUSY variations not implemented for q \[NotElement] {2, 3}"]; QTensor["QBar" -> OptionValue["QBar"]]
+	                   defectSupercharge[1, $q1angle]
 	                ]
 	             ]
              , Tensor[fields]], 
@@ -39,12 +39,6 @@ WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Mo
              /. If[OptionValue["UseSUSYRules"], Join@@ (SUSYRules /@ $multipletIndices), {}],
           "MonitorProgress" -> True]] == 0], True]
     ];
-    
-    
-   (* Correction to deal with 1 <-> 2 exchange flipping sign of sqrt(1-v^2) for q=2 defect *)
-   If[$qdefect == 2 && OptionValue["QBar"],
-      eqs = eqs /. x : Power[1-v^2, n_] /; !IntegerQ[n] :> -x
-   ];
    
    eqs
    
