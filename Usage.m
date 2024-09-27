@@ -815,5 +815,12 @@ StyleBox[\"t\",\nFontSlant->\"Italic\"]\)] gives an expression for a special con
 StyleBox[\"t\",\nFontSlant->\"Italic\"]\), which should vanish if \!\(\*
 StyleBox[\"t\",\nFontSlant->\"Italic\"]\) is a conformally-invariant spacetime structure.";
 
+RepWithMultiplicity::usage = "RepWithMultiplicity[\!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\),\!\(\*
+StyleBox[\"n\",\nFontSlant->\"Italic\"]\)] denotes the \*
+StyleBox[\(\!\(\*
+StyleBox[\"n\",\nFontSlant->\"Italic\"]\)th\)] copy of \!\(\*
+StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) appearing in the decomposition of some global symmetry representation into representations of the remnant global symmetry in the presence of a defect."
+
 
 EndPackage[]

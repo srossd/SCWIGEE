@@ -1,5 +1,75 @@
 (* Wolfram Language package *)
 
+Clear[CartanSubalgebra];
+CartanSubalgebra[U1] := {{{1}}, {1}};
+CartanSubalgebra[grp_?IsSimpleGroupQ] := 
+ Module[{diagonals, diagIdxs, weights, weights2, funds, funds2},
+  diagIdxs = 
+   Position[RepMatrices[grp, Adjoint[grp]], 
+     mat_?DiagonalMatrixQ][[;; , 1]];
+  diagonals = RepMatrices[grp, Adjoint[grp]][[diagIdxs]];
+  weights = Thread[Diagonal /@ diagonals];
+  weights2 = Flatten[Table @@@ Weights[grp, Adjoint[grp]], 1];
+  funds = 
+   weights[[SelectFirst[
+      Tuples[Range@Length[diagonals[[1]]], Length[weights[[1]]]],
+      Det[weights[[#]]] != 0 && 
+        AllTrue[weights . Inverse[weights[[#]]], 
+         Function[vec, AllTrue[vec, NonNegative] || 
+           AllTrue[-vec, NonNegative]]] &
+      ]]];
+  funds2 = 
+   weights2[[SelectFirst[
+      Tuples[Range@Length[diagonals[[1]]], Length[weights2[[1]]]],
+      Det[weights2[[#]]] != 0 && 
+        AllTrue[weights2 . Inverse[weights2[[#]]], 
+         Function[vec, AllTrue[vec, NonNegative] || 
+           AllTrue[-vec, NonNegative]]] &
+      ]]];
+  {Transpose[funds2] . Inverse[Transpose[funds]] // Simplify, diagIdxs}
+  ];
+CartanSubalgebra[grp_] := Module[{cartans = CartanSubalgebra /@ grp},
+  {BlockDiagonalMatrix[cartans[[;; , 1]]], 
+   Join @@ Table[
+     cartans[[i, 2]] + 
+      Total[DimR[#, Adjoint[#]] & /@ grp[[;; i - 1]]], {i, 
+      Length[cartans]}]}
+  ]
+
+Weights[U1, n_] := {{n, 1}};
+  
+collectIrreps[grp_, {}] = {};
+collectIrreps[grp_, weights_] := 
+  Module[{allweights, highest = Last@Sort@weights, perm, counts, pos, recur},
+   allweights = Flatten[Table @@@ Weights[grp, highest], 1];
+   counts = Counts[allweights];
+   pos = 
+    Position[
+     withCounts[weights], {w_, n_} /; 
+      KeyExistsQ[counts, w] && n <= counts[w]];
+   perm = FindPermutation[weights[[pos[[;;,1]]]], allweights];
+   pos = pos[[PermutationList[perm, Length[pos]]]];
+   recur = collectIrreps[grp, Delete[weights, pos]];
+   Prepend[
+    Table[{r[[1]], 
+      Position[
+        Fold[Insert[#1, 0, #2] &, 
+         Normal@SparseArray[Thread[(List /@ r[[2]]) -> 1], 
+           Length[weights] - Length[pos]], pos[[;; , 1]]], 1][[;; , 
+        1]]}, {r, recur}], {highest, pos[[;; , 1]]}]
+  ];
+  
+  
+embeddingIndex::notfound = "Out of subrepresentations ``, could not find instance no. `` of ``";
+embeddingIndex[rep_, parent_] := embeddingIndex[RepWithMultiplicity[rep, 1], parent];
+embeddingIndex[RepWithMultiplicity[rep_, multiplicity_], parent_] := embeddingIndex[RepWithMultiplicity[rep, multiplicity], parent] =
+  Module[{cartan = CartanSubalgebra[GlobalSymmetry[]], decompWeights, collected, instances},
+   decompWeights = Thread[Diagonal /@ (cartan[[1]] . (RepMatrices[GlobalSymmetry[], parent][[cartan[[2]]]]))] . Transpose[$embedding];
+   collected = collectIrreps[DefectGlobalSymmetry[], decompWeights];
+   instances = Cases[collected, {rep, pos_} | {{rep}, pos_} :> pos];
+   If[Length[instances] >= multiplicity, instances[[multiplicity]], Message[embeddingIndex::notfound, collected, multiplicity, rep]]
+  ];
+
 allEmbeddings[grp_, subgrp_] /; IsSimpleGroupQ[grp] := 
   allEmbeddings[{grp}, subgrp];
 allEmbeddings[grp_, subgrp_] /; IsSimpleGroupQ[subgrp] := 
@@ -99,17 +169,10 @@ embeddingSelector[grp_, subgrp_] /; !IsSimpleGroupQ[grp] && !IsSimpleGroupQ[subg
      }]
    );
 
-decomposeRepDefectFP[rep_] := Sort@DecomposeRep[$RSymmetry, rep, $DefectRSymmetry, $embedding];
+decomposeRepDefectFP[rep_] := Flatten[If[#[[2]] == 1, {#[[1]]}, Table[RepWithMultiplicity[#[[1]], i], {i, #[[2]]}]] & /@ Tally[Sort@DecomposeRep[$RSymmetry, rep, $DefectRSymmetry, $embedding]]];
 
-branchingRules::overlap = "The representations `1` all branch to `2`, and are not related by conjugacy. This case has not yet been implemented.";
-branchingRules[] := With[{groups = GroupBy[Flatten[Table[dynkin@*GlobalRep /@ Multiplet[idx], {idx, $multipletIndices}], 1], decomposeRepDefectFP]},
-   If[AnyTrue[Values[groups], Length[#] > 1 && repDim[#[[1]]] != 1 && (Length[#] > 2 || conjRep[#[[1]]] =!= dynkin[#[[2]]]) &],
-      Message[branchingRules::overlap, 
-         SelectFirst[Values[groups], Length[#] > 1 && repDim[#[[1]]] != 1 && (Length[#] > 2 || conjRep[#[[1]]] =!= dynkin[#[[2]]]) &], 
-         decomposeRepDefectFP@First@SelectFirst[Values[groups], Length[#] > 1 && repDim[#[[1]]] != 1 && (Length[#] > 2 || conjRep[#[[1]]] =!= dynkin[#[[2]]]) &]
-      ],
-      Association[Flatten[Table[Thread[groups[k] -> Table[k, Length[groups[k]]]], {k, Keys[groups]}]]]
-   ]
+branchingRules[] := With[{groups = GroupBy[Append[Flatten[Table[dynkin@*GlobalRep /@ Multiplet[idx], {idx, $multipletIndices}], 1], QGlobalRep[]], decomposeRepDefectFP]},
+   Association[Flatten[Table[Thread[groups[k] -> Table[k, Length[groups[k]]]], {k, Keys[groups]}]]]
 ];
 
 decomposeRepDefect[rep_] := branchingRules[][dynkin[rep]];
@@ -197,11 +260,11 @@ convertRToDefect[Contract[t_, pairs_, OptionsPattern[]]] := Module[{perm, symbol
 Options[SU2Breaker] = {"Mixed" -> False};
 SU2Breaker[OptionsPattern[]] := 
 	If[OptionValue["Mixed"],
-	   Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[{{1}, 1}]], Lowered[GlobalIndex[{{1}, 1}]]}}],
-  	   Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[{{1}, 1}]], Raised[GlobalIndex[{{1}, 1}]]}}]
+	   Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[QGlobalRep[]]], Lowered[GlobalIndex[QGlobalRep[]]]}}],
+  	   Tensor[{{SU2BreakingTensor[], Raised[GlobalIndex[QGlobalRep[]]], Raised[GlobalIndex[QGlobalRep[]]]}}]
 	];
-BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Raised[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[r1 + r2 == 0]}}];
-BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Lowered[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[r1 == r2]}}];
+BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Raised[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {r1, r2}][[;;,1]], singRep[DefectGlobalSymmetry[]]] ]}}];
+BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Lowered[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {r1, ConjugateIrrep[DefectGlobalSymmetry[], r2]}][[;;,1]], singRep[DefectGlobalSymmetry[]]] ]}}];
 
 (*transformer[rep_] := (branchingRules[]; transformer[rep]);*)
 
@@ -234,22 +297,16 @@ twopt[r1_, r2_] := twopt[r1, r2] = If[$customInvariants,
 ];
 twopt[r1_, p1_, r2_, p2_] := twopt[r1, p1, r2, p2] = If[$customInvariants,
    Message[twopt::undefined, {r1, p1}, {r2, p2}],
-   Which[MatchQ[GlobalSymmetry[], {U1 ..., DefectGlobalSymmetry[], U1 ...}] && MatchQ[$embedding, {{0 ..., 1, 0 ...}}] && Position[$embedding[[1]], 1][[1, 1]] == Position[GlobalSymmetry[], DefectGlobalSymmetry[], {1}][[1, 1]],
-      If[p1 === conjRep[p2], 
-         twopt[p1, p2], 
-         IrrepInProduct[DefectGlobalSymmetry[], {r1, r2}, singRep[DefectGlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
-      ],
-      GlobalSymmetry[] === {SU2, U1} && DefectGlobalSymmetry[] === U1 && $embedding === {{1, 0}},
-      Which[
-        p1 === conjRep[p2],
-      	SparseArray[{{twopt[p1, p2][[1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2]]}}],
-      	p1[[1]] === p2[[1]],
-      	SparseArray[{{IrrepInProduct[GlobalSymmetry[], {p1, p2}, {{0}, p1[[2]] + p2[[2]]}, TensorForm -> True][[1,1,1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2,1]]}}],
-      	True,
-      	SparseArray[{{1}}]
-      ],
-      True,
-      Message[twopt::unable, r1, p1, r2, p2]
+   Module[{singletProduct},
+	  singletProduct = SelectFirst[ReduceRepProduct[GlobalSymmetry[], {p1, p2}][[;;, 1]], repDim[#] == 1 &];
+      If[
+         !MissingQ[singletProduct],
+	      IrrepInProduct[GlobalSymmetry[], {p1, p2}, singletProduct, TensorForm -> True][[1,1,
+	         embeddingIndex[r1, p1],
+	         embeddingIndex[r2, p2],
+	         1]],
+      	IrrepInProduct[DefectGlobalSymmetry[], {r1, r2}, singRep[DefectGlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
+      ]
    ]
 ];
  
@@ -268,12 +325,13 @@ threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
 ];
 threept[r1_, p1_, r2_, p2_, r3_, p3_] := threept[r1, p1, r2, p2, r3, p3] = If[$customInvariants,
    Message[threept::undefined, {r1, p1}, {r2, p2}, {r3, p3}],
-   Which[MatchQ[GlobalSymmetry[], {U1 ..., DefectGlobalSymmetry[], U1 ...}] && MatchQ[$embedding, {{0 ..., 1, 0 ...}}] && Position[$embedding[[1]], 1][[1, 1]] == Position[GlobalSymmetry[], DefectGlobalSymmetry[], {1}][[1, 1]],
-      If[MemberQ[ReduceRepProduct[GlobalSymmetry[], {p1, p2}][[;;,1]], conjRep[p3]], threept[p1, p2, p3], Message[threept::unable, r1, p1, r2, p2, r3, p3]],
-      GlobalSymmetry[] === {SU2, U1} && DefectGlobalSymmetry[] === U1 && $embedding === {{1, 0}},
-      SparseArray[{{{threept[p1, p2, p3][[1 + (p1[[1,1]] + r1)/2, 1 + (p2[[1,1]] + r2)/2, 1 + (p3[[1,1]] + r3)/2]]}}}],
-      True,
-      Message[threept::unable, r1, p1, r2, p2, r3, p3]
+   If[MemberQ[ReduceRepProduct[GlobalSymmetry[], {p1, p2, p3}][[;;,1]], singRep[GlobalSymmetry[]]],
+      IrrepInProduct[GlobalSymmetry[], {p1, p2, p3}, singRep[GlobalSymmetry[]], TensorForm -> True][[1,1,
+		         embeddingIndex[r1, p1],
+		         embeddingIndex[r2, p2],
+		         embeddingIndex[r3, p3],
+		         1]],
+	  Message[threept::unable, r1, p1, r2, p2, r3, p3]
    ]
 ];
 
