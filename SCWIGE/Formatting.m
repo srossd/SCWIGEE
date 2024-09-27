@@ -59,6 +59,8 @@ Format[Correlator[t_, opt: OptionsPattern[]], TraditionalForm] :=
   
 Format[GlobalInvariant[i_], TraditionalForm] := Subscript["C", i];
 
+Format[RepWithMultiplicity[rep_, i_], TraditionalForm] := Subscript[repName[rep], i]; 
+
 cols = {Darker@Green, Blue, Black, Orange, Red, Purple, Yellow};
 arrow[{p1_, p2_}] := {Line[{p1, p2}], Arrow[{p1, .4 p1 + .6 p2}]};
 reverseArrow[{p1_, p2_}] := arrow[{p2, p1}];

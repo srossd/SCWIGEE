@@ -517,7 +517,7 @@ wizardPanel[] := Panel[Dynamic[Grid[
      ], 
      ""
     }, 
-	If[$qdefect =!= None && ($RSymmetry === {SU2, U1} && MemberQ[{SU2, U1}, $DefectRSymmetry] && $QGlobalRep =!= Null),
+	If[$qdefect =!= None && (SubsetQ[GlobalSymmetry[], {SU2, U1}] && Sort[DeleteElements[GlobalSymmetry[], 1 -> {SU2}]] === Sort[DefectGlobalSymmetry[]] && $QGlobalRep =!= Null),
 	   {"", "", Grid[preservedSusyPanel[$qdefect]], ""},
 	   Nothing
 	],
