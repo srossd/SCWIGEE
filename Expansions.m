@@ -103,7 +103,7 @@ ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms =
       ]
    ]
 ];
-ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> If[And @@ (Thread[Flatten[Normal@Components[t]] == 0]), 0, 1]},{1,1}];
+ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> If[And @@ (Thread[Flatten[Normal@Components[t]] === 0]), 0, 1]},{1,1}];
       
 fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Reverse@Spin[#1], GlobalRep[#1], Abs[Last[#1]], -Last[#1]}, {N@ScalingDimension[#2], Reverse@Spin[#2], GlobalRep[#2], Abs[Last[#2]], -Last[#2]}}] &;
       
@@ -153,7 +153,7 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
     	fieldsReplaced = ReplacePart[fields, Thread[Table[{i, 2}, {i, Length[fields]}] -> rreps[[;;, 1]]]];
    		sfields = Sort[fieldsReplaced, fieldOrder]; 
      	order = Ordering[fieldsReplaced, All, fieldOrder];
-    	numinvs = numInvariants[rreps[[;;,1]]];
+    	numinvs = numInvariants[rreps];
       	numSTs = Length@SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, {}, order, q];
       	sign = Signature@InversePermutation[order][[Select[Range@Length@fields, ! IntegerQ[ScalingDimension[fields[[#]]]] &]]];
       	STindperm = crossingPermutationST[Tensor[names], order]; 
