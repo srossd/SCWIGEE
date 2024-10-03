@@ -312,7 +312,10 @@ twopt[r1_, p1_, r2_, p2_] := twopt[r1, p1, r2, p2] = If[$customInvariants,
  
 threept::undefined = "The three-point invariant for representations (``, ``, ``) has not been defined.";
 threept[GlobalIndex[r1_], GlobalIndex[r2_], GlobalIndex[r3_]] := Module[{reps = {dynkin[r1], dynkin[r2], dynkin[r3]}},
-	TensorTranspose[threept @@ Sort[reps], Ordering[reps]]
+   	If[OrderedQ[{Sort[reps], Sort[ConjugateIrrep[GlobalSymmetry[], #] & /@ reps]}],
+		TensorTranspose[threept @@ Sort[reps], Ordering[reps]],
+		Conjugate[threept[GlobalIndex[ConjugateIrrep[GlobalSymmetry[], r1]],GlobalIndex[ConjugateIrrep[GlobalSymmetry[], r2]],GlobalIndex[ConjugateIrrep[GlobalSymmetry[], r3]]]]
+	]
 ];
 threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
    Message[threept::undefined, r1, r2, r3],
