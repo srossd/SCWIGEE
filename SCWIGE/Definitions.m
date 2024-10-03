@@ -8,8 +8,8 @@ QTensor[OptionsPattern[]] := Switch[{OptionValue["QBar"]},
 
 ScalingDimension[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
 Spin[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := {j1, j2};
-GlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := rep;
-DefectGlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := If[appropriateGroup[rep] === DefectGlobalSymmetry[], rep, decomposeRepDefect[rep]];
+GlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dynkin[rep];
+DefectGlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := If[appropriateGroup[rep] === DefectGlobalSymmetry[], dynkin[rep], decomposeRepDefect[rep]];
 
 whichMultiplet[f_Operator] := whichMultiplet[f[[1]]];
 whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] &];
@@ -41,10 +41,9 @@ IndexData[SpaceTime] = Index[4, "Greek", 12];
 IndexData[GlobalIndex[rep_]] := 
   Index[repDim[rep], "Latin", 9, Subscript[#, repName[rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]] &];
-(*GlobalIndex[rep:(_Integer | _List)] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[GlobalSymmetry[], rep] := GlobalIndex[SimpleRepInputConversion[GlobalSymmetry[], rep]];*)
 
-IndexData[DefectGlobalIndex[defectRep_, parentRep_, opt:OptionsPattern[DefectGlobalIndex]]] := 
-  Index[repDim[defectRep], "Latin", 9, Subscript[Capitalize[#], Mouseover[repName[defectRep],repName[parentRep]]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> ToString[ToExpression[s, TraditionalForm]] &];(*DefectGlobalIndex[rep:(_Integer | _List), opt:OptionsPattern[]] /; FreeQ[rep, Blank] && rep =!= SimpleRepInputConversion[DefectGlobalSymmetry[], rep] := DefectGlobalIndex[SimpleRepInputConversion[DefectGlobalSymmetry[], rep], opt];*)
+IndexData[DefectGlobalIndex[defectRep_, parentRep_]] := 
+  Index[repDim[defectRep], "Latin", 9, Subscript[Capitalize[#], Mouseover[repName[defectRep],repName[parentRep]]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> ToString[ToExpression[s, TraditionalForm]] &];
 
 \[Epsilon]Lower = 
   Tensor[{{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}}];
