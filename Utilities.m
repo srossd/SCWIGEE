@@ -1,6 +1,23 @@
 (* Wolfram Language package *)
     
-indQ[basis_, vec_] := !MatchQ[vec, {0..}] && Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True];
+zeroVecQ[vec_] := MatchQ[vec,{0..}] || MatchQ[Simplify[ArrayRules[vec][[;;,2]]],{0..}];
+    
+(* fix this to prevent false positive *)
+indQ[basis_, vec_] := Length[basis] == 0 || (! zeroVecQ[vec] && 
+   If[Length[basis[[1]]] < 10  Length[basis],
+    Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True],
+    Module[{nzidxs, chosen, sol, sbz},
+     nzidxs = Select[ArrayRules[vec][[;; , 1, 1]], IntegerQ];
+     chosen = 
+      RandomSample[nzidxs, Min[Length[nzidxs], 10  Length[basis]]];
+      sol = Quiet@LinearSolve[Transpose[basis][[chosen]], vec[[chosen]]];
+      If[Head[sol] === LinearSolve,
+         True,
+	     sbz = sol . basis - vec;
+	     !zeroVecQ[sbz] (* could be that a different solution would have worked *)
+      ]
+     ]
+    ]);
 
 Options[IndependentSet] = {"Rules" -> {}, "MonitorProgress" -> False, "MaxIndependent" -> 0, "Indices" -> False};
 IndependentSet[{}] := {};
