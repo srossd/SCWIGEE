@@ -318,9 +318,9 @@ threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
    Message[threept::undefined, r1, r2, r3],
    Module[{temp, other},
    	temp = IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,1]];
-   	If[OrderedQ[{{r1, r2, r3}, {ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}}],
+   	If[OrderedQ[{{r1, r2, r3}, Sort@{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}}],
    	   temp,
-   	   other = threept[ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]];
+   	   other = threept@@ Sort[{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}];
    	   (Norm[Flatten[other]]/Norm[Flatten[temp]]) temp
    	]
    ]
