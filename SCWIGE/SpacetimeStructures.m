@@ -419,7 +419,11 @@ sumsToProducts[basis_, target_] :=
      maxMultiplier[basis[[1, 1]], target], 0, -1}];
 
 constructStructure[expr_, perm_] := With[{inds = structIndices[expr]},
-	With[{unsym = TensorTranspose[CanonicallyOrderedComponents[expr /. MyInactive -> Identity], Ordering[inds[[;; , 2]]]], syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &]},
+	With[{unsym = TensorTranspose[
+	   TensorTranspose[Activate[expr /. TensorProduct -> Inactive[TensorProduct] /. MyInactive[struct_][idxs__] :> CanonicallyOrderedComponents[struct[idxs]]], 
+	   	InversePermutation@Ordering@Flatten[Sort[structIndices[#][[;; , 2]]] & /@ Flatten[{expr} /. TensorProduct -> List]]
+	   ], 
+	   Ordering[inds[[;; , 2]]]], syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &]},
 	   If[syms == {}, unsym,
 		(1/Length[syms]) TensorTranspose[Sum[TensorTranspose[unsym, p], {p, syms}], perm]
 	   ]
@@ -451,14 +455,14 @@ SpacetimeStructures[dims_, ls_, derivs_, perm_, q_] := Table[Tensor[{{SpacetimeS
       {Table[{Lowered[Spinor], Lowered[DottedSpinor]}, Count[derivs[[;;,2]], j]], Table[Lowered[Spinor], 2 ls[[j, 1]]], Table[Lowered[DottedSpinor], 2 ls[[j, 2]]]},
       {j, Length[dims]}]]}}], {i, Length[SpacetimeStructureExpressions[ls, q]]}];
       
-BuildTensor[{SpacetimeStructure[dims_, ls_, {}, perm_, q_, i_], idxs___}] := With[{comps = Explicit[KinematicPrefactor[dims, ls, q]] (constructStructure @@ SpacetimeStructureExpressions[ls, q][[i]])},
+BuildTensor[t: {SpacetimeStructure[dims_, ls_, {}, perm_, q_, i_], idxs___}] := BuildTensor[t] = With[{comps = Explicit[KinematicPrefactor[dims, ls, q]] (constructStructure @@ SpacetimeStructureExpressions[ls, q][[i]])},
  	If[Length[{idxs}] == 0, 
  	   comps /. x[ii_, j_] :> x[perm[[ii]], j],
  	   SparseArray[ArrayRules[comps] /. x[ii_, j_] :> x[perm[[ii]], j]]
  	]    
 ];
 
-BuildTensor[{SpacetimeStructure[dims_, ls_, derivs_, perm_, q_, i_], idxs___}] /; derivs =!= {} := 
+BuildTensor[t: {SpacetimeStructure[dims_, ls_, derivs_, perm_, q_, i_], idxs___}] /; derivs =!= {} := BuildTensor[t] = 
   Module[
  {bd = SpacetimeStructures[dims, ls, {}, perm, q][[i]], pd = derivs /. {type_, n_Integer} :> {type, perm[[n]]}, indsPerX, siPerm, dsiPerm, siPos, dsiPos, fullPerm, baseexpr, expr},
  	indsPerX = Table[2 ls[[j]] + Count[derivs[[;; , 2]], j], {j, Length[dims]}];

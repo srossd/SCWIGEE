@@ -585,4 +585,6 @@ wizardPanel[] := Panel[Dynamic[Grid[
     Background -> Lighter[Gray, 0.9]
 ];
 
-wizardCell = CellPrint[ExpressionCell[SCWIGE`Private`wizardPanel[], TextAlignment -> Center]]
+If[!$consoleMode,
+	wizardCell = CellPrint[ExpressionCell[SCWIGE`Private`wizardPanel[], TextAlignment -> Center]]
+];
