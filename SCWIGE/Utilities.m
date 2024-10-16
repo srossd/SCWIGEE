@@ -9,7 +9,7 @@ progressString[done_, total_] := StringJoin @@ Flatten[{"[", Table["=", done], T
 Options[monitorProgress] = {"Resolution" -> Automatic, "Label" -> None, "CurrentDisplayFunction" -> Full};
 SetAttributes[monitorProgress, HoldFirst];
 If[$consoleMode,
-   monitorProgress[(h: Do | Table)[elem_, vars__], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, estimate},
+   monitorProgress[(h: Do | Table)[elem_, vars__], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, resolution, ans},
        total = Length@Flatten[Table[Null, vars]];
        current = 1;
        start = AbsoluteTime[];
@@ -37,32 +37,33 @@ If[$consoleMode,
        Run["cls"];
        ans
    ];
-   monitorProgress[Fold[f_, x_, list_], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, estimate},
+   monitorProgress[Fold[f_, x_, list_], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, resolution, ans},
        total = Length[list];
        current = 1;
        start = AbsoluteTime[];
        resolution = OptionValue["Resolution"] /. Automatic -> 20;
-       ans = Fold[
-          elapsed = If[current > 1, AbsoluteTime[] - start, "NA"];
-          steptime = If[current > 1, elapsed/(current - 1), "NA"];
-          totaltime = If[current > 1, steptime total, "NA"];
-          remaining = If[current > 1, totaltime - elapsed, "NA"];
-           
-          Run["cls"];
-          If[OptionValue["Label"] =!= None, Print[OptionValue["Label"]]];
-          Print["Current item: ",current];
-          Print["Progress: ", current - 1, "/", total];  
-          Print["Time elapsed: ", timeString[elapsed]];
-          Print["Time per step: ", timeString[steptime]];
-          Print["Est. time remaining: ", timeString[remaining]];
-          Print["Est. total time: ", timeString[totaltime]];	
-          Print[progressString[Floor[(current - 1)*resolution/total], resolution]];
-          current += 1;
-          
-          elem,
-          vars
+       ans = Fold[Function[{y, z},
+	          elapsed = If[current > 1, AbsoluteTime[] - start, "NA"];
+	          steptime = If[current > 1, elapsed/(current - 1), "NA"];
+	          totaltime = If[current > 1, steptime total, "NA"];
+	          remaining = If[current > 1, totaltime - elapsed, "NA"];
+	           
+	          Run["cls"];
+	          If[OptionValue["Label"] =!= None, Print[OptionValue["Label"]]];
+	          Print["Current item: ",current];
+	          Print["Progress: ", current - 1, "/", total];  
+	          Print["Time elapsed: ", timeString[elapsed]];
+	          Print["Time per step: ", timeString[steptime]];
+	          Print["Est. time remaining: ", timeString[remaining]];
+	          Print["Est. total time: ", timeString[totaltime]];	
+	          Print[progressString[Floor[(current - 1)*resolution/total], resolution]];
+	          current += 1;
+	          
+	          f[y, z]
+       	  ],
+          x, list
        ];
-       Run["cls"];
+       Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
        ans
    ];
    ,
