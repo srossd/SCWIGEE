@@ -20,7 +20,7 @@ If[$consoleMode,
           totaltime = If[current > 1, steptime total, "NA"];
           remaining = If[current > 1, totaltime - elapsed, "NA"];
            
-          Run["cls"];
+          Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
           If[OptionValue["Label"] =!= None, Print[OptionValue["Label"]]];
           Print["Current item: ",current];
           Print["Progress: ", current - 1, "/", total];  
@@ -48,7 +48,7 @@ If[$consoleMode,
 	          totaltime = If[current > 1, steptime total, "NA"];
 	          remaining = If[current > 1, totaltime - elapsed, "NA"];
 	           
-	          Run["cls"];
+	          Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
 	          If[OptionValue["Label"] =!= None, Print[OptionValue["Label"]]];
 	          Print["Current item: ",current];
 	          Print["Progress: ", current - 1, "/", total];  
