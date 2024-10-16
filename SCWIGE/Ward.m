@@ -17,21 +17,23 @@ defectSupercharge[1, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[
   
 Options[WardEquations] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True};
 WardEquations[names : {Except[_Operator]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Module[{expr = Correlator[
-             NormalOrder[TensorProduct[
-	             If[!OptionValue["Defect"],
-	                QTensor["QBar" -> OptionValue["QBar"]],
-	                Which[
-	                   $qdefect == 3, 
-	                   defectSupercharge[3, $q3angle],
-	                   $qdefect == 2,
-	                   defectSupercharge[2, $q2type, OptionValue["QBar"]],
-	                   $qdefect == 1,
-	                   defectSupercharge[1, $q1angle]
-	                ]
-	             ]
-             , Tensor[fields]], 
-              "Vacuum" -> True], "Defect" -> OptionValue["Defect"]], eqs},
+WardEquations[fields_, opt: OptionsPattern[]] := WardEquations[fields, opt] = Module[{expr, eqs},
+    DeclareAlgebra[];
+    expr = Correlator[
+     NormalOrder[TensorProduct[
+         If[!OptionValue["Defect"],
+            QTensor["QBar" -> OptionValue["QBar"]],
+            Which[
+               $qdefect == 3, 
+               defectSupercharge[3, $q3angle],
+               $qdefect == 2,
+               defectSupercharge[2, $q2type, OptionValue["QBar"]],
+               $qdefect == 1,
+               defectSupercharge[1, $q1angle]
+            ]
+         ]
+     , Tensor[fields]], 
+      "Vacuum" -> True], "Defect" -> OptionValue["Defect"]];
     eqs = If[expr === 0, {},
     DeleteCases[Thread[Flatten[
         ExpansionComponents[

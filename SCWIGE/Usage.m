@@ -822,5 +822,9 @@ StyleBox[\(\!\(\*
 StyleBox[\"n\",\nFontSlant->\"Italic\"]\)th\)] copy of \!\(\*
 StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) appearing in the decomposition of some global symmetry representation into representations of the remnant global symmetry in the presence of a defect."
 
+ExportResults::usage = "ExportResults[\!\(\*
+StyleBox[\"file\",\nFontSlant->\"Italic\"]\)] generates a notebook containing all correlators and basis functions and exports it to \!\(\*
+StyleBox[\"file\",\nFontSlant->\"Italic\"]\).";
+
 
 EndPackage[]

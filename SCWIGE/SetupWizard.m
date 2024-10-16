@@ -265,6 +265,8 @@ conventionsPanel[] := Row[{Column[Prepend[conventions[1], Style["General convent
    Column[{Style["Spacetime structure building blocks", Bold, 16], Pane[Column[conventions[2]] //TraditionalForm, ImageSize -> {700, 500}, Scrollbars -> True]}, Spacings -> 1]
 }, Alignment -> Top];
 
+ExportResults[file_] := NotebookSave[resultsNotebook[], file];
+
 resultsNotebook[] := CreateDocument[{
    Cell[TextData[{ButtonBox["SCWIGE", BaseStyle->"Hyperlink", ButtonData->{URL["https://github.com/srossd/SCWIGE"], None}, ButtonNote->"https://github.com/srossd/SCWIGE"], " Results"}], "Title"],
    CellGroup[{
