@@ -1,6 +1,6 @@
 (* Wolfram Language package *)
 
-timeString[secs_?NumericQ] := timeString[Round[secs]];
+timeString[secs_?NumericQ] /; !IntegerQ[secs] := timeString[Round[secs]];
 timeString[secs_Integer] := If[secs <= 60, ToString[secs] <> "s", ToString[Floor[secs/60]] <> "m" <> ToString[Mod[secs, 60]] <> "s"];
 timeString[str_String] := str;
 
@@ -34,7 +34,7 @@ If[$consoleMode,
           elem,
           vars
        ];
-       Run["cls"];
+       Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
        ans
    ];
    monitorProgress[Fold[f_, x_, list_], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, resolution, ans},
