@@ -157,40 +157,73 @@ fittedRelations[structs_] := fittedRelations[structs] =
    step = 0;
    sols = {};
    safes = RandomSample[safeCrossRatios[q]];
-   Monitor[While[! FreeQ[ans, None], 
-     sols = 
-      Join[sols, 
-       Table[Simplify@
-         Quiet@Check[{safes[[ii]], 
-            Table[If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
-               LinearSolve[
-              structComps[[;; , idxs]] /. 
-               Thread[crossRatios[q] -> safes[[ii]]], 
-              structComps[[;; , other[[j]]]] /. 
-               Thread[crossRatios[q] -> safes[[ii]]]],
-               Table[0, Length[idxs]]
-            ], {j, Length[other]}]}, 
-           Nothing], {ii, 
-         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
-     Do[If[ans[{j, idxs[[i]]}] === -None, 
-       ans[{j, idxs[[i]]}] = -((fitRational[sols /. {{uvs__}, b_} :> {uvs, b[[j, i]]}, 
-           step,
-           "Prefactors" -> 
-            Which[q === None, {1 &, Sqrt[#1] &, Sqrt[#2] &, Sqrt[#1 #2] &}, 
-             q === 2, {1 &, Sqrt[1 - #2^2] &}, True, {1 &}]] @@ crossRatios[q]) /. _None -> None)], {j, 
-       Length[other]}, {i, Length[idxs]}];
-       step = step + 1],
-    Panel[Row[{Column[{
-       Style["Spacetime Structure Relations", 14, Bold], 
-       Spacer[10], 
-       Style[ToString@StringForm["Degree ``", step], Bold], 
-       Spacer[10], 
-       ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 5], (step + 1)(step + 2) + 5]
-     }], Spacer[50], 
-      MatrixPlot[
-       Table[If[ans[{j, idxs[[i]]}] === -None, Orange, White], {j, 
-         Length[other]}, {i, Length[idxs]}], FrameTicks -> None, Mesh -> True, ImageSize -> 100]}]]
-    ];
+   If[!$consoleMode,
+	   Monitor[While[! FreeQ[ans, None], 
+	     sols = 
+	      Join[sols, 
+	       Table[Simplify@
+	         Quiet@Check[{safes[[ii]], 
+	            Table[If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
+	               LinearSolve[
+	              structComps[[;; , idxs]] /. 
+	               Thread[crossRatios[q] -> safes[[ii]]], 
+	              structComps[[;; , other[[j]]]] /. 
+	               Thread[crossRatios[q] -> safes[[ii]]]],
+	               Table[0, Length[idxs]]
+	            ], {j, Length[other]}]}, 
+	           Nothing], {ii, 
+	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
+	     Do[If[ans[{j, idxs[[i]]}] === -None, 
+	       ans[{j, idxs[[i]]}] = -((fitRational[sols /. {{uvs__}, b_} :> {uvs, b[[j, i]]}, 
+	           step,
+	           "Prefactors" -> 
+	            Which[q === None, {1 &, Sqrt[#1] &, Sqrt[#2] &, Sqrt[#1 #2] &}, 
+	             q === 2, {1 &, Sqrt[1 - #2^2] &}, True, {1 &}]] @@ crossRatios[q]) /. _None -> None)], {j, 
+	       Length[other]}, {i, Length[idxs]}];
+	       step = step + 1],
+	    Panel[Row[{Column[{
+	       Style["Spacetime Structure Relations", 14, Bold], 
+	       Spacer[10], 
+	       Style[ToString@StringForm["Degree ``", step], Bold], 
+	       Spacer[10], 
+	       ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 5], (step + 1)(step + 2) + 5]
+	     }], Spacer[50], 
+	      MatrixPlot[
+	       Table[If[ans[{j, idxs[[i]]}] === -None, Orange, White], {j, 
+	         Length[other]}, {i, Length[idxs]}], FrameTicks -> None, Mesh -> True, ImageSize -> 100]}]]
+	    ],
+	    While[! FreeQ[ans, None], 
+	     sols = 
+	      Join[sols, 
+	       Table[
+	       	 Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
+	         Print["Spacetime Structure Relations"];
+	         Print["Degree ",step];
+	         Print[ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 5], (step + 1)(step + 2) + 5]];
+	         Print[ToString@StringForm["Found functions: ``/``", Sum[Boole[ans[{j, idxs[[i]]}] =!= -None], {j, Length[other]}, {i, Length[idxs]}], Length[other] Length[idxs]]];
+	         
+	         Simplify@
+	         Quiet@Check[{safes[[ii]], 
+	            Table[If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
+	               LinearSolve[
+	              structComps[[;; , idxs]] /. 
+	               Thread[crossRatios[q] -> safes[[ii]]], 
+	              structComps[[;; , other[[j]]]] /. 
+	               Thread[crossRatios[q] -> safes[[ii]]]],
+	               Table[0, Length[idxs]]
+	            ], {j, Length[other]}]}, 
+	           Nothing], {ii, 
+	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
+	     Do[If[ans[{j, idxs[[i]]}] === -None, 
+	       ans[{j, idxs[[i]]}] = -((fitRational[sols /. {{uvs__}, b_} :> {uvs, b[[j, i]]}, 
+	           step,
+	           "Prefactors" -> 
+	            Which[q === None, {1 &, Sqrt[#1] &, Sqrt[#2] &, Sqrt[#1 #2] &}, 
+	             q === 2, {1 &, Sqrt[1 - #2^2] &}, True, {1 &}]] @@ crossRatios[q]) /. _None -> None)], {j, 
+	       Length[other]}, {i, Length[idxs]}];
+	       step = step + 1];
+	   Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
+   ];
    
    If[Length[other] == 0,
       {},
