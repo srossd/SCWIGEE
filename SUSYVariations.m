@@ -165,7 +165,7 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 	
 	If[OptionValue["MonitorProgress"],
 	    Do[
-			ResourceFunction["MonitorProgress"][
+			monitorProgress[
 				Do[
 					If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
 					If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True];,
@@ -215,7 +215,7 @@ groupOf[f_Operator] := Module[{mult, conj, bottom, dimdiff, ydiff},
 ];
    
 Options[linearEquations] = {"MaxDepth" -> 0};
-linearEquations[i_, opt: OptionsPattern[]] := linearEquations[i, opt] = DeleteCases[Reduce /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
+linearEquations[i_, opt: OptionsPattern[]] := linearEquations[i, opt] = DeleteCases[Reduce /@ Thread[Flatten @ monitorProgress[
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator@NormalOrder[TensorProduct[QTensor["QBar" -> qbar], Tensor[{op1, op2}]], "Vacuum" -> True],
 		   {op1, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"] - 1}, {k, 0, OptionValue["MaxDepth"] - 1 - j}]]]}, 
@@ -227,7 +227,7 @@ linearEquations[i_, opt: OptionsPattern[]] := linearEquations[i, opt] = DeleteCa
 	] == 0], True];
 	
 Options[quadraticEquations] = {"MaxDepth" -> 0};
-quadraticEquations[i_, opt: OptionsPattern[]] := quadraticEquations[i, opt] = DeleteDuplicates@DeleteCases[Simplify[Reduce[#], _SUSYCoefficient != 0] & /@ Thread[Flatten @ ResourceFunction["MonitorProgress"][
+quadraticEquations[i_, opt: OptionsPattern[]] := quadraticEquations[i, opt] = DeleteDuplicates@DeleteCases[Simplify[Reduce[#], _SUSYCoefficient != 0] & /@ Thread[Flatten @ monitorProgress[
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator[TensorProduct[quadraticZero[op1], Tensor[{op2}]]],
 		   {op1, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"] - 1}, {k, 0, OptionValue["MaxDepth"] - 1 - j}]]]}, 

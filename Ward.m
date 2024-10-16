@@ -82,7 +82,7 @@ solveData[m_, b_, num_] :=
         Derivative[__][(Alternatives @@ 
             $ArbitraryFunctions)][__], All], 
     crM = clearRadicals[m]}, 
-   ResourceFunction["MonitorProgress"][
+   monitorProgress[
     Table[{uv, 
       Simplify@
         LinearSolve[
@@ -109,7 +109,7 @@ wardSolveFit[eqs_, vars_] :=
    With[{b = -bm[[1]], m = bm[[2]]}, 
     With[{crM = clearRadicals[m]}, 
      With[{indIdxs = 
-        ResourceFunction["MonitorProgress"][
+        monitorProgress[
          Fold[If[Length[#1] < Length[vars] && 
              indQ[
               crM[[1, #1]] /. 
@@ -123,7 +123,7 @@ wardSolveFit[eqs_, vars_] :=
       With[{sd = 
          solveData[m[[indIdxs]], b[[indIdxs]], 7]},
        Thread[
-        vars -> ResourceFunction["MonitorProgress"][
+        vars -> monitorProgress[
           Table[With[{terms = 
               DeleteDuplicates@
                Cases[sd[[;; , 2, 

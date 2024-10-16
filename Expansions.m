@@ -62,7 +62,7 @@ RPart[a_ b_] /; FreeQ[a, Tensor] := RPart[b];
 NonRPart[a_ b_] /; FreeQ[a, Tensor] := NonRPart[b];
    
 Options[RRelations] = {"MonitorProgress" -> False};
-RRelations[largebasis_, OptionsPattern[]] := Module[{relations, choice, tmp},
+RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, choice, tmp},
 	If[OptionValue["MonitorProgress"], tmp = PrintTemporary["Calculating R-symmetry structure relations..."]];
 	choice = 
 	  With[{size = Length@Flatten@CanonicallyOrderedComponents[largebasis[[1]]]}, 

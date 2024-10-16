@@ -6,7 +6,8 @@ Get[ "SCWIGE`Usage`"];
 
 Begin["`Private`"];
 
-SetOptions[EvaluationNotebook[], CommonDefaultFormatTypes -> {"Output" -> TraditionalForm}]
+$consoleMode = ($FrontEnd === Null);
+If[!$consoleMode, SetOptions[EvaluationNotebook[], CommonDefaultFormatTypes -> {"Output" -> TraditionalForm}]];
 
 Get[ "SCWIGE`Definitions`"]
 Get[ "SCWIGE`Utilities`"]

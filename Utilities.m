@@ -1,15 +1,84 @@
 (* Wolfram Language package *)
+
+timeString[secs_?NumericQ] := timeString[Round[secs]];
+timeString[secs_Integer] := If[secs <= 60, ToString[secs] <> "s", ToString[Floor[secs/60]] <> "m" <> ToString[Mod[secs, 60]] <> "s"];
+timeString[str_String] := str;
+
+progressString[done_, total_] := StringJoin @@ Flatten[{"[", Table["=", done], Table[" ", total - done], "]"}];
+
+Options[monitorProgress] = {"Resolution" -> Automatic, "Label" -> None, "CurrentDisplayFunction" -> Full};
+SetAttributes[monitorProgress, HoldFirst];
+If[$consoleMode,
+   monitorProgress[(h: Do | Table)[elem_, vars__], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, estimate},
+       total = Length@Flatten[Table[Null, vars]];
+       current = 1;
+       start = AbsoluteTime[];
+       resolution = OptionValue["Resolution"] /. Automatic -> 20;
+       ans = h[
+          elapsed = If[current > 1, AbsoluteTime[] - start, "NA"];
+          steptime = If[current > 1, elapsed/(current - 1), "NA"];
+          totaltime = If[current > 1, steptime total, "NA"];
+          remaining = If[current > 1, totaltime - elapsed, "NA"];
+           
+          Run["cls"];
+          If[OptionValue["Label"] =!= None, Print[OptionValue["Label"]]];
+          Print["Current item: ",current];
+          Print["Progress: ", current - 1, "/", total];  
+          Print["Time elapsed: ", timeString[elapsed]];
+          Print["Time per step: ", timeString[steptime]];
+          Print["Est. time remaining: ", timeString[remaining]];
+          Print["Est. total time: ", timeString[totaltime]];	
+          Print[progressString[Floor[(current - 1)*resolution/total], resolution]];
+          current += 1;
+          
+          elem,
+          vars
+       ];
+       Run["cls"];
+       ans
+   ];
+   monitorProgress[Fold[f_, x_, list_], OptionsPattern[]] := Module[{start, elapsed, current, total, remaining, totaltime, steptime, estimate},
+       total = Length[list];
+       current = 1;
+       start = AbsoluteTime[];
+       resolution = OptionValue["Resolution"] /. Automatic -> 20;
+       ans = Fold[
+          elapsed = If[current > 1, AbsoluteTime[] - start, "NA"];
+          steptime = If[current > 1, elapsed/(current - 1), "NA"];
+          totaltime = If[current > 1, steptime total, "NA"];
+          remaining = If[current > 1, totaltime - elapsed, "NA"];
+           
+          Run["cls"];
+          If[OptionValue["Label"] =!= None, Print[OptionValue["Label"]]];
+          Print["Current item: ",current];
+          Print["Progress: ", current - 1, "/", total];  
+          Print["Time elapsed: ", timeString[elapsed]];
+          Print["Time per step: ", timeString[steptime]];
+          Print["Est. time remaining: ", timeString[remaining]];
+          Print["Est. total time: ", timeString[totaltime]];	
+          Print[progressString[Floor[(current - 1)*resolution/total], resolution]];
+          current += 1;
+          
+          elem,
+          vars
+       ];
+       Run["cls"];
+       ans
+   ];
+   ,
+   monitorProgress[expr_, opt : OptionsPattern[]] := ResourceFunction["MonitorProgress"][expr, opt]
+];
     
 zeroVecQ[vec_] := MatchQ[vec,{0..}] || MatchQ[Simplify[ArrayRules[vec][[;;,2]]],{0..}];
     
 (* fix this to prevent false positive *)
 indQ[basis_, vec_] := Length[basis] == 0 || (! zeroVecQ[vec] && 
-   If[Length[basis[[1]]] < 10  Length[basis],
+   If[Length[basis[[1]]] < Max[2000, 20  Length[basis]],
     Quiet@Check[LinearSolve[Transpose[basis], vec]; False, True],
     Module[{nzidxs, chosen, sol, sbz},
      nzidxs = Select[ArrayRules[vec][[;; , 1, 1]], IntegerQ];
      chosen = 
-      RandomSample[nzidxs, Min[Length[nzidxs], 10  Length[basis]]];
+      RandomSample[nzidxs, Min[Length[nzidxs], 20  Length[basis]]];
       sol = Quiet@LinearSolve[Transpose[basis][[chosen]], vec[[chosen]]];
       If[Head[sol] === LinearSolve,
          True,
@@ -25,7 +94,7 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
    If[TrueQ[OptionValue["Indices"]], {1}, tensors[[{1}]]],
    With[{indices = Module[{runningComps = SparseArray[{}, {Length[tensors], If[!ArrayQ[tensors[[1]]], Times @@ (First@*IndexData@*First /@ Indices[tensors[[1]]]), Length[Flatten[tensors[[1]]]]]}]},
 	If[TrueQ[OptionValue["MonitorProgress"]] || ArrayQ[OptionValue["MonitorProgress"]],
-		ResourceFunction["MonitorProgress"][
+		monitorProgress[
 			Fold[
 			   If[OptionValue["MaxIndependent"] == 0 || Length[#1] < OptionValue["MaxIndependent"],
 				    With[{comp = Flatten@Normal@CanonicallyOrderedComponents[tensors[[#2]]] /. OptionValue["Rules"]},
@@ -123,7 +192,7 @@ expansion[structure_, basis_, relations_] :=
 
 solveGroups::nosol = "No solution could be found.";
 solveGroups[grps_, vars_, rules_, assum_] := 
- ResourceFunction["MonitorProgress"][Fold[
+monitorProgress[Fold[
    With[{sol = Quiet[Assuming[assum, Simplify@With[{tmp = Solve[#2 /. #1, vars]},
       If[tmp === {}, Missing[], First[tmp]]
    ]]]},
