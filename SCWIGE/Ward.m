@@ -50,7 +50,7 @@ superprimaryQ[f_Operator] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension]
 superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
-Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False, "UseSUSYRules" -> True};
+Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False, "UseSUSYRules" -> True, "EquationGroupSize" -> 10};
 SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
 SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm, swapRules},
@@ -68,7 +68,7 @@ SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm, sw
 	   If[ AllTrue[bm[[1]], # === 0 &],
 	      Thread[vars -> 0],
 	      With[{rules = Thread[crossRatios[If[OptionValue["Defect"], $qdefect, None]] -> Take[{Catalan, EulerGamma}, Length[crossRatios[If[OptionValue["Defect"], $qdefect, None]]]]]},
-	      Sort[solveGroups[Partition[eqs /. rules, UpTo[1]], vars /. rules, {}, {}] /. (Reverse /@ rules)]
+	      Sort[solveGroups[Partition[eqs /. rules, UpTo[OptionValue["EquationGroupSize"]]], vars /. rules, {}, {}] /. (Reverse /@ rules)]
 	      ]
 	   ]
 	 ]
