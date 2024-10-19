@@ -62,7 +62,7 @@ RPart[a_ b_] /; FreeQ[a, Tensor] := RPart[b];
 NonRPart[a_ b_] /; FreeQ[a, Tensor] := NonRPart[b];
    
 Options[RRelations] = {"MonitorProgress" -> False};
-RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, choice, tmp},
+RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, choice},
 	choice = 
 	  With[{size = Length@Flatten@CanonicallyOrderedComponents[largebasis[[1]]]}, 
 	   RandomSample[Range@size, Min[5000, size]]];
@@ -74,7 +74,8 @@ RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{re
 	       If[OptionValue["MonitorProgress"],
 	       monitorProgress[Table[
 	         Flatten[CanonicallyOrderedComponents[largebasis[[ri]]]][[
-	          choice]], {ri, Length[largebasis]}], "Label" -> "Global symmetry structure relations"
+	          choice]], {ri, Length[largebasis]}], "Label" -> "Global symmetry structure relations",
+				"CurrentDisplayFunction" -> None
 	        ],
 	        Table[
 	         Flatten[CanonicallyOrderedComponents[largebasis[[ri]]]][[
