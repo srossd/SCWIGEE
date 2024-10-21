@@ -161,40 +161,44 @@ $susyRules = {};
 
 Options[DeclareAlgebra] = {"MonitorProgress" -> True, "MaxDepth" -> 0};
 DeclareAlgebra[OptionsPattern[]] := Module[{},
-	DeclareAnnihilator["Q"]; DeclareAnnihilator["\!\(\*OverscriptBox[\(Q\), \(~\)]\)"];
-	
-	If[OptionValue["MonitorProgress"],
-	    Do[
-			monitorProgress[
-				Do[
-					If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
-					If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True];,
-					{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
+    If[!TrueQ[$algebraDeclared],
+		DeclareAnnihilator["Q"]; DeclareAnnihilator["\!\(\*OverscriptBox[\(Q\), \(~\)]\)"];
+		
+		If[OptionValue["MonitorProgress"],
+		    Do[
+				monitorProgress[
+					Do[
+						If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
+						If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True];,
+						{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
+					],
+					"Label" -> "Determining SUSY ansatzes ("<>$multipletName[i]<>")",
+					"CurrentDisplayFunction" -> None
 				],
-				"Label" -> "Determining SUSY ansatzes ("<>$multipletName[i]<>")",
-				"CurrentDisplayFunction" -> None
-			],
-		{i, $multipletIndices}],
-		Do[
-			If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
-			If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True];,
-			{i, $multipletIndices},
-			{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
-		]
-	];
+			{i, $multipletIndices}],
+			Do[
+				If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
+				If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True];,
+				{i, $multipletIndices},
+				{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
+			]
+		];
+		
+		Commutator[$QTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
+		Commutator[$QBarTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
+		Commutator[$QTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
+		Commutator[$QBarTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
+		Commutator[$QTensor, Tensor[{{"C", ___}}]] = 0;
+		Commutator[$QBarTensor, Tensor[{{"C", ___}}]] = 0;
+		Commutator[$QTensor, Tensor[{{"\[Epsilon]", ___}}]] = 0;
+		Commutator[$QBarTensor, Tensor[{{"\[Epsilon]", ___}}]] = 0;
+		Commutator[$QTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
+		Commutator[$QBarTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
+		Commutator[$QTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
+		Commutator[$QBarTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
+    ];
 	
-	Commutator[$QTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
-	Commutator[$QBarTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
-	Commutator[$QTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
-	Commutator[$QBarTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
-	Commutator[$QTensor, Tensor[{{"C", ___}}]] = 0;
-	Commutator[$QBarTensor, Tensor[{{"C", ___}}]] = 0;
-	Commutator[$QTensor, Tensor[{{"\[Epsilon]", ___}}]] = 0;
-	Commutator[$QBarTensor, Tensor[{{"\[Epsilon]", ___}}]] = 0;
-	Commutator[$QTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
-	Commutator[$QBarTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
-	Commutator[$QTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
-	Commutator[$QBarTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
+	$algebraDeclared = True;
 ];
 
 quadraticZero[op_] := quadraticZero[op] = NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] + 

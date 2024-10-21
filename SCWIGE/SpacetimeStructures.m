@@ -163,7 +163,9 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	      Join[sols, 
 	       Table[Simplify@
 	         Quiet@Check[{safes[[ii]], 
-	            Table[If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
+	            If[Length[other] > 50, LaunchKernels[]; DistributeDefinitions[ii, q, ans, idxs, safes, other, structComps, crossRatios]];
+	            If[Length[other] > 50, ParallelTable, Table][
+	               If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
 	               LinearSolve[
 	              structComps[[;; , idxs]] /. 
 	               Thread[crossRatios[q] -> safes[[ii]]], 
@@ -204,7 +206,8 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         
 	         Simplify@
 	         Quiet@Check[{safes[[ii]], 
-	            Table[If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
+	            If[Length[other] > 50, LaunchKernels[]; DistributeDefinitions[ii, q, ans, idxs, safes, other, structComps, crossRatios]];
+	            If[Length[other] > 50, ParallelTable, Table][If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
 	               LinearSolve[
 	              structComps[[;; , idxs]] /. 
 	               Thread[crossRatios[q] -> safes[[ii]]], 
