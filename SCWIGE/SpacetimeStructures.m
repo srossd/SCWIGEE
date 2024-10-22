@@ -218,7 +218,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         Quiet@Check[{safes[[ii]], 
 	            If[Length[todo] > $parallelCutoff, ParallelTable, Table][
 	            If[MemberQ[todo, j],
-	               LinearSolve[mat1, mat2[[j]]],
+	               LinearSolve[mat1, mat2[[;;, j]]],
 	               Table[0, Length[idxs]]
 	            ], {j, Length[other]}]}, 
 	           Nothing], {ii, 
