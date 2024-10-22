@@ -134,20 +134,22 @@ SpacetimeRelations[structs_] :=
    	 SymbolicSpacetimeRelations[structs]
   ];
   
+$parallelCutoff = 4 $ProcessorCount;
 fittedRelations[structs_] := fittedRelations[structs] =
-  Module[{q, structComps, idxs, other, ans, step, sols, safes},
+  Module[{q, crReplacement, structComps, idxs, other, ans, step, sols, safes, rule, todo},
    q = First@
      Cases[structs, SpacetimeStructure[___, q_, _] :> q, All];
+   crReplacement = Thread[crossRatios[q] -> (ToExpression["\\[Formal" <> # <> "]"] & /@ RotateLeft[Capitalize@Alphabet[], 20])[[;; Length[crossRatios[q]]]]]; (* needed for parallelization *)
    structComps = 
     Flatten[Table[
       Transpose@
         ArrayFlatten[
          Flatten@*List@*CanonicallyOrderedComponents /@ structs] /. 
-       genericPoint[q, z], {z, 2, 5}], 1];
+       genericPoint[q, z], {z, 2, 5}], 1] /. crReplacement;
    idxs = 
     Sort[Length[structs] + 1 - 
       IndependentSet[Reverse@Transpose@structComps, 
-       "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], 
+       "Rules" -> Thread[(crossRatios[q] /. crReplacement) -> safeCrossRatios[q][[37]]], 
        "Indices" -> True]];
    other = Complement[Range@Length[structs], idxs];
    ans = 
@@ -159,18 +161,17 @@ fittedRelations[structs_] := fittedRelations[structs] =
    safes = RandomSample[safeCrossRatios[q]];
    If[!$consoleMode,
 	   Monitor[While[! FreeQ[ans, None], 
+	     todo = Select[Range@Length[other], Function[j, AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &]]];
+	     If[Length[todo] > $parallelCutoff && $KernelCount < $ProcessorCount, LaunchKernels[$ProcessorCount]; DistributeDefinitions[todo, structComps, idxs, other]];
 	     sols = 
 	      Join[sols, 
-	       Table[Simplify@
-	         Quiet@Check[{safes[[ii]], 
-	            If[Length[other] > 50, LaunchKernels[]; DistributeDefinitions[ii, q, ans, idxs, safes, other, structComps, crossRatios]];
-	            If[Length[other] > 50, ParallelTable, Table][
-	               If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
-	               LinearSolve[
-	              structComps[[;; , idxs]] /. 
-	               Thread[crossRatios[q] -> safes[[ii]]], 
-	              structComps[[;; , other[[j]]]] /. 
-	               Thread[crossRatios[q] -> safes[[ii]]]],
+	       Table[
+	          rule = Thread[(crossRatios[q] /. crReplacement) -> safes[[ii]]];
+	          If[Length[todo] > $parallelCutoff, DistributeDefinitions[rule]];
+	          Simplify@Quiet@Check[{safes[[ii]], 
+	            If[Length[todo] > $parallelCutoff, ParallelTable, Table][
+	               If[MemberQ[todo, j],
+	               LinearSolve[structComps[[;; , idxs]] /. rule, structComps[[;; , other[[j]]]] /. rule],
 	               Table[0, Length[idxs]]
 	            ], {j, Length[other]}]}, 
 	           Nothing], {ii, 
@@ -195,6 +196,8 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         Length[other]}, {i, Length[idxs]}], FrameTicks -> None, Mesh -> True, ImageSize -> 100]}]]
 	    ],
 	    While[! FreeQ[ans, None], 
+	     todo = Select[Range@Length[other], Function[j, AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &]]];
+	     If[Length[todo] > $parallelCutoff && $KernelCount < $ProcessorCount, LaunchKernels[$ProcessorCount]; DistributeDefinitions[todo, structComps, idxs, other]];
 	     sols = 
 	      Join[sols, 
 	       Table[
@@ -204,15 +207,14 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         Print[ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 5], (step + 1)(step + 2) + 5]];
 	         Print[ToString@StringForm["Found functions: ``/``", Sum[Boole[ans[{j, idxs[[i]]}] =!= -None], {j, Length[other]}, {i, Length[idxs]}], Length[other] Length[idxs]]];
 	         
+          	 rule = Thread[(crossRatios[q] /. crReplacement) -> safes[[ii]]];
+          	 If[Length[todo] > $parallelCutoff, DistributeDefinitions[rule]];
+          	 
 	         Simplify@
 	         Quiet@Check[{safes[[ii]], 
-	            If[Length[other] > 50, LaunchKernels[]; DistributeDefinitions[ii, q, ans, idxs, safes, other, structComps, crossRatios]];
-	            If[Length[other] > 50, ParallelTable, Table][If[AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &],
-	               LinearSolve[
-	              structComps[[;; , idxs]] /. 
-	               Thread[crossRatios[q] -> safes[[ii]]], 
-	              structComps[[;; , other[[j]]]] /. 
-	               Thread[crossRatios[q] -> safes[[ii]]]],
+	            If[Length[todo] > $parallelCutoff, ParallelTable, Table][
+	            If[MemberQ[todo, j],
+	               LinearSolve[structComps[[;; , idxs]] /. rule, structComps[[;; , other[[j]]]] /. rule],
 	               Table[0, Length[idxs]]
 	            ], {j, Length[other]}]}, 
 	           Nothing], {ii, 
