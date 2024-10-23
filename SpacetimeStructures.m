@@ -134,22 +134,20 @@ SpacetimeRelations[structs_] :=
    	 SymbolicSpacetimeRelations[structs]
   ];
   
-$parallelCutoff = 4 $ProcessorCount;
 fittedRelations[structs_] := fittedRelations[structs] =
-  Module[{q, crReplacement, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
+  Module[{q, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
    q = First@
      Cases[structs, SpacetimeStructure[___, q_, _] :> q, All];
-   crReplacement = Thread[crossRatios[q] -> (ToExpression["\\[Formal" <> # <> "]"] & /@ RotateLeft[Capitalize@Alphabet[], 20])[[;; Length[crossRatios[q]]]]]; (* needed for parallelization *)
    structComps = 
     Flatten[Table[
       Transpose@
         ArrayFlatten[
          Flatten@*List@*CanonicallyOrderedComponents /@ structs] /. 
-       genericPoint[q, z], {z, 2, 5}], 1] /. crReplacement;
+       genericPoint[q, z], {z, 2, 5}], 1];
    idxs = 
     Sort[Length[structs] + 1 - 
       IndependentSet[Reverse@Transpose@structComps, 
-       "Rules" -> Thread[(crossRatios[q] /. crReplacement) -> safeCrossRatios[q][[37]]], 
+       "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], 
        "Indices" -> True]];
    other = Complement[Range@Length[structs], idxs];
    ans = 
@@ -162,20 +160,13 @@ fittedRelations[structs_] := fittedRelations[structs] =
    If[!$consoleMode,
 	   Monitor[While[! FreeQ[ans, None], 
 	     todo = Select[Range@Length[other], Function[j, AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &]]];
-	     If[Length[todo] > $parallelCutoff && $KernelCount < $ProcessorCount, LaunchKernels[$ProcessorCount]; DistributeDefinitions[todo, $parallelCutoff]];
 	     sols = 
 	      Join[sols, 
 	       Table[
-	          rule = Thread[(crossRatios[q] /. crReplacement) -> safes[[ii]]];
+	          rule = Thread[crossRatios[q] -> safes[[ii]]];
 	          mat1 = structComps[[;; , idxs]] /. rule;
-	          mat2 = structComps[[;;, other]] /. rule;
-	          If[Length[todo] > $parallelCutoff, DistributeDefinitions[mat1, mat2, rule]];
-	          Simplify@Quiet@Check[{safes[[ii]], 
-	            If[Length[todo] > $parallelCutoff, ParallelTable, Table][
-	               If[MemberQ[todo, j],
-	               LinearSolve[mat1, mat2[[;;, j]]],
-	               Table[0, Length[idxs]]
-	            ], {j, Length[other]}]}, 
+	          mat2 = structComps[[;;, other[[todo]]]] /. rule;
+	          Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
 	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
 	     Do[If[ans[{j, idxs[[i]]}] === -None, 
@@ -199,7 +190,6 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	    ],
 	    While[! FreeQ[ans, None], 
 	     todo = Select[Range@Length[other], Function[j, AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &]]];
-	     If[Length[todo] > $parallelCutoff && $KernelCount < $ProcessorCount, Print["Launching ",$ProcessorCount," kernels"]; LaunchKernels[$ProcessorCount]; DistributeDefinitions[todo, $parallelCutoff]];
 	     sols = 
 	      Join[sols, 
 	       Table[
@@ -209,18 +199,11 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         Print[ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 5], (step + 1)(step + 2) + 5]];
 	         Print[ToString@StringForm["Found functions: ``/``", Sum[Boole[ans[{j, idxs[[i]]}] =!= -None], {j, Length[other]}, {i, Length[idxs]}], Length[other] Length[idxs]]];
 	         
-          	 rule = Thread[(crossRatios[q] /. crReplacement) -> safes[[ii]]];
+          	 rule = Thread[crossRatios[q] -> safes[[ii]]];
 	          mat1 = structComps[[;; , idxs]] /. rule;
 	          mat2 = structComps[[;;, other]] /. rule;
-          	 If[Length[todo] > $parallelCutoff, DistributeDefinitions[mat1, mat2, rule]];
           	 
-	         Simplify@
-	         Quiet@Check[{safes[[ii]], 
-	            If[Length[todo] > $parallelCutoff, ParallelTable, Table][
-	            If[MemberQ[todo, j],
-	               LinearSolve[mat1, mat2[[;;, j]]],
-	               Table[0, Length[idxs]]
-	            ], {j, Length[other]}]}, 
+	         Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
 	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
 	     Do[If[ans[{j, idxs[[i]]}] === -None, 
