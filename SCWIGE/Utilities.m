@@ -216,3 +216,5 @@ withCounts[xs_] := Last@FoldList[
 (* SortBy without breaking ties by canonical order *)
 stableSortBy[xs_, f_] := FixedPoint[Replace[#, {a___, x_, y_, b___} /; ! OrderedQ[{f[x], f[y]}] :> {a, y, x, b}] &, xs];
 stableOrderingBy[xs_, f_] := PermutationList[FindPermutation[stableSortBy[xs, f], xs], Length[xs]];
+
+unrollRows[mat_, subset_, numRows_] := SparseArray[ArrayRules[mat] /. {a_Integer, b_Integer} :> {subset[[a]], b}, {numRows, Length[mat[[1]]]}];
