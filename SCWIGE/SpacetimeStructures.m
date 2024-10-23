@@ -201,7 +201,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         
           	 rule = Thread[crossRatios[q] -> safes[[ii]]];
 	          mat1 = structComps[[;; , idxs]] /. rule;
-	          mat2 = structComps[[;;, other]] /. rule;
+	          mat2 = structComps[[;;, other[[todo]]]] /. rule;
           	 
 	         Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
