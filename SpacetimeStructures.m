@@ -135,7 +135,7 @@ SpacetimeRelations[structs_] :=
   ];
   
 fittedRelations[structs_] := fittedRelations[structs] =
-  Module[{q, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
+  Block[{q, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
    q = First@
      Cases[structs, SpacetimeStructure[___, q_, _] :> q, All];
    structComps = 
