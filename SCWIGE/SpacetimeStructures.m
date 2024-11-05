@@ -199,7 +199,16 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	         Print[ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 5], (step + 1)(step + 2) + 5]];
 	         Print[ToString@StringForm["Found functions: ``/``", Sum[Boole[ans[{j, idxs[[i]]}] =!= -None], {j, Length[other]}, {i, Length[idxs]}], Length[other] Length[idxs]]];
 	         
-          	 rule = Thread[crossRatios[q] -> safes[[ii]]];
+          	 structComps = Flatten[Table[Transpose[Table[Flatten[{
+   			     Which[
+   			        !MemberQ[Join[idxs, other[[todo]]], structIdx],
+   			        Table[0, Length[structComps] / (zmax - 1)],
+   			        First@Cases[structs[[structIdx]], SpacetimeStructure[_, spins_, __] :> 2 Total[Flatten[spins]], All] >= 6,
+   			     	fastEval[structs[[structIdx]], q, z, safes[[ii]]],
+   			     	True,
+   			     	Normal[CanonicallyOrderedComponents[structs[[structIdx]]]] /. genericPoint[q, z] /. Thread[crossRatios[q] -> safes[[ii]]]
+   			     ]
+   			   }], {structIdx, Length[structs]}]], {z, 2, zmax}], 1];
 	          mat1 = structComps[[;; , idxs]] /. rule;
 	          mat2 = structComps[[;;, other[[todo]]]] /. rule;
           	 
