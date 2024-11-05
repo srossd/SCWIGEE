@@ -13,15 +13,15 @@ crossRatios[None] = {u, v};
 crossRatios[1] = {u};
 crossRatios[q_Integer] /; q > 1 := {u,v};
 
-safeCrossRatios[1] := List /@ (FareySequence[70]^2);
+safeCrossRatios[1] = RandomSample[List /@ (FareySequence[70]^2)];
         
-safeCrossRatios[qq_Integer] /; qq > 1 := safeCrossRatios[qq] = Module[{qs, vs},
+safeCrossRatios[qq_Integer] /; qq > 1 := safeCrossRatios[qq] = RandomSample@Module[{qs, vs},
 	qs = Select[Rest@Most@FareySequence[70], FreeQ[Sqrt[2 # (Sqrt[1 + #^2] + #) + 1], Power[_, 1/2] | Power[_, -1/2]] &];
 	vs = Select[Rest@Most@FareySequence[70], FreeQ[Sqrt[#^2 - 1], Power[_, 1/2] | Power[_, -1/2]] &];
 	Rest@Flatten[Table[{(Sqrt[1 + q^2] - v)/2, v}, {q, qs}, {v, vs}], 1]
 ];
    
-safeCrossRatios[None] = {{1, 36/25}, {1, 100/169}, {1, 256/289}, {1, 1600/841}, {1, 
+safeCrossRatios[None] = RandomSample@{{1, 36/25}, {1, 100/169}, {1, 256/289}, {1, 1600/841}, {1, 
     3136/2809}, {1, 4356/4225}, {1, 5184/7225}, {1, 6084/7921}, {1, 
     9216/5329}, {1, 14400/11881}, {9/16, 25/16}, {9/16, 1369/
     2704}, {16/9, 1369/1521}, {16/9, 8281/12321}, {25/16, 9/16}, {25/
@@ -138,17 +138,9 @@ fittedRelations[structs_] := fittedRelations[structs] =
   Block[{q, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
    q = First@
      Cases[structs, SpacetimeStructure[___, q_, _] :> q, All];
-   structComps = 
-    Flatten[Table[
-      Transpose@
-        ArrayFlatten[
-         Flatten@*List@*CanonicallyOrderedComponents /@ structs] /. 
-       genericPoint[q, z], {z, 2, 5}], 1];
-   idxs = 
-    Sort[Length[structs] + 1 - 
-      IndependentSet[Reverse@Transpose@structComps, 
-       "Rules" -> Thread[crossRatios[q] -> safeCrossRatios[q][[37]]], 
-       "Indices" -> True]];
+   safes = safeCrossRatios[q];
+   structComps = Flatten[Table[Transpose[ArrayFlatten[Flatten[{fastEval[#, q, z, safes[[1]]]}] & /@ structs]], {z, 2, 5}], 1];
+   idxs = Sort[Length[structs] + 1 - IndependentSet[Reverse@Transpose@structComps, "Indices" -> True]];
    other = Complement[Range@Length[structs], idxs];
    ans = 
     Association@
@@ -156,16 +148,23 @@ fittedRelations[structs_] := fittedRelations[structs] =
        Length[idxs]}];
    step = 0;
    sols = {};
-   safes = RandomSample[safeCrossRatios[q]];
    If[!$consoleMode,
 	   Monitor[While[! FreeQ[ans, None], 
 	     todo = Select[Range@Length[other], Function[j, AnyTrue[ans /@ Table[{j, idx}, {idx, idxs}], # === -None &]]];
 	     sols = 
 	      Join[sols, 
 	       Table[
-	          rule = Thread[crossRatios[q] -> safes[[ii]]];
-	          mat1 = structComps[[;; , idxs]] /. rule;
-	          mat2 = structComps[[;;, other[[todo]]]] /. rule;
+   			  structComps = Flatten[Table[Transpose[Table[Flatten[{
+   			     Which[
+   			        !MemberQ[Join[idxs, other[[todo]]], structidx],
+   			        {},
+   			        First@Cases[structs[[structIdx]], SpacetimeStructure[_, spins_, __] :> 2 Total[Flatten[spins]], All] >= 6,
+   			     	fastEval[structs[[structIdx]], q, z, safes[[ii]]],
+   			     	True,
+   			     	Normal[CanonicallyOrderedComponents[structs[[structIdx]]]] /. genericPoint[q, z] /. Thread[crossRatios[q] -> safes[[ii]]]
+   			   }], {structIdx, Length[structs]}]], {z, 2, 5}], 1];
+	          mat1 = structComps[[;; , idxs]];
+	          mat2 = structComps[[;;, other[[todo]]]];
 	          Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
 	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
@@ -254,6 +253,15 @@ AddSpacetimeStructure[symbol_, q_, npts_, indices_, expr_] := Module[{},
    	
    Structure[symbol, q][idxs__] /; Length[{idxs}] == npts := expr[idxs];
    structIndices[MyInactive[Structure[symbol, q]][idxs__]] /; Length[{idxs}] == npts := indices[idxs];
+   
+   uvz[MyInactive[Structure[symbol, q]][idxs__], perm_, deriv_] /; Length[{idxs}] == npts := uvz[MyInactive[Structure[symbol, q]][idxs], perm, deriv] = SparseArray@TensorTranspose[Simplify[
+      Normal[CanonicallyOrderedComponents[
+         If[deriv === None, expr[idxs], TensorSpinorDerivative[#, deriv] & /@ Expand[expr[idxs]]]
+      ]] /. (genericPoint[q, zValue] /. x[i_, j_] :> x[InversePermutation[perm][[i]], j]), 
+      crossRatioAssumptions[q]
+   	], 
+   	Ordering@If[deriv === None, indices[idxs][[;;,2]], Join[{Spinor, DottedSpinor}, indices[idxs][[;;,2]]]]
+   ];
    
    validStruct[MyInactive[Structure[symbol, q]][idxs__]] /; Length[{idxs}] == npts := (
    	Length[DeleteDuplicates[{idxs}]] == npts && 
@@ -510,3 +518,63 @@ BuildTensor[t: {SpacetimeStructure[dims_, ls_, derivs_, perm_, q_, i_], idxs___}
  	expr = TensorPermute[baseexpr, fullPerm];
     TensorTranspose[CanonicallyOrderedComponents@expr,Ordering@{idxs}]
    ];
+   
+evalRule[pointperm_, q_, z_, ratios_] := genericPoint[q, z] /. x[i_, j_] :> x[InversePermutation[pointperm][[i]], j] /. Thread[crossRatios[q] -> ratios];
+fastEvalUnordered[s: MyInactive[Structure[symbol_, q_]][idxs__], pointperm_, q_, z_, ratios_, deriv_] := 
+fastEvalUnordered[s, pointperm, q, z, ratios, deriv] = Map[
+   # /. zValue -> z /. Thread[crossRatios[q] -> ratios] &,
+   uvz[s, pointperm, deriv],
+   {If[deriv === None, 2, 4]}
+];
+fastEvalUnordered[{t_, perm_}, pointperm_, q_, z_, ratios_] := Module[{inds = structIndices[t], unsym, syms},
+   unsym = TensorTranspose[
+	   TensorTranspose[Activate[t /. TensorProduct -> Inactive[TensorProduct] /. (s : MyInactive[_][__]) :> fastEvalUnordered[s, pointperm, q, z, ratios, None]], 
+	   	InversePermutation@Ordering@Flatten[structIndices[#][[;; , 2]] & /@ Flatten[{t} /. TensorProduct -> List]]
+	   ], 
+	   Ordering[inds[[;; , 2]]]
+   ];
+   syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &];
+   If[syms == {}, unsym,
+	(1/Length[syms]) TensorTranspose[Sum[TensorTranspose[unsym, p], {p, syms}], perm]
+   ]
+];
+fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {}, perm_, q_, i_], idxs___}, q_, z_, ratios_] := (Explicit[KinematicPrefactor[dims, ls, q]] /. evalRule[perm, q, z, ratios]) fastEvalUnordered[SpacetimeStructureExpressions[ls][[i]], perm, q, z, ratios];
+fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{cr: "u" | "v", j_}}, perm_, q_, i_], idxs___}, q_, z_, ratios_] := Module[{pj, rest, uvd, nbefore, nafter},
+  pj = perm[[j]];
+  rest = fastEvalUnordered[{SpacetimeStructure[dims, ls, {}, perm, q, i], idxs}, q, z, ratios];
+  uvd = Map[# /. evalRule[{1,2,3,4}, q, z, ratios] &, Components[TensorSpinorDerivative[ToExpression[cr][perm], pj]], {2}];
+  nbefore = 2 Total[Flatten[ls[[;;j - 1]]]];
+  nafter = 2 Total[Flatten[ls[[j;;]]]];
+  TensorTranspose[TensorProduct[uvd, rest], Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nafter]]]
+];
+fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{"\[Partial D]", j_}}, perm_, q_, i_], idxs___}, q_, z_, ratios_] := Module[{prefactor, pj, expr, factors, derivfactors, inds, syms, nbefore, nafter, tmp},
+  prefactor = Explicit@KinematicPrefactor[dims, ls, q];
+  pj = perm[[j]];
+  expr = SpacetimeStructureExpressions[ls][[i]];
+  factors = Table[fastEvalUnordered[s, perm, q, z, ratios, None], {s, Flatten[{expr[[1]]} /. TensorProduct -> List]}];
+  derivfactors = Table[fastEvalUnordered[s, perm, q, z, ratios, pj], {s, Flatten[{expr[[1]]} /. TensorProduct -> List]}];
+  inds = structIndices[expr[[1]]];
+  syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &];
+  nbefore = 2 Total[Flatten[ls[[;;j - 1]]]];
+  nafter = 2 Total[Flatten[ls[[j;;]]]];
+  tmp = Sum[
+     prefactor TensorTranspose[
+        TensorTranspose[
+           TensorProduct @@ Table[If[k == l, derivfactors[[k]], factors[[k]]], {k, Length[factors]}],
+           Join[2 + 2 Range[l - 1], {1,2}, 2 + 2 Range[l, Length[factors]]]
+        ],
+        Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nafter]]
+     ],
+     {l, Length[factors]}
+  ] + TensorTranspose[
+        TensorProduct @@ Prepend[factors, Components@TensorSpinorDerivative[prefactor, pj]],
+        Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nafter]]
+     ];
+  tmp
+];
+fastEvalUnordered[{name_, idxs___}, q_, z_, ratios_] := fastEvalUnordered[{name, idxs}, q, z, ratios] = Map[# /. evalRule[Range[4], q, z, ratios] &, BuildTensor[{name, idxs}], {Length[{idxs}]}];
+fastEvalUnordered[Tensor[{factors__}], q_, z_, ratios_] := Inactive[TensorProduct] @@ Table[fastEvalUnordered[factor, q, z, ratios], {factor, {factors}}];
+fastEvalUnordered[TensorPermute[t_, perm_], q_, z_, ratios_] := TensorTranspose[fastEvalUnordered[t, q, z, ratios], InversePermutation[perm]];
+fastEvalUnordered[Contract[t_, pairs_], q_, z_, ratios_] := TensorContract[fastEvalUnordered[t, q, z, ratios], pairs]; 
+fastEvalUnordered[a_ t_, q_, z_, ratios_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := (Explicit[a] /. evalRule[Range[4], q, z, ratios]) fastEvalUnordered[t, q, z, ratios];
+fastEval[t_, q_, z_, ratios_] := TensorTranspose[Activate[fastEvalUnordered[t, q, z, ratios]], InversePermutation@Ordering[Indices[t]]];

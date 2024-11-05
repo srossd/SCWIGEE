@@ -323,11 +323,11 @@ Symbolic[TensorDerivative[a_, i_]] /; FreeQ[a, Tensor] :=
 Indices[TensorDerivative[t_, i_]] := 
   Prepend[Indices[t], Lowered[Spacetime]];
 Permutation[TensorDerivative[t_, i_]] := Join[{1}, 1 + Permutation[t]];
-DisplayTemplate[td_TensorDerivative] := 
-  DisplayTemplate[Symbolic[td]];
+TensorTools`Private`DisplayTemplate[td_TensorDerivative] := 
+  TensorTools`Private`DisplayTemplate[Symbolic[td]];
 Format[td_TensorDerivative, TraditionalForm] := 
-  DisplayTemplate[td] /. 
-   dn[_, a_, b_] | adn[_, a_, b_] :> DisplayName[a, b];
+  TensorTools`Private`DisplayTemplate[td] /. 
+   TensorTools`Private`dn[_, a_, b_] | TensorTools`Private`adn[_, a_, b_] :> DisplayName[a, b];
    
 InactiveComponents[TensorDerivative[t_, i_]] := 
   With[{comps = Components[t]}, If[ArrayQ[comps],
@@ -405,8 +405,8 @@ Correlator[TensorPermute[t_, perm_, OptionsPattern[]], opt2: OptionsPattern[]] /
   
 Symbolic[Correlator[t_, opt: OptionsPattern[]]] := {{"\[LeftAngleBracket]"}, 
    Sequence @@ Symbolic[t], {If[OptionValue[Correlator, "Defect"], "\!\(\*SubscriptBox[\(\[RightAngleBracket]\), \(\[ScriptCapitalD]\)]\)", "\[RightAngleBracket]"]}};
-DisplayTemplate[Correlator[t_, opt: OptionsPattern[]]] := 
-  Row[{"\[LeftAngleBracket]", DisplayTemplate[t], 
+TensorTools`Private`DisplayTemplate[Correlator[t_, opt: OptionsPattern[]]] := 
+  Row[{"\[LeftAngleBracket]", TensorTools`Private`DisplayTemplate[t], 
     If[OptionValue[Correlator, "Defect"], "\!\(\*SubscriptBox[\(\[RightAngleBracket]\), \(\[ScriptCapitalD]\)]\)", "\[RightAngleBracket]"]}];
 Indices[Correlator[t_, opt: OptionsPattern[]]] := Indices[t];
 Permutation[Correlator[t_, opt: OptionsPattern[]]] := Permutation[t];
