@@ -162,6 +162,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
    			     	fastEval[structs[[structIdx]], q, z, safes[[ii]]],
    			     	True,
    			     	Normal[CanonicallyOrderedComponents[structs[[structIdx]]]] /. genericPoint[q, z] /. Thread[crossRatios[q] -> safes[[ii]]]
+   			     ]
    			   }], {structIdx, Length[structs]}]], {z, 2, 5}], 1];
 	          mat1 = structComps[[;; , idxs]];
 	          mat2 = structComps[[;;, other[[todo]]]];
