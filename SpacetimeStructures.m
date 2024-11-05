@@ -264,13 +264,15 @@ AddSpacetimeStructure[symbol_, q_, npts_, indices_, expr_] := Module[{},
    Structure[symbol, q][idxs__] /; Length[{idxs}] == npts := expr[idxs];
    structIndices[MyInactive[Structure[symbol, q]][idxs__]] /; Length[{idxs}] == npts := indices[idxs];
    
-   uvz[MyInactive[Structure[symbol, q]][idxs__], perm_, deriv_] /; Length[{idxs}] == npts := uvz[MyInactive[Structure[symbol, q]][idxs], perm, deriv] = SparseArray@TensorTranspose[Simplify[
-      Normal[CanonicallyOrderedComponents[
-         If[deriv === None, expr[idxs], TensorSpinorDerivative[#, deriv] & /@ Expand[expr[idxs]]]
-      ]] /. (genericPoint[q, zValue] /. x[i_, j_] :> x[InversePermutation[perm][[i]], j]), 
-      crossRatioAssumptions[q]
-   	], 
-   	Ordering@If[deriv === None, indices[idxs][[;;,2]], Join[{Spinor, DottedSpinor}, indices[idxs][[;;,2]]]]
+   uvz[MyInactive[Structure[symbol, q]][idxs__], perm_, deriv_] /; Length[{idxs}] == npts := uvz[MyInactive[Structure[symbol, q]][idxs], perm, deriv] = Module[{ex = Expand[expr[idxs]]},
+      SparseArray@TensorTranspose[Simplify[
+	      Normal[CanonicallyOrderedComponents[
+	         If[deriv === None, ex, If[Head[ex] === Plus, TensorSpinorDerivative[#, InversePermutation[perm][[deriv]]] & /@ ex, TensorSpinorDerivative[ex, InversePermutation[perm][[deriv]]]]]
+	      ]] /. (genericPoint[q, zValue] /. x[i_, j_] :> x[InversePermutation[perm][[i]], j]), 
+	      crossRatioAssumptions[q]
+	      ], 
+	   	Ordering@If[deriv === None, indices[idxs][[;;,2]], Join[{Spinor, DottedSpinor}, indices[idxs][[;;,2]]]]
+	   ]
    ];
    
    validStruct[MyInactive[Structure[symbol, q]][idxs__]] /; Length[{idxs}] == npts := (
@@ -536,6 +538,7 @@ fastEvalUnordered[s, pointperm, q, z, ratios, deriv] = Map[
    uvz[s, pointperm, deriv],
    {If[deriv === None, 2, 4]}
 ];
+fastEvalUnordered[1, pointperm_, q_, z_, ratios_, deriv_] := If[deriv === None, 1, SparseArray@Table[0, 2, 2]];
 fastEvalUnordered[{t_, perm_}, pointperm_, q_, z_, ratios_] := Module[{inds = structIndices[t], unsym, syms},
    unsym = TensorTranspose[
 	   TensorTranspose[Activate[t /. TensorProduct -> Inactive[TensorProduct] /. (s : MyInactive[_][__]) :> fastEvalUnordered[s, pointperm, q, z, ratios, None]], 
@@ -555,10 +558,11 @@ fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{cr: "u" | "v", j_}}, perm
   uvd = Map[# /. evalRule[{1,2,3,4}, q, z, ratios] &, Components[TensorSpinorDerivative[ToExpression[cr][perm], pj]], {2}];
   nbefore = 2 Total[Flatten[ls[[;;j - 1]]]];
   nafter = 2 Total[Flatten[ls[[j;;]]]];
-  TensorTranspose[TensorProduct[uvd, rest], Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nafter]]]
+  TensorTranspose[TensorProduct[uvd, rest], Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nbefore + nafter]]]
 ];
-fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{"\[Partial D]", j_}}, perm_, q_, i_], idxs___}, q_, z_, ratios_] := Module[{prefactor, pj, expr, factors, derivfactors, inds, syms, nbefore, nafter, tmp},
+fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{"\[PartialD]", j_}}, perm_, q_, i_], idxs___}, q_, z_, ratios_] := Module[{prefactor, prefactorEval, pj, expr, factors, derivfactors, inds, syms, nbefore, nafter, unsym, fp1, fp2},
   prefactor = Explicit@KinematicPrefactor[dims, ls, q];
+  prefactorEval = prefactor /. evalRule[perm, q, z, ratios];
   pj = perm[[j]];
   expr = SpacetimeStructureExpressions[ls][[i]];
   factors = Table[fastEvalUnordered[s, perm, q, z, ratios, None], {s, Flatten[{expr[[1]]} /. TensorProduct -> List]}];
@@ -567,24 +571,24 @@ fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{"\[Partial D]", j_}}, per
   syms = Select[Permutations[Range@Length[inds]], inds[[#]] === inds &];
   nbefore = 2 Total[Flatten[ls[[;;j - 1]]]];
   nafter = 2 Total[Flatten[ls[[j;;]]]];
-  tmp = Sum[
-     prefactor TensorTranspose[
-        TensorTranspose[
-           TensorProduct @@ Table[If[k == l, derivfactors[[k]], factors[[k]]], {k, Length[factors]}],
-           Join[2 + 2 Range[l - 1], {1,2}, 2 + 2 Range[l, Length[factors]]]
-        ],
-        Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nafter]]
-     ],
+  fp1 = Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nbefore + nafter]];
+  fp2 = Join[{1,2}, 2 + PermutationList[expr[[2]], 2 Length[factors]]];
+  unsym = prefactorEval Sum[
+	    TensorTranspose[
+	       TensorProduct @@ Table[If[k == l, derivfactors[[k]], factors[[k]]], {k, Length[factors]}],
+	       Join[2 + Range[2(l - 1)], {1,2}, 2 + Range[2 l - 1, 2 Length[factors]]]
+	    ],
      {l, Length[factors]}
-  ] + TensorTranspose[
-        TensorProduct @@ Prepend[factors, Components@TensorSpinorDerivative[prefactor, pj]],
-        Join[nbefore + {1, 2}, Range[nbefore], 2 + Range[nbefore + 1, nafter]]
-     ];
-  tmp
+  ] + TensorProduct @@ Prepend[factors, Normal@Components@TensorSpinorDerivative[prefactor, j] /. evalRule[perm, q, z, ratios]];
+  TensorTranspose[
+     TensorTranspose[If[syms == {}, unsym,
+	(1/Length[syms]) Sum[TensorTranspose[unsym, p], {p, Join[{1,2}, 2 + #] & /@ syms}]
+   ], fp2], fp1]
 ];
 fastEvalUnordered[{name_, idxs___}, q_, z_, ratios_] := fastEvalUnordered[{name, idxs}, q, z, ratios] = Map[# /. evalRule[Range[4], q, z, ratios] &, BuildTensor[{name, idxs}], {Length[{idxs}]}];
 fastEvalUnordered[Tensor[{factors__}], q_, z_, ratios_] := Inactive[TensorProduct] @@ Table[fastEvalUnordered[factor, q, z, ratios], {factor, {factors}}];
 fastEvalUnordered[TensorPermute[t_, perm_], q_, z_, ratios_] := TensorTranspose[fastEvalUnordered[t, q, z, ratios], InversePermutation[perm]];
 fastEvalUnordered[Contract[t_, pairs_], q_, z_, ratios_] := TensorContract[fastEvalUnordered[t, q, z, ratios], pairs]; 
 fastEvalUnordered[a_ t_, q_, z_, ratios_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := (Explicit[a] /. evalRule[Range[4], q, z, ratios]) fastEvalUnordered[t, q, z, ratios];
+fastEvalUnordered[a_, q_, z_, ratios_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := Explicit[a] /. evalRule[Range[4], q, z, ratios];
 fastEval[t_, q_, z_, ratios_] := TensorTranspose[Activate[fastEvalUnordered[t, q, z, ratios]], InversePermutation@Ordering[Indices[t]]];
