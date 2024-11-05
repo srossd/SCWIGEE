@@ -209,8 +209,8 @@ fittedRelations[structs_] := fittedRelations[structs] =
    			     	Normal[CanonicallyOrderedComponents[structs[[structIdx]]]] /. genericPoint[q, z] /. Thread[crossRatios[q] -> safes[[ii]]]
    			     ]
    			   }], {structIdx, Length[structs]}]], {z, 2, zmax}], 1];
-	          mat1 = structComps[[;; , idxs]] /. rule;
-	          mat2 = structComps[[;;, other[[todo]]]] /. rule;
+	          mat1 = structComps[[;; , idxs]];
+	          mat2 = structComps[[;;, other[[todo]]]];
           	 
 	         Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
