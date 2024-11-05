@@ -135,11 +135,11 @@ SpacetimeRelations[structs_] :=
   ];
   
 fittedRelations[structs_] := fittedRelations[structs] =
-  Block[{q, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
+  Block[{zmax = 5, q, structComps, idxs, other, ans, step, sols, safes, rule, todo, mat1, mat2},
    q = First@
      Cases[structs, SpacetimeStructure[___, q_, _] :> q, All];
    safes = safeCrossRatios[q];
-   structComps = Flatten[Table[Transpose[ArrayFlatten[Flatten[{fastEval[#, q, z, safes[[1]]]}] & /@ structs]], {z, 2, 5}], 1];
+   structComps = Flatten[Table[Transpose[ArrayFlatten[Flatten[{fastEval[#, q, z, safes[[1]]]}] & /@ structs]], {z, 2, zmax}], 1];
    idxs = Sort[Length[structs] + 1 - IndependentSet[Reverse@Transpose@structComps, "Indices" -> True]];
    other = Complement[Range@Length[structs], idxs];
    ans = 
@@ -156,14 +156,14 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	       Table[
    			  structComps = Flatten[Table[Transpose[Table[Flatten[{
    			     Which[
-   			        !MemberQ[Join[idxs, other[[todo]]], structidx],
-   			        {},
+   			        !MemberQ[Join[idxs, other[[todo]]], structIdx],
+   			        Table[0, Length[structComps] / (zmax - 1)],
    			        First@Cases[structs[[structIdx]], SpacetimeStructure[_, spins_, __] :> 2 Total[Flatten[spins]], All] >= 6,
    			     	fastEval[structs[[structIdx]], q, z, safes[[ii]]],
    			     	True,
    			     	Normal[CanonicallyOrderedComponents[structs[[structIdx]]]] /. genericPoint[q, z] /. Thread[crossRatios[q] -> safes[[ii]]]
    			     ]
-   			   }], {structIdx, Length[structs]}]], {z, 2, 5}], 1];
+   			   }], {structIdx, Length[structs]}]], {z, 2, zmax}], 1];
 	          mat1 = structComps[[;; , idxs]];
 	          mat2 = structComps[[;;, other[[todo]]]];
 	          Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
