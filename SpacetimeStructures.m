@@ -486,10 +486,8 @@ SpacetimeStructureExpressions[ls_, q_, opt : OptionsPattern[]] := SpacetimeStruc
    	],
    	With[{structs = SpacetimeStructureExpressions[ls, q, "Overcomplete" -> True]},
    	   If[Length[structs] <= 1, structs,
-	   	With[{comps = constructStructure @@@ structs},
-	   		structs[[IndependentSet[Transpose@Flatten[Table[Transpose@ArrayFlatten[Flatten /@ comps] /. genericPoint[q, z], {z, 2, 5}], 1], "MonitorProgress" -> OptionValue["MonitorProgress"], "Rules" -> Thread[crossRatios[q] -> Last[safeCrossRatios[q]]], "MaxIndependent" -> numSTStructures[ls, q], "Indices" -> True]]]
-	   	]
-   	   ]
+	   	IndependentSet[structs, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rules" -> (x_ :> Flatten@SparseArray[Table[fastEvalUnordered[x, {1, 2, 3, 4}, None, z, safeCrossRatios[q][[1]]], {z, 2, 5}]]), "MaxIndependent" -> numSTStructures[ls, q]]
+	   ]
    	]
    ]
 ];
@@ -580,14 +578,14 @@ fastEvalUnordered[t: {SpacetimeStructure[dims_, ls_, {{"\[PartialD]", j_}}, perm
 	    ],
      {l, Length[factors]}
   ] + TensorProduct @@ Prepend[factors, Normal@Components@TensorSpinorDerivative[prefactor, j] /. evalRule[perm, q, z, ratios]];
-  TensorTranspose[
+  SparseArray@TensorTranspose[
      TensorTranspose[If[syms == {}, unsym,
 	(1/Length[syms]) Sum[TensorTranspose[unsym, p], {p, Join[{1,2}, 2 + #] & /@ syms}]
    ], fp2], fp1]
 ];
 fastEvalUnordered[{name_, idxs___}, q_, z_, ratios_] := fastEvalUnordered[{name, idxs}, q, z, ratios] = Map[# /. evalRule[Range[4], q, z, ratios] &, BuildTensor[{name, idxs}], {Length[{idxs}]}];
 fastEvalUnordered[Tensor[{factors__}], q_, z_, ratios_] := Inactive[TensorProduct] @@ Table[fastEvalUnordered[factor, q, z, ratios], {factor, {factors}}];
-fastEvalUnordered[TensorPermute[t_, perm_], q_, z_, ratios_] := TensorTranspose[fastEvalUnordered[t, q, z, ratios], InversePermutation[perm]];
+fastEvalUnordered[TensorPermute[t_, perm_], q_, z_, ratios_] := TensorTranspose[fastEvalUnordered[t, q, z, ratios], perm];
 fastEvalUnordered[Contract[t_, pairs_], q_, z_, ratios_] := TensorContract[fastEvalUnordered[t, q, z, ratios], pairs]; 
 fastEvalUnordered[a_ t_, q_, z_, ratios_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := (Explicit[a] /. evalRule[Range[4], q, z, ratios]) fastEvalUnordered[t, q, z, ratios];
 fastEvalUnordered[a_, q_, z_, ratios_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := Explicit[a] /. evalRule[Range[4], q, z, ratios];
