@@ -56,20 +56,15 @@ SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] :=
 SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm, swapRules},
    swapRules = Thread[crossRatios[If[OptionValue["Defect"], $qdefect, None]] -> Take[{Catalan, EulerGamma}, Length[crossRatios[If[OptionValue["Defect"], $qdefect, None]]]]];
    eqs = DeleteCases[
-      Simplify[
          CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] //. Normal[First /@ SolvedCorrelators[]]]
-    	/. swapRules
-      ]     
-    , True] /. (Reverse /@ swapRules);
+    , True];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
    bm = CoefficientArrays[eqs, vars];
 	 If[OptionValue["Fit"],
 	    wardSolveFit[eqs, vars],
 	   If[ AllTrue[bm[[1]], # === 0 &],
 	      Thread[vars -> 0],
-	      With[{rules = Thread[crossRatios[If[OptionValue["Defect"], $qdefect, None]] -> Take[{Catalan, EulerGamma}, Length[crossRatios[If[OptionValue["Defect"], $qdefect, None]]]]]},
-	      Sort[solveGroups[Partition[eqs /. rules, UpTo[OptionValue["EquationGroupSize"]]], vars /. rules, {}, {}] /. (Reverse /@ rules)]
-	      ]
+	      Sort[solveGroups[Partition[eqs /. swapRules, UpTo[OptionValue["EquationGroupSize"]]], vars /. swapRules, {}, {}] /. (Reverse /@ swapRules)]
 	   ]
 	 ]
    ];

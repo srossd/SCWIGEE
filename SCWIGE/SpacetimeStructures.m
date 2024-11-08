@@ -268,7 +268,7 @@ AddSpacetimeStructure[symbol_, q_, npts_, indices_, expr_] := Module[{},
       SparseArray@TensorTranspose[Simplify[
 	      Normal[CanonicallyOrderedComponents[
 	         If[deriv === None, ex, If[Head[ex] === Plus, TensorSpinorDerivative[#, InversePermutation[perm][[deriv]]] & /@ ex, TensorSpinorDerivative[ex, InversePermutation[perm][[deriv]]]]]
-	      ]] /. (genericPoint[q, zValue] /. x[i_, j_] :> x[InversePermutation[perm][[i]], j]), 
+	      ]] /. (genericPoint[q, zValue] /. x[i_, j_] :> If[i > Length[perm], None, x[InversePermutation[perm][[i]], j]]), 
 	      crossRatioAssumptions[q]
 	      ], 
 	   	Ordering@If[deriv === None, indices[idxs][[;;,2]], Join[{Spinor, DottedSpinor}, indices[idxs][[;;,2]]]]
@@ -486,7 +486,7 @@ SpacetimeStructureExpressions[ls_, q_, opt : OptionsPattern[]] := SpacetimeStruc
    	],
    	With[{structs = SpacetimeStructureExpressions[ls, q, "Overcomplete" -> True]},
    	   If[Length[structs] <= 1, structs,
-	   	IndependentSet[structs, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rules" -> (x_ :> Flatten@SparseArray[Table[fastEvalUnordered[x, {1, 2, 3, 4}, None, z, safeCrossRatios[q][[1]]], {z, 2, 5}]]), "MaxIndependent" -> numSTStructures[ls, q]]
+	   	IndependentSet[structs, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rules" -> (x_ :> Flatten@SparseArray[Table[fastEvalUnordered[x, {1, 2, 3, 4}, q, z, safeCrossRatios[q][[1]]], {z, 2, 5}]]), "MaxIndependent" -> numSTStructures[ls, q]]
 	   ]
    	]
    ]
@@ -529,7 +529,7 @@ BuildTensor[t: {SpacetimeStructure[dims_, ls_, derivs_, perm_, q_, i_], idxs___}
     TensorTranspose[CanonicallyOrderedComponents@expr,Ordering@{idxs}]
    ];
    
-evalRule[pointperm_, q_, z_, ratios_] := genericPoint[q, z] /. x[i_, j_] :> x[InversePermutation[pointperm][[i]], j] /. Thread[crossRatios[q] -> ratios];
+evalRule[pointperm_, q_, z_, ratios_] := genericPoint[q, z] /. x[i_, j_] :> If[i > Length[pointperm], None, x[InversePermutation[pointperm][[i]], j]] /. Thread[crossRatios[q] -> ratios];
 fastEvalUnordered[s: MyInactive[Structure[symbol_, q_]][idxs__], pointperm_, q_, z_, ratios_, deriv_] := 
 fastEvalUnordered[s, pointperm, q, z, ratios, deriv] = Map[
    # /. zValue -> z /. Thread[crossRatios[q] -> ratios] &,
