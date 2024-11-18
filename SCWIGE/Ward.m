@@ -168,13 +168,8 @@ AddSolutions[soln_] :=
     ]
    ];
 
-$crossingRules = <||>;
-
-DeclareCrossingRule::unknown = 
-  "The function `` has not been declared using \
-DeclareArbitraryFunction.";
-DeclareCrossingRule::invalid = 
-  "The function `` is not related by crossing to ``[u, v].";
+DeclareCrossingRule::unknown = "The function `` has not been declared using DeclareArbitraryFunction.";
+DeclareCrossingRule::invalid = "The function `` is not related by crossing to ``[u, v].";
 DeclareCrossingRule[head_[arg1_, arg2_], rhs_] := 
   If[! MemberQ[crosses[$qdefect][[;; , ;; , 2]], {arg1, arg2}], 
    Message[DeclareCrossingRule::invalid, head[arg1, arg2], head],
@@ -184,9 +179,11 @@ DeclareCrossingRule[head_[arg1_, arg2_], rhs_] :=
    ]
   ];
 
+crossIt[expr: head_[__]] := crossIt[expr] = Simplify[expr /. head -> $crossingRules[expr]];
+crossIt[expr: Derivative[__][head_][args__]] := crossIt[expr] = Simplify[expr /. head -> $crossingRules[head[args]]];
+
 CrossingSimplify[expr_] := 
   expr /. tterm : (Alternatives @@ 
         Table[f[args__] | 
           Derivative[__][f][args__], {f, $ArbitraryFunctions}]) /; 
-     Length[{args}] == 2 && {args} =!= crossRatios[$qdefect] :> (tterm /. 
-      Table[f -> $crossingRules[f[args]], {f, $ArbitraryFunctions}]);
+     Length[{args}] == 2 && {args} =!= crossRatios[$qdefect] :> crossIt[tterm];
