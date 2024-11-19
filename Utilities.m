@@ -191,14 +191,15 @@ expansion[structure_, basis_, relations_] :=
    ]
   ];
 
+Options[solveGroups] = {"Assumptions" -> {}, "Transformation" -> Simplify, "TempRules" -> {}};
 solveGroups::nosol = "No solution could be found.";
-solveGroups[grps_, vars_, rules_, assum_] := 
+solveGroups[grps_, vars_, OptionsPattern[]] := 
 monitorProgress[Fold[
-   With[{sol = Quiet[Assuming[assum, Simplify@With[{tmp = Solve[#2 /. #1, vars]},
+   With[{sol = Quiet[Assuming[OptionValue["Assumptions"], OptionValue["Transformation"]@With[{tmp = Solve[#2 /. #1 /. OptionValue["TempRules"], vars /. OptionValue["TempRules"]] /. (Reverse /@ OptionValue["TempRules"])},
       If[tmp === {}, Missing[], First[tmp]]
    ]]]},
      If[MissingQ[sol], Message[solveGroups::nosol]; Return[{}]];
-     Sort@Select[Join[Simplify[#1 /. sol, assum], sol], ! SameQ @@ # &]
+     Sort@Select[Join[OptionValue["Transformation"][#1 /. sol, OptionValue["Assumptions"]], sol], ! SameQ @@ # &]
      ] &,
    {}, grps
    ], "Label" -> "Solving equations", 

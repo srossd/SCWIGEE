@@ -50,25 +50,30 @@ superprimaryQ[f_Operator] := MemberQ[MinimalBy[multipletOf[f], ScalingDimension]
 superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
+swSimplify[expr_, assum_ : {}] := With[{swapRules = Thread[{u, v} -> {Catalan, EulerGamma}]},
+   Collect[
+      expr /. swapRules,
+      g[__][__] | \[Lambda][__] | (Alternatives @@ $ArbitraryFunctions)[__] | Derivative[__][(Alternatives @@ $ArbitraryFunctions)][__],
+      Simplify[#, assum] &
+   ] /. (Reverse /@ swapRules)
+]; 
+
 Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False, "UseSUSYRules" -> True, "EquationGroupSize" -> 10};
 SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm, swapRules},
-   swapRules = Thread[crossRatios[If[OptionValue["Defect"], $qdefect, None]] -> Take[{Catalan, EulerGamma}, Length[crossRatios[If[OptionValue["Defect"], $qdefect, None]]]]];
+SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm},
    eqs = DeleteCases[
-      Collect[
+      swSimplify[
          CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] //. Normal[First /@ SolvedCorrelators[]]]
-    	/. swapRules,
-    	g[__][__] | \[Lambda][__] | (Alternatives @@ $ArbitraryFunctions)[__] | Derivative[__][(Alternatives @@ $ArbitraryFunctions)][__], Simplify
-      ]     
-    , True] /. (Reverse /@ swapRules);
+      ]
+    , True];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
    bm = CoefficientArrays[eqs, vars];
 	 If[OptionValue["Fit"],
 	    wardSolveFit[eqs, vars],
 	   If[ AllTrue[bm[[1]], # === 0 &],
 	      Thread[vars -> 0],
-	      Sort[solveGroups[Partition[eqs /. swapRules, UpTo[OptionValue["EquationGroupSize"]]], vars /. swapRules, {}, {}] /. (Reverse /@ swapRules)]
+	      Sort[solveGroups[Partition[eqs, UpTo[OptionValue["EquationGroupSize"]]], vars, "Transformation" -> swSimplify, "TempRules" -> Thread[{u, v} -> {Catalan, EulerGamma}]]]
 	   ]
 	 ]
    ];

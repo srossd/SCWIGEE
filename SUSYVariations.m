@@ -262,7 +262,7 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Modul
 	vars = DeleteDuplicates@Cases[quadgroups, _SUSYCoefficient, All];
 	
 	Off[Solve::ifun];
-	quadsol = Check[solveGroups[quadgroups, vars, {}, Thread[vars != 0]], Missing[], solveGroups::nosol];
+	quadsol = Check[solveGroups[quadgroups, vars, "Assumptions" -> Thread[vars != 0]], Missing[], solveGroups::nosol];
 	On[Solve::ifun];
 	If[MissingQ[quadsol], Message[SUSYRules::nosol, $multipletName[i]]; Return[{}]];
 	
