@@ -52,54 +52,29 @@ superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superpr
 
 swSimplify[expr_, assum_ : {}] := With[{swapRules = Thread[{u, v} -> {Catalan, EulerGamma}]},
    Collect[
-      expr /. swapRules,
-      g[__][__] | \[Lambda][__] | (Alternatives @@ $ArbitraryFunctions)[__] | Derivative[__][(Alternatives @@ $ArbitraryFunctions)][__],
-      Simplify[#, assum] &
-   ] /. (Reverse /@ swapRules)
+      expr,
+      _\[Alpha] | g[__][__] | \[Lambda][__] | (Alternatives @@ $ArbitraryFunctions)[__] | Derivative[__][(Alternatives @@ $ArbitraryFunctions)][__],
+      Simplify[# /. swapRules, assum] /. (Reverse /@ swapRules) &
+   ]
 ]; 
 
-Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "Fit" -> False, "UseSUSYRules" -> True, "EquationGroupSize" -> 10};
+Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True, "EquationGroupSize" -> 10};
 SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] :=
    SolveWard[name2field /@ (ToString[ToExpression[#], TraditionalForm] & /@ names), opt];
-SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, bm},
+SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, eqsReplaced, bm},
    eqs = DeleteCases[
       swSimplify[
          CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] //. Normal[First /@ SolvedCorrelators[]]]
       ]
     , True];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, #[[0,1]]}]] &];
+   eqsReplaced = eqs /. Thread[vars -> Array[\[Alpha], Length[vars]]];
    bm = CoefficientArrays[eqs, vars];
-	 If[OptionValue["Fit"],
-	    wardSolveFit[eqs, vars],
-	   If[ AllTrue[bm[[1]], # === 0 &],
-	      Thread[vars -> 0],
-	      Sort[solveGroups[Partition[eqs, UpTo[OptionValue["EquationGroupSize"]]], vars, "Transformation" -> swSimplify, "TempRules" -> Thread[{u, v} -> {Catalan, EulerGamma}]]]
-	   ]
-	 ]
-   ];
-   
-Clear[solveData]; 
-solveData[m_, b_, num_] := 
- solveData[m, b, num] = 
-  With[{terms = 
-     DeleteDuplicates@
-      Cases[b, (Alternatives @@ 
-           $ArbitraryFunctions)[__] | 
-        Derivative[__][(Alternatives @@ 
-            $ArbitraryFunctions)][__], All], 
-    crM = clearRadicals[m]}, 
-   monitorProgress[
-    Table[{uv, 
-      Simplify@
-        LinearSolve[
-         crM[[1]] /. Thread[crossRatios[$qdefect] -> uv] /. _\[Theta] -> 0, 
-         b /. Thread[terms -> Array[\[Alpha], Length[terms]]] /. 
-           Thread[crossRatios[$qdefect] -> safeCrossRatios[$qdefect]] /. 
-          Thread[Array[\[Alpha], Length[terms]] -> 
-            terms]] crM[[2]]}, {uv, safeCrossRatios[$qdefect]}], 
-    "Label" -> "Generating solution data", 
-         "CurrentDisplayFunction" -> None]
-   ];
+   If[ AllTrue[bm[[1]], # === 0 &],
+      Thread[vars -> 0],
+      Sort[solveGroups[Partition[SortBy[eqsReplaced, ByteCount], UpTo[OptionValue["EquationGroupSize"]]], Array[\[Alpha], Length[vars]], "Transformation" -> swSimplify, "TempRules" -> Thread[{u, v} -> {Catalan, EulerGamma}]] /. Thread[Array[\[Alpha], Length[vars]] -> vars]]
+   ]
+];
   
 clearRadicals[mat_] := 
   With[{factors = 
@@ -109,43 +84,6 @@ clearRadicals[mat_] :=
            All])], {i, Dimensions[mat][[2]]}]},
    {mat . DiagonalMatrix[factors], factors}
    ];
-
-wardSolveFit[eqs_, vars_] := 
-  With[{bm = CoefficientArrays[eqs, vars]}, 
-   With[{b = -bm[[1]], m = bm[[2]]}, 
-    With[{crM = clearRadicals[m]}, 
-     With[{indIdxs = 
-        monitorProgress[
-         Fold[If[Length[#1] < Length[vars] && 
-             indQ[
-              crM[[1, #1]] /. 
-               Thread[crossRatios[$qdefect] -> safeCrossRatios[$qdefect][[100]]], 
-              crM[[1, #2]] /. 
-               Thread[crossRatios[$qdefect] -> safeCrossRatios[$qdefect][[100]]]], 
-            Append[#1, #2], #1] &, {}, Range[Length[m]]], 
-         "Label" -> "Finding set of independent equations", 
-         "CurrentDisplayFunction" -> None]},
-      
-      With[{sd = 
-         solveData[m[[indIdxs]], b[[indIdxs]], 7]},
-       Thread[
-        vars -> monitorProgress[
-          Table[With[{terms = 
-              DeleteDuplicates@
-               Cases[sd[[;; , 2, 
-                  vari]], (Alternatives @@ 
-                    $ArbitraryFunctions)[__] | 
-                 Derivative[__][(Alternatives @@ 
-                    $ArbitraryFunctions)][__], All]}, 
-            terms . Table[
-              Simplify@
-               fitRational[(sd /. {{u_?NumericQ, v_}, 
-                    data_} :> {u, v, 
-                    Coefficient[data[[vari]], term]}), 1, 6, 
-                "Prefactors" -> Flatten@Outer[Times, Sequence @@ Table[{1, r}, {r, crossRatios[$qdefect]}]]
-                ], {term, terms}]], {vari, Length[vars]}],
-           "Label" -> "Fitting rational functions", 
-         "CurrentDisplayFunction" -> None]]]]]]];
 
 crosses[_Integer] = {{u -> u, v -> v}};
 crosses[None] = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, 
@@ -166,7 +104,7 @@ AddSolutions[soln_] :=
         Table[
            Function[
               Evaluate[crossRatios[$qdefect]], 
-           	  Evaluate[Simplify[CrossingSimplify[(val @@ crossRatios[$qdefect]) /. (First /@ $SolvedCorrelators)], crossRatioAssumptions[$qdefect]]]
+           	  Evaluate[swSimplify[CrossingSimplify[(val @@ crossRatios[$qdefect]) /. (First /@ $SolvedCorrelators)]]]
            ], 
         {val, $SolvedCorrelators[k]}], 
         {k, Keys[$SolvedCorrelators]}];
