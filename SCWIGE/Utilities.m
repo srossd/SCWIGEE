@@ -132,45 +132,47 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
    
 Options[fitRational] = {"Prefactors" -> {1 &}};
 fitRational[data_, deg_, opt : OptionsPattern[]] := 
-  Module[{numParams = Dimensions[data][[2]] - 1, params, tups, 
-    ansatzes, vars, rat, mats, found, ans},
+  Module[{numParams = Dimensions[data][[2]] - 1, params, monomials, 
+    numMonomials, ansatzes, vars, rat, mats, found, ans}, 
    params = (ToExpression["\\[Formal" <> # <> "]"] & /@ 
        RotateLeft[Capitalize@Alphabet[], 20])[[;; numParams]];
-   tups = 
-    Select[Tuples[Range[0, deg], numParams], Total[#] <= deg &];
-   If[AllTrue[data[[;; , -1]], # === 0 &], 0 &,
-    ansatzes = 
-     Table[f @@ params, {f, OptionValue[
-       "Prefactors"]}]  (Sum[(\[Beta]up @@ tup)  Times @@ 
-           Thread[params^tup], {tup, tups}]/
-        Sum[(\[Beta]down @@ tup)  Times @@ Thread[params^tup], {tup, 
-          tups}]);
-    vars = 
-     Flatten[Table[{\[Beta]up @@ tup, \[Beta]down @@ tup}, {tup, 
-        tups}]];
+   monomials = 
+    Times @@@ (params^# & /@ 
+       Select[Tuples[Range[0, deg], numParams], Total[#] <= deg &]);
+   If[AllTrue[data[[;; , -1]], # === 0 &],
+    0 &,
+    numMonomials = 
+     Table[monomials /. Thread[params -> Most[pt]], {pt, data}];
     rat = 
      FirstCase[data[[;; , -1]], 
       x_ /; x =!= 0 :> (If[# == {}, 1, #[[1]]] &@
-         Cases[x, Power[y_, 1/2 | -1/2] :> Sqrt[y], All])]; 
-    mats = Table[(Denominator[ansatz]  Simplify[Last[pt]/rat] - 
-          Numerator[ansatz] /. Thread[params -> Most[pt]]) /. 
-       Thread[vars -> IdentityMatrix[Length[vars]]], {ansatz, 
-       ansatzes}, {pt, data}];
+         Cases[x, Power[y_, 1/2 | -1/2] :> Sqrt[y], All])];
+    mats = 
+     Table[ArrayFlatten[{{(pf @@@ (Most /@ 
+              data)) numMonomials, (data[[;; , -1]] /
+            rat) numMonomials}}], {pf, OptionValue["Prefactors"]}];
     found = False;
     ans = 0;
-    
-    Do[If[MatrixRank[N@mats[[i]]] != Min[Dimensions[mats[[i]]]], 
-      With[{null = NullSpace[mats[[i]]]}, 
-       If[null =!= {}, 
-        ans = rat  ansatzes[[i]] /. Thread[vars -> null[[1]]];
-        If[ans =!= 0, found = True;
-         Break[]];]]], {i, Length[mats]}];
+    Do[
+     If[
+      MatrixRank[N@mats[[i]]] != Min[Dimensions[mats[[i]]]],
+      With[{null = NullSpace[mats[[i]]]},
+       If[null =!= {},
+        ans = -rat  (OptionValue["Prefactors"][[i]] @@ 
+            params) null[[1, ;; Length[monomials]]] . monomials/
+          null[[1, Length[monomials] + 1 ;;]] . monomials;
+        If[ans =!= 0,
+         found = True;
+         Break[]
+         ];
+        ]
+       ]
+      ],
+     {i, Length[mats]}
+     ];
     If[found, 
      With[{params2 = params, ans2 = Simplify[ans]}, 
-      Function[Evaluate@params2, ans2]
-     ], 
-     None
-    ]
+      Function[Evaluate@params2, ans2]], None]
     ]
    ];
 
