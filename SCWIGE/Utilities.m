@@ -133,7 +133,7 @@ IndependentSet[tensors_, OptionsPattern[]] := If[!ArrayQ[tensors[[1]]] && Indice
 Options[fitRational] = {"Prefactors" -> {1 &}};
 fitRational[data_, deg_, opt : OptionsPattern[]] := 
   Module[{numParams = Dimensions[data][[2]] - 1, params, monomials, 
-    numMonomials, ansatzes, vars, rat, mats, found, ans}, 
+    numMonomials, rat, mats, found, ans}, 
    params = (ToExpression["\\[Formal" <> # <> "]"] & /@ 
        RotateLeft[Capitalize@Alphabet[], 20])[[;; numParams]];
    monomials = 
@@ -171,7 +171,7 @@ fitRational[data_, deg_, opt : OptionsPattern[]] :=
      {i, Length[mats]}
      ];
     If[found, 
-     With[{params2 = params, ans2 = Simplify[ans]}, 
+     With[{params2 = params, ans2 = Check[Simplify[ans], Print[ans]; ans]}, 
       Function[Evaluate@params2, ans2]], None]
     ]
    ];
