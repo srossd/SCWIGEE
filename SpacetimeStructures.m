@@ -166,7 +166,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
    			   }], {structIdx, Length[structs]}]], {z, 2, zmax}], 1];
 	          mat1 = structComps[[;; , idxs]];
 	          mat2 = structComps[[;;, other[[todo]]]];
-	          Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
+	          Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
 	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
 	     Do[If[ans[{j, idxs[[i]]}] === -None, 
@@ -212,7 +212,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	          mat1 = structComps[[;; , idxs]];
 	          mat2 = structComps[[;;, other[[todo]]]];
           	 
-	         Simplify@Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
+	         Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
 	         Length[sols] + 1, (step + 1) (step + 2) + 5}]];
 	     Do[If[ans[{j, idxs[[i]]}] === -None, 
