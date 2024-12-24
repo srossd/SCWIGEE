@@ -171,7 +171,7 @@ fitRational[data_, deg_, opt : OptionsPattern[]] :=
      {i, Length[mats]}
      ];
     If[found, 
-     With[{params2 = params, ans2 = Check[Simplify[ans], Print[ans]; ans]}, 
+     With[{params2 = params, ans2 = Simplify[ans]}, 
       Function[Evaluate@params2, ans2]], None]
     ]
    ];
