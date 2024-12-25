@@ -168,7 +168,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	          mat2 = structComps[[;;, other[[todo]]]];
 	          Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
-	         Length[sols] + 1, (step + 1) (step + 2) + 10}]];
+	         Length[sols] + 1, (step + 1) (step + 4)}]];
 	     Do[If[ans[{j, idxs[[i]]}] === -None, 
 	       ans[{j, idxs[[i]]}] = -((fitRational[sols /. {{uvs__}, b_} :> {uvs, b[[j, i]]}, 
 	           step,
@@ -182,7 +182,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	       Spacer[10], 
 	       Style[ToString@StringForm["Degree ``", step], Bold], 
 	       Spacer[10], 
-	       ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 10], (step + 1)(step + 2) + 10]
+	       ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 4)], (step + 1)(step + 4)]
 	     }], Spacer[50], 
 	      MatrixPlot[
 	       Table[If[ans[{j, idxs[[i]]}] === -None, Orange, White], {j, 
@@ -196,7 +196,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
 	       	 Run[If[$OperatingSystem == "Windows", "cls", "clear"]];
 	         Print["Spacetime Structure Relations"];
 	         Print["Degree ",step];
-	         Print[ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 2) + 10], (step + 1)(step + 2) + 10]];
+	         Print[ToString@StringForm["Fit points: ``/``", If[IntegerQ[ii], ii, (step + 1)(step + 4)], (step + 1)(step + 4)]];
 	         Print[ToString@StringForm["Found functions: ``/``", Sum[Boole[ans[{j, idxs[[i]]}] =!= -None], {j, Length[other]}, {i, Length[idxs]}], Length[other] Length[idxs]]];
 	         
           	 structComps = Flatten[Table[Transpose[Table[Flatten[{
@@ -214,7 +214,7 @@ fittedRelations[structs_] := fittedRelations[structs] =
           	 
 	         Quiet@Check[{safes[[ii]], unrollRows[Transpose@LinearSolve[mat1, mat2], todo, Length[other]]}, 
 	           Nothing], {ii, 
-	         Length[sols] + 1, (step + 1) (step + 2) + 10}]];
+	         Length[sols] + 1, (step + 1) (step + 4)}]];
 	     Do[If[ans[{j, idxs[[i]]}] === -None, 
 	       ans[{j, idxs[[i]]}] = -((fitRational[sols /. {{uvs__}, b_} :> {uvs, b[[j, i]]}, 
 	           step,
