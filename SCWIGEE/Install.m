@@ -1,4 +1,4 @@
-InstallSCWIGE::version="Warning: The package structure of `1` is only supported by Mathematica versions \[GreaterEqual] `2`. You are using Mathematica `3`.";
+InstallSCWIGEE::version="Warning: The package structure of `1` is only supported by Mathematica versions \[GreaterEqual] `2`. You are using Mathematica `3`.";
 
 InstallGroupMath[]:= Module[{
         pkgDir= FileNameJoin[{$UserBaseDirectory, "Applications", "GroupMath"}],
@@ -52,10 +52,10 @@ InstallGroupMath[]:= Module[{
 ];
 
 
-InstallSCWIGE[]:= Module[{
-        pkgDir= FileNameJoin[{$UserBaseDirectory, "Applications", "SCWIGE"}],
-        pkgLink= "https://github.com/srossd/SCWIGE/archive/main.zip",
-        pkgName= "SCWIGE",
+InstallSCWIGEE[]:= Module[{
+        pkgDir= FileNameJoin[{$UserBaseDirectory, "Applications", "SCWIGEE"}],
+        pkgLink= "https://github.com/srossd/SCWIGEE/archive/main.zip",
+        pkgName= "SCWIGEE",
         minVersion= 9.0,
         proceed = True,
         questionOverwrite, tmpFile, unzipDir, zipDir},
@@ -74,10 +74,10 @@ InstallSCWIGE[]:= Module[{
 
 	(* Check Mathematica version *)
 	If[$VersionNumber< minVersion,
-		Message[InstallSCWIGE::version, pkgName, ToString@ minVersion, $VersionNumber];
+		Message[InstallSCWIGEE::version, pkgName, ToString@ minVersion, $VersionNumber];
 	];
 
-	(* Check if SCWIGE has already been installed *)
+	(* Check if SCWIGEE has already been installed *)
 	If[
 		DirectoryQ[pkgDir],
 		If[
@@ -90,7 +90,7 @@ InstallSCWIGE[]:= Module[{
 	];
 
 	If[proceed,
-		(* Download SCWIGE *)
+		(* Download SCWIGEE *)
 		Print["Downloading "<> pkgName<> " from ", pkgLink<> "."];
 	
 		tmpFile= Quiet@ URLSave[pkgLink];
@@ -100,7 +100,7 @@ InstallSCWIGE[]:= Module[{
 			Abort[]
 		];
 	
-		(* Unzip SCWIGE file *)
+		(* Unzip SCWIGEE file *)
 		Print["Extracting "<> pkgName<> " zip file."];
 	
 		unzipDir= tmpFile<>".dir";
@@ -109,7 +109,7 @@ InstallSCWIGE[]:= Module[{
 		(* Move files to the Mathematica packages folder *)
 		Print["Copying "<> pkgName<> " to "<> pkgDir<> "."];
 	
-		zipDir= FileNames["SCWIGE.m", unzipDir, Infinity];
+		zipDir= FileNames["SCWIGEE.m", unzipDir, Infinity];
 		CopyDirectory[DirectoryName[zipDir[[1]], 1], pkgDir];
 	
 		(* Delete the extracted archive *)
@@ -120,4 +120,4 @@ InstallSCWIGE[]:= Module[{
 	Print["Installation complete!"];
 ];
 
-InstallSCWIGE[];
+InstallSCWIGEE[];
