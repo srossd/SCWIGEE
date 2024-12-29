@@ -1,24 +1,26 @@
+(* ::Package:: *)
+
 (* Wolfram Language Init File *)
 
-Block[{Print},Quiet[BeginPackage["SCWIGE`",{"TensorTools`","GroupMath`"}]]]
+Block[{Print},Quiet[BeginPackage["SCWIGEE`",{"TensorTools`","GroupMath`"}]]]
 
-Get[ "SCWIGE`Usage`"];
+Get[ "SCWIGEE`Usage`"];
 
 Begin["`Private`"];
 
 $consoleMode = ($FrontEnd === Null);
 If[!$consoleMode, SetOptions[EvaluationNotebook[], CommonDefaultFormatTypes -> {"Output" -> TraditionalForm}]];
 
-Get[ "SCWIGE`Definitions`"]
-Get[ "SCWIGE`Utilities`"]
-Get[ "SCWIGE`Formatting`"]
-Get[ "SCWIGE`SetupWizard`"]
-Get[ "SCWIGE`SUSYVariations`"]
-Get[ "SCWIGE`RStructures`"]
-Get[ "SCWIGE`SpacetimeStructures`"]
-Get[ "SCWIGE`ConformalCheck`"]
-Get[ "SCWIGE`Expansions`"]
-Get[ "SCWIGE`Ward`"]
+Get[ "SCWIGEE`Definitions`"]
+Get[ "SCWIGEE`Utilities`"]
+Get[ "SCWIGEE`Formatting`"]
+Get[ "SCWIGEE`SetupWizard`"]
+Get[ "SCWIGEE`SUSYVariations`"]
+Get[ "SCWIGEE`RStructures`"]
+Get[ "SCWIGEE`SpacetimeStructures`"]
+Get[ "SCWIGEE`ConformalCheck`"]
+Get[ "SCWIGEE`Expansions`"]
+Get[ "SCWIGEE`Ward`"]
 
 End[]
 

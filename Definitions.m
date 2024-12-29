@@ -45,29 +45,6 @@ IndexData[GlobalIndex[rep_]] :=
 IndexData[DefectGlobalIndex[defectRep_, parentRep_]] := 
   Index[repDim[defectRep], "Latin", 9, Subscript[Capitalize[#], Mouseover[repName[defectRep],repName[parentRep]]]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> ToString[ToExpression[s, TraditionalForm]] &];
 
-\[Epsilon]Lower = 
-  Tensor[{{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}}];
-BuildTensor[{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}] = 
-  SparseArray@LeviCivitaTensor[2];
-
-\[Epsilon]Upper = 
-  Tensor[{{"\[Epsilon]", Raised[Spinor], Raised[Spinor]}}];
-BuildTensor[{"\[Epsilon]", Raised[Spinor], Raised[Spinor]}] = 
-  SparseArray@LeviCivitaTensor[2];
-
-\[Epsilon]LowerDot = 
-  Tensor[{{"\[Epsilon]", Lowered[DottedSpinor], 
-     Lowered[DottedSpinor]}}];
-BuildTensor[{"\[Epsilon]", Lowered[DottedSpinor], 
-    Lowered[DottedSpinor]}] = SparseArray@LeviCivitaTensor[2];
-
-\[Epsilon]UpperDot = 
-  Tensor[{{"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]}}];
-BuildTensor[{"\[Epsilon]", Raised[DottedSpinor], 
-    Raised[DottedSpinor]}] = SparseArray@LeviCivitaTensor[2];
-    
-DeclareTensorSymmetry["\[Epsilon]", {{Cycles[{{1,2}}], -1}}];
-
 Unprotect[Tensor];
 Tensor[{x___, f_Operator, y___}] := Tensor[{x, ToTensor[f][[1, 1]], y}];
 Tensor[names: {__String}] := Tensor[name2field[ToString[ToExpression[#], TraditionalForm]] & /@ names];
@@ -102,6 +79,16 @@ BuildTensor[{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Raised[SpaceTim
   Tensor[{{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Lowered[SpaceTime], Lowered[SpaceTime]}}];
 BuildTensor[{"\!\(\*SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)]\)", Lowered[SpaceTime], Lowered[SpaceTime]}] := 
   SparseArray[DiagonalMatrix[PadRight[{-SignatureFactor[]^2, 1, 1, 1}[[;;$qdefect]], 4]]];
+
+SetAttributes[\[Eta], Orderless];
+\[Eta][attrs___] /; FreeQ[{attrs}, Lower | Upper] := \[Eta][attrs, Lower];
+\[Eta][attrs___] /; FreeQ[{attrs}, Defect | Transverse | Full] := \[Eta][attrs, Full];
+\[Eta][Upper, Full] = \[Eta]Upper;
+\[Eta][Lower, Full] = \[Eta]Lower;
+\[Eta][Upper, Defect] = \[Eta]UpperDefect;
+\[Eta][Lower, Defect] = \[Eta]LowerDefect;
+\[Eta][Upper, Transverse] = \[Eta]UpperTransverse;
+\[Eta][Lower, Transverse] = \[Eta]LowerTransverse;
   
 \[Sigma]LowerSingle[i_] :=  Tensor[{{\[Sigma]LowerTensor[i], Lowered[Spinor], Lowered[DottedSpinor]}}];
 BuildTensor[{\[Sigma]LowerTensor[i_], Lowered[Spinor], Lowered[DottedSpinor]}] := SparseArray[{-SignatureFactor[], 1, 1, 1}[[i]] PauliMatrix[i - 1]];
@@ -216,6 +203,47 @@ BuildTensor[{"\!\(\*OverscriptBox[\(\[Sigma]\), \(_\)]\)",
     InversePermutation@
      Ordering[{Raised[SpaceTime], Raised[SpaceTime], 
        Lowered[DottedSpinor], Lowered[DottedSpinor]}]];
+       
+SetAttributes[\[Sigma], Orderless];
+\[Sigma][attrs___] /; FreeQ[{attrs}, Lower | Upper] := \[Sigma][attrs, Lower];
+\[Sigma][attrs___] /; FreeQ[{attrs}, Bar | NoBar] := \[Sigma][attrs, NoBar];
+\[Sigma][attrs___] /; FreeQ[{attrs}, Commutator | Bare] := \[Sigma][attrs, Bare];
+\[Sigma][attrs___] /; MemberQ[{attrs}, Bare] && FreeQ[{attrs}, Vector | 1 | 2 | 3 | 4] := \[Sigma][attrs, Vector];
+\[Sigma][Lower, NoBar, Bare, Vector] = \[Sigma]Lower;
+\[Sigma][Upper, NoBar, Bare, Vector] = \[Sigma]Upper;
+\[Sigma][Lower, Bar, Bare, Vector] = \[Sigma]BarLower;
+\[Sigma][Upper, Bar, Bare, Vector] = \[Sigma]BarUpper;
+\[Sigma][Lower, NoBar, Commutator, Vector] = \[Sigma]CommLower;
+\[Sigma][Upper, NoBar, Commutator, Vector] = \[Sigma]CommUpper;
+\[Sigma][Lower, Bar, Commutator, Vector] = \[Sigma]CommLowerDot;
+\[Sigma][Upper, Bar, Commutator, Vector] = \[Sigma]CommUpperDot;
+\[Sigma][Lower, NoBar, Bare, n_Integer] = \[Sigma]LowerSingle[n];
+\[Sigma][Upper, NoBar, Bare, n_Integer] = \[Sigma]UpperSingle[n];
+\[Sigma][Lower, Bar, Bare, n_Integer] = \[Sigma]BarLowerSingle[n];
+\[Sigma][Upper, Bar, Bare, n_Integer] = \[Sigma]BarUpperSingle[n];
+
+\[Epsilon]Lower = 
+  Tensor[{{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}}];
+BuildTensor[{"\[Epsilon]", Lowered[Spinor], Lowered[Spinor]}] = 
+  SparseArray@LeviCivitaTensor[2];
+
+\[Epsilon]Upper = 
+  Tensor[{{"\[Epsilon]", Raised[Spinor], Raised[Spinor]}}];
+BuildTensor[{"\[Epsilon]", Raised[Spinor], Raised[Spinor]}] = 
+  SparseArray@LeviCivitaTensor[2];
+
+\[Epsilon]LowerDot = 
+  Tensor[{{"\[Epsilon]", Lowered[DottedSpinor], 
+     Lowered[DottedSpinor]}}];
+BuildTensor[{"\[Epsilon]", Lowered[DottedSpinor], 
+    Lowered[DottedSpinor]}] = SparseArray@LeviCivitaTensor[2];
+
+\[Epsilon]UpperDot = 
+  Tensor[{{"\[Epsilon]", Raised[DottedSpinor], Raised[DottedSpinor]}}];
+BuildTensor[{"\[Epsilon]", Raised[DottedSpinor], 
+    Raised[DottedSpinor]}] = SparseArray@LeviCivitaTensor[2];
+    
+DeclareTensorSymmetry["\[Epsilon]", {{Cycles[{{1,2}}], -1}}];
   
 \[Epsilon]Spacetime = 
   Tensor[{{"\[Epsilon]", Lowered[SpaceTime], Lowered[SpaceTime], 
@@ -236,6 +264,20 @@ BuildTensor[{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[UpTee]\)]\)", idxs : Lowe
   Tensor[{{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[DoubleVerticalBar]\)]\)", Sequence @@ Table[Lowered[SpaceTime], 4 - q]}}];
 BuildTensor[{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[DoubleVerticalBar]\)]\)", idxs : Lowered[SpaceTime]..}] /; Length[{idxs}] < 4 := 
   ArrayPad[LeviCivitaTensor[Length[{idxs}]], Table[{4-Length[{idxs}], 0}, Length[{idxs}]]];
+  
+SetAttributes[\[Epsilon], Orderless];
+\[Epsilon][attrs___] /; FreeQ[{attrs}, Lower | Upper] := \[Epsilon][attrs, Lower];
+\[Epsilon][attrs___] /; FreeQ[{attrs}, Spinor | Spacetime] := \[Epsilon][attrs, Spinor];
+\[Epsilon][attrs___] /; MemberQ[{attrs}, Spinor] && FreeQ[{attrs}, Dot | NoDot] := \[Epsilon][attrs, NoDot];
+\[Epsilon][attrs___] /; MemberQ[{attrs}, Spacetime] && FreeQ[{attrs}, Defect | Transverse | Full] := \[Epsilon][attrs, Full];
+\[Epsilon][Lower, Spinor, NoDot] = \[Epsilon]Lower;
+\[Epsilon][Upper, Spinor, NoDot] = \[Epsilon]Upper;
+\[Epsilon][Lower, Spinor, Dot] = \[Epsilon]LowerDot;
+\[Epsilon][Upper, Spinor, Dot] = \[Epsilon]UpperDot;
+\[Epsilon][Lower, Spacetime, Full] = \[Epsilon]Spacetime;
+\[Epsilon][Upper, Spacetime, Full] = \[Epsilon]SpacetimeUpper;
+\[Epsilon][Lower, Spacetime, Transverse] := \[Epsilon]Transverse[$qdefect];
+\[Epsilon][Lower, Spacetime, Defect] := \[Epsilon]Defect[$qdefect];
 
 XX[i_] := Tensor[{{SpacetimePoint[i], Raised[SpaceTime]}}];
 BuildTensor[{SpacetimePoint[i_], Raised[SpaceTime]}] := SparseArray@Table[x[i, k], {k, 4}];

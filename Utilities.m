@@ -204,7 +204,7 @@ solveGroups[grps_, vars_, OptionsPattern[]] :=
      With[{sol = 
         Quiet[Assuming[OptionValue["Assumptions"], 
           With[{tmp = 
-             Solve[#2 /. #1 /. OptionValue["TempRules"], 
+             Solve[OptionValue["Transformation"][#2 /. #1] /. OptionValue["TempRules"], 
                vars /. OptionValue["TempRules"]] /. (Reverse /@ 
                 OptionValue["TempRules"])}, 
            If[tmp === {}, Missing[], 

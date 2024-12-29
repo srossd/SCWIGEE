@@ -2,7 +2,7 @@
 
 (* Wolfram Language package *)
 
-BeginPackage["SCWIGE`"]
+BeginPackage["SCWIGEE`"]
 (* Exported symbols added here with SymbolName::usage *)  
 
 
@@ -50,8 +50,6 @@ Multiplet::usage = "Multiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the list of fields in the \*
 StyleBox[\(\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] SUSY multiplet.";
-SignatureFactor::usage = "SignatureFactor[] gives the factor determining the signature, 1 for Lorentzian or \!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\) for Euclidean.";
 
 DisplayMultiplet::usage = "DisplayMultiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] displays the \*
@@ -382,93 +380,7 @@ StyleBox[\"dims\",\nFontSlant->\"Italic\"]\) and spins \!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\).";
 
 Structure::usage = "Structure[\!\(\*
-StyleBox[\"symbol\",\nFontSlant->\"Italic\"]\)] is a head for spacetime structures.";
-
-(*StructureI::usage = "StructureI[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] gives \!\(\*SuperscriptBox[\(\!\(\*OverscriptBox[\(I\), \(^\)]\)\), 
-StyleBox[
-RowBox[{\"i\", \",\", \"j\"}],\nFontSlant->\"Italic\"]]\) as in 1705.05401."<>
-"StructureI[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"l\",\nFontSlant->\"Italic\"]\)] gives \!\(\*SubsuperscriptBox[OverscriptBox[\(I\), \(^\)], 
-StyleBox[
-RowBox[{\"k\", \",\", \" \", \"l\"}],\nFontSlant->\"Italic\"], 
-StyleBox[
-RowBox[{\"i\", \",\", \" \", \"j\"}],\nFontSlant->\"Italic\"]]\) as in 1705.05401.";
-StructureJ::usage = "StructureJ[\!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] gives \!\(\*SubsuperscriptBox[OverscriptBox[\(J\), \(^\)], 
-StyleBox[
-RowBox[{\"i\", \",\", \"j\"}],\nFontSlant->\"Italic\"], 
-StyleBox[\"k\",\nFontSlant->\"Italic\"]]\) as in 1705.05401.";
-StructureK::usage = "StructureK[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)] gives \!\(\*SubsuperscriptBox[OverscriptBox[\(K\), \(^\)], 
-StyleBox[\"k\",\nFontSlant->\"Italic\"], 
-StyleBox[
-RowBox[{\"i\", \",\", \"j\"}],\nFontSlant->\"Italic\"]]\) as in 1705.05401.";
-StructureKBar::usage = "StructureKBar[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)] gives \!\(\*SubsuperscriptBox[OverscriptBox[\(K\), OverscriptBox[\(_\), \(^\)]], 
-StyleBox[\"k\",\nFontSlant->\"Italic\"], 
-StyleBox[
-RowBox[{\"i\", \",\", \"j\"}],\nFontSlant->\"Italic\"]]\) as in 1705.05401.";
-StructureL::usage = "StructureL[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"l\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"]\",\nFontSlant->\"Italic\"]\) gives \!\(\*SubsuperscriptBox[OverscriptBox[\(L\), \(^\)], 
-StyleBox[
-RowBox[{\"j\", \",\", \"k\", \",\", \"l\"}],\nFontSlant->\"Italic\"], 
-StyleBox[\"i\",\nFontSlant->\"Italic\"]]\) as in 1705.05401.";
-StructureLBar::usage = "StructureLBar[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"l\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"]\",\nFontSlant->\"Italic\"]\) gives \!\(\*SubsuperscriptBox[OverscriptBox[\(L\), OverscriptBox[\(_\), \(^\)]], 
-StyleBox[
-RowBox[{\"j\", \",\", \"k\", \",\", \"l\"}],\nFontSlant->\"Italic\"], 
-StyleBox[\"i\",\nFontSlant->\"Italic\"]]\) as in 1705.05401.";*)
+StyleBox[\"symbol\",\nFontSlant->\"Italic\"]\)] is a head for spacetime structures."; 1
 
 SpacetimeStructures::usage = "SpacetimeStructures[\!\(\*
 StyleBox[\"dims\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -511,44 +423,12 @@ SUSYRules::usage = "SUSYRules[] gives the coefficients of the SUSY variations.";
 
 DisplaySUSYVariations::usage = "DisplaySUSYVariations[] gives a table showing the SUSY algebra.";
 
-\[Epsilon]Lower::usage = "\[Epsilon]Lower is the tensor \!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Alpha]\[Beta]\)]\).";
-\[Epsilon]LowerDot::usage = "\[Epsilon]Lower is the tensor \!\(\*SubscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\).";
-\[Epsilon]Upper::usage = "\[Epsilon]Lower is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[Alpha]\[Beta]\)]\).";
-\[Epsilon]UpperDot::usage = "\[Epsilon]Lower is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\).";
-
-\[Sigma]LowerSingle::usage = "\[Sigma]LowerSingle[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)\!\(\*SubscriptBox[\()\), \(\[Alpha]\[InvisibleComma]\*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\)";
-\[Sigma]UpperSingle::usage = "\[Sigma]LowerSingle[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SuperscriptBox[\(\[Sigma]\), \(i\)]\)\!\(\*SubscriptBox[\()\), \(\[Alpha]\[InvisibleComma]\*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\)";
-\[Sigma]BarLowerSingle::usage = "\[Sigma]LowerSingle[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SubscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(i\)]\)\!\(\*SuperscriptBox[\()\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)]\[InvisibleComma]\[Alpha]\)]\)";
-\[Sigma]BarUpperSingle::usage = "\[Sigma]LowerSingle[\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the tensor (\!\(\*SuperscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(i\)]\)\!\(\*SuperscriptBox[\()\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)]\[InvisibleComma]\[Alpha]\)]\)";
-
-\[Sigma]Lower::usage = "\[Sigma]Lower is the tensor \!\(\*SubscriptBox[\(\[Sigma]\), \(\[Mu]\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\).";
-\[Sigma]Upper::usage = "\[Sigma]Upper is the tensor \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \)\(\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)\), \(\[Mu]\)]\).";
-\[Sigma]BarLower::usage = "\[Sigma]BarLower is the tensor \!\(\*SubsuperscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(\[Mu]\), \(\(\\\ \)\(\*OverscriptBox[\(\[Alpha]\), \(.\)] \[Alpha]\)\)]\).";
-\[Sigma]BarUpper::usage = "\[Sigma]BarUpper is the tensor \!\(\*SuperscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(\[Mu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \[Alpha]\)]\).";
-
-\[Sigma]CommLower::usage = "\[Sigma]CommLower is the tensor \!\(\*SubscriptBox[\(\[Sigma]\), \(\[Mu]\[Nu]\[Alpha]\[Beta]\)]\) = -\!\(\*FractionBox[\(1\), \(4\)]\)(\!\(\*SubscriptBox[\(\[Sigma]\), \(\[Mu]\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\[Nu]\), \(\(\\\ \)\(\*OverscriptBox[\(\[Alpha]\), \(.\)] \[Gamma]\)\)]\)\!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Gamma]\[Beta]\)]\) - (\[Mu] \[LeftRightArrow] \[Nu])).";
-\[Sigma]CommLowerDot::usage = "\[Sigma]CommLowerDot is the tensor \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\[Mu]\[Nu]\), \(\(\\\ \\\ \)\(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)\)]\) = -\!\(\*FractionBox[\(1\), \(4\)]\)(\!\(\*SubscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Gamma]\), \(.\)]\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\[Mu]\), \(\(\\\ \)\(\*OverscriptBox[\(\[Gamma]\), \(.\)] \[Alpha]\)\)]\)\!\(\*SubscriptBox[\(\[Sigma]\), \(\[Nu]\[Alpha] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\) - (\[Mu] \[LeftRightArrow] \[Nu])).";
-\[Sigma]CommUpper::usage = "\[Sigma]CommUpper is the tensor \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \\\ \)\(\[Alpha]\[Beta]\)\), \(\[Mu]\[Nu]\)]\) = -\!\(\*FractionBox[\(1\), \(4\)]\)(\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \)\(\[Alpha] \*OverscriptBox[\(\[Alpha]\), \(.\)]\)\), \(\[Mu]\)]\)\!\(\*SuperscriptBox[\(\[Sigma]\), \(\[Nu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \[Gamma]\)]\)\!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Gamma]\[Beta]\)]\) - (\[Mu] \[LeftRightArrow] \[Nu])).";
-\[Sigma]CommUpperDot::usage = "\[Sigma]CommUpperDot is the tensor \!\(\*SuperscriptBox[\(\[Sigma]\), \(\[Mu]\[Nu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\) = -\!\(\*FractionBox[\(1\), \(4\)]\)(\!\(\*SubscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Gamma]\), \(.\)]\)]\)\!\(\*SuperscriptBox[\(\[Sigma]\), \(\[Mu] \*OverscriptBox[\(\[Gamma]\), \(.\)] \[Alpha]\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(\(\\\ \)\(\[Alpha] \*OverscriptBox[\(\[Beta]\), \(.\)]\)\), \(\[Nu]\)]\) - (\[Mu] \[LeftRightArrow] \[Nu])).";
-
-\[Eta]Lower::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\)";
-\[Eta]Upper::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\).";
-\[Eta]LowerTransverse::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[SuperscriptBox[\(\[Eta]\), \(\[UpTee]\)], \(\[Mu]\[Nu]\)]\)";
-\[Eta]UpperTransverse::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\(\[UpTee]\)\(\[Mu]\[Nu]\)\)]\)";
-\[Eta]LowerDefect::usage = "\[Eta]Lower is the tensor \!\(\*SubscriptBox[SuperscriptBox[\(\[Eta]\), \(\[DoubleVerticalBar]\)], \(\[Mu]\[Nu]\)]\)";
-\[Eta]UpperDefect::usage = "\[Eta]Upper is the tensor \!\(\*SuperscriptBox[\(\[Eta]\), \(\(\[DoubleVerticalBar]\)\(\[Mu]\[Nu]\)\)]\)";
-
-\[Epsilon]Spacetime::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SubscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
-\[Epsilon]SpacetimeUpper::usage = "\[Epsilon]Spacetime is the tensor \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[Mu]\[Nu]\[Rho]\[Sigma]\)]\).";
-
-\[Epsilon]Transverse::usage = "\[Epsilon]Transverse[\!\(\*
-StyleBox[\"q\",\nFontSlant->\"Italic\"]\)] is the spacetime \[Epsilon] invariant associated with directions transverse to the defect.";
-\[Epsilon]Defect::usage = "\[Epsilon]Defect[\!\(\*
-StyleBox[\"q\",\nFontSlant->\"Italic\"]\)] is the spacetime \[Epsilon] invariant associated with directions parallel to the defect.";
+\[Epsilon]::usage = "\[Epsilon][\!\(\*
+StyleBox[\"modifiers\",\nFontSlant->\"Italic\"]\)] gives an \[Epsilon]-tensor, e.g., \[Epsilon][Upper, Dot] gives \!\(\*SuperscriptBox[\(\[Epsilon]\), \(\*OverscriptBox[\(\[Alpha]\), \(.\)] \*OverscriptBox[\(\[Beta]\), \(.\)]\)]\)";
+\[Sigma]::usage = "\[Sigma][\!\(\*
+StyleBox[\"modifiers\",\nFontSlant->\"Italic\"]\)] gives a \[Sigma]-tensor, e.g., \[Sigma][Bar] gives \!\(\*SubscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(\[Mu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \[Alpha]\)]\)";
+\[Eta]::usage = "\[Eta][\!\(\*
+StyleBox[\"modifiers\",\nFontSlant->\"Italic\"]\)] gives an \[Eta]-tensor, e.g., \[Eta][Upper] gives \!\(\*SuperscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\)";
 
 SpacetimeStructureExpressions::usage = "SpacetimeStructureExpressions[\!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\)] gives a list of symbolic expressions for the normalized spacetime structures with spins \!\(\*
@@ -686,17 +566,6 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"l\",\nFontSlant->\"Italic\"]\)}.";
 
-\[Xi]::usage = "\[Xi][{\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)}] is the defect cross-ratio \[Xi] with coordinates in the order {\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)}.";
-\[Eta]::usage = "\[Eta][{i, j}] is the defect cross-ratio \[Eta] with coordinates in the order {i, j}.";
-
 DeclareAlgebra::usage = "DeclareAlgebra[] computes ansatze for SUSY variations and sets the (anti)commutators between QTensor[] and the multiplet appropriately.";
 DeclareArbitraryFunction::usage = "DeclareArbitraryFunction[\!\(\*
 StyleBox[\"head\",\nFontSlant->\"Italic\"]\)] declares that \!\(\*
@@ -735,10 +604,6 @@ Internal::usage = "Internal[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] represents an internal vertex in an R-invariant diagram.";
 External::usage = "External[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] represents an external vertex in an R-invariant diagram.";
-
-ToTensor::usage = "ToTensor[\!\(\*
-StyleBox[\"field\",\nFontSlant->\"Italic\"]\)] gives the tensor corresponding to \!\(\*
-StyleBox[\"field\",\nFontSlant->\"Italic\"]\).";
 
 SetTwoPtGlobalInvariant::usage = "SetTwoPtGlobalInvariant[\!\(\*
 StyleBox[\"r1\",\nFontSlant->\"Italic\"]\)\!\(\*
