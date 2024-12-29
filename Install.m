@@ -109,7 +109,7 @@ InstallSCWIGEE[]:= Module[{
 		(* Move files to the Mathematica packages folder *)
 		Print["Copying "<> pkgName<> " to "<> pkgDir<> "."];
 	
-		zipDir= FileNames["SCWIGEE.m", unzipDir, Infinity];
+		zipDir= FileNames["Utilities.m", unzipDir, Infinity];
 		CopyDirectory[DirectoryName[zipDir[[1]], 1], pkgDir];
 	
 		(* Delete the extracted archive *)
