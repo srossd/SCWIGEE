@@ -2,7 +2,7 @@
 
 (* Wolfram Language package *)
 
-BeginPackage["SCWIGE`"]
+BeginPackage["SCWIGEE`"]
 (* Exported symbols added here with SymbolName::usage *)  
 
 
@@ -50,8 +50,6 @@ Multiplet::usage = "Multiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] gives the list of fields in the \*
 StyleBox[\(\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)th\)] SUSY multiplet.";
-SignatureFactor::usage = "SignatureFactor[] gives the factor determining the signature, 1 for Lorentzian or \!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\) for Euclidean.";
 
 DisplayMultiplet::usage = "DisplayMultiplet[\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)] displays the \*
