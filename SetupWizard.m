@@ -268,7 +268,7 @@ conventionsPanel[] := Row[{Column[Prepend[conventions[1], Style["General convent
 ExportResults[file_] := NotebookSave[resultsNotebook[], file];
 
 resultsNotebook[] := CreateDocument[{
-   Cell[TextData[{ButtonBox["SCWIGE", BaseStyle->"Hyperlink", ButtonData->{URL["https://github.com/srossd/SCWIGE"], None}, ButtonNote->"https://github.com/srossd/SCWIGE"], " Results"}], "Title"],
+   Cell[TextData[{ButtonBox["SCWIGEE", BaseStyle->"Hyperlink", ButtonData->{URL["https://github.com/srossd/SCWIGEE"], None}, ButtonNote->"https://github.com/srossd/SCWIGEE"], " Results"}], "Title"],
    CellGroup[{
       TextCell["Conventions", "Chapter"],
    	  ExpressionCell[conventionsPanel[]]
@@ -335,7 +335,7 @@ resultsNotebook[] := CreateDocument[{
       	   ],
       	   CellGroup[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
-      	      ExpressionCell[Module[{rreps = If[SCWIGE`Private`$qdefect =!= None, DefectGlobalIndex[DefectGlobalRep[#], GlobalRep[SCWIGE`Private`name2field[#[[1]]]]] & /@ grp[[1]], GlobalIndex@*GlobalRep /@ grp[[1]]]},
+      	      ExpressionCell[Module[{rreps = If[SCWIGEE`Private`$qdefect =!= None, DefectGlobalIndex[DefectGlobalRep[#], GlobalRep[SCWIGEE`Private`name2field[#[[1]]]]] & /@ grp[[1]], GlobalIndex@*GlobalRep /@ grp[[1]]]},
       	       Components /@ Switch[Length[grp[[1]]],
       	          	4, Table[Tensor[{{GlobalInvariant[i], Sequence @@ (Raised /@ rreps)}}], {i, numInvariants[rreps[[;;,1]]]}],
 		           	3, {Tensor[{{"C", Sequence @@ (Raised /@ rreps)}}]},
@@ -354,7 +354,7 @@ resultsNotebook[] := CreateDocument[{
       	   CellGroup[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
       	   	  TextCell["The spinor indices appear in the same order in which they appear in the correlator. X[i, j] denotes the jth coordinate of the ith operator position.", "Text"],
-      	      ExpressionCell[If[ArrayQ[#], SparseArray[#], #] & /@ (Normal@*Components /@ SpacetimeStructures[ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], {}, Range[Length[grp[[1]]]], $qdefect] /. SCWIGE`x -> Global`X), "Output"]
+      	      ExpressionCell[If[ArrayQ[#], SparseArray[#], #] & /@ (Normal@*Components /@ SpacetimeStructures[ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], {}, Range[Length[grp[[1]]]], $qdefect] /. SCWIGEE`x -> Global`X), "Output"]
       	   }, Closed]
       	},Closed],
       	Cell["Coefficients", "Subsection"],
