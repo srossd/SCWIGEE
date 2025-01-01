@@ -12,7 +12,7 @@ GlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dynkin[rep];
 DefectGlobalRep[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := If[appropriateGroup[rep] === DefectGlobalSymmetry[], dynkin[rep], decomposeRepDefect[rep]];
 
 whichMultiplet[f_Operator] := whichMultiplet[f[[1]]];
-whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] &];
+whichMultiplet[name_] := SelectFirst[$multipletIndices, MemberQ[Flatten[Multiplet[#]][[;;,1]], name] || MemberQ[Flatten[Multiplet[#]][[;;,1]], ToString[ToExpression[name], TraditionalForm]] &];
 
 multipletOf[f_Operator] := With[{mm = Multiplet[whichMultiplet[f]]},
    If[MatchQ[mm[[1]], _List], SelectFirst[mm, MemberQ[#, f] &], mm]
