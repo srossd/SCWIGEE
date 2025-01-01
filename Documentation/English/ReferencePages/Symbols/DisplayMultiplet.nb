@@ -10,11 +10,11 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     25373,        677]
-NotebookOptionsPosition[     20662,        579]
-NotebookOutlinePosition[     23039,        638]
-CellTagsIndexPosition[     22954,        633]
-WindowTitle->SetMultiplet
+NotebookDataLength[     22919,        600]
+NotebookOptionsPosition[     18858,        512]
+NotebookOutlinePosition[     21057,        569]
+CellTagsIndexPosition[     20972,        564]
+WindowTitle->DisplayMultiplet
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,96 +27,125 @@ Cell[BoxData[GridBox[{
           TemplateBox[{12},
            "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
            TextAlignment->Center,ExpressionUUID->
-           "3414d61c-e836-b645-b4ad-af2a49dac84a"], 
+           "f9543ebc-2f12-6148-b898-e6bb8bba3149"], 
           TemplateBox[{8},
            "Spacer1"]}]],
          TextAlignment->Center,ExpressionUUID->
-         "5dbcf347-0df3-c04f-b355-127ff4b8deba"],
+         "c39233f2-9e16-4a46-9070-96755a924313"],
         Background->RGBColor[0.490196, 0.576471, 0.690196],
         ItemSize->Full], ""}
      },
      GridBoxAlignment->{"Rows" -> {{Center}}},
      GridBoxItemSize->{"Columns" -> {Full, 
-         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
-     TagBox[
-      ActionMenuBox[
-       FrameBox[Cell[TextData[{
-         "URL",
-         " ",
-         Cell[BoxData[
-          GraphicsBox[
-           {GrayLevel[0.66667], Thickness[0.13], 
-            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
-           AspectRatio->1,
-           ImageSize->20,
-           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
-          "0a89d3a2-f6ae-7f44-86be-62c346cb1aaa"]
-        }],ExpressionUUID->"c2a5d0f4-bc1c-cd41-bcd2-8e4674244d50"],
-        StripOnInput->False],{
-       "\"SCWIGEE/ref/SetMultiplet\"" :> None, 
-        "\"Copy Wolfram Documentation Center URL\"" :> 
-        Module[{DocumentationSearch`Private`nb$}, 
-          DocumentationSearch`Private`nb$ = 
-           NotebookPut[
-            Notebook[{Cell["SCWIGEE/ref/SetMultiplet"]}, Visible -> False]]; 
-          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
-          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
-          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
-        "\"Copy web URL\"" :> 
-        Module[{DocumentationSearch`Private`nb$}, 
-          DocumentationSearch`Private`nb$ = 
-           NotebookPut[
-            Notebook[{
-              Cell[BoxData[
-                MakeBoxes[
-                 Hyperlink[
-                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
-SetMultiplet.html"], StandardForm]], "Input", TextClipboardType -> 
-                "PlainText"]}, Visible -> False]]; 
-          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
-          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
-          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
-        "\"Go to web URL\"" :> 
-        FrontEndExecute[{
-          NotebookLocate[{
-            URL[If[TrueQ[False], 
-                "http://reference.wolfram.com/system-modeler/", 
-                "http://reference.wolfram.com/language/"] <> 
-              "SCWIGEE/ref/SetMultiplet" <> ".html"], None}]}]},
-       Appearance->None,
-       MenuAppearance->Automatic,
-       MenuStyle->"URLMenu"],
-      MouseAppearanceTag["LinkHand"]]],
-     LineSpacing->{1.4, 0},ExpressionUUID->
-     "9a92f277-6780-8c43-a29f-6da507ae20ba"]], "AnchorBar",
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "See Also",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "94ef7a94-8abe-e341-8047-136a851aec82"]
+         }],ExpressionUUID->"4512194e-b6d2-3c49-b398-0b784a49ca95"],
+         StripOnInput->False],{
+        "\"SetMultiplet\"" :> 
+         Documentation`HelpLookup["paclet:SCWIGEE/ref/SetMultiplet"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"SeeAlso"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "79914065-b52a-b74a-bb48-deb5b4562b2a"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "ecadbd5b-3aee-6b47-9f6f-cdf580d9e365"]
+         }],ExpressionUUID->"084ffccc-ef09-5946-a6d2-5bfb9671913c"],
+         StripOnInput->False],{
+        "\"SCWIGEE/ref/DisplayMultiplet\"" :> None, 
+         "\"Copy Wolfram Documentation Center URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{Cell["SCWIGEE/ref/DisplayMultiplet"]}, Visible -> 
+               False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+         "\"Copy web URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{
+               Cell[BoxData[
+                 MakeBoxes[
+                  Hyperlink[
+                   "http://reference.wolfram.com/language/SCWIGEE/ref/\
+DisplayMultiplet.html"], StandardForm]], "Input", TextClipboardType -> 
+                 "PlainText"]}, Visible -> False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+         "\"Go to web URL\"" :> 
+         FrontEndExecute[{
+           NotebookLocate[{
+             URL[If[TrueQ[False], 
+                 "http://reference.wolfram.com/system-modeler/", 
+                 "http://reference.wolfram.com/language/"] <> 
+               "SCWIGEE/ref/DisplayMultiplet" <> ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "097d8bfd-35dd-d649-84a9-0202fac555cf"]
+    }], "AnchorBar",
      CacheGraphics->False,ExpressionUUID->
-     "d4f81282-2e9b-484f-bbf2-6ed77713ced8"]}
+     "41b76668-7fd3-0146-9966-be63dae1ad75"]}
   }]], "AnchorBarGrid",
  GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
      Scaled[0.65], {
       Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
    "RowsIndexed" -> {}}},
- CellID->1,ExpressionUUID->"dde39f1d-4bc9-da41-a686-2c14404e5102"],
+ CellID->1,ExpressionUUID->"73d5f53c-f9f7-7543-b4c3-5dc10f546f37"],
 
-Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"a473d136-bb2e-964f-af77-6f1b1c190aa1"],
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"36794aec-7b4e-f041-8496-20de53c483a9"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[GridBox[{
    {Cell[TextData[{
      Cell[
-     "SetMultiplet", "ObjectName",ExpressionUUID->
-      "df0e54c9-47d6-3845-b69e-7f63d1c1092d"],
+     "DisplayMultiplet", "ObjectName",ExpressionUUID->
+      "a4f4328c-c075-fe41-afe3-689eea49d950"],
      Cell[BoxData[
       TemplateBox[{8},
-       "Spacer1"]],ExpressionUUID->"8817b43c-cd61-4747-a992-f1c844142ca6"],
+       "Spacer1"]],ExpressionUUID->"00544e5a-fb44-3d49-ab60-9431b0e05749"],
      Cell[BoxData[
      ""], "ObjectNameTranslation",ExpressionUUID->
-      "0b241e12-115d-1e45-b26c-61b38b3fc0e1"]
-    }],ExpressionUUID->"ffca28ed-95c5-624a-95d7-4b77f6f54e47"], 
+      "ef7f4245-eea6-8c43-ac9b-4772da94e2d9"]
+    }],ExpressionUUID->"444ea076-3219-ff4a-9ba8-4df96663d816"], 
     "\[SpanFromLeft]"}
-  }]], "ObjectNameGrid",ExpressionUUID->"2821e2a1-5dab-994a-a704-\
-6135c1f28363"],
+  }]], "ObjectNameGrid",ExpressionUUID->"07cfd741-e5f0-114d-840c-\
+568bf9ba46ec"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -124,90 +153,18 @@ Cell[BoxData[GridBox[{
       RowBox[{
        TemplateBox[{
          Cell[
-          TextData["SetMultiplet"]], "paclet:SCWIGEE/ref/SetMultiplet", 
-         "SCWIGEE Package Symbol"},
+          TextData["DisplayMultiplet"]], 
+         "paclet:SCWIGEE/ref/DisplayMultiplet", "SCWIGEE Package Symbol"},
         "PackageLink",
         BaseStyle->"InlineFormula"], "[", 
-       RowBox[{
-        RowBox[{"{", 
-         StyleBox[
-          RowBox[{"op1", ",", " ", "op2", ",", " ", "..."}],
-          FontSlant->"Italic"], 
-         StyleBox["}",
-          FontSlant->"Italic"]}], 
-        StyleBox[",",
-         FontSlant->"Italic"], 
-        StyleBox[" ",
-         FontSlant->"Italic"], 
-        StyleBox["name",
-         FontSlant->"Italic"], 
-        StyleBox[",",
-         FontSlant->"Italic"], 
-        StyleBox[" ",
-         FontSlant->"Italic"], "True", 
-        StyleBox[",",
-         FontSlant->"Italic"], 
-        StyleBox[" ",
-         FontSlant->"Italic"], 
-        StyleBox["i",
-         FontSlant->"Italic"]}], "]"}]], "InlineFormula",
+       StyleBox["i",
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
       FontFamily->"Source Sans Pro",ExpressionUUID->
-      "e187533e-ac93-9340-9ed4-420afa676ed8"],
-     " \[LineSeparator]sets a self-conjugate multiplet with index ",
-     StyleBox["i\n",
-      FontSlant->"Italic"],
-     Cell[BoxData[
-      RowBox[{
-       TemplateBox[{
-         Cell[
-          TextData["SetMultiplet"]], "paclet:SCWIGEE/ref/SetMultiplet", 
-         "SCWIGEE Package Symbol"},
-        "PackageLink",
-        BaseStyle->"InlineFormula"], "[", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"{", 
-           StyleBox[
-            RowBox[{"op1", ",", " ", "op2", ",", " ", "..."}],
-            FontSlant->"Italic"], 
-           StyleBox["}",
-            FontSlant->"Italic"]}], 
-          StyleBox[",",
-           FontSlant->"Italic"], 
-          StyleBox[
-           RowBox[{"{", 
-            RowBox[{"conjOp1", ",", "conjOp2", ",", "..."}], "}"}],
-           FontSlant->"Italic"]}], 
-         StyleBox[" ",
-          FontSlant->"Italic"], 
-         StyleBox["}",
-          FontSlant->"Italic"]}], 
-        StyleBox[",",
-         FontSlant->"Italic"], 
-        StyleBox[" ",
-         FontSlant->"Italic"], 
-        StyleBox["name",
-         FontSlant->"Italic"], 
-        StyleBox[",",
-         FontSlant->"Italic"], 
-        StyleBox[" ",
-         FontSlant->"Italic"], "False", 
-        StyleBox[",",
-         FontSlant->"Italic"], 
-        StyleBox[" ",
-         FontSlant->"Italic"], 
-        StyleBox["i",
-         FontSlant->"Italic"]}], "]"}]], "InlineFormula",
-      FontFamily->"Source Sans Pro",ExpressionUUID->
-      "30bc3744-07e5-4d47-b790-37ddfe9ee7d1"],
-     StyleBox[" \[LineSeparator]",
-      FontSlant->"Italic"],
-     "sets a multiplet of the form (operators) \[CirclePlus] (CPT conjugates) \
-with index ",
+      "9b7cd9f0-2491-a94a-9b52-fe4226d5005a"],
+     "\[LineSeparator]displays the multiplet with index ",
      StyleBox["i",
       FontSlant->"Italic"]
-    }],ExpressionUUID->"ab400130-e03a-f543-a034-e60f4c55c922"]}
+    }],ExpressionUUID->"6f508599-9e1b-1d4a-b3b7-cc445b560746"]}
   }]], "Usage",
  CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
 }, Open  ]],
@@ -241,12 +198,12 @@ Cell[TextData[Cell[BoxData[
          0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
      ImageSizeCache->{
       13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
-    ExpressionUUID->"33837f20-4a91-3344-a7c7-f94f2847667d"],
+    ExpressionUUID->"f8d8c7b7-b958-8648-9dc3-fff4cbac2f6e"],
    Cell[BoxData[
     TemplateBox[{1},
-     "Spacer1"]],ExpressionUUID->"72de6b66-78d4-e34c-8516-86ee38f2fca5"],
+     "Spacer1"]],ExpressionUUID->"277f2ee5-213a-d640-a71b-8008a508b8f7"],
    "Details and Options"
-  }], "NotesFrameText",ExpressionUUID->"fd4d1f8d-bcba-4046-be94-240b0d1c0423"],
+  }], "NotesFrameText",ExpressionUUID->"b5184a00-1943-704c-9f04-205467570334"],
   Appearance->{Automatic, None, "Normal", Automatic},
   BaseStyle->None,
   ButtonFunction:>(FrontEndExecute[{
@@ -257,15 +214,15 @@ Cell[TextData[Cell[BoxData[
       FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
   Evaluator->None,
   Method->
-   "Preemptive"]],ExpressionUUID->"76952936-a0ff-bb44-8c76-c97fe765a37e"]], \
+   "Preemptive"]],ExpressionUUID->"f3b14999-1399-0544-bc03-47347d508a85"]], \
 "NotesSection",
  WholeCellGroupOpener->True,
  CellGroupingRules->{"SectionGrouping", 50},
  CacheGraphics->False,
- CellID->241881456,ExpressionUUID->"d3022802-ba0d-8546-9ab8-daa1281774aa"],
+ CellID->49882929,ExpressionUUID->"be72c59a-5474-f942-88e4-4ffbcfa21eec"],
 
-Cell["Multiplets can also be set using the Setup Wizard GUI.", "Notes",
- CellID->1067943069,ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8"]
+Cell["The multiplets are also displayed in the Setup Wizard.", "Notes",
+ CellID->8018565,ExpressionUUID->"40ef381c-3f3c-6040-9601-b2dbc688d84e"]
 }, Dynamic[CurrentValue[
  EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
 
@@ -296,19 +253,19 @@ Cell[TextData[{
         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
        0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
    ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
-  ExpressionUUID->"5db638c2-9d64-c044-859b-73166b9d9699"],
+  ExpressionUUID->"0b15d5d2-03f4-c646-b419-88b66fc9fdee"],
  Cell[BoxData[
   TemplateBox[{1},
-   "Spacer1"]],ExpressionUUID->"308aebea-8f1f-164a-8ded-53b6da250c52"],
+   "Spacer1"]],ExpressionUUID->"93f12792-7f42-8d47-96f3-fa4684e4fcef"],
  "Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(1)", "ExampleCount",ExpressionUUID->
-  "777cf077-b0fb-e34d-9f4f-f2c318d56474"]
+  "38fa39f0-3a62-644b-873c-bcd33380533e"]
 }], "PrimaryExamplesSection",
  WholeCellGroupOpener->True,
  CacheGraphics->False,
  CellTags->"PrimaryExamplesSection",
- CellID->24497886,ExpressionUUID->"4a165ae5-808b-0f4a-a949-bdcafb880307"],
+ CellID->871086818,ExpressionUUID->"c9f1ded6-df44-1f47-b0eb-cb979d4c0a0e"],
 
 Cell[CellGroupData[{
 
@@ -337,40 +294,21 @@ Cell[TextData[{
         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
        0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
    ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
-  ExpressionUUID->"bb6ac530-f701-5c4e-bc70-c0dfa74be9a7"],
+  ExpressionUUID->"e6b0ed2e-6f9d-a045-a0ac-34bb22dd3aa1"],
  Cell[BoxData[
   TemplateBox[{1},
-   "Spacer1"]],ExpressionUUID->"a1a121c0-0526-ba44-b6cc-7ea6a9bc9abf"],
+   "Spacer1"]],ExpressionUUID->"63cfdb3c-384c-b045-add9-8068354fe01b"],
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(1)", "ExampleCount",ExpressionUUID->
-  "1c3a6c4c-bf15-0f42-9543-8cfbce601c91"]
+  "f30b6a30-b168-f042-9dc8-40ea98d540df"]
 }], "ExampleSection", "ExampleSection",
  WholeCellGroupOpener->True,
  CacheGraphics->False,
- CellID->635496339,ExpressionUUID->"f54b728c-8da4-5c49-845b-d8bc41c518c1"],
+ CellID->107994459,ExpressionUUID->"953c7170-0a98-5a46-a91d-1bc1663fc4fa"],
 
-Cell[TextData[{
- "Before setting a multiplet, set the global symmetry using ",
- ButtonBox["SetGlobalSymmetry",
-  BaseStyle->"Link",
-  ButtonData->"paclet:SCWIGEE/ref/SetGlobalSymmetry"],
- ":"
-}], "ExampleText",
- CellID->367047880,ExpressionUUID->"315f843c-9420-e64a-a6c9-4b16317a6530"],
-
-Cell[BoxData[
- RowBox[{"SetGlobalSymmetry", "[", "SU4", "]"}]], "Input",
- CellLabel->"In[1]:=",
- CellID->48985578,ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a"],
-
-Cell["\<\
-Then set a multiplet, e.g., the \[ScriptCapitalN] = 4 vector multiplet, by \
-listing the conformal primary operators:\
-\>", "ExampleText",
- CellID->21153600,ExpressionUUID->"3e43e44f-f4e0-2e49-980b-96fc82082585"],
-
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{"SetGlobalSymmetry", "[", "SU4", "]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"SetMultiplet", "[", 
    RowBox[{
@@ -416,25 +354,16 @@ Cell[BoxData[
          RowBox[{"0", ",", "1"}], "}"}], ",", 
         RowBox[{"-", "2"}]}], "]"}]}], "\[IndentingNewLine]", "}"}], ",", 
     "\[IndentingNewLine]", "\"\<Vector\>\"", ",", "True", ",", "1"}], "]"}], 
-  ";"}]], "Input",
- CellLabel->"In[2]:=",
- CellID->212433684,ExpressionUUID->"e2565114-ee98-594f-ba6d-9e5c6de9496b"],
-
-Cell[TextData[{
- "View the multiplet structure using ",
- ButtonBox["DisplayMultiplet",
-  BaseStyle->"Link",
-  ButtonData->"paclet:SCWIGEE/ref/DisplayMultiplet"],
- ":"
-}], "ExampleText",
- CellID->368078216,ExpressionUUID->"f99b5d6c-54d9-124e-8b9e-229e1bc70e6e"],
+  ";"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->48985578,ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"DisplayMultiplet", "[", "1", "]"}]], "Input",
- CellLabel->"In[3]:=",
- CellID->5775748,ExpressionUUID->"95e021c9-2b58-d64b-a1b1-6eddc9fa2057"],
+ CellLabel->"In[2]:=",
+ CellID->344128605,ExpressionUUID->"3692b590-9a76-be4d-b955-6e04380ee9b8"],
 
 Cell[BoxData[
  FormBox[
@@ -552,8 +481,8 @@ TraditionalForm]\\)\"\>",
        FontFamily->"CMU Serif",
        FontSize->14], {-3, -4}]}},
    ImageSize->300], TraditionalForm]], "Output",
- CellLabel->"Out[3]=",
- CellID->80664149,ExpressionUUID->"3a8611c2-2603-a647-999b-9df161d252a8"]
+ CellLabel->"Out[2]=",
+ CellID->140186576,ExpressionUUID->"28de3f94-90f7-0944-8194-f0954d842894"]
 }, Open  ]]
 }, Dynamic[CurrentValue[
  EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
@@ -570,18 +499,22 @@ Cell[BoxData[GridBox[{
      ImageSizeCache->{50., {27., 33.}}], GridBox[{
       {
        StyleBox[
-        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]},
+      {Cell[TextData[ButtonBox["SetMultiplet",
+        BaseStyle->"Link",
+        ButtonData->"paclet:SCWIGEE/ref/SetMultiplet"]], "SeeAlso",
+        ExpressionUUID->"0c7ea2e6-552e-9a4f-b89e-c2fdb61059d8"]}
      }]}
-  }]], "SeeAlsoSection",ExpressionUUID->"fb3c9992-cb25-0446-a11f-\
-6b16c4555dcc"],
+  }]], "SeeAlsoSection",ExpressionUUID->"4b116cf0-ae2f-954f-80a5-\
+233307b74bdf"],
 
-Cell[" ", "FooterCell",ExpressionUUID->"46113f64-60fc-c349-820c-95b357fe1ecf"]
+Cell[" ", "FooterCell",ExpressionUUID->"966d93d5-05dc-aa43-8e18-8252146907f1"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{900, 783.375},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"SetMultiplet",
+WindowTitle->"DisplayMultiplet",
 TaggingRules->{
  "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
   "ExampleCounter" -> 1, 
@@ -591,19 +524,17 @@ TaggingRules->{
   "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
   True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
   "Metadata" -> {
-   "built" -> "{2024, 12, 31, 21, 43, 35.7503330}", 
+   "built" -> "{2024, 12, 31, 21, 42, 53.1329272}", 
     "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
     "keywords" -> {}, "specialkeywords" -> {}, 
     "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
     "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
     "status" -> "None", "summary" -> 
-    "SetMultiplet[{op1, op2, ...}, name, True, i] sets a self-conjugate \
-multiplet with index i SetMultiplet[{{op1, op2, ...}, {conjOp1, conjOp2, ...} \
-}, name, False, i] sets a multiplet of the form (operators) \\[CirclePlus] \
-(CPT conjugates) with index i", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
-    "SetMultiplet", "titlemodifier" -> "", "metadescription" -> "", 
-    "windowtitle" -> "SetMultiplet", "type" -> "Symbol", "uri" -> 
-    "SCWIGEE/ref/SetMultiplet"}},
+    "DisplayMultiplet[i] displays the multiplet with index i", 
+    "synonyms" -> {}, "tabletags" -> {}, "title" -> "DisplayMultiplet", 
+    "titlemodifier" -> "", "metadescription" -> "", "windowtitle" -> 
+    "DisplayMultiplet", "type" -> "Symbol", "uri" -> 
+    "SCWIGEE/ref/DisplayMultiplet"}},
 CellContext->"Global`",
 FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
 StyleDefinitions->Notebook[{
@@ -617,7 +548,7 @@ StyleDefinitions->Notebook[{
   FrontEndVersion -> 
   "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
   "Default.nb"],
-ExpressionUUID->"cf7a78a3-4496-ee46-81af-ccae9192c993"
+ExpressionUUID->"2fcb0bb6-5383-4a4d-a484-10fbd3879e88"
 ]
 (* End of Notebook Content *)
 
@@ -625,60 +556,52 @@ ExpressionUUID->"cf7a78a3-4496-ee46-81af-ccae9192c993"
 (*CellTagsOutline
 CellTagsIndex->{
  "PrimaryExamplesSection"->{
-  Cell[9726, 273, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"4a165ae5-808b-0f4a-a949-bdcafb880307",
+  Cell[8584, 230, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"c9f1ded6-df44-1f47-b0eb-cb979d4c0a0e",
    CellTags->"PrimaryExamplesSection",
-   CellID->24497886]}
+   CellID->871086818]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"PrimaryExamplesSection", 22756, 626}
+ {"PrimaryExamplesSection", 20773, 557}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[584, 21, 3291, 77, 56, "AnchorBarGrid",ExpressionUUID->"dde39f1d-4bc9-da41-a686-2c14404e5102",
+Cell[588, 21, 4352, 106, 56, "AnchorBarGrid",ExpressionUUID->"73d5f53c-f9f7-7543-b4c3-5dc10f546f37",
  CellID->1],
-Cell[3878, 100, 90, 0, 23, "ContextNameCell",ExpressionUUID->"a473d136-bb2e-964f-af77-6f1b1c190aa1"],
+Cell[4943, 129, 90, 0, 23, "ContextNameCell",ExpressionUUID->"36794aec-7b4e-f041-8496-20de53c483a9"],
 Cell[CellGroupData[{
-Cell[3993, 104, 555, 14, 56, "ObjectNameGrid",ExpressionUUID->"2821e2a1-5dab-994a-a704-6135c1f28363"],
-Cell[4551, 120, 2942, 91, 165, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+Cell[5058, 133, 559, 14, 56, "ObjectNameGrid",ExpressionUUID->"07cfd741-e5f0-114d-840c-568bf9ba46ec"],
+Cell[5620, 149, 735, 19, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
  CellID->982511436]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7530, 216, 1919, 48, 37, "NotesSection",ExpressionUUID->"d3022802-ba0d-8546-9ab8-daa1281774aa",
+Cell[6392, 173, 1918, 48, 37, "NotesSection",ExpressionUUID->"be72c59a-5474-f942-88e4-4ffbcfa21eec",
  CellGroupingRules->{"SectionGrouping", 50},
- CellID->241881456],
-Cell[9452, 266, 147, 1, 36, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
- CellID->1067943069]
+ CellID->49882929],
+Cell[8313, 223, 144, 1, 36, "Notes",ExpressionUUID->"40ef381c-3f3c-6040-9601-b2dbc688d84e",
+ CellID->8018565]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
 Cell[CellGroupData[{
-Cell[9726, 273, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"4a165ae5-808b-0f4a-a949-bdcafb880307",
+Cell[8584, 230, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"c9f1ded6-df44-1f47-b0eb-cb979d4c0a0e",
  CellTags->"PrimaryExamplesSection",
- CellID->24497886],
+ CellID->871086818],
 Cell[CellGroupData[{
-Cell[11170, 314, 1398, 36, 30, "ExampleSection",ExpressionUUID->"f54b728c-8da4-5c49-845b-d8bc41c518c1",
- CellID->635496339],
-Cell[12571, 352, 285, 7, 38, "ExampleText",ExpressionUUID->"315f843c-9420-e64a-a6c9-4b16317a6530",
- CellID->367047880],
-Cell[12859, 361, 169, 3, 26, "Input",ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a",
+Cell[10029, 271, 1398, 36, 30, "ExampleSection",ExpressionUUID->"953c7170-0a98-5a46-a91d-1bc1663fc4fa",
+ CellID->107994459],
+Cell[11430, 309, 2003, 49, 159, "Input",ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a",
  CellID->48985578],
-Cell[13031, 366, 222, 4, 38, "ExampleText",ExpressionUUID->"3e43e44f-f4e0-2e49-980b-96fc82082585",
- CellID->21153600],
-Cell[13256, 372, 1929, 48, 143, "Input",ExpressionUUID->"e2565114-ee98-594f-ba6d-9e5c6de9496b",
- CellID->212433684],
-Cell[15188, 422, 260, 7, 38, "ExampleText",ExpressionUUID->"f99b5d6c-54d9-124e-8b9e-229e1bc70e6e",
- CellID->368078216],
 Cell[CellGroupData[{
-Cell[15473, 433, 165, 3, 26, "Input",ExpressionUUID->"95e021c9-2b58-d64b-a1b1-6eddc9fa2057",
- CellID->5775748],
-Cell[15641, 438, 4314, 117, 164, "Output",ExpressionUUID->"3a8611c2-2603-a647-999b-9df161d252a8",
- CellID->80664149]
+Cell[13458, 362, 167, 3, 26, "Input",ExpressionUUID->"3692b590-9a76-be4d-b955-6e04380ee9b8",
+ CellID->344128605],
+Cell[13628, 367, 4315, 117, 164, "Output",ExpressionUUID->"28de3f94-90f7-0944-8194-f0954d842894",
+ CellID->140186576]
 }, Open  ]]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
-Cell[20197, 564, 380, 11, 70, "SeeAlsoSection",ExpressionUUID->"fb3c9992-cb25-0446-a11f-6b16c4555dcc"],
-Cell[20580, 577, 78, 0, 70, "FooterCell",ExpressionUUID->"46113f64-60fc-c349-820c-95b357fe1ecf"]
+Cell[18185, 493, 588, 15, 114, "SeeAlsoSection",ExpressionUUID->"4b116cf0-ae2f-954f-80a5-233307b74bdf"],
+Cell[18776, 510, 78, 0, 25, "FooterCell",ExpressionUUID->"966d93d5-05dc-aa43-8e18-8252146907f1"]
 }
 ]
 *)

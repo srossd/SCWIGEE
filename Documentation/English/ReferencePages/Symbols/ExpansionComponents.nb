@@ -1,0 +1,2064 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     77819,       2054]
+NotebookOptionsPosition[     73424,       1959]
+NotebookOutlinePosition[     75725,       2017]
+CellTagsIndexPosition[     75639,       2012]
+WindowTitle->ExpansionComponents
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "36f6615e-aac3-9245-948d-7f663154133b"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "6440b988-25a9-9c41-8f01-f25e7b9ad11c"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "a5819b76-9782-2640-8fa2-8e2c19e57c62"]
+        }],ExpressionUUID->"9fc504a3-3cc6-5745-bc77-7bea3f297211"],
+        StripOnInput->False],{
+       "\"SCWIGEE/ref/ExpansionComponents\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{Cell["SCWIGEE/ref/ExpansionComponents"]}, Visible -> 
+              False]]; SelectionMove[
+           DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+        "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
+ExpansionComponents.html"], StandardForm]], "Input", TextClipboardType -> 
+                "PlainText"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "SCWIGEE/ref/ExpansionComponents" <> ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "8a0a43df-f8f3-c84f-9cd0-99bf6d85d575"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "6b676b73-b68a-0342-a12f-94b650a53617"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"4218e1a3-25de-d146-b261-82f1b0756610"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"cab06cc7-31cc-1d43-925b-2627f8f2aaf1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "ExpansionComponents", "ObjectName",ExpressionUUID->
+      "b0eed2c6-e380-af40-a815-a9c4c1caae30"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"96be28fc-2c40-5744-a3c0-27875750c60e"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "a03cfbec-61ad-434b-ac39-127da557c4e1"]
+    }],ExpressionUUID->"55399714-495e-a448-be15-6a8a810d4fae"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"3220f8b4-b67d-de4e-8da6-\
+c718d25e1486"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["ExpansionComponents"]], 
+         "paclet:SCWIGEE/ref/ExpansionComponents", "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox["expr",
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "f81b2955-c071-724d-b8f3-b7a288cf2b53"],
+     " \[LineSeparator]expands all global symmetry structures and spacetime \
+structures in ",
+     StyleBox["expr",
+      FontSlant->"Italic"],
+     " into respective bases, and assembles components with respect to those \
+bases"
+    }],ExpressionUUID->"47756777-940a-c247-b68c-5d1b4788666c"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"52e276a5-0f1c-4945-8ded-d6d743b7f7cb"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"d9593512-0a34-ab4e-838b-10822b7101e0"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "2b8d2747-e31a-1845-9ac6-c3c57ebc0bc5"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->73881900,ExpressionUUID->"832581a5-7214-2642-96a0-a4b20b503d40"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"d42684a7-b6d9-9d42-a22e-1d1058d8e3df"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"db69f813-56ea-134d-a724-27c961cbc15a"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "89acb23c-b43b-b840-82f1-5557cf6884e7"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->777351656,ExpressionUUID->"df44fe35-9909-4b48-96d6-9873aa844042"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetGlobalSymmetry", "[", "SU4", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetMultiplet", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<X\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1", ",", "0"}], "}"}], ",", "1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", "0"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<\[Lambda]\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "1"}], "}"}], ",", 
+        RowBox[{"3", "/", "2"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"1", "/", "2"}], ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<\!\(\*OverscriptBox[\(\[Lambda]\), \(_\)]\)\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"3", "/", "2"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", 
+          RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+        RowBox[{"-", "1"}]}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<F\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "2", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], ",", "2"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<\!\(\*OverscriptBox[\(F\), \(_\)]\)\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "2", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}], ",", 
+        RowBox[{"-", "2"}]}], "]"}]}], "\[IndentingNewLine]", "}"}], ",", 
+    "\[IndentingNewLine]", "\"\<Vector\>\"", ",", "True", ",", "1"}], "]"}], 
+  ";"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->212433684,ExpressionUUID->"83602015-02f2-3b47-81c6-7a97d3dd092d"],
+
+Cell[BoxData[
+ RowBox[{"DeclareAlgebra", "[", "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->113382612,ExpressionUUID->"7fe4059d-4c54-d74d-9469-670bda262950"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Correlator", "@", 
+  RowBox[{"NormalOrder", "[", 
+   RowBox[{
+    RowBox[{"TensorProduct", "[", 
+     RowBox[{
+      RowBox[{"QTensor", "[", "]"}], ",", 
+      RowBox[{"Tensor", "[", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<X\>\"", ",", 
+         "\"\<\!\(\*OverscriptBox[\(\[Lambda]\), \(_\)]\)\>\""}], "}"}], 
+       "]"}]}], "]"}], ",", 
+    RowBox[{"\"\<Vacuum\>\"", "->", "True"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"expr", "=", 
+  RowBox[{"ExpandCorrelator", "[", "%", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ExpansionComponents", "[", "%", "]"}], "//", "Normal"}]}], "Input",
+ CellLabel->"In[3]:=",
+ CellID->117527429,ExpressionUUID->"b3aad027-eb05-4941-beec-549adc79b6b9"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    FormBox[
+     SubscriptBox["\<\"\[ScriptA]\"\>", 
+      TemplateBox[{"\"X\"", "\",\"", "1"},
+       "RowDefault"]],
+     TraditionalForm], " ", 
+    FormBox[
+     TemplateBox[{
+       TemplateBox[{
+         SubscriptBox[
+          TagBox["C", HoldForm], 
+          StyleBox[
+           SubscriptBox["\"i\"", 
+            OverscriptBox[
+             StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]], 
+         TemplateBox[{
+           SubscriptBox["\"i\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+           SubscriptBox["\"i\"", 
+            StyleBox["\"6\"", Bold, StripOnInput -> False]]}, "RowDefault"]}, 
+        "Superscript", SyntaxForm -> SuperscriptBox], 
+       "\"\[LeftAngleBracket]\"", 
+       SubscriptBox[
+        TemplateBox[{
+          TagBox["\[Lambda]", HoldForm], 
+          StyleBox[
+           SubscriptBox["\"i\"", 
+            OverscriptBox[
+             StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+         SuperscriptBox], 
+        TagBox["\[Alpha]", HoldForm]], 
+       SubscriptBox[
+        TemplateBox[{
+          TagBox[
+           OverscriptBox["\[Lambda]", "_"], HoldForm], 
+          SubscriptBox["\"j\"", 
+           StyleBox["\"4\"", Bold, StripOnInput -> False]]}, "Superscript", 
+         SyntaxForm -> SuperscriptBox], 
+        OverscriptBox["\"\[Alpha]\"", "."]], "\"\[RightAngleBracket]\""},
+      "RowDefault"],
+     TraditionalForm]}], "+", 
+   RowBox[{
+    FormBox[
+     SubscriptBox["\<\"\[ScriptA]\"\>", 
+      TemplateBox[{
+       "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", "\",\"", 
+        "1"},
+       "RowDefault"]],
+     TraditionalForm], " ", 
+    FormBox[
+     TemplateBox[{
+       TemplateBox[{
+         SubscriptBox[
+          TagBox["C", HoldForm], 
+          StyleBox[
+           SubscriptBox["\"j\"", 
+            StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]], 
+         TemplateBox[{
+           SubscriptBox["\"i\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+           SubscriptBox["\"j\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]]}, "RowDefault"]}, 
+        "Superscript", SyntaxForm -> SuperscriptBox], 
+       "\"\[LeftAngleBracket]\"", 
+       TemplateBox[{
+         TagBox["X", HoldForm], 
+         SubscriptBox["\"i\"", 
+          StyleBox["\"6\"", Bold, StripOnInput -> False]]}, "Superscript", 
+        SyntaxForm -> SuperscriptBox], 
+       TemplateBox[{
+         SubscriptBox["\"\[PartialD]X\"", 
+          TemplateBox[{
+            TagBox["\[Alpha]", HoldForm], 
+            OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]], 
+         StyleBox[
+          SubscriptBox["\"j\"", 
+           StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+          RGBColor[
+          0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+          StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+        SuperscriptBox], "\"\[RightAngleBracket]\""},
+      "RowDefault"],
+     TraditionalForm]}]}], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->132886573,ExpressionUUID->"08923aef-b02e-9846-a902-bb80da26f4a9"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    FormBox[
+     SubscriptBox["\<\"\[ScriptA]\"\>", 
+      TemplateBox[{
+       "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", "\",\"", 
+        "1"},
+       "RowDefault"]],
+     TraditionalForm], " ", 
+    FormBox[
+     TemplateBox[{
+       TemplateBox[{
+         SubscriptBox[
+          TagBox["C", HoldForm], 
+          StyleBox[
+           SubscriptBox["\"j\"", 
+            StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]], 
+         TemplateBox[{
+           SubscriptBox["\"i\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+           SubscriptBox["\"j\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]]}, "RowDefault"]}, 
+        "Superscript", SyntaxForm -> SuperscriptBox], 
+       TemplateBox[{
+         TagBox["\[Delta]", HoldForm], 
+         TemplateBox[{
+           SubscriptBox["\"i\"", 
+            StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+           StyleBox[
+            SubscriptBox["\"j\"", 
+             StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+            RGBColor[
+            0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+            StripOnInput -> False]}, "RowDefault"]}, "Superscript", 
+        SyntaxForm -> SuperscriptBox], 
+       SubscriptBox[
+        FormBox[
+         TemplateBox[{
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(2)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"\[ScriptCapitalS]\""}, 
+            "RowDefault"], 
+           TemplateBox[{
+             RowBox[{"{", 
+               RowBox[{"1", ",", "2"}], "}"}], "\";\"", "1"}, "RowDefault"], 
+           TemplateBox[{
+             RowBox[{"{", 
+               RowBox[{"1", ",", 
+                 RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+             RowBox[{"{", 
+               RowBox[{"1", ",", 
+                 RowBox[{"{", 
+                   RowBox[{"0", ",", "0"}], "}"}]}], "}"}]}, "RowDefault"]}, 
+          "Subsuperscript", SyntaxForm -> SubsuperscriptBox], 
+         TraditionalForm], 
+        TemplateBox[{
+          TagBox["\[Alpha]", HoldForm], 
+          OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
+      "RowDefault"],
+     TraditionalForm]}], "+", 
+   RowBox[{"\[ImaginaryI]", " ", 
+    FormBox[
+     SubscriptBox["\<\"\[ScriptA]\"\>", 
+      TemplateBox[{"\"X\"", "\",\"", "1"},
+       "RowDefault"]],
+     TraditionalForm], " ", 
+    FormBox[
+     TemplateBox[{
+       TemplateBox[{
+         SubscriptBox[
+          TagBox["C", HoldForm], 
+          StyleBox[
+           SubscriptBox["\"i\"", 
+            OverscriptBox[
+             StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]], 
+         TemplateBox[{
+           SubscriptBox["\"i\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]], 
+           SubscriptBox["\"i\"", 
+            StyleBox["\"6\"", Bold, StripOnInput -> False]]}, "RowDefault"]}, 
+        "Superscript", SyntaxForm -> SuperscriptBox], 
+       TemplateBox[{
+         TagBox["\[Delta]", HoldForm], 
+         TemplateBox[{
+           StyleBox[
+            SubscriptBox["\"i\"", 
+             OverscriptBox[
+              StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]], 
+            RGBColor[
+            0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+            StripOnInput -> False], 
+           SubscriptBox["\"j\"", 
+            StyleBox["\"4\"", Bold, StripOnInput -> False]]}, "RowDefault"]}, 
+        "Superscript", SyntaxForm -> SuperscriptBox], 
+       SubscriptBox[
+        FormBox[
+         TemplateBox[{
+           TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+           TemplateBox[{
+             RowBox[{"{", 
+               RowBox[{"1", ",", "2"}], "}"}], "\";\"", "1"}, "RowDefault"], 
+           TemplateBox[{
+             RowBox[{"{", 
+               RowBox[{
+                 FractionBox["3", "2"], ",", 
+                 RowBox[{"{", 
+                   RowBox[{
+                    FractionBox["1", "2"], ",", "0"}], "}"}]}], "}"}], 
+             "\";\"", 
+             RowBox[{"{", 
+               RowBox[{
+                 FractionBox["3", "2"], ",", 
+                 RowBox[{"{", 
+                   RowBox[{"0", ",", 
+                    FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]}, 
+          "Subsuperscript", SyntaxForm -> SubsuperscriptBox], 
+         TraditionalForm], 
+        TemplateBox[{
+          TagBox["\[Alpha]", HoldForm], 
+          OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
+      "RowDefault"],
+     TraditionalForm]}]}], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->537531011,ExpressionUUID->"e07caa78-1dce-bb41-9448-070b97bfd0f2"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       RowBox[{"-", 
+        FormBox[
+         SubscriptBox["\<\"\[ScriptA]\"\>", 
+          
+          TemplateBox[{
+           "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", "\",\"",
+             "1"},
+           "RowDefault"]],
+         TraditionalForm]}], "-", 
+       RowBox[{
+        FractionBox["1", "2"], " ", "\[ImaginaryI]", " ", 
+        FormBox[
+         SubscriptBox["\<\"\[ScriptA]\"\>", 
+          TemplateBox[{"\"X\"", "\",\"", "1"},
+           "RowDefault"]],
+         TraditionalForm]}]}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->267188952,ExpressionUUID->"aa5b0136-6b72-604e-8a70-e3607e234d9b"]
+}, Open  ]],
+
+Cell["\<\
+ExpansionComponents effectively compresses the many redundant components of \
+an expression:\
+\>", "ExampleText",
+ CellID->206918170,ExpressionUUID->"dec9773e-a00d-c941-be59-c6f74893d270"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"randpt", "=", 
+    RowBox[{"Thread", "[", 
+     RowBox[{
+      RowBox[{"Flatten", "[", 
+       RowBox[{"Array", "[", 
+        RowBox[{"x", ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "4"}], "}"}]}], "]"}], "]"}], "->", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{"10", ",", "16"}], "]"}]}], "]"}]}], ";", 
+   RowBox[{
+    RowBox[{"Normal", "[", 
+     RowBox[{"CanonicallyOrderedComponents", "[", "expr", "]"}], "]"}], "/.", 
+    "randpt"}]}]}]], "Input",
+ CellLabel->"In[4]:=",
+ CellID->626064876,ExpressionUUID->"a0206674-2823-ea45-8f10-c2a3d0bbabfd"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"2", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"2", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"2", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"2", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"2", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"2", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"2", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             FractionBox[
+              RowBox[{"2", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"2", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"2", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"2", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             FractionBox[
+              RowBox[{"2", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["1", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}], 
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}]},
+     {
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", 
+                 FractionBox["8", "121"]}], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", 
+                 FractionBox["8", "121"]}], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", 
+                 FractionBox["8", "121"]}], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", 
+                 FractionBox["8", "121"]}], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", 
+                 FractionBox["8", "121"]}], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["8", "121"], "-", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"-", 
+                 FractionBox["8", "121"]}], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                
+                TemplateBox[{
+                 "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                  "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}], "-", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                FractionBox["2", "121"], "+", 
+                FractionBox[
+                 RowBox[{"4", " ", "\[ImaginaryI]"}], "121"]}], ")"}], " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}], 
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"18", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"18", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"18", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"18", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"18", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"18", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"18", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}]}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             FractionBox[
+              RowBox[{"18", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{
+             FractionBox[
+              RowBox[{"18", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"18", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]},
+         {
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{
+             RowBox[{"-", 
+              FractionBox[
+               RowBox[{"18", " ", 
+                FormBox[
+                 SubscriptBox["\<\"\[ScriptA]\"\>", 
+                  
+                  TemplateBox[{
+                   "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                    "\",\"", "1"},
+                   "RowDefault"]],
+                 TraditionalForm]}], "121"]}], "-", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             FractionBox[
+              RowBox[{"18", " ", 
+               FormBox[
+                SubscriptBox["\<\"\[ScriptA]\"\>", 
+                 
+                 TemplateBox[{
+                  "\"\\!\\(\\*OverscriptBox[\\(\[Lambda]\\), \\(_\\)]\\)\"", 
+                   "\",\"", "1"},
+                  "RowDefault"]],
+                TraditionalForm]}], "121"], "+", 
+             RowBox[{
+              FractionBox["9", "121"], " ", "\[ImaginaryI]", " ", 
+              FormBox[
+               SubscriptBox["\<\"\[ScriptA]\"\>", 
+                TemplateBox[{"\"X\"", "\",\"", "1"},
+                 "RowDefault"]],
+               TraditionalForm]}]}], ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[4]=",
+ CellID->685165107,ExpressionUUID->"a014706e-958e-5545-9787-8623a5018243"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[" ", "FooterCell",ExpressionUUID->"fd45f5ea-99b7-ad42-ba5f-6b2d1aa5ac8b"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"ExpansionComponents",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "AllOptsTable" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 3.7519778}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "ExpansionComponents[expr] expands all global symmetry structures and \
+spacetime structures in expr into respective bases, and assembles components \
+with respect to those bases", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "ExpansionComponents", "titlemodifier" -> "", "metadescription" -> "", 
+    "windowtitle" -> "ExpansionComponents", "type" -> "Symbol", "uri" -> 
+    "SCWIGEE/ref/ExpansionComponents"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"0ea683db-e8e6-f24c-a0b7-22165a60566d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[5516, 148, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"832581a5-7214-2642-96a0-a4b20b503d40",
+   CellTags->"PrimaryExamplesSection",
+   CellID->73881900]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 75441, 2005}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[591, 21, 3335, 78, 56, "AnchorBarGrid",ExpressionUUID->"4218e1a3-25de-d146-b261-82f1b0756610",
+ CellID->1],
+Cell[3929, 101, 90, 0, 23, "ContextNameCell",ExpressionUUID->"cab06cc7-31cc-1d43-925b-2627f8f2aaf1"],
+Cell[CellGroupData[{
+Cell[4044, 105, 562, 14, 56, "ObjectNameGrid",ExpressionUUID->"3220f8b4-b67d-de4e-8da6-c718d25e1486"],
+Cell[4609, 121, 870, 22, 134, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5516, 148, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"832581a5-7214-2642-96a0-a4b20b503d40",
+ CellTags->"PrimaryExamplesSection",
+ CellID->73881900],
+Cell[CellGroupData[{
+Cell[6960, 189, 1398, 36, 30, "ExampleSection",ExpressionUUID->"df44fe35-9909-4b48-96d6-9873aa844042",
+ CellID->777351656],
+Cell[8361, 227, 2025, 51, 159, "Input",ExpressionUUID->"83602015-02f2-3b47-81c6-7a97d3dd092d",
+ CellID->212433684],
+Cell[10389, 280, 160, 3, 26, "Input",ExpressionUUID->"7fe4059d-4c54-d74d-9469-670bda262950",
+ CellID->113382612],
+Cell[CellGroupData[{
+Cell[10574, 287, 744, 20, 59, "Input",ExpressionUUID->"b3aad027-eb05-4941-beec-549adc79b6b9",
+ CellID->117527429],
+Cell[11321, 309, 3569, 96, 42, "Output",ExpressionUUID->"08923aef-b02e-9846-a902-bb80da26f4a9",
+ CellID->132886573],
+Cell[14893, 407, 5011, 133, 51, "Output",ExpressionUUID->"e07caa78-1dce-bb41-9448-070b97bfd0f2",
+ CellID->537531011],
+Cell[19907, 542, 1055, 31, 42, "Output",ExpressionUUID->"aa5b0136-6b72-604e-8a70-e3607e234d9b",
+ CellID->267188952]
+}, Open  ]],
+Cell[20977, 576, 198, 4, 38, "ExampleText",ExpressionUUID->"dec9773e-a00d-c941-be59-c6f74893d270",
+ CellID->206918170],
+Cell[CellGroupData[{
+Cell[21200, 584, 644, 18, 57, "Input",ExpressionUUID->"a0206674-2823-ea45-8f10-c2a3d0bbabfd",
+ CellID->626064876],
+Cell[21847, 604, 51253, 1344, 365, "Output",ExpressionUUID->"a014706e-958e-5545-9787-8623a5018243",
+ CellID->685165107]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[73342, 1957, 78, 0, 70, "FooterCell",ExpressionUUID->"fd45f5ea-99b7-ad42-ba5f-6b2d1aa5ac8b"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

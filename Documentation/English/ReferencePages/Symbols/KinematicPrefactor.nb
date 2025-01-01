@@ -1,0 +1,613 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     21759,        603]
+NotebookOptionsPosition[     17121,        502]
+NotebookOutlinePosition[     19622,        563]
+CellTagsIndexPosition[     19537,        558]
+WindowTitle->KinematicPrefactor
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "4507db6c-0f28-7641-b182-af8e579a48ae"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "0b265f61-95ca-3447-b3c2-0a716e531a34"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "See Also",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "29f48225-76de-1145-a8c0-15c0e9bde5e1"]
+         }],ExpressionUUID->"d1fd524d-3e62-7548-bff0-aa43b78576e8"],
+         StripOnInput->False],{
+        "\"SpacetimeStructures\"" :> 
+         Documentation`HelpLookup["paclet:SCWIGEE/ref/SpacetimeStructures"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"SeeAlso"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "36c79db3-4769-5847-8de5-f70615ecc3cf"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "6300ba46-29e3-444e-ba2e-ee307cfc06c0"]
+         }],ExpressionUUID->"01a04d79-bb2d-114b-8f5b-7ff9b11eb251"],
+         StripOnInput->False],{
+        "\"SCWIGEE/ref/KinematicPrefactor\"" :> None, 
+         "\"Copy Wolfram Documentation Center URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{Cell["SCWIGEE/ref/KinematicPrefactor"]}, Visible -> 
+               False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+         "\"Copy web URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{
+               Cell[BoxData[
+                 MakeBoxes[
+                  Hyperlink[
+                   "http://reference.wolfram.com/language/SCWIGEE/ref/\
+KinematicPrefactor.html"], StandardForm]], "Input", TextClipboardType -> 
+                 "PlainText"]}, Visible -> False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+         "\"Go to web URL\"" :> 
+         FrontEndExecute[{
+           NotebookLocate[{
+             URL[If[TrueQ[False], 
+                 "http://reference.wolfram.com/system-modeler/", 
+                 "http://reference.wolfram.com/language/"] <> 
+               "SCWIGEE/ref/KinematicPrefactor" <> ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "be21fded-7d57-2946-be6c-cb2baa52f9d5"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "1cd2e5da-aeb4-b143-b818-b20e24814fd9"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"3cd2abba-db24-2842-b6b7-b21eb2d86f22"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"2c4b2008-7991-5347-9371-8cfb4187461e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "KinematicPrefactor", "ObjectName",ExpressionUUID->
+      "76789978-f4ea-1349-9667-2d3987234563"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"25fc78b9-09b5-3447-bd95-efc67f8b2bda"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "f92cfa76-80eb-c549-8538-37b1f175024b"]
+    }],ExpressionUUID->"1796afab-4194-0849-9a81-13012dc1b5cd"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"f0d61449-ba3f-3a49-849b-\
+56f95ec41132"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["KinematicPrefactor"]], 
+         "paclet:SCWIGEE/ref/KinematicPrefactor", "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox[
+        RowBox[{"dims", ",", " ", "spins", ",", " ", "None"}],
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "cc4583fd-0275-0f4d-a873-3f61b51c45d8"],
+     " \[LineSeparator]gives the kinematic prefactor for spacetime structures \
+for a correlator of operators with scaling dimensions ",
+     StyleBox["dims",
+      FontSlant->"Italic"],
+     " and spins ",
+     StyleBox["spins",
+      FontSlant->"Italic"]
+    }],ExpressionUUID->"9b941ab4-53ba-3743-82ce-30e11d04d826"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["KinematicPrefactor"]], 
+         "paclet:TensorTools/ref/KinematicPrefactor", 
+         "TensorTools Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox[
+        RowBox[{"dims", ",", " ", "spins", ",", " ", "defectCodimension"}],
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "b606db4d-2dca-b54c-94f0-0fde223fba76"],
+     " \[LineSeparator]gives the kinematic prefactor for two-point spacetime \
+structures in the presence of a defect aligned with the last 4 - ",
+     StyleBox["defectCodimension",
+      FontSlant->"Italic"],
+     " coordinates"
+    }],ExpressionUUID->"29ccd49e-5a26-fd43-8d87-0880841df4a5"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"f6381017-a207-624a-b321-b3b80476ee40"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"521206fc-b0e3-4f40-8265-977bdf754332"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "4152f532-bc9a-904a-a218-9a4b1729653e"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->211788749,ExpressionUUID->"e2d25ffe-bd43-e348-8029-c2a0459f7ba5"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"5cec9ab6-de13-1f43-837a-a8f06e788796"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"5bde1577-a634-1a4b-a1b1-d662409c647d"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "e27cc19b-33b7-2347-92d2-b0efb05fb3c3"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->142861985,ExpressionUUID->"b95088d0-43ca-d344-8423-69400bfe2f8e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"KinematicPrefactor", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\[CapitalDelta]", ",", "\[CapitalDelta]"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l1", ",", "lb1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"lb1", ",", "l1"}], "}"}]}], "}"}], ",", "None"}], 
+  "]"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->30814790,ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7"],
+
+Cell[BoxData[
+ FormBox[
+  SuperscriptBox[
+   SubscriptBox["x", "12"], 
+   FormBox[
+    RowBox[{"2", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", "\[CapitalDelta]"}], "-", "l1", "-", "lb1"}], ")"}]}],
+    TraditionalForm]], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->26589617,ExpressionUUID->"8e08e34b-3899-2149-b2e3-43c0bfa6f149"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"KinematicPrefactor", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\[CapitalDelta]1", ",", "\[CapitalDelta]2"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l1", ",", "lb1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"l2", ",", "lb2"}], "}"}]}], "}"}], ",", "q"}], "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->249643426,ExpressionUUID->"befc4e3d-ed2f-f249-b7e7-7a8d4776bd58"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox[
+    SubscriptBox[
+     RowBox[{"(", 
+      SuperscriptBox["x", "\[UpTee]"], ")"}], "1"], 
+    FormBox[
+     RowBox[{
+      RowBox[{"-", "\[CapitalDelta]1"}], "-", "l1", "-", "lb1"}],
+     TraditionalForm]], " ", 
+   SuperscriptBox[
+    SubscriptBox[
+     RowBox[{"(", 
+      SuperscriptBox["x", "\[UpTee]"], ")"}], "2"], 
+    FormBox[
+     RowBox[{
+      RowBox[{"-", "\[CapitalDelta]2"}], "-", "l2", "-", "lb2"}],
+     TraditionalForm]]}], TraditionalForm]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->204516293,ExpressionUUID->"422fcd80-81e5-d548-820c-9a87eda35ad3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"KinematicPrefactor", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "\[CapitalDelta]1", ",", "\[CapitalDelta]2", ",", "\[CapitalDelta]3"}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l1", ",", "lb1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"l2", ",", "lb2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"l3", ",", "lb3"}], "}"}]}], "}"}], ",", "None"}], 
+  "]"}]], "Input",
+ CellLabel->"In[3]:=",
+ CellID->636599768,ExpressionUUID->"7361f97d-9cbb-8440-b843-aaf822e9bd3e"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox[
+    SubscriptBox["x", "12"], 
+    FormBox[
+     RowBox[{
+      RowBox[{"-", "\[CapitalDelta]1"}], "-", "\[CapitalDelta]2", "+", 
+      "\[CapitalDelta]3", "-", "l1", "-", "l2", "+", "l3", "-", "lb1", "-", 
+      "lb2", "+", "lb3"}],
+     TraditionalForm]], " ", 
+   SuperscriptBox[
+    SubscriptBox["x", "13"], 
+    FormBox[
+     RowBox[{
+      RowBox[{"-", "\[CapitalDelta]1"}], "+", "\[CapitalDelta]2", "-", 
+      "\[CapitalDelta]3", "-", "l1", "+", "l2", "-", "l3", "-", "lb1", "+", 
+      "lb2", "-", "lb3"}],
+     TraditionalForm]], " ", 
+   SuperscriptBox[
+    SubscriptBox["x", "23"], 
+    FormBox[
+     RowBox[{
+     "\[CapitalDelta]1", "-", "\[CapitalDelta]2", "-", "\[CapitalDelta]3", 
+      "+", "l1", "-", "l2", "-", "l3", "+", "lb1", "-", "lb2", "-", "lb3"}],
+     TraditionalForm]]}], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->345981892,ExpressionUUID->"af608ebd-0332-7e4c-8bae-cf01953f1788"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"KinematicPrefactor", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "\[CapitalDelta]1", ",", "\[CapitalDelta]2", ",", "\[CapitalDelta]3", ",",
+      "\[CapitalDelta]4"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l1", ",", "lb1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"l2", ",", "lb2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"l3", ",", "lb3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"l4", ",", "lb4"}], "}"}]}], "}"}], ",", "None"}], 
+  "]"}]], "Input",
+ CellLabel->"In[4]:=",
+ CellID->227468631,ExpressionUUID->"b541e4a9-2957-644f-821c-ac5497f98b85"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SuperscriptBox[
+    SubscriptBox["x", "12"], 
+    FormBox[
+     RowBox[{
+      RowBox[{"-", "\[CapitalDelta]1"}], "-", "\[CapitalDelta]2", "-", "l1", 
+      "-", "l2", "-", "lb1", "-", "lb2"}],
+     TraditionalForm]], " ", 
+   SuperscriptBox[
+    SubscriptBox["x", "34"], 
+    FormBox[
+     RowBox[{
+      RowBox[{"-", "\[CapitalDelta]3"}], "-", "\[CapitalDelta]4", "-", "l3", 
+      "-", "l4", "-", "lb3", "-", "lb4"}],
+     TraditionalForm]], " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     FractionBox[
+      FormBox[
+       SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"14\"\>",
+         "2"],
+       TraditionalForm], 
+      FormBox[
+       SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"13\"\>",
+         "2"],
+       TraditionalForm]], ")"}], 
+    RowBox[{
+     FractionBox["1", "2"], " ", 
+     RowBox[{"(", 
+      RowBox[{
+      "\[CapitalDelta]3", "-", "\[CapitalDelta]4", "+", "l3", "-", "l4", "+", 
+       "lb3", "-", "lb4"}], ")"}]}]], " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     FractionBox[
+      FormBox[
+       SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"24\"\>",
+         "2"],
+       TraditionalForm], 
+      FormBox[
+       SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"14\"\>",
+         "2"],
+       TraditionalForm]], ")"}], 
+    RowBox[{
+     FractionBox["1", "2"], " ", 
+     RowBox[{"(", 
+      RowBox[{
+      "\[CapitalDelta]1", "-", "\[CapitalDelta]2", "+", "l1", "-", "l2", "+", 
+       "lb1", "-", "lb2"}], ")"}]}]]}], TraditionalForm]], "Output",
+ CellLabel->"Out[4]=",
+ CellID->202089917,ExpressionUUID->"3c43f7c1-d478-b84b-89c6-dc1542b91532"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]},
+      {Cell[TextData[ButtonBox["SpacetimeStructures",
+        BaseStyle->"Link",
+        ButtonData->"paclet:SCWIGEE/ref/SpacetimeStructures"]], "SeeAlso",
+        ExpressionUUID->"3de65992-430b-ec4c-b562-a70d02b2366f"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"30671886-297c-924b-8182-\
+ae0f01404c66"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"edf61916-9bf2-ec42-906f-6fff226a93dd"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"KinematicPrefactor",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "AllOptsTable" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 16.3022901}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "KinematicPrefactor[dims, spins, None] gives the kinematic prefactor for \
+spacetime structures for a correlator of operators with scaling dimensions \
+dims and spins spins KinematicPrefactor[dims, spins, defectCodimension] gives \
+the kinematic prefactor for two-point spacetime structures in the presence of \
+a defect aligned with the last 4 - defectCodimension coordinates", 
+    "synonyms" -> {}, "tabletags" -> {}, "title" -> "KinematicPrefactor", 
+    "titlemodifier" -> "", "metadescription" -> "", "windowtitle" -> 
+    "KinematicPrefactor", "type" -> "Symbol", "uri" -> 
+    "SCWIGEE/ref/KinematicPrefactor"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"02c8ad2b-0229-2d47-8b77-fdda16be69c4"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[7475, 199, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"e2d25ffe-bd43-e348-8029-c2a0459f7ba5",
+   CellTags->"PrimaryExamplesSection",
+   CellID->211788749]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 19338, 551}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[590, 21, 4374, 106, 56, "AnchorBarGrid",ExpressionUUID->"3cd2abba-db24-2842-b6b7-b21eb2d86f22",
+ CellID->1],
+Cell[4967, 129, 90, 0, 23, "ContextNameCell",ExpressionUUID->"2c4b2008-7991-5347-9371-8cfb4187461e"],
+Cell[CellGroupData[{
+Cell[5082, 133, 561, 14, 56, "ObjectNameGrid",ExpressionUUID->"f0d61449-ba3f-3a49-849b-56f95ec41132"],
+Cell[5646, 149, 1792, 45, 212, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7475, 199, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"e2d25ffe-bd43-e348-8029-c2a0459f7ba5",
+ CellTags->"PrimaryExamplesSection",
+ CellID->211788749],
+Cell[CellGroupData[{
+Cell[8920, 240, 1398, 36, 30, "ExampleSection",ExpressionUUID->"b95088d0-43ca-d344-8423-69400bfe2f8e",
+ CellID->142861985],
+Cell[CellGroupData[{
+Cell[10343, 280, 445, 13, 26, "Input",ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7",
+ CellID->30814790],
+Cell[10791, 295, 363, 11, 35, "Output",ExpressionUUID->"8e08e34b-3899-2149-b2e3-43c0bfa6f149",
+ CellID->26589617]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11191, 311, 442, 12, 26, "Input",ExpressionUUID->"befc4e3d-ed2f-f249-b7e7-7a8d4776bd58",
+ CellID->249643426],
+Cell[11636, 325, 621, 20, 35, "Output",ExpressionUUID->"422fcd80-81e5-d548-820c-9a87eda35ad3",
+ CellID->204516293]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12294, 350, 549, 17, 26, "Input",ExpressionUUID->"7361f97d-9cbb-8440-b843-aaf822e9bd3e",
+ CellID->636599768],
+Cell[12846, 369, 980, 27, 35, "Output",ExpressionUUID->"af608ebd-0332-7e4c-8bae-cf01953f1788",
+ CellID->345981892]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13863, 401, 641, 19, 26, "Input",ExpressionUUID->"b541e4a9-2957-644f-821c-ac5497f98b85",
+ CellID->227468631],
+Cell[14507, 422, 1685, 52, 62, "Output",ExpressionUUID->"3c43f7c1-d478-b84b-89c6-dc1542b91532",
+ CellID->202089917]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[16434, 483, 602, 15, 114, "SeeAlsoSection",ExpressionUUID->"30671886-297c-924b-8182-ae0f01404c66"],
+Cell[17039, 500, 78, 0, 25, "FooterCell",ExpressionUUID->"edf61916-9bf2-ec42-906f-6fff226a93dd"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

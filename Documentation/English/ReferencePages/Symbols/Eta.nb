@@ -10,11 +10,11 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     12966,        349]
-NotebookOptionsPosition[      9520,        271]
-NotebookOutlinePosition[     11629,        327]
-CellTagsIndexPosition[     11544,        322]
-WindowTitle->Spin
+NotebookDataLength[     13789,        370]
+NotebookOptionsPosition[     10133,        288]
+NotebookOutlinePosition[     12224,        344]
+CellTagsIndexPosition[     12139,        339]
+WindowTitle->\:03B7
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,11 +27,11 @@ Cell[BoxData[GridBox[{
           TemplateBox[{12},
            "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
            TextAlignment->Center,ExpressionUUID->
-           "af7c14ff-34d4-0348-a1cf-48149404a188"], 
+           "e05e58ea-f52f-994f-b6bd-cbcb3e77d386"], 
           TemplateBox[{8},
            "Spacer1"]}]],
          TextAlignment->Center,ExpressionUUID->
-         "31b47d19-cf45-c243-bc65-915fe19603ec"],
+         "18518d06-f87d-af49-83af-beceb8e3a727"],
         Background->RGBColor[0.490196, 0.576471, 0.690196],
         ItemSize->Full], ""}
      },
@@ -50,15 +50,15 @@ Cell[BoxData[GridBox[{
            AspectRatio->1,
            ImageSize->20,
            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
-          "0745a112-41ca-9942-a9a6-d669278251fc"]
-        }],ExpressionUUID->"1c36ba21-b43b-b445-b621-00926fd05396"],
+          "9f29215b-c394-6548-97cd-ad333565def5"]
+        }],ExpressionUUID->"5f740aa4-1fa3-0048-b974-ea67eb72ef6c"],
         StripOnInput->False],{
-       "\"SCWIGEE/ref/Spin\"" :> None, 
+       "\"SCWIGEE/ref/\[Eta]\"" :> None, 
         "\"Copy Wolfram Documentation Center URL\"" :> 
         Module[{DocumentationSearch`Private`nb$}, 
           DocumentationSearch`Private`nb$ = 
            NotebookPut[
-            Notebook[{Cell["SCWIGEE/ref/Spin"]}, Visible -> False]]; 
+            Notebook[{Cell["SCWIGEE/ref/\[Eta]"]}, Visible -> False]]; 
           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
           NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
@@ -70,7 +70,7 @@ Cell[BoxData[GridBox[{
               Cell[BoxData[
                 MakeBoxes[
                  Hyperlink[
-                  "http://reference.wolfram.com/language/SCWIGEE/ref/Spin.\
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\[Eta].\
 html"], StandardForm]], "Input", TextClipboardType -> "PlainText"]}, Visible -> 
               False]]; SelectionMove[
            DocumentationSearch`Private`nb$, All, Notebook]; 
@@ -82,41 +82,41 @@ html"], StandardForm]], "Input", TextClipboardType -> "PlainText"]}, Visible ->
             URL[If[TrueQ[False], 
                 "http://reference.wolfram.com/system-modeler/", 
                 "http://reference.wolfram.com/language/"] <> 
-              "SCWIGEE/ref/Spin" <> ".html"], None}]}]},
+              "SCWIGEE/ref/\[Eta]" <> ".html"], None}]}]},
        Appearance->None,
        MenuAppearance->Automatic,
        MenuStyle->"URLMenu"],
       MouseAppearanceTag["LinkHand"]]],
      LineSpacing->{1.4, 0},ExpressionUUID->
-     "a055950e-f8ce-6c4c-b0cc-e6233097838f"]], "AnchorBar",
+     "529214c3-b6a7-c944-a642-390726d5b769"]], "AnchorBar",
      CacheGraphics->False,ExpressionUUID->
-     "77b3e332-2546-be4f-9ac7-0e68319375e9"]}
+     "db40f826-2b82-b846-a82a-321ca106b513"]}
   }]], "AnchorBarGrid",
  GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
      Scaled[0.65], {
       Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
    "RowsIndexed" -> {}}},
- CellID->1,ExpressionUUID->"289b9f2f-a0d4-9b4d-9af7-045d19a8e15a"],
+ CellID->1,ExpressionUUID->"d322edd2-6e76-9544-8b9b-feac81e4a90c"],
 
-Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"20e35db8-c53b-5444-aadd-dd9f8fe20f95"],
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"56bb65d5-b7ae-e741-96b1-d4920ea783c2"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[GridBox[{
    {Cell[TextData[{
      Cell[
-     "Spin", "ObjectName",ExpressionUUID->
-      "f85da54e-768f-8643-8bd4-eb01e0a5ac28"],
+     "\[Eta]", "ObjectName",ExpressionUUID->
+      "60df20ef-af4c-0e49-9a39-dde4077413db"],
      Cell[BoxData[
       TemplateBox[{8},
-       "Spacer1"]],ExpressionUUID->"30132f3f-475a-9243-afea-f4aa71eeb8ee"],
+       "Spacer1"]],ExpressionUUID->"335096a5-51db-074f-8626-e6627ed7039e"],
      Cell[BoxData[
      ""], "ObjectNameTranslation",ExpressionUUID->
-      "cd2f75a9-71e5-2a41-ba55-c455532bf4e8"]
-    }],ExpressionUUID->"f789e247-acf5-bb4b-b88f-eb5329a80195"], 
+      "627e2f91-f812-244f-a056-1565d5c43b81"]
+    }],ExpressionUUID->"a244d220-d9eb-0f46-bdb9-0bbf9c298570"], 
     "\[SpanFromLeft]"}
-  }]], "ObjectNameGrid",ExpressionUUID->"73fb2cd4-f795-d544-92c2-\
-982cf082b286"],
+  }]], "ObjectNameGrid",ExpressionUUID->"e58649f1-abca-7846-803c-\
+c28deb3c8337"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -124,19 +124,18 @@ Cell[BoxData[GridBox[{
       RowBox[{
        TemplateBox[{
          Cell[
-          TextData["Spin"]], "paclet:SCWIGEE/ref/Spin", 
+          TextData["\[Eta]"]], "paclet:SCWIGEE/ref/\[Eta]", 
          "SCWIGEE Package Symbol"},
         "PackageLink",
         BaseStyle->"InlineFormula"], "[", 
-       StyleBox["op",
-        FontSlant->"Italic"], "]"}]], "InlineFormula",
+       StyleBox["modifiers",
+        FontSlant->"Italic"], 
+       StyleBox["]",
+        FontSlant->"Plain"]}]], "InlineFormula",
       FontFamily->"Source Sans Pro",ExpressionUUID->
-      "1b61533f-ed15-e647-94e8-bcd29b478a80"],
-     " \[LineSeparator]returns the spin of the operator ",
-     StyleBox["op",
-      FontSlant->"Italic"],
-     "."
-    }],ExpressionUUID->"14f40f93-f3f1-5f4c-a9c6-695c76db948b"]}
+      "f5e57400-0baf-5344-9c7f-0f32da9fa971"],
+     " \[LineSeparator]gives an \[Eta] tensor"
+    }],ExpressionUUID->"a43c0029-195b-c849-a280-ef610869ed0e"]}
   }]], "Usage",
  CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
 }, Open  ]],
@@ -168,19 +167,19 @@ Cell[TextData[{
         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
        0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
    ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
-  ExpressionUUID->"87ac93d8-f583-b942-a521-90fcb3d1d0d6"],
+  ExpressionUUID->"c48d22cc-4772-4c4e-9e76-2181adeb1060"],
  Cell[BoxData[
   TemplateBox[{1},
-   "Spacer1"]],ExpressionUUID->"96f5c776-3c87-a34c-92ee-e3c1e4b01c2e"],
+   "Spacer1"]],ExpressionUUID->"563c3a49-2c8f-2a40-ad5a-18c1a560172a"],
  "Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(1)", "ExampleCount",ExpressionUUID->
-  "af2a0cd8-89d8-1c4c-b077-c9ae9501efe8"]
+  "a0786c8e-e91a-6947-b947-df6416b56de3"]
 }], "PrimaryExamplesSection",
  WholeCellGroupOpener->True,
  CacheGraphics->False,
  CellTags->"PrimaryExamplesSection",
- CellID->80037253,ExpressionUUID->"da3a7f8b-fa94-154e-a2fd-a2cfc544ffb3"],
+ CellID->1613785,ExpressionUUID->"68bb3286-0d98-0844-9fa7-12137dbfa0d0"],
 
 Cell[CellGroupData[{
 
@@ -209,43 +208,61 @@ Cell[TextData[{
         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
        0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
    ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
-  ExpressionUUID->"2f2b07fa-7c3b-0343-8126-5f837dda756f"],
+  ExpressionUUID->"601cdaef-c830-e04b-bcaa-c4f60490117b"],
  Cell[BoxData[
   TemplateBox[{1},
-   "Spacer1"]],ExpressionUUID->"f56a8ef1-c4fd-b841-95fa-5098fe974182"],
+   "Spacer1"]],ExpressionUUID->"7c4a0679-f52d-b34d-8144-52c555ab16fc"],
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(1)", "ExampleCount",ExpressionUUID->
-  "24313612-4ae1-ed40-8727-4cd4df986716"]
+  "d450427f-7ebf-c140-b29e-cf52ba1d2106"]
 }], "ExampleSection", "ExampleSection",
  WholeCellGroupOpener->True,
  CacheGraphics->False,
- CellID->327096807,ExpressionUUID->"b320eb23-1aed-024e-bb81-59056befdabf"],
+ CellID->411195555,ExpressionUUID->"0ffa7a57-c7bf-d54e-abde-24768a863441"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
- RowBox[{"Spin", "[", 
-  RowBox[{"Operator", "[", 
-   RowBox[{"\"\<J\>\"", ",", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"{", "0", "}"}], ",", "0"}], "}"}], ",", "3", ",", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"1", "/", "2"}], ",", 
-      RowBox[{"1", "/", "2"}]}], "}"}], ",", "0"}], "]"}], "]"}]], "Input",
+Cell[BoxData[{
+ RowBox[{"\[Eta]", "[", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Eta]", "[", "Upper", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Eta]", "[", 
+  RowBox[{"Upper", ",", "Transverse"}], "]"}]}], "Input",
  CellLabel->"In[1]:=",
- CellID->30814790,ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7"],
+ CellID->445665299,ExpressionUUID->"8c306791-ce5d-e74b-b30c-54172d706918"],
 
 Cell[BoxData[
  FormBox[
-  RowBox[{"{", 
-   RowBox[{
-    FractionBox["1", "2"], ",", 
-    FractionBox["1", "2"]}], "}"}], TraditionalForm]], "Output",
+  SubscriptBox[
+   TagBox["\[Eta]",
+    HoldForm], 
+   TemplateBox[{
+     TagBox["\[Mu]", HoldForm], 
+     TagBox["\[Nu]", HoldForm]},
+    "RowDefault"]], TraditionalForm]], "Output",
  CellLabel->"Out[1]=",
- CellID->165191100,ExpressionUUID->"fb179754-9017-b14b-b5ab-968f476646f8"]
+ CellID->80266767,ExpressionUUID->"5994d268-e181-934c-818a-203be1ef5a9b"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+    TagBox["\[Eta]", HoldForm], 
+    TemplateBox[{
+      TagBox["\[Mu]", HoldForm], 
+      TagBox["\[Nu]", HoldForm]}, "RowDefault"]},
+   "Superscript"], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->196915603,ExpressionUUID->"7c9fd3ab-e639-dd42-93b3-6b03eef78b43"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{"\"\\!\\(\\*SuperscriptBox[\\(\[Eta]\\), \\(\[UpTee]\\)]\\)\"", 
+    TemplateBox[{
+      TagBox["\[Mu]", HoldForm], 
+      TagBox["\[Nu]", HoldForm]}, "RowDefault"]},
+   "Superscript"], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->264831639,ExpressionUUID->"3b6e2166-5de3-c141-b9b4-ff126a6c195e"]
 }, Open  ]]
 }, Dynamic[CurrentValue[
  EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
@@ -264,35 +281,35 @@ Cell[BoxData[GridBox[{
        StyleBox[
         RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
      }]}
-  }]], "SeeAlsoSection",ExpressionUUID->"0aa507ba-4667-3c40-bb2a-\
-e6af3a15ad8c"],
+  }]], "SeeAlsoSection",ExpressionUUID->"f7353a39-5cf7-774f-b606-\
+b827ab17ac1e"],
 
-Cell[" ", "FooterCell",ExpressionUUID->"f8111407-54dc-d94c-99e6-8fc3818c6df8"]
+Cell[" ", "FooterCell",ExpressionUUID->"9f391909-90de-9d45-a62c-977d7320b6c1"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{900, 783.375},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"Spin",
+WindowTitle->"\[Eta]",
 TaggingRules->{
  "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
   "ExampleCounter" -> 1, 
   "Openers" -> {
    "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
     "AllOptsTable" -> Closed}, "NewStyles" -> True, 
-  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
-  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "RootCaptions" -> 
+  "", "HeaderCoreAreaLink" -> {}, 
   "Metadata" -> {
-   "built" -> "{2024, 12, 31, 21, 43, 52.0658021}", 
+   "built" -> "{2024, 12, 31, 21, 42, 59.3565620}", 
     "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
     "keywords" -> {}, "specialkeywords" -> {}, 
     "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
     "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
     "status" -> "None", "summary" -> 
-    "Spin[op] returns the spin of the operator op.", "synonyms" -> {}, 
-    "tabletags" -> {}, "title" -> "Spin", "titlemodifier" -> "", 
-    "metadescription" -> "", "windowtitle" -> "Spin", "type" -> "Symbol", 
-    "uri" -> "SCWIGEE/ref/Spin"}},
+    "\\[Eta][modifiers] gives an \\[Eta] tensor", "synonyms" -> {}, 
+    "tabletags" -> {}, "title" -> "\[Eta]", "titlemodifier" -> "", 
+    "metadescription" -> "", "windowtitle" -> "\[Eta]", "type" -> "Symbol", 
+    "uri" -> "SCWIGEE/ref/\[Eta]"}},
 CellContext->"Global`",
 FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
 StyleDefinitions->Notebook[{
@@ -306,7 +323,7 @@ StyleDefinitions->Notebook[{
   FrontEndVersion -> 
   "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
   "Default.nb"],
-ExpressionUUID->"f4be4c8f-d58c-1c49-8c42-9674ebbcdd5c"
+ExpressionUUID->"9e3dad8a-504a-3f46-acd8-f330d510f8e3"
 ]
 (* End of Notebook Content *)
 
@@ -314,43 +331,47 @@ ExpressionUUID->"f4be4c8f-d58c-1c49-8c42-9674ebbcdd5c"
 (*CellTagsOutline
 CellTagsIndex->{
  "PrimaryExamplesSection"->{
-  Cell[5262, 145, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"da3a7f8b-fa94-154e-a2fd-a2cfc544ffb3",
+  Cell[5262, 144, 1418, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"68bb3286-0d98-0844-9fa7-12137dbfa0d0",
    CellTags->"PrimaryExamplesSection",
-   CellID->80037253]}
+   CellID->1613785]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"PrimaryExamplesSection", 11346, 315}
+ {"PrimaryExamplesSection", 11942, 332}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[576, 21, 3258, 77, 56, "AnchorBarGrid",ExpressionUUID->"289b9f2f-a0d4-9b4d-9af7-045d19a8e15a",
+Cell[578, 21, 3266, 77, 56, "AnchorBarGrid",ExpressionUUID->"d322edd2-6e76-9544-8b9b-feac81e4a90c",
  CellID->1],
-Cell[3837, 100, 90, 0, 23, "ContextNameCell",ExpressionUUID->"20e35db8-c53b-5444-aadd-dd9f8fe20f95"],
+Cell[3847, 100, 90, 0, 23, "ContextNameCell",ExpressionUUID->"56bb65d5-b7ae-e741-96b1-d4920ea783c2"],
 Cell[CellGroupData[{
-Cell[3952, 104, 547, 14, 56, "ObjectNameGrid",ExpressionUUID->"73fb2cd4-f795-d544-92c2-982cf082b286"],
-Cell[4502, 120, 723, 20, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+Cell[3962, 104, 549, 14, 56, "ObjectNameGrid",ExpressionUUID->"e58649f1-abca-7846-803c-c28deb3c8337"],
+Cell[4514, 120, 711, 19, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
  CellID->982511436]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5262, 145, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"da3a7f8b-fa94-154e-a2fd-a2cfc544ffb3",
+Cell[5262, 144, 1418, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"68bb3286-0d98-0844-9fa7-12137dbfa0d0",
  CellTags->"PrimaryExamplesSection",
- CellID->80037253],
+ CellID->1613785],
 Cell[CellGroupData[{
-Cell[6706, 186, 1398, 36, 30, "ExampleSection",ExpressionUUID->"b320eb23-1aed-024e-bb81-59056befdabf",
- CellID->327096807],
+Cell[6705, 185, 1398, 36, 30, "ExampleSection",ExpressionUUID->"0ffa7a57-c7bf-d54e-abde-24768a863441",
+ CellID->411195555],
 Cell[CellGroupData[{
-Cell[8129, 226, 434, 12, 26, "Input",ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7",
- CellID->30814790],
-Cell[8566, 240, 247, 7, 51, "Output",ExpressionUUID->"fb179754-9017-b14b-b5ab-968f476646f8",
- CellID->165191100]
+Cell[8128, 225, 314, 6, 57, "Input",ExpressionUUID->"8c306791-ce5d-e74b-b30c-54172d706918",
+ CellID->445665299],
+Cell[8445, 233, 304, 10, 36, "Output",ExpressionUUID->"5994d268-e181-934c-818a-203be1ef5a9b",
+ CellID->80266767],
+Cell[8752, 245, 320, 9, 34, "Output",ExpressionUUID->"7c9fd3ab-e639-dd42-93b3-6b03eef78b43",
+ CellID->196915603],
+Cell[9075, 256, 351, 8, 34, "Output",ExpressionUUID->"3b6e2166-5de3-c141-b9b4-ff126a6c195e",
+ CellID->264831639]
 }, Open  ]]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
-Cell[9055, 256, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"0aa507ba-4667-3c40-bb2a-e6af3a15ad8c"],
-Cell[9438, 269, 78, 0, 25, "FooterCell",ExpressionUUID->"f8111407-54dc-d94c-99e6-8fc3818c6df8"]
+Cell[9668, 273, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"f7353a39-5cf7-774f-b606-b827ab17ac1e"],
+Cell[10051, 286, 78, 0, 25, "FooterCell",ExpressionUUID->"9f391909-90de-9d45-a62c-977d7320b6c1"]
 }
 ]
 *)

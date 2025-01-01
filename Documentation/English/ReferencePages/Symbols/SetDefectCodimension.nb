@@ -1,0 +1,940 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     34821,        930]
+NotebookOptionsPosition[     29946,        825]
+NotebookOutlinePosition[     32182,        882]
+CellTagsIndexPosition[     32097,        877]
+WindowTitle->SetDefectCodimension
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "7a54de91-a0c5-054b-b7e1-43302f519887"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "a78bfe8b-505c-ae4c-a005-e9637834af81"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "7a1fbea4-9702-cf4b-ad7a-bd9c624aa698"]
+        }],ExpressionUUID->"0be5d39d-b02a-7d46-9540-b357d091de47"],
+        StripOnInput->False],{
+       "\"SCWIGEE/ref/SetDefectCodimension\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{Cell["SCWIGEE/ref/SetDefectCodimension"]}, Visible -> 
+              False]]; SelectionMove[
+           DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+        "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
+SetDefectCodimension.html"], StandardForm]], "Input", TextClipboardType -> 
+                "PlainText"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "SCWIGEE/ref/SetDefectCodimension" <> ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "fb31c031-5852-b245-bbdc-70e32ba30d9f"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "4e972fee-cbc1-7149-9ba0-ff9cd31cb1be"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"372cf100-96fd-0249-8f4b-45a3599226a4"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"79a286b6-f6e4-eb4d-a033-b3a2c03202d2"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "SetDefectCodimension", "ObjectName",ExpressionUUID->
+      "c18783ef-e1ef-3741-99df-92fc30d82b8a"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"f34d6c95-7c08-2b43-ad9d-d763951d5184"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "7b9aa211-3080-434c-9457-dce240022603"]
+    }],ExpressionUUID->"070bd2c3-bd91-7a43-92d2-fb9750fd2e57"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"9166703e-ce07-514e-ad6b-\
+b0530e9fadb5"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["SetDefectCodimension"]], 
+         "paclet:SCWIGEE/ref/SetDefectCodimension", "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox["q",
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "cc05f296-fcfb-5140-9b84-310d15bba697"],
+     " \[LineSeparator]sets defect to be aligned with the last 4-",
+     StyleBox["q",
+      FontSlant->"Italic"],
+     " coordinates"
+    }],ExpressionUUID->"7e1265f2-8e6c-c246-8254-79189b53f0e5"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox[Cell[TextData[{
+   Cell[BoxData[
+    DynamicBox[ToBoxes[
+      If[
+       MatchQ[
+        CurrentValue[
+         EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, 
+         Closed], 
+        Alternatives[Open, True]], 
+       Style[
+        Graphics[{
+          Thickness[0.18], 
+          RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+          Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+        0.68 Inherited], 
+       Rotate[
+        Style[
+         Graphics[{
+           Thickness[0.18], 
+           RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+           Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+          PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+         0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+     ImageSizeCache->{
+      13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+    ExpressionUUID->"d62c00ab-23e4-354e-b7a5-1611e27e20d3"],
+   Cell[BoxData[
+    TemplateBox[{1},
+     "Spacer1"]],ExpressionUUID->"a55b40da-8f48-bc4f-a070-46d3d7a41a03"],
+   "Details and Options"
+  }], "NotesFrameText",ExpressionUUID->"cabfa6c6-7a5d-6642-b8de-3a1134d9837f"],
+  Appearance->{Automatic, None, "Normal", Automatic},
+  BaseStyle->None,
+  ButtonFunction:>(FrontEndExecute[{
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], All, ButtonCell], 
+     FrontEndToken["OpenCloseGroup"], 
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
+  Evaluator->None,
+  Method->
+   "Preemptive"]],ExpressionUUID->"384943dc-50d3-e247-afea-c07b4882990a"]], \
+"NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CacheGraphics->False,
+ CellID->635638568,ExpressionUUID->"bd5fc78f-f26d-8946-bde1-3f297e636cae"],
+
+Cell["This setting can also be changed using the Setup Wizard GUI.", "Notes",
+ CellID->1067943069,ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"8651b231-8f66-f045-a136-fa52bd525356"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"37755fd6-2460-4349-9799-84c04659cf53"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "96d7a0ed-47b8-f449-aca8-a6ce45174baa"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->541901169,ExpressionUUID->"06cb0c02-50eb-6f49-b1a8-a4fa308a715f"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"17771815-6f29-6840-96b8-8d33d1802ed0"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"026b4caf-3f91-6e47-92e9-478225faa2fc"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "398bf4f1-a759-b843-9484-e30b83db09be"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->521449818,ExpressionUUID->"3a3d097b-0de5-d045-9ad4-ab8597e31047"],
+
+Cell["\<\
+Setting the defect codimension changes the components of various \
+defect-aligned/transverse tensors, and changes the conformal symmetry group \
+used to find spacetime structures:\
+\>", "ExampleText",
+ CellID->107668049,ExpressionUUID->"5e593072-b42f-6f4f-9798-8435630c6d77"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SetDefectCodimension", "[", "1", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetSignature", "[", "\"\<Euclidean\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Components", "[", 
+   RowBox[{"\[Eta]", "[", "Transverse", "]"}], "]"}], "//", 
+  "MatrixForm"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructureExpressions", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], "]"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->144260850,ExpressionUUID->"22216b06-566d-1c4a-a808-48e8b88d8c94"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {"1", "0", "0", "0"},
+      {"0", "0", "0", "0"},
+      {"0", "0", "0", "0"},
+      {"0", "0", "0", "0"}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[
+    SparseArray[Automatic, {4, 4}, 0, {1, {{0, 1, 1, 1, 1}, {{1}}}, {1}}]]]], 
+  TraditionalForm]], "Output",
+ CellLabel->"Out[1]//MatrixForm=",
+ CellID->7509149,ExpressionUUID->"bebf6893-676c-8e4d-acf3-a3fdec84d03a"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->17018905,ExpressionUUID->"3cc09b42-1e12-9c4e-87c2-87ef02c5b6bb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SetDefectCodimension", "[", "2", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetSignature", "[", "\"\<Euclidean\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Components", "[", 
+   RowBox[{"\[Eta]", "[", "Transverse", "]"}], "]"}], "//", 
+  "MatrixForm"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructureExpressions", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], "]"}]}], "Input",
+ CellLabel->"In[2]:=",
+ CellID->35333855,ExpressionUUID->"aeb16d39-8c16-f74e-b3b4-117f70b96d81"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {"1", "0", "0", "0"},
+      {"0", "1", "0", "0"},
+      {"0", "0", "0", "0"},
+      {"0", "0", "0", "0"}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[
+    SparseArray[
+     Automatic, {4, 4}, 0, {1, {{0, 1, 2, 2, 2}, {{1}, {2}}}, {1, 1}}]]]], 
+  TraditionalForm]], "Output",
+ CellLabel->"Out[2]//MatrixForm=",
+ CellID->268358224,ExpressionUUID->"687ed6f7-410d-8b4a-be0c-ad4f5b72bf3b"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "", "2"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", "2", "1"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"},
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(I\\), \
+\\(Y\\)]\\))\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"2", ",", "1"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(I\\), \
+\\(Y\\)]\\))\"\>", "", 
+        RowBox[{"1", ",", "2"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->81240305,ExpressionUUID->"661b78cb-f801-184a-9be0-5745fc429c41"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SetDefectCodimension", "[", "3", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetSignature", "[", "\"\<Euclidean\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Components", "[", 
+   RowBox[{"\[Eta]", "[", "Transverse", "]"}], "]"}], "//", 
+  "MatrixForm"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructureExpressions", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], "]"}]}], "Input",
+ CellLabel->"In[3]:=",
+ CellID->307135888,ExpressionUUID->"ff02b981-0791-1c42-938e-cb752fb1125a"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {"1", "0", "0", "0"},
+      {"0", "1", "0", "0"},
+      {"0", "0", "1", "0"},
+      {"0", "0", "0", "0"}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[
+    SparseArray[
+     Automatic, {4, 4}, 0, {
+      1, {{0, 1, 2, 3, 3}, {{1}, {2}, {3}}}, {1, 1, 1}}]]]], 
+  TraditionalForm]], "Output",
+ CellLabel->"Out[3]//MatrixForm=",
+ CellID->467701317,ExpressionUUID->"f29246a1-da96-5f41-9cc6-4f5b4a3b5600"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[OverscriptBox[\\(J\\), \
+\\(~\\)], \\(Y\\)]\\))\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "1", "2"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "2", "1"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"},
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "1", "2"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "2", "1"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"},
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", "1", "2"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[OverscriptBox[\\(J\\), \
+\\(~\\)], \\(Y\\)]\\))\"\>", "2", "1"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"},
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "2", "1"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[OverscriptBox[\\(J\\), \
+\\(~\\)], \\(Y\\)]\\))\"\>", "1", "2"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "1", "2"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(J\\), \
+\\(Y\\)]\\))\"\>", "2", "1"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"},
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(J\\), \
+\\(~\\)]\\)\"\>", "1", "2"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[OverscriptBox[\\(J\\), \
+\\(~\\)], \\(Y\\)]\\))\"\>", "2", "1"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"},
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(I\\), \
+\\(~\\)]\\)\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(I\\), \
+\\(Y\\)]\\))\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(I\\), \
+\\(Y\\)]\\))\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[\\(I\\), \
+\\(Y\\)]\\))\"\>", "", 
+        RowBox[{"1", ",", "2"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"(\\!\\(\\*SubscriptBox[OverscriptBox[\\(I\\), \
+\\(~\\)], \\(Y\\)]\\))\"\>", "", 
+        RowBox[{"2", ",", "1"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->232740488,ExpressionUUID->"44742308-494f-7d4f-ae4f-7b7d918a96da"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[" ", "FooterCell",ExpressionUUID->"1555ce18-6110-7340-abb2-ccab9477dd5e"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"SetDefectCodimension",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "AllOptsTable" -> Closed, "NotesSection" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 29.8448477}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "SetDefectCodimension[q] sets defect to be aligned with the last 4-q \
+coordinates", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "SetDefectCodimension", "titlemodifier" -> "", "metadescription" -> "", 
+    "windowtitle" -> "SetDefectCodimension", "type" -> "Symbol", "uri" -> 
+    "SCWIGEE/ref/SetDefectCodimension"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"a1cda36c-937d-4c42-82e3-85fef1df22be"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[7627, 203, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"06cb0c02-50eb-6f49-b1a8-a4fa308a715f",
+   CellTags->"PrimaryExamplesSection",
+   CellID->541901169]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 31898, 870}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[592, 21, 3339, 78, 56, "AnchorBarGrid",ExpressionUUID->"372cf100-96fd-0249-8f4b-45a3599226a4",
+ CellID->1],
+Cell[3934, 101, 90, 0, 23, "ContextNameCell",ExpressionUUID->"79a286b6-f6e4-eb4d-a033-b3a2c03202d2"],
+Cell[CellGroupData[{
+Cell[4049, 105, 563, 14, 56, "ObjectNameGrid",ExpressionUUID->"9166703e-ce07-514e-ad6b-b0530e9fadb5"],
+Cell[4615, 121, 773, 20, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5425, 146, 1919, 48, 37, "NotesSection",ExpressionUUID->"bd5fc78f-f26d-8946-bde1-3f297e636cae",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellID->635638568],
+Cell[7347, 196, 153, 1, 36, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
+ CellID->1067943069]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[7627, 203, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"06cb0c02-50eb-6f49-b1a8-a4fa308a715f",
+ CellTags->"PrimaryExamplesSection",
+ CellID->541901169],
+Cell[CellGroupData[{
+Cell[9072, 244, 1398, 36, 30, "ExampleSection",ExpressionUUID->"3a3d097b-0de5-d045-9ad4-ab8597e31047",
+ CellID->521449818],
+Cell[10473, 282, 285, 5, 57, "ExampleText",ExpressionUUID->"5e593072-b42f-6f4f-9798-8435630c6d77",
+ CellID->107668049],
+Cell[CellGroupData[{
+Cell[10783, 291, 741, 20, 72, "Input",ExpressionUUID->"22216b06-566d-1c4a-a808-48e8b88d8c94",
+ CellID->144260850],
+Cell[11527, 313, 776, 22, 93, "Output",ExpressionUUID->"bebf6893-676c-8e4d-acf3-a3fdec84d03a",
+ CellID->7509149],
+Cell[12306, 337, 1392, 37, 54, "Output",ExpressionUUID->"3cc09b42-1e12-9c4e-87c2-87ef02c5b6bb",
+ CellID->17018905]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13735, 379, 740, 20, 72, "Input",ExpressionUUID->"aeb16d39-8c16-f74e-b3b4-117f70b96d81",
+ CellID->35333855],
+Cell[14478, 401, 792, 23, 93, "Output",ExpressionUUID->"687ed6f7-410d-8b4a-be0c-ad4f5b72bf3b",
+ CellID->268358224],
+Cell[15273, 426, 3849, 102, 140, "Output",ExpressionUUID->"661b78cb-f801-184a-9be0-5745fc429c41",
+ CellID->81240305]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19159, 533, 741, 20, 70, "Input",ExpressionUUID->"ff02b981-0791-1c42-938e-cb752fb1125a",
+ CellID->307135888],
+Cell[19903, 555, 807, 24, 93, "Output",ExpressionUUID->"f29246a1-da96-5f41-9cc6-4f5b4a3b5600",
+ CellID->467701317],
+Cell[20713, 581, 8909, 233, 381, "Output",ExpressionUUID->"44742308-494f-7d4f-ae4f-7b7d918a96da",
+ CellID->232740488]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[29864, 823, 78, 0, 70, "FooterCell",ExpressionUUID->"1555ce18-6110-7340-abb2-ccab9477dd5e"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

@@ -58,8 +58,8 @@ NonRPart[TensorProduct[a_, b__]] :=
 RPart[TensorDerivative[t_, _]] := RPart[t];
 NonRPart[TensorDerivative[t_, i_]] := TensorDerivative[NonRPart[t], i];
 
-RPart[a_ b_] /; FreeQ[a, Tensor] := RPart[b];
-NonRPart[a_ b_] /; FreeQ[a, Tensor] := NonRPart[b];
+RPart[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := RPart[b];
+NonRPart[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := NonRPart[b];
    
 Options[RRelations] = {"MonitorProgress" -> False};
 RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, choice},

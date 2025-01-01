@@ -1,0 +1,769 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     29031,        759]
+NotebookOptionsPosition[     24805,        669]
+NotebookOutlinePosition[     27076,        727]
+CellTagsIndexPosition[     26991,        722]
+WindowTitle->FourPtInvariantGraphs
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "a7a97288-8dbf-fd49-87c1-c4069b87b10d"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "6c269730-d38c-f240-85c9-e4ba89c21fa0"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "See Also",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "be936b3c-853e-5948-8947-45373d0f6f2b"]
+         }],ExpressionUUID->"44747128-385f-c948-bf97-719586d12286"],
+         StripOnInput->False],{
+        "\"FourPtGlobalInvariant\"" :> 
+         Documentation`HelpLookup["paclet:SCWIGEE/ref/FourPtGlobalInvariant"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"SeeAlso"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "d7bc0445-8e8f-d845-9a7e-8af09e29656c"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "9b87c8d3-d428-634b-804f-678959bfa267"]
+         }],ExpressionUUID->"4bddcf6c-e04c-0c4b-b776-d0048fe97c3a"],
+         StripOnInput->False],{
+        "\"SCWIGEE/ref/FourPtGlobalInvariant\"" :> None, 
+         "\"Copy Wolfram Documentation Center URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{Cell["SCWIGEE/ref/FourPtGlobalInvariant"]}, Visible -> 
+               False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+         "\"Copy web URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{
+               Cell[BoxData[
+                 MakeBoxes[
+                  Hyperlink[
+                   "http://reference.wolfram.com/language/SCWIGEE/ref/\
+FourPtGlobalInvariant.html"], StandardForm]], "Input", TextClipboardType -> 
+                 "PlainText"]}, Visible -> False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+         "\"Go to web URL\"" :> 
+         FrontEndExecute[{
+           NotebookLocate[{
+             URL[If[TrueQ[False], 
+                 "http://reference.wolfram.com/system-modeler/", 
+                 "http://reference.wolfram.com/language/"] <> 
+               "SCWIGEE/ref/FourPtGlobalInvariant" <> ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "7cb33904-7384-8f4c-acbf-aca74bfcaf1e"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "dfd9dd89-4b67-4344-a873-5d8f33c62ef7"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"069306d4-c6ad-d74a-abd9-9a4b1c08a020"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"7568bcdb-570c-b047-a708-5c11c0673151"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "FourPtInvariantGraphs", "ObjectName",ExpressionUUID->
+      "a93d2b75-babf-a245-8918-63c0ad23238d"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"430382ee-356b-6d40-864f-45dbfd746b55"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "f096e218-57bb-8245-bd07-b3153e394671"]
+    }],ExpressionUUID->"f59f0cec-da67-aa47-99d4-66a72644a52c"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"9193c99c-e965-c44b-bb30-\
+570776633e01"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["FourPtInvariantGraphs"]], 
+         "paclet:SCWIGEE/ref/FourPtInvariantGraphs", "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       RowBox[{"{", 
+        StyleBox[
+         RowBox[{
+         "rep1", ",", " ", "rep2", ",", " ", "rep3", ",", " ", "rep4"}],
+         FontSlant->"Italic"], 
+        StyleBox["}",
+         FontSlant->"Italic"]}], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "6c730b60-da86-6f44-a4e4-38916c9c77e4"],
+     " \[LineSeparator]gives the birdtracks diagrams used to construct four \
+point invariants"
+    }],ExpressionUUID->"4a7cc7a1-3678-6c48-8dc8-2b85c4825993"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"37fbc3dd-05a2-2a42-8aab-8ad5309ffdfc"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"db9190c1-bb62-0844-a621-4816e3f20387"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "9961f6f3-7dfc-cb4a-992f-98fdd81e1462"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->223469105,ExpressionUUID->"80dd6645-bf51-1645-8b9f-e7e5ef380e3f"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"88822cb7-d10c-9f44-b385-95fdf4e4fc77"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"fdadd265-20e2-5140-9bfc-d026b302414e"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "bc440982-a840-0b4e-95e8-ccbd1c375cec"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->596442606,ExpressionUUID->"ba527bb0-12c7-2d48-ae66-c4f3149995dc"],
+
+Cell[BoxData[{
+ RowBox[{"SetGlobalSymmetry", "[", "SU4", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetMultiplet", "[", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<X\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1", ",", "0"}], "}"}], ",", "1", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}], ",", "0"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<\[Lambda]\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "1"}], "}"}], ",", 
+        RowBox[{"3", "/", "2"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"1", "/", "2"}], ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<\!\(\*OverscriptBox[\(\[Lambda]\), \(_\)]\)\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"3", "/", "2"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", 
+          RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+        RowBox[{"-", "1"}]}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<F\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "2", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "0"}], "}"}], ",", "2"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Operator", "[", 
+       RowBox[{"\"\<\!\(\*OverscriptBox[\(F\), \(_\)]\)\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "2", ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "1"}], "}"}], ",", 
+        RowBox[{"-", "2"}]}], "]"}]}], "\[IndentingNewLine]", "}"}], ",", 
+    "\[IndentingNewLine]", "\"\<Vector\>\"", ",", "True", ",", "1"}], "]"}], 
+  ";"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->30814790,ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7"],
+
+Cell["\<\
+Graphs are drawn as contractions of three-point invariants, with external \
+legs corresponding to the given representations. Representations can be seen \
+by mousing over the lines.\
+\>", "ExampleText",
+ CellID->97170297,ExpressionUUID->"29c9dfba-4a2f-bf4c-996a-aa1516d53db5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FourPtInvariantGraphs", "[", 
+  RowBox[{"{", 
+   RowBox[{"6", ",", "6", ",", "4", ",", 
+    RowBox[{"-", "4"}]}], "}"}], "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->822409443,ExpressionUUID->"22e5e9cc-ddb9-d34b-b85a-8136f05899ea"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     GraphicsBox[
+      {PointSize[0.05], Arrowheads[0.1], 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        Dashing[{Small, Small}], 
+        TagBox[
+         TooltipBox[
+          LineBox[NCache[{{0, Rational[1, 2] 2^Rational[-1, 2]}, {
+             2^Rational[-1, 2], 2^Rational[-1, 2]}}, {{
+             0, 0.35355339059327373`}, {0.7071067811865475, 
+             0.7071067811865475}}]],
+          StyleBox["\"6\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["6", Bold], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        Dashing[{Small, Small}], 
+        TagBox[
+         TooltipBox[
+          LineBox[NCache[{{
+             0, Rational[1, 2] 2^Rational[-1, 2]}, {-2^Rational[-1, 2], 2^
+              Rational[-1, 2]}}, {{
+             0, 0.35355339059327373`}, {-0.7071067811865475, 
+             0.7071067811865475}}]],
+          StyleBox["\"6\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["6", Bold], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        TagBox[
+         TooltipBox[{
+           LineBox[NCache[{{
+              0, Rational[-1, 2] 
+               2^Rational[-1, 2]}, {-2^Rational[-1, 2], -2^
+                Rational[-1, 2]}}, {{
+              0, -0.35355339059327373`}, {-0.7071067811865475, \
+-0.7071067811865475}}]], 
+           ArrowBox[
+            NCache[{{
+              0, Rational[-1, 2] 
+               2^Rational[-1, 
+                  2]}, {-0.42426406871192845`, -0.565685424949238}}, {{
+              0, -0.35355339059327373`}, {-0.42426406871192845`, \
+-0.565685424949238}}]]},
+          StyleBox["\"4\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["4", Bold], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        TagBox[
+         TooltipBox[{
+           LineBox[NCache[{{2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+              0, Rational[-1, 2] 2^Rational[-1, 2]}}, {{
+              0.7071067811865475, -0.7071067811865475}, {
+              0, -0.35355339059327373`}}]], 
+           ArrowBox[
+            NCache[{{2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+              0.282842712474619, -0.49497474683058323`}}, {{
+             0.7071067811865475, -0.7071067811865475}, {
+             0.282842712474619, -0.49497474683058323`}}]]},
+          OverscriptBox[
+           StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]],
+         Annotation[#, 
+          OverBar[
+           Style["4", Bold]], "Tooltip"]& ]}, 
+       {GrayLevel[1], 
+        TagBox[
+         TooltipBox[
+          LineBox[NCache[{{0, Rational[1, 2] 2^Rational[-1, 2]}, {
+             0, Rational[-1, 2] 2^Rational[-1, 2]}}, {{
+             0, 0.35355339059327373`}, {0, -0.35355339059327373`}}]],
+          StyleBox["\"1\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["1", Bold], "Tooltip"]& ]}, 
+       {GrayLevel[0.5], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{0, Rational[1, 2] 2^Rational[-1, 2]}, {
+            0, 0.35355339059327373`}]],
+          RowBox[{"Internal", "(", "1", ")"}]],
+         Annotation[#, 
+          SCWIGEE`Internal[1], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{2^Rational[-1, 2], 2^Rational[-1, 2]}, {0.7071067811865475,
+             0.7071067811865475}]],
+          RowBox[{"External", "(", "1", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[1], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{-2^Rational[-1, 2], 2^
+             Rational[-1, 2]}, {-0.7071067811865475, 0.7071067811865475}]],
+          RowBox[{"External", "(", "2", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[2], "Tooltip"]& ]}, 
+       {GrayLevel[0.5], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{0, Rational[-1, 2] 2^Rational[-1, 2]}, {
+            0, -0.35355339059327373`}]],
+          RowBox[{"Internal", "(", "2", ")"}]],
+         Annotation[#, 
+          SCWIGEE`Internal[2], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{-2^Rational[-1, 2], -2^
+              Rational[-1, 2]}, {-0.7071067811865475, -0.7071067811865475}]],
+          RowBox[{"External", "(", "3", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[3], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+            0.7071067811865475, -0.7071067811865475}]],
+          RowBox[{"External", "(", "4", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[4], "Tooltip"]& ]}},
+      ImageSize->150],
+     TraditionalForm], ",", 
+    FormBox[
+     GraphicsBox[
+      {PointSize[0.05], Arrowheads[0.1], 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        Dashing[{Small, Small}], 
+        TagBox[
+         TooltipBox[
+          LineBox[NCache[{{-0.5, 0}, {
+             2^Rational[-1, 2], 2^Rational[-1, 2]}}, {{-0.5, 0}, {
+             0.7071067811865475, 0.7071067811865475}}]],
+          StyleBox["\"6\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["6", Bold], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        TagBox[
+         TooltipBox[{
+           LineBox[NCache[{{-0.5, 
+               0}, {-2^Rational[-1, 2], -2^Rational[-1, 2]}}, {{-0.5, 
+               0}, {-0.7071067811865475, -0.7071067811865475}}]], 
+           ArrowBox[{{-0.5, 
+              0}, {-0.6242640687119285, -0.42426406871192845`}}]},
+          StyleBox["\"4\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["4", Bold], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        TagBox[
+         TooltipBox[{
+           LineBox[NCache[{{2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+              0.5, 0}}, {{0.7071067811865475, -0.7071067811865475}, {
+              0.5, 0}}]], 
+           ArrowBox[
+            NCache[{{2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+              0.5828427124746189, -0.282842712474619}}, {{
+             0.7071067811865475, -0.7071067811865475}, {
+             0.5828427124746189, -0.282842712474619}}]]},
+          OverscriptBox[
+           StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]],
+         Annotation[#, 
+          OverBar[
+           Style["4", Bold]], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        Dashing[{Small, Small}], 
+        TagBox[
+         TooltipBox[
+          LineBox[NCache[{{
+             0.5, 0}, {-2^Rational[-1, 2], 2^Rational[-1, 2]}}, {{
+             0.5, 0}, {-0.7071067811865475, 0.7071067811865475}}]],
+          StyleBox["\"6\"", Bold, StripOnInput -> False],
+          TooltipStyle->"TextStyling"],
+         Annotation[#, 
+          Style["6", Bold], "Tooltip"]& ]}, 
+       {RGBColor[0, 
+         NCache[
+          Rational[2, 3], 0.6666666666666666], 0], Thickness[Large], 
+        TagBox[
+         TooltipBox[{LineBox[{{-0.5, 0}, {0.5, 0}}], 
+           ArrowBox[{{-0.5, 0}, {0.09999999999999998, 0.}}]},
+          OverscriptBox[
+           StyleBox["\"4\"", Bold, StripOnInput -> False], "_"]],
+         Annotation[#, 
+          OverBar[
+           Style["4", Bold]], "Tooltip"]& ]}, 
+       {GrayLevel[0.5], 
+        TagBox[
+         TooltipBox[PointBox[{-0.5, 0}],
+          RowBox[{"Internal", "(", "1", ")"}]],
+         Annotation[#, 
+          SCWIGEE`Internal[1], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{2^Rational[-1, 2], 2^Rational[-1, 2]}, {0.7071067811865475,
+             0.7071067811865475}]],
+          RowBox[{"External", "(", "1", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[1], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{-2^Rational[-1, 2], -2^
+              Rational[-1, 2]}, {-0.7071067811865475, -0.7071067811865475}]],
+          RowBox[{"External", "(", "3", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[3], "Tooltip"]& ]}, 
+       {GrayLevel[0.5], 
+        TagBox[
+         TooltipBox[PointBox[{0.5, 0}],
+          RowBox[{"Internal", "(", "2", ")"}]],
+         Annotation[#, 
+          SCWIGEE`Internal[2], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+            0.7071067811865475, -0.7071067811865475}]],
+          RowBox[{"External", "(", "4", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[4], "Tooltip"]& ]}, 
+       {GrayLevel[0], 
+        TagBox[
+         TooltipBox[
+          PointBox[
+           NCache[{-2^Rational[-1, 2], 2^
+             Rational[-1, 2]}, {-0.7071067811865475, 0.7071067811865475}]],
+          RowBox[{"External", "(", "2", ")"}]],
+         Annotation[#, 
+          SCWIGEE`External[2], "Tooltip"]& ]}},
+      ImageSize->150],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->339201018,ExpressionUUID->"4aaba81c-6b15-704c-92fe-b38161cf9209"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{
+    13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+  ExpressionUUID->"2b5664db-d381-0e4a-ba95-7bb04a87461c"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"8228ca58-6d11-1842-8ab8-53047f5712ad"],
+ "Possible Issues",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "1b866567-048f-e342-b972-28180ac5d119"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->1305812373,ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24"],
+
+Cell["\<\
+FourPtGlobalInvariant works by building birdtracks diagrams, with internal \
+lines in representations contained within defined multiplets (so it will not \
+work if no multiplets are defined).\
+\>", "ExampleText",
+ CellID->382844846,ExpressionUUID->"74835640-99af-6744-a06a-2b4668afc7d1"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]},
+      {Cell[TextData[ButtonBox["FourPtGlobalInvariant",
+        BaseStyle->"Link",
+        ButtonData->"paclet:SCWIGEE/ref/FourPtGlobalInvariant"]], "SeeAlso",
+        ExpressionUUID->"3de65992-430b-ec4c-b562-a70d02b2366f"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"90a9ec8c-df3e-e147-97bc-\
+67291f3b6353"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"b2843b36-a1cd-2845-b286-cd20cce78c6f"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"FourPtInvariantGraphs",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, 
+    "ExampleSection" -> {"0" -> Open, "1" -> Closed}, "AllOptsTable" -> 
+    Closed}, "NewStyles" -> True, "CitationPopupData" -> $Failed, 
+  "ShowCitation" -> False, "HasOptions" -> True, "RootCaptions" -> "", 
+  "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 8.7306597}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "FourPtInvariantGraphs[{rep1, rep2, rep3, rep4}] gives the birdtracks \
+diagrams used to construct four point invariants", "synonyms" -> {}, 
+    "tabletags" -> {}, "title" -> "FourPtInvariantGraphs", "titlemodifier" -> 
+    "", "metadescription" -> "", "windowtitle" -> "FourPtInvariantGraphs", 
+    "type" -> "Symbol", "uri" -> "SCWIGEE/ref/FourPtGlobalInvariant"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"31799353-450f-6f43-b16f-3ea1257312af"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[6607, 177, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"80dd6645-bf51-1645-8b9f-e7e5ef380e3f",
+   CellTags->"PrimaryExamplesSection",
+   CellID->223469105]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 26792, 715}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[593, 21, 4390, 106, 56, "AnchorBarGrid",ExpressionUUID->"069306d4-c6ad-d74a-abd9-9a4b1c08a020",
+ CellID->1],
+Cell[4986, 129, 90, 0, 23, "ContextNameCell",ExpressionUUID->"7568bcdb-570c-b047-a708-5c11c0673151"],
+Cell[CellGroupData[{
+Cell[5101, 133, 564, 14, 56, "ObjectNameGrid",ExpressionUUID->"9193c99c-e965-c44b-bb30-570776633e01"],
+Cell[5668, 149, 902, 23, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6607, 177, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"80dd6645-bf51-1645-8b9f-e7e5ef380e3f",
+ CellTags->"PrimaryExamplesSection",
+ CellID->223469105],
+Cell[CellGroupData[{
+Cell[8052, 218, 1398, 36, 30, "ExampleSection",ExpressionUUID->"ba527bb0-12c7-2d48-ae66-c4f3149995dc",
+ CellID->596442606],
+Cell[9453, 256, 2003, 49, 159, "Input",ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7",
+ CellID->30814790],
+Cell[11459, 307, 286, 5, 57, "ExampleText",ExpressionUUID->"29c9dfba-4a2f-bf4c-996a-aa1516d53db5",
+ CellID->97170297],
+Cell[CellGroupData[{
+Cell[11770, 316, 259, 6, 26, "Input",ExpressionUUID->"22e5e9cc-ddb9-d34b-b85a-8136f05899ea",
+ CellID->822409443],
+Cell[12032, 324, 9980, 266, 173, "Output",ExpressionUUID->"4aaba81c-6b15-704c-92fe-b38161cf9209",
+ CellID->339201018]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[22161, 598, 1423, 37, 30, "ExampleSection",ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24",
+ CellID->1305812373],
+Cell[23587, 637, 297, 5, 57, "ExampleText",ExpressionUUID->"74835640-99af-6744-a06a-2b4668afc7d1",
+ CellID->382844846]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[24114, 650, 606, 15, 114, "SeeAlsoSection",ExpressionUUID->"90a9ec8c-df3e-e147-97bc-67291f3b6353"],
+Cell[24723, 667, 78, 0, 70, "FooterCell",ExpressionUUID->"b2843b36-a1cd-2845-b286-cd20cce78c6f"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

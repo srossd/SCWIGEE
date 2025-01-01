@@ -1,0 +1,1064 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     39460,       1054]
+NotebookOptionsPosition[     34705,        955]
+NotebookOutlinePosition[     37101,       1014]
+CellTagsIndexPosition[     37015,       1009]
+WindowTitle->SpacetimeStructureExpressions
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "64cfac0f-89b5-224e-a229-9d361df51eeb"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "e4146b3c-ae76-184b-b87c-3f35be0e8ae1"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "cc75524a-d4c7-2c4e-83d2-27e2c079d21f"]
+        }],ExpressionUUID->"35f504ec-b8bd-ff4b-b122-b8046b876b67"],
+        StripOnInput->False],{
+       "\"SCWIGEE/ref/SpacetimeStructureExpressions\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{Cell["SCWIGEE/ref/SpacetimeStructureExpressions"]}, 
+              Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+        "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
+SpacetimeStructureExpressions.html"], StandardForm]], "Input", 
+                TextClipboardType -> "PlainText"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "SCWIGEE/ref/SpacetimeStructureExpressions" <> ".html"], 
+             None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "b15531f0-8e84-d043-af32-2fc3afc79b51"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "c4dc6ba2-4367-ef43-80e6-0d86da698aec"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"2f7d4ff4-1d7e-4345-8a5e-255ad8276e0f"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"8a924c39-915c-524d-af0e-a3b31805249b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "SpacetimeStructureExpressions", "ObjectName",ExpressionUUID->
+      "32f9d3b2-5fb4-9f49-8952-77c996467116"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"261c4240-67f7-f149-9e95-71785610c9e3"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "44743849-74ad-b342-92ec-7bd6a01a94b3"]
+    }],ExpressionUUID->"7586f23e-74bd-e24c-bf1c-c0ed4030032d"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"9c3cb9aa-953b-9447-8a3b-\
+5f9a86188f35"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["SpacetimeStructureExpressions"]], 
+         "paclet:SCWIGEE/ref/SpacetimeStructureExpressions", 
+         "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox["spins",
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "dcc7ce26-cac9-7748-a00f-5fef4a00a6dd"],
+     " \[LineSeparator]gives a list of linearly independent combinations of \
+building block structures for a correlator of operators with the given spins"
+    }],ExpressionUUID->"13de5571-2e01-4b49-8195-cbdd5f5e01fc"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"361c1181-b68d-614b-8b72-73e682a08a60"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"f901c159-acba-434e-aea1-fb0895359ae9"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "6ddc2397-9432-a44f-879e-f611b55b21bb"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->639260049,ExpressionUUID->"ab3d0a22-0d98-aa4d-b7a6-573e4dd88e8e"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"232d96ee-1096-5946-a5eb-c01d83e56a57"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"fe79f93c-13d5-5548-b9b7-baa5b9c3978f"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "9a6cee4b-03c3-8f41-855f-f1d5d7c75bfd"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->17829325,ExpressionUUID->"2ced58f4-c313-d74a-bff4-ead91f825112"],
+
+Cell["\<\
+SpacetimeStructureExpressions returns combinations of building block \
+expressions along with the permutations that should be applied to their \
+indices:\
+\>", "ExampleText",
+ CellID->361554010,ExpressionUUID->"814dcaaa-92a5-e64d-8660-72b3d8f2beef"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SpacetimeStructureExpressions", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], ",", 
+      RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], "]"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->66265664,ExpressionUUID->"4773619a-b1f5-ab46-8939-ce213a1a5549"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", 
+        RowBox[{"1", ",", "2"}], 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", 
+        RowBox[{"1", ",", "2"}], 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->64881708,ExpressionUUID->"b549e79b-ab15-b540-8611-b603898f7d8f"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{
+    13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+  ExpressionUUID->"6986a458-b267-3d42-ae3f-6b2418579843"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"c6276f0b-4646-1f4b-9808-ea70381161a1"],
+ "Options",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "8c6fff3c-5007-3043-a41c-ee166fa45fa2"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->2061341341,ExpressionUUID->"86cea5a6-78cf-4276-a603-1ebac8af9374"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "ExampleSubsection", "0"}, Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"139bc6e7-9cae-2648-859f-79c6faec8314"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"7a9b8272-890a-ae48-90b2-be527c9ef4ea"],
+ "Overcomplete",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "5b83dc68-7517-d145-8b87-9ad99f7c8db0"]
+}], "ExampleSubsection", "ExampleSubsection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->1757724783,ExpressionUUID->"b6e13847-3ee5-4597-930e-519127ef23a7"],
+
+Cell["\<\
+By default, SpacetimeStructureExpressions returns a linearly independent set. \
+Set Overcomplete to True to return an overcomplete basis of all possible \
+combinations of building block structures:\
+\>", "ExampleText",
+ CellID->272557788,ExpressionUUID->"c8bf84dd-4bc4-784d-b7e3-d8fa5d28590d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SpacetimeStructureExpressions", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"\"\<Overcomplete\>\"", "->", "True"}]}], "]"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->2307973,ExpressionUUID->"f6b82c85-1b7d-6649-869b-7d33d07ba12b"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", 
+        RowBox[{"1", ",", "2"}], 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", "", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", 
+        RowBox[{"1", ",", "2"}], 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"2", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"2", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"2", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "2"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"2", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"1", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"2", ",", "4"}], "3"], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"J\"\>", 
+        RowBox[{"2", ",", "3"}], "4"]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", "}"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"2", "3", "4"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "4", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "1", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "4", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"3", ",", "4"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "1", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "4", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"K\"\>", "2", 
+        RowBox[{"4", ",", "3"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"\\!\\(\\*OverscriptBox[\\(K\\), \
+\\(_\\)]\\)\"\>", "2", 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3", "4", "2"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]},
+     {
+      RowBox[{
+       SubsuperscriptBox["\<\"I\"\>", 
+        RowBox[{"1", ",", "2"}], 
+        RowBox[{"3", ",", "4"}]], "\[TensorProduct]", 
+       SubsuperscriptBox["\<\"I\"\>", 
+        RowBox[{"1", ",", "2"}], 
+        RowBox[{"4", ",", "3"}]]}], 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"(", "\[NoBreak]", GridBox[{
+          {"1", "3"}
+         },
+         GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.7]}, 
+             Offset[0.27999999999999997`]}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}}], "\[NoBreak]", ")"}], "]"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->78835681,ExpressionUUID->"b743f9a3-c2aa-e541-a51d-9fdf718f95cb"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSubsection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"1bb7ad0d-befb-0e49-93df-\
+defb2c86ebb0"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"2783e4f6-ace0-d448-8c53-78d42e028194"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"SpacetimeStructureExpressions",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, 
+    "ExampleSection" -> {"0" -> Open, "1" -> Closed}, "AllOptsTable" -> 
+    Closed, "ExampleSubsection" -> {"0" -> Closed}}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 45.6722108}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "SpacetimeStructureExpressions[spins] gives a list of linearly \
+independent combinations of building block structures for a correlator of \
+operators with the given spins", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "SpacetimeStructureExpressions", "titlemodifier" -> "", "metadescription" -> 
+    "", "windowtitle" -> "SpacetimeStructureExpressions", "type" -> "Symbol", 
+    "uri" -> "SCWIGEE/ref/SpacetimeStructureExpressions"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"9de184b3-7402-b247-86ac-65ee407b3431"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[5545, 146, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"ab3d0a22-0d98-aa4d-b7a6-573e4dd88e8e",
+   CellTags->"PrimaryExamplesSection",
+   CellID->639260049]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 36816, 1002}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[601, 21, 3388, 79, 56, "AnchorBarGrid",ExpressionUUID->"2f7d4ff4-1d7e-4345-8a5e-255ad8276e0f",
+ CellID->1],
+Cell[3992, 102, 90, 0, 23, "ContextNameCell",ExpressionUUID->"8a924c39-915c-524d-af0e-a3b31805249b"],
+Cell[CellGroupData[{
+Cell[4107, 106, 572, 14, 56, "ObjectNameGrid",ExpressionUUID->"9c3cb9aa-953b-9447-8a3b-5f9a86188f35"],
+Cell[4682, 122, 826, 19, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5545, 146, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"ab3d0a22-0d98-aa4d-b7a6-573e4dd88e8e",
+ CellTags->"PrimaryExamplesSection",
+ CellID->639260049],
+Cell[CellGroupData[{
+Cell[6990, 187, 1397, 36, 30, "ExampleSection",ExpressionUUID->"2ced58f4-c313-d74a-bff4-ead91f825112",
+ CellID->17829325],
+Cell[8390, 225, 259, 5, 57, "ExampleText",ExpressionUUID->"814dcaaa-92a5-e64d-8660-72b3d8f2beef",
+ CellID->361554010],
+Cell[CellGroupData[{
+Cell[8674, 234, 558, 17, 26, "Input",ExpressionUUID->"4773619a-b1f5-ab46-8939-ce213a1a5549",
+ CellID->66265664],
+Cell[9235, 253, 3388, 93, 138, "Output",ExpressionUUID->"b549e79b-ab15-b540-8611-b603898f7d8f",
+ CellID->64881708]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[12772, 354, 1415, 37, 30, "ExampleSection",ExpressionUUID->"86cea5a6-78cf-4276-a603-1ebac8af9374",
+ CellID->2061341341],
+Cell[CellGroupData[{
+Cell[14212, 395, 1406, 36, 30, "ExampleSubsection",ExpressionUUID->"b6e13847-3ee5-4597-930e-519127ef23a7",
+ CellID->1757724783],
+Cell[15621, 433, 303, 5, 57, "ExampleText",ExpressionUUID->"c8bf84dd-4bc4-784d-b7e3-d8fa5d28590d",
+ CellID->272557788],
+Cell[CellGroupData[{
+Cell[15949, 442, 641, 19, 26, "Input",ExpressionUUID->"f6b82c85-1b7d-6649-869b-7d33d07ba12b",
+ CellID->2307973],
+Cell[16593, 463, 17290, 465, 596, "Output",ExpressionUUID->"b743f9a3-c2aa-e541-a51d-9fdf718f95cb",
+ CellID->78835681]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSubsection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[34240, 940, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"1bb7ad0d-befb-0e49-93df-defb2c86ebb0"],
+Cell[34623, 953, 78, 0, 25, "FooterCell",ExpressionUUID->"2783e4f6-ace0-d448-8c53-78d42e028194"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

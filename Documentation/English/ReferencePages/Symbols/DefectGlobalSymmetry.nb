@@ -10,11 +10,11 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     17446,        457]
-NotebookOptionsPosition[     13001,        363]
-NotebookOutlinePosition[     15235,        420]
-CellTagsIndexPosition[     15150,        415]
-WindowTitle->SetGlobalSymmetry
+NotebookDataLength[     16477,        427]
+NotebookOptionsPosition[     12270,        337]
+NotebookOutlinePosition[     14501,        394]
+CellTagsIndexPosition[     14416,        389]
+WindowTitle->DefectGlobalSymmetry
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,11 +27,11 @@ Cell[BoxData[GridBox[{
           TemplateBox[{12},
            "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
            TextAlignment->Center,ExpressionUUID->
-           "c5056e32-4c9a-0149-8101-b6495118b702"], 
+           "8af4495a-501f-2b4d-82b3-70be56f4cb53"], 
           TemplateBox[{8},
            "Spacer1"]}]],
          TextAlignment->Center,ExpressionUUID->
-         "b85d04b4-3a3e-a94e-bdf1-63d22862b8bb"],
+         "8ba28953-efc7-c543-8ee2-247344b6a748"],
         Background->RGBColor[0.490196, 0.576471, 0.690196],
         ItemSize->Full], ""}
      },
@@ -50,15 +50,15 @@ Cell[BoxData[GridBox[{
            AspectRatio->1,
            ImageSize->20,
            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
-          "9c4c223e-fb5d-3548-8e3e-aa593db6d423"]
-        }],ExpressionUUID->"4a8ff958-880e-3945-b633-d47366d3efbe"],
+          "5d6cd4a5-df33-9846-ba43-508534a9e531"]
+        }],ExpressionUUID->"d4208def-2a1a-d445-8d37-fdddc33566f9"],
         StripOnInput->False],{
-       "\"SCWIGEE/ref/SetGlobalSymmetry\"" :> None, 
+       "\"SCWIGEE/ref/DefectGlobalSymmetry\"" :> None, 
         "\"Copy Wolfram Documentation Center URL\"" :> 
         Module[{DocumentationSearch`Private`nb$}, 
           DocumentationSearch`Private`nb$ = 
            NotebookPut[
-            Notebook[{Cell["SCWIGEE/ref/SetGlobalSymmetry"]}, Visible -> 
+            Notebook[{Cell["SCWIGEE/ref/DefectGlobalSymmetry"]}, Visible -> 
               False]]; SelectionMove[
            DocumentationSearch`Private`nb$, All, Notebook]; 
           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
@@ -72,7 +72,7 @@ Cell[BoxData[GridBox[{
                 MakeBoxes[
                  Hyperlink[
                   "http://reference.wolfram.com/language/SCWIGEE/ref/\
-SetGlobalSymmetry.html"], StandardForm]], "Input", TextClipboardType -> 
+DefectGlobalSymmetry.html"], StandardForm]], "Input", TextClipboardType -> 
                 "PlainText"]}, Visible -> False]]; 
           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
@@ -83,41 +83,41 @@ SetGlobalSymmetry.html"], StandardForm]], "Input", TextClipboardType ->
             URL[If[TrueQ[False], 
                 "http://reference.wolfram.com/system-modeler/", 
                 "http://reference.wolfram.com/language/"] <> 
-              "SCWIGEE/ref/SetGlobalSymmetry" <> ".html"], None}]}]},
+              "SCWIGEE/ref/DefectGlobalSymmetry" <> ".html"], None}]}]},
        Appearance->None,
        MenuAppearance->Automatic,
        MenuStyle->"URLMenu"],
       MouseAppearanceTag["LinkHand"]]],
      LineSpacing->{1.4, 0},ExpressionUUID->
-     "3736ce08-c1ba-6a49-8e8f-3f02c4aa0fef"]], "AnchorBar",
+     "14fa3991-45ec-9746-b4b6-4a396b1afd60"]], "AnchorBar",
      CacheGraphics->False,ExpressionUUID->
-     "23b4fa41-04c2-0244-9a50-c45701407c3b"]}
+     "5485c8ff-4804-2a40-b518-480cd9195b89"]}
   }]], "AnchorBarGrid",
  GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
      Scaled[0.65], {
       Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
    "RowsIndexed" -> {}}},
- CellID->1,ExpressionUUID->"617afea9-a0ab-764e-b526-b4e41e2803b2"],
+ CellID->1,ExpressionUUID->"ffb8e64f-7b2c-d040-af86-381f680a9cf7"],
 
-Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"46e060b6-90bd-fe42-bba9-4c0f6f956fb6"],
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"64e746a7-fcad-754c-852e-588793d3d7cd"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[GridBox[{
    {Cell[TextData[{
      Cell[
-     "SetGlobalSymmetry", "ObjectName",ExpressionUUID->
-      "2c8651f4-13f9-9c4b-bfa5-2b0e2e652a9f"],
+     "DefectGlobalSymmetry", "ObjectName",ExpressionUUID->
+      "d0fe070a-120e-1a47-a1a3-387832432823"],
      Cell[BoxData[
       TemplateBox[{8},
-       "Spacer1"]],ExpressionUUID->"bfb19906-5858-3347-b92c-1279dcd0233e"],
+       "Spacer1"]],ExpressionUUID->"92055fe6-73ab-4e48-8487-e4c23b78257b"],
      Cell[BoxData[
      ""], "ObjectNameTranslation",ExpressionUUID->
-      "edba737e-9fc6-fc4c-9308-8473ec5523a1"]
-    }],ExpressionUUID->"0bb3a3b1-3ff9-3d48-be8c-323a707dbe3d"], 
+      "a4f1686e-c25d-3e41-890e-d29aef3dcad8"]
+    }],ExpressionUUID->"d9c8464a-4272-7a45-8190-91fe14738cd9"], 
     "\[SpanFromLeft]"}
-  }]], "ObjectNameGrid",ExpressionUUID->"cced3a8c-018c-c14d-b7d0-\
-37ae6f97000f"],
+  }]], "ObjectNameGrid",ExpressionUUID->"bc2f8f09-87eb-904d-ba48-\
+ed72567cd412"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -125,26 +125,14 @@ Cell[BoxData[GridBox[{
       RowBox[{
        TemplateBox[{
          Cell[
-          TextData["SetGlobalSymmetry"]], 
-         "paclet:SCWIGEE/ref/SetGlobalSymmetry", "SCWIGEE Package Symbol"},
+          TextData["DefectGlobalSymmetry"]], 
+         "paclet:SCWIGEE/ref/DefectGlobalSymmetry", "SCWIGEE Package Symbol"},
         "PackageLink",
-        BaseStyle->"InlineFormula"], "[", 
-       StyleBox["group",
-        FontSlant->"Italic"], "]"}]], "InlineFormula",
+        BaseStyle->"InlineFormula"], "[", "]"}]], "InlineFormula",
       FontFamily->"Source Sans Pro",ExpressionUUID->
-      "4ecf19ff-c70d-2446-a5d6-6c4a32a4f319"],
-     " \[LineSeparator]sets the global symmetry to ",
-     StyleBox["group",
-      FontSlant->"Italic"],
-     ", using the syntax of ",
-     Cell[BoxData[
-      TemplateBox[{
-        Cell[
-         TextData["GroupMath"]], "https://renatofonseca.net/groupmath"},
-       "WebLink",
-       BaseStyle->{"Usage"}]],ExpressionUUID->
-      "09fa6ce9-4a17-3842-ad25-c36440f5a663"]
-    }],ExpressionUUID->"049fb81d-edcf-8e45-b3ad-ec68528dd76e"]}
+      "8eaeb45b-ae16-b74b-8e58-43e2944c748f"],
+     " \[LineSeparator]returns the global symmetry preserved by the defect"
+    }],ExpressionUUID->"fb54176e-93ad-1048-a02a-a91969525703"]}
   }]], "Usage",
  CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
 }, Open  ]],
@@ -178,12 +166,12 @@ Cell[TextData[Cell[BoxData[
          0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
      ImageSizeCache->{
       13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
-    ExpressionUUID->"5c99b75a-7a21-6744-9edf-161d1dac9621"],
+    ExpressionUUID->"948cef06-daac-6d4a-9c84-d76320030ec1"],
    Cell[BoxData[
     TemplateBox[{1},
-     "Spacer1"]],ExpressionUUID->"81a60466-2ca4-0d4a-bcdf-a638b6560b72"],
+     "Spacer1"]],ExpressionUUID->"7c0bb7b9-a01e-a94a-8129-904258cfb8d9"],
    "Details and Options"
-  }], "NotesFrameText",ExpressionUUID->"b9f3fd83-f4df-dd4a-88f8-313e86d7006f"],
+  }], "NotesFrameText",ExpressionUUID->"1ae2c23b-d813-0049-8df4-2bc9052d89d4"],
   Appearance->{Automatic, None, "Normal", Automatic},
   BaseStyle->None,
   ButtonFunction:>(FrontEndExecute[{
@@ -194,15 +182,15 @@ Cell[TextData[Cell[BoxData[
       FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
   Evaluator->None,
   Method->
-   "Preemptive"]],ExpressionUUID->"59f76cca-4e29-7c4b-9c91-776a248f3899"]], \
+   "Preemptive"]],ExpressionUUID->"6c3550aa-2afb-534a-b324-828f5e8624cb"]], \
 "NotesSection",
  WholeCellGroupOpener->True,
  CellGroupingRules->{"SectionGrouping", 50},
  CacheGraphics->False,
- CellID->118242371,ExpressionUUID->"3c95383a-5740-b74a-8052-8cc7812da3fc"],
+ CellID->232503541,ExpressionUUID->"af8029a5-1d3b-254a-9300-aea27b82f26f"],
 
 Cell["\<\
-The global symmetry can also be set using the Setup Wizard GUI.\
+The defect global symmetry can also be found in the Setup Wizard GUI.\
 \>", "Notes",
  CellID->1067943069,ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8"]
 }, Dynamic[CurrentValue[
@@ -235,19 +223,19 @@ Cell[TextData[{
         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
        0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
    ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
-  ExpressionUUID->"699a0aa7-9c97-9347-9a52-f8d78fe83704"],
+  ExpressionUUID->"b9cbc333-ef3c-894d-a8ae-7da1e673a5a3"],
  Cell[BoxData[
   TemplateBox[{1},
-   "Spacer1"]],ExpressionUUID->"159459f1-a0ae-0843-b6e5-53ac3b74977b"],
+   "Spacer1"]],ExpressionUUID->"d3a1e153-feb6-ba4f-a3df-2a749508f754"],
  "Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(1)", "ExampleCount",ExpressionUUID->
-  "e1c5cab4-d5ad-a846-9c77-6265b681d612"]
+  "20157a7e-712b-d443-82d9-dbd71b2615db"]
 }], "PrimaryExamplesSection",
  WholeCellGroupOpener->True,
  CacheGraphics->False,
  CellTags->"PrimaryExamplesSection",
- CellID->217334159,ExpressionUUID->"bf414130-7b94-df43-afa9-1bd3132220e2"],
+ CellID->252400726,ExpressionUUID->"7a574b55-9bab-ae4b-bf71-3cd02b3f3a58"],
 
 Cell[CellGroupData[{
 
@@ -276,44 +264,43 @@ Cell[TextData[{
         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
        0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
    ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
-  ExpressionUUID->"9c04051b-e2a1-4342-8f2e-0a45f66b5636"],
+  ExpressionUUID->"8e775270-9783-6c4a-b9d6-cc8e6b610197"],
  Cell[BoxData[
   TemplateBox[{1},
-   "Spacer1"]],ExpressionUUID->"aec5afba-1ff1-2b49-977a-3ed566ca6725"],
+   "Spacer1"]],ExpressionUUID->"c219c291-13d3-cb47-a5e7-a72de82a2476"],
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(1)", "ExampleCount",ExpressionUUID->
-  "20b91986-4883-4549-ac02-a907bbcb2033"]
+  "067d1d38-a271-e743-9a2f-9c4b9851dcad"]
 }], "ExampleSection", "ExampleSection",
  WholeCellGroupOpener->True,
  CacheGraphics->False,
- CellID->79586862,ExpressionUUID->"8059bc5b-fe92-1745-a65b-2e7aa2c9532a"],
+ CellID->317779342,ExpressionUUID->"f8a9ef66-256c-d741-89b2-64329b5e9876"],
 
-Cell[BoxData[
- RowBox[{"SetGlobalSymmetry", "[", "SU4", "]"}]], "Input",
+Cell[BoxData[{
+ RowBox[{"SetGlobalSymmetry", "[", 
+  RowBox[{"{", 
+   RowBox[{"SU2", ",", "U1"}], "}"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetDefectGlobalSymmetry", "[", "SU2", "]"}]}], "Input",
  CellLabel->"In[1]:=",
  CellID->48985578,ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a"],
 
-Cell["The global symmetry is represented by a Cartan matrix:", "ExampleText",
+Cell["\<\
+The defect global symmetry is represented by a Cartan matrix:\
+\>", "ExampleText",
  CellID->82456840,ExpressionUUID->"0bc5e0ea-bebe-5e43-8d89-115cdf573801"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"GlobalSymmetry", "[", "]"}]], "Input",
+ RowBox[{"DefectGlobalSymmetry", "[", "]"}]], "Input",
  CellLabel->"In[2]:=",
  CellID->117360127,ExpressionUUID->"2f44f57c-5358-0047-b4d9-752f96b67b33"],
 
 Cell[BoxData[
  FormBox[
   RowBox[{"(", "\[NoBreak]", GridBox[{
-     {"2", 
-      RowBox[{"-", "1"}], "0"},
-     {
-      RowBox[{"-", "1"}], "2", 
-      RowBox[{"-", "1"}]},
-     {"0", 
-      RowBox[{"-", "1"}], "2"}
+     {"2"}
     },
     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
     GridBoxSpacings->{"Columns" -> {
@@ -324,21 +311,8 @@ Cell[BoxData[
          Offset[0.4]}, 
         Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
  CellLabel->"Out[2]=",
- CellID->168449969,ExpressionUUID->"e0845c39-bad8-b64a-8687-f2a850fb8311"]
-}, Open  ]],
-
-Cell["\<\
-The global symmetry can be a product of simple Lie groups, e.g. SU(2) \
-\[Times] U(1):\
-\>", "ExampleText",
- CellID->402105843,ExpressionUUID->"4d7973b6-51eb-3342-a094-1b03f1d156d1"],
-
-Cell[BoxData[
- RowBox[{"SetGlobalSymmetry", "[", 
-  RowBox[{"{", 
-   RowBox[{"SU2", ",", "U1"}], "}"}], "]"}]], "Input",
- CellLabel->"In[3]:=",
- CellID->488740143,ExpressionUUID->"524039ac-b8ff-f046-8d71-79346c86093d"]
+ CellID->96121956,ExpressionUUID->"e8607d5e-868d-094e-9bfb-a2e8e45988f4"]
+}, Open  ]]
 }, Dynamic[CurrentValue[
  EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
   Closed]]]]
@@ -356,16 +330,16 @@ Cell[BoxData[GridBox[{
        StyleBox[
         RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
      }]}
-  }]], "SeeAlsoSection",ExpressionUUID->"2d9705a1-70f5-4543-9210-\
-1b566fd8b5d0"],
+  }]], "SeeAlsoSection",ExpressionUUID->"d1db9cb8-63a5-6643-a368-\
+9b68bb7b2d67"],
 
-Cell[" ", "FooterCell",ExpressionUUID->"e0864ae7-f18b-7646-ad35-49a2d9b26078"]
+Cell[" ", "FooterCell",ExpressionUUID->"0bcb075a-b623-5741-8adb-e4377dece2b1"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{900, 783.375},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"SetGlobalSymmetry",
+WindowTitle->"DefectGlobalSymmetry",
 TaggingRules->{
  "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
   "ExampleCounter" -> 1, 
@@ -375,17 +349,17 @@ TaggingRules->{
   "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
   True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
   "Metadata" -> {
-   "built" -> "{2024, 12, 31, 21, 43, 33.7443505}", 
+   "built" -> "{2024, 12, 31, 21, 42, 51.2084045}", 
     "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
     "keywords" -> {}, "specialkeywords" -> {}, 
     "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
     "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
     "status" -> "None", "summary" -> 
-    "SetGlobalSymmetry[group] sets the global symmetry to group, using the \
-syntax of GroupMath", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
-    "SetGlobalSymmetry", "titlemodifier" -> "", "metadescription" -> "", 
-    "windowtitle" -> "SetGlobalSymmetry", "type" -> "Symbol", "uri" -> 
-    "SCWIGEE/ref/SetGlobalSymmetry"}},
+    "DefectGlobalSymmetry[] returns the global symmetry preserved by the \
+defect", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "DefectGlobalSymmetry", "titlemodifier" -> "", "metadescription" -> "", 
+    "windowtitle" -> "DefectGlobalSymmetry", "type" -> "Symbol", "uri" -> 
+    "SCWIGEE/ref/DefectGlobalSymmetry"}},
 CellContext->"Global`",
 FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
 StyleDefinitions->Notebook[{
@@ -399,7 +373,7 @@ StyleDefinitions->Notebook[{
   FrontEndVersion -> 
   "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
   "Default.nb"],
-ExpressionUUID->"ab578661-c954-544b-af79-3b2f2ef38d8c"
+ExpressionUUID->"3d5ce5eb-7b4c-2c4d-8782-89a9ea75c1d0"
 ]
 (* End of Notebook Content *)
 
@@ -407,58 +381,54 @@ ExpressionUUID->"ab578661-c954-544b-af79-3b2f2ef38d8c"
 (*CellTagsOutline
 CellTagsIndex->{
  "PrimaryExamplesSection"->{
-  Cell[7856, 212, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"bf414130-7b94-df43-afa9-1bd3132220e2",
+  Cell[7533, 200, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"7a574b55-9bab-ae4b-bf71-3cd02b3f3a58",
    CellTags->"PrimaryExamplesSection",
-   CellID->217334159]}
+   CellID->252400726]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"PrimaryExamplesSection", 14951, 408}
+ {"PrimaryExamplesSection", 14217, 382}
  }
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[589, 21, 3327, 78, 56, "AnchorBarGrid",ExpressionUUID->"617afea9-a0ab-764e-b526-b4e41e2803b2",
+Cell[592, 21, 3339, 78, 56, "AnchorBarGrid",ExpressionUUID->"ffb8e64f-7b2c-d040-af86-381f680a9cf7",
  CellID->1],
-Cell[3919, 101, 90, 0, 23, "ContextNameCell",ExpressionUUID->"46e060b6-90bd-fe42-bba9-4c0f6f956fb6"],
+Cell[3934, 101, 90, 0, 23, "ContextNameCell",ExpressionUUID->"64e746a7-fcad-754c-852e-588793d3d7cd"],
 Cell[CellGroupData[{
-Cell[4034, 105, 560, 14, 56, "ObjectNameGrid",ExpressionUUID->"cced3a8c-018c-c14d-b7d0-37ae6f97000f"],
-Cell[4597, 121, 1009, 27, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+Cell[4049, 105, 563, 14, 56, "ObjectNameGrid",ExpressionUUID->"bc2f8f09-87eb-904d-ba48-ed72567cd412"],
+Cell[4615, 121, 662, 15, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
  CellID->982511436]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5643, 153, 1919, 48, 37, "NotesSection",ExpressionUUID->"3c95383a-5740-b74a-8052-8cc7812da3fc",
+Cell[5314, 141, 1919, 48, 37, "NotesSection",ExpressionUUID->"af8029a5-1d3b-254a-9300-aea27b82f26f",
  CellGroupingRules->{"SectionGrouping", 50},
- CellID->118242371],
-Cell[7565, 203, 164, 3, 36, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
+ CellID->232503541],
+Cell[7236, 191, 170, 3, 36, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
  CellID->1067943069]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
 Cell[CellGroupData[{
-Cell[7856, 212, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"bf414130-7b94-df43-afa9-1bd3132220e2",
+Cell[7533, 200, 1420, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"7a574b55-9bab-ae4b-bf71-3cd02b3f3a58",
  CellTags->"PrimaryExamplesSection",
- CellID->217334159],
+ CellID->252400726],
 Cell[CellGroupData[{
-Cell[9301, 253, 1397, 36, 30, "ExampleSection",ExpressionUUID->"8059bc5b-fe92-1745-a65b-2e7aa2c9532a",
- CellID->79586862],
-Cell[10701, 291, 169, 3, 26, "Input",ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a",
+Cell[8978, 241, 1398, 36, 30, "ExampleSection",ExpressionUUID->"f8a9ef66-256c-d741-89b2-64329b5e9876",
+ CellID->317779342],
+Cell[10379, 279, 298, 6, 42, "Input",ExpressionUUID->"8825d79b-3208-1549-963b-9d959778b77a",
  CellID->48985578],
-Cell[10873, 296, 151, 1, 38, "ExampleText",ExpressionUUID->"0bc5e0ea-bebe-5e43-8d89-115cdf573801",
+Cell[10680, 287, 166, 3, 38, "ExampleText",ExpressionUUID->"0bc5e0ea-bebe-5e43-8d89-115cdf573801",
  CellID->82456840],
 Cell[CellGroupData[{
-Cell[11049, 301, 160, 3, 26, "Input",ExpressionUUID->"2f44f57c-5358-0047-b4d9-752f96b67b33",
+Cell[10871, 294, 166, 3, 26, "Input",ExpressionUUID->"2f44f57c-5358-0047-b4d9-752f96b67b33",
  CellID->117360127],
-Cell[11212, 306, 666, 20, 65, "Output",ExpressionUUID->"e0845c39-bad8-b64a-8687-f2a850fb8311",
- CellID->168449969]
-}, Open  ]],
-Cell[11893, 329, 192, 4, 38, "ExampleText",ExpressionUUID->"4d7973b6-51eb-3342-a094-1b03f1d156d1",
- CellID->402105843],
-Cell[12088, 335, 218, 5, 26, "Input",ExpressionUUID->"524039ac-b8ff-f046-8d71-79346c86093d",
- CellID->488740143]
+Cell[11040, 299, 523, 14, 35, "Output",ExpressionUUID->"e8607d5e-868d-094e-9bfb-a2e8e45988f4",
+ CellID->96121956]
+}, Open  ]]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
 }, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
-Cell[12536, 348, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"2d9705a1-70f5-4543-9210-1b566fd8b5d0"],
-Cell[12919, 361, 78, 0, 25, "FooterCell",ExpressionUUID->"e0864ae7-f18b-7646-ad35-49a2d9b26078"]
+Cell[11805, 322, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"d1db9cb8-63a5-6643-a368-9b68bb7b2d67"],
+Cell[12188, 335, 78, 0, 25, "FooterCell",ExpressionUUID->"0bcb075a-b623-5741-8adb-e4377dece2b1"]
 }
 ]
 *)

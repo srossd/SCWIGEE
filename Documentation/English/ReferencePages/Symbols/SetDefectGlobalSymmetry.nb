@@ -1,0 +1,562 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     21534,        552]
+NotebookOptionsPosition[     16412,        448]
+NotebookOutlinePosition[     18947,        509]
+CellTagsIndexPosition[     18862,        504]
+WindowTitle->SetDefectGlobalSymmetry
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "a9b02d2c-4561-834e-9d42-0103a024e497"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "3e0df03b-a940-e247-bb76-f80fea1ccce9"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "e43c531b-b81d-6747-b674-ef06ad542686"]
+        }],ExpressionUUID->"2247f861-f52c-8a49-bd40-82de1b8e7d19"],
+        StripOnInput->False],{
+       "\"SCWIGEE/ref/SetDefectGlobalSymmetry\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{Cell["SCWIGEE/ref/SetDefectGlobalSymmetry"]}, Visible -> 
+              False]]; SelectionMove[
+           DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+        "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
+SetDefectGlobalSymmetry.html"], StandardForm]], "Input", TextClipboardType -> 
+                "PlainText"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "SCWIGEE/ref/SetDefectGlobalSymmetry" <> ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "62f4715f-4154-cc42-b9dd-30e147da7abb"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "5ffa4873-661d-8c45-a836-b31d1a5f90f3"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"23f32e00-09e0-df45-a244-7f515e7cc0a4"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"8ceceef5-2132-0548-8ba0-5d740c6ade27"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "SetDefectGlobalSymmetry", "ObjectName",ExpressionUUID->
+      "11bd2355-9290-c84f-b47c-3f38b26b9767"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"409dbee8-f772-8c4d-826d-f834c975e9bd"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "ae09d420-b575-024c-b267-fb26f5f3df15"]
+    }],ExpressionUUID->"7561bf7f-2fa2-4c42-b1a8-09467719f791"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"1cd7cc89-62bc-0847-bfde-\
+4136d34db660"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["SetDefectGlobalSymmetry"]], 
+         "paclet:SCWIGEE/ref/SetDefectGlobalSymmetry", 
+         "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox["group",
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "312bd0e4-8638-d046-9dc3-255a2826be29"],
+     " \[LineSeparator]sets the global symmetry in the presence of the defect \
+to ",
+     StyleBox["group",
+      FontSlant->"Italic"],
+     ", with an embedding into the full global symmetry group chosen \
+automatically"
+    }],ExpressionUUID->"31cb4847-578e-6e43-9069-9fc530ac24a5"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["SetDefectGlobalSymmetry"]], 
+         "paclet:SCWIGEE/ref/SetDefectGlobalSymmetry", 
+         "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox[
+        RowBox[{"group", ",", " ", "embedding"}],
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "c6dfb5af-914a-2e48-9b82-4f356f61931c"],
+     " \[LineSeparator]sets the global symmetry in the presence of the defect \
+to ",
+     StyleBox["group",
+      FontSlant->"Italic"],
+     ", with a specified embedding into the full global symmetry group"
+    }],ExpressionUUID->"6f7f39a1-761f-2644-816a-7d781f72d74d"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox[Cell[TextData[{
+   Cell[BoxData[
+    DynamicBox[ToBoxes[
+      If[
+       MatchQ[
+        CurrentValue[
+         EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, 
+         Closed], 
+        Alternatives[Open, True]], 
+       Style[
+        Graphics[{
+          Thickness[0.18], 
+          RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+          Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+        0.68 Inherited], 
+       Rotate[
+        Style[
+         Graphics[{
+           Thickness[0.18], 
+           RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+           Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+          PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+         0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+     ImageSizeCache->{
+      13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+    ExpressionUUID->"bcc419cc-6355-074d-88cc-400c6d7b9ec2"],
+   Cell[BoxData[
+    TemplateBox[{1},
+     "Spacer1"]],ExpressionUUID->"6b7ea538-9bb5-be48-abd3-74c400f7e985"],
+   "Details and Options"
+  }], "NotesFrameText",ExpressionUUID->"b0307160-330e-9948-acd1-a7c49c499e20"],
+  Appearance->{Automatic, None, "Normal", Automatic},
+  BaseStyle->None,
+  ButtonFunction:>(FrontEndExecute[{
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], All, ButtonCell], 
+     FrontEndToken["OpenCloseGroup"], 
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
+  Evaluator->None,
+  Method->
+   "Preemptive"]],ExpressionUUID->"4661746e-7a40-c344-87a4-2067912e5bf3"]], \
+"NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CacheGraphics->False,
+ CellID->201956896,ExpressionUUID->"0ca79b8b-03ab-f448-92a5-c533079278dc"],
+
+Cell["\<\
+The defect global symmetry can also be set using the Setup Wizard GUI.\
+\>", "Notes",
+ CellID->1067943069,ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"86583caa-fea6-4549-a735-4d7871a4d678"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"e8c2d93a-66d8-424b-b836-fed998967850"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "f422cf1f-d361-f240-9280-b08e9a5247a2"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->204463251,ExpressionUUID->"1b26c9ec-b342-a54d-b21f-fd6f0346e0ff"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"05c22046-b446-ec4d-bba1-1c83ef87256c"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"773f48f8-aca3-584f-98b8-85d2c371508a"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "25cd6659-88eb-6d4a-8319-326a8798b474"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->545804825,ExpressionUUID->"4801af1f-5311-e747-bd4f-816fcba5c910"],
+
+Cell["\<\
+If there is a unique embedding, it is more convenient to let it be chosen \
+automatically:\
+\>", "ExampleText",
+ CellID->322815431,ExpressionUUID->"0c651d24-0b1f-f54f-a631-86fe0377df64"],
+
+Cell[BoxData[{
+ RowBox[{"SetGlobalSymmetry", "[", 
+  RowBox[{"{", 
+   RowBox[{"SU2", ",", "U1"}], "}"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetDefectGlobalSymmetry", "[", "SU2", "]"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->488740143,ExpressionUUID->"524039ac-b8ff-f046-8d71-79346c86093d"],
+
+Cell["\<\
+If there are multiple embeddings, specify one explicitly (this can also be \
+accomplished using the Setup Wizard GUI):\
+\>", "ExampleText",
+ CellID->47046602,ExpressionUUID->"3a59ef89-8511-2b42-97fa-7a7e883e5cef"],
+
+Cell[BoxData[{
+ RowBox[{"SetGlobalSymmetry", "[", 
+  RowBox[{"{", 
+   RowBox[{"SU2", ",", "U1"}], "}"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDefectGlobalSymmetry", "[", 
+   RowBox[{"U1", ",", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0"}], "}"}], "}"}]}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"the", " ", "U1", " ", "subgroup", " ", "of", " ", "SU2"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDefectGlobalSymmetry", "[", 
+   RowBox[{"U1", ",", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "1"}], "}"}], "}"}]}], "]"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{"the", " ", "diagonal", " ", "U1", " ", "subgroup"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]"}], "Input",
+ CellLabel->"In[2]:=",
+ CellID->40513308,ExpressionUUID->"013b2d4d-8375-874d-a4d5-f57880895a9e"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "2"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{
+    13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+  ExpressionUUID->"07c01e3f-40a2-9e48-8b50-3daacb8b932a"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"893d116c-9b61-1646-9d90-054d875c4647"],
+ "Possible Issues",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "905ebc9f-b7ac-694b-b76c-f102603f0ead"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->1305812373,ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24"],
+
+Cell["\<\
+An error will be generated if the specified group is not a subgroup of the \
+global symmetry group:\
+\>", "ExampleText",
+ CellID->432755968,ExpressionUUID->"4e4b2c48-bcde-4c45-9d29-628778721d5b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SetGlobalSymmetry", "[", 
+  RowBox[{"{", 
+   RowBox[{"SU2", ",", "U1"}], "}"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetDefectGlobalSymmetry", "[", "SU3", "]"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->467035570,ExpressionUUID->"04557940-953c-3946-8cb7-788dd3295a0e"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+   "SetDefectGlobalSymmetry", "noembed", 
+    "\"There is no embedding of \\!\\(\\*FormBox[\\\"\\\\\\\"SU3\\\\\\\"\\\", \
+TraditionalForm]\\) into \\!\\(\\*FormBox[RowBox[{\\\"{\\\", RowBox[{\\\"\\\\\
+\\\"SU2\\\\\\\"\\\", \\\",\\\", \\\"\\\\\\\"U1\\\\\\\"\\\"}], \\\"}\\\"}], \
+TraditionalForm]\\); cannot proceed.\"", 2, 17, 5, 27755807559854374100, 
+    "Local", "SCWIGEE`SetDefectGlobalSymmetry"},
+   "MessageTemplate2"], TraditionalForm]], "Message", "MSG",
+ CellLabel->"During evaluation of In[1]:=",
+ CellID->551407622,ExpressionUUID->"7db64610-5065-dd4a-8e84-e9b4c15b1401"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "2"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"71925163-b99a-5146-a8b5-\
+abd57097295f"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"0427192e-c212-1749-9091-c20836288874"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"SetDefectGlobalSymmetry",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, 
+    "ExampleSection" -> {"0" -> Open, "2" -> Closed}, "AllOptsTable" -> 
+    Closed, "NotesSection" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 32.0394691}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "SetDefectGlobalSymmetry[group] sets the global symmetry in the presence \
+of the defect to group, with an embedding into the full global symmetry group \
+chosen automatically SetDefectGlobalSymmetry[group, embedding] sets the \
+global symmetry in the presence of the defect to group, with a specified \
+embedding into the full global symmetry group", "synonyms" -> {}, 
+    "tabletags" -> {}, "title" -> "SetDefectGlobalSymmetry", "titlemodifier" -> 
+    "", "metadescription" -> "", "windowtitle" -> "SetDefectGlobalSymmetry", 
+    "type" -> "Symbol", "uri" -> "SCWIGEE/ref/SetDefectGlobalSymmetry"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"1f7a18eb-131b-9246-99ae-f783ab596f7c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[8568, 229, 1420, 37, 70, "PrimaryExamplesSection",ExpressionUUID->"1b26c9ec-b342-a54d-b21f-fd6f0346e0ff",
+   CellTags->"PrimaryExamplesSection",
+   CellID->204463251]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 18663, 497}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[595, 21, 3351, 78, 70, "AnchorBarGrid",ExpressionUUID->"23f32e00-09e0-df45-a244-7f515e7cc0a4",
+ CellID->1],
+Cell[3949, 101, 90, 0, 70, "ContextNameCell",ExpressionUUID->"8ceceef5-2132-0548-8ba0-5d740c6ade27"],
+Cell[CellGroupData[{
+Cell[4064, 105, 566, 14, 70, "ObjectNameGrid",ExpressionUUID->"1cd7cc89-62bc-0847-bfde-4136d34db660"],
+Cell[4633, 121, 1678, 44, 70, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6348, 170, 1919, 48, 70, "NotesSection",ExpressionUUID->"0ca79b8b-03ab-f448-92a5-c533079278dc",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellID->201956896],
+Cell[8270, 220, 171, 3, 70, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
+ CellID->1067943069]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[8568, 229, 1420, 37, 70, "PrimaryExamplesSection",ExpressionUUID->"1b26c9ec-b342-a54d-b21f-fd6f0346e0ff",
+ CellTags->"PrimaryExamplesSection",
+ CellID->204463251],
+Cell[CellGroupData[{
+Cell[10013, 270, 1398, 36, 70, "ExampleSection",ExpressionUUID->"4801af1f-5311-e747-bd4f-816fcba5c910",
+ CellID->545804825],
+Cell[11414, 308, 196, 4, 70, "ExampleText",ExpressionUUID->"0c651d24-0b1f-f54f-a631-86fe0377df64",
+ CellID->322815431],
+Cell[11613, 314, 299, 6, 70, "Input",ExpressionUUID->"524039ac-b8ff-f046-8d71-79346c86093d",
+ CellID->488740143],
+Cell[11915, 322, 223, 4, 70, "ExampleText",ExpressionUUID->"3a59ef89-8511-2b42-97fa-7a7e883e5cef",
+ CellID->47046602],
+Cell[12141, 328, 849, 23, 70, "Input",ExpressionUUID->"013b2d4d-8375-874d-a4d5-f57880895a9e",
+ CellID->40513308]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[13127, 358, 1423, 37, 70, "ExampleSection",ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24",
+ CellID->1305812373],
+Cell[14553, 397, 205, 4, 70, "ExampleText",ExpressionUUID->"4e4b2c48-bcde-4c45-9d29-628778721d5b",
+ CellID->432755968],
+Cell[CellGroupData[{
+Cell[14783, 405, 299, 6, 70, "Input",ExpressionUUID->"04557940-953c-3946-8cb7-788dd3295a0e",
+ CellID->467035570],
+Cell[15085, 413, 620, 11, 70, "Message",ExpressionUUID->"7db64610-5065-dd4a-8e84-e9b4c15b1401",
+ CellID->551407622]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "2"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[15947, 433, 380, 11, 70, "SeeAlsoSection",ExpressionUUID->"71925163-b99a-5146-a8b5-abd57097295f"],
+Cell[16330, 446, 78, 0, 70, "FooterCell",ExpressionUUID->"0427192e-c212-1749-9091-c20836288874"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

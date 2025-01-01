@@ -1,0 +1,758 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     27814,        748]
+NotebookOptionsPosition[     23152,        650]
+NotebookOutlinePosition[     25565,        709]
+CellTagsIndexPosition[     25480,        704]
+WindowTitle->Structure
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "962230c0-b2a8-3846-8cb9-b9132e2540c6"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "b04180ca-b06d-7c47-a935-55a2703f8333"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "4379e28e-077f-d04a-bfc3-9fa5835df837"]
+        }],ExpressionUUID->"7a3ca442-f8f9-4a4a-8c43-43d96ed292cf"],
+        StripOnInput->False],{
+       "\"SCWIGEE/ref/Structure\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{Cell["SCWIGEE/ref/Structure"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+        "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
+Structure.html"], StandardForm]], "Input", TextClipboardType -> "PlainText"]},
+               Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "SCWIGEE/ref/Structure" <> ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "80c4969e-bdbe-cd4d-92ef-ec69b7f660a0"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "aceec46d-c89c-494a-8e67-f037d0d1fe2e"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"f9cab399-1f17-604b-8f40-158fcc6665fa"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"991eb343-7480-1444-b03c-9d144b48629b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "Structure", "ObjectName",ExpressionUUID->
+      "3f7d12f2-5f22-1448-8a3b-1a26e11ac707"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"30d85c71-888b-9540-8fb2-ea4b2ff9ad28"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "c978cc2b-355d-9c4e-aff9-695c94bd7933"]
+    }],ExpressionUUID->"471bf053-2932-6e4e-b4c8-a1acba6b6183"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"f53ebbce-1f3c-5a4b-b9fc-\
+c8270fcde656"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       RowBox[{
+        TemplateBox[{
+          Cell[
+           TextData["Structure"]], "paclet:SCWIGEE/ref/Structure", 
+          "SCWIGEE Package Symbol"},
+         "PackageLink",
+         BaseStyle->"InlineFormula"], "[", 
+        StyleBox["type",
+         FontSlant->"Italic"], "]"}], "[", 
+       StyleBox[
+        RowBox[{"idx1", ",", " ", "..."}],
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "54eb6607-6007-7c4d-b121-4d582098aaff"],
+     " \[LineSeparator]gives the expression for one of the building block \
+spacetime structures"
+    }],ExpressionUUID->"bd3d307b-5f3f-604f-89d9-9920f66788d6"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       RowBox[{
+        TemplateBox[{
+          Cell[
+           TextData["Structure"]], "paclet:TensorTools/ref/Structure", 
+          "TensorTools Package Symbol"},
+         "PackageLink",
+         BaseStyle->"InlineFormula"], "[", 
+        StyleBox[
+         RowBox[{"type", ",", " ", "defectCodimension"}],
+         FontSlant->"Italic"], "]"}], "[", 
+       StyleBox[
+        RowBox[{"idx1", ",", " ", "..."}],
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "d56d8c66-4861-e449-902c-93fe6639ee8c"],
+     " \[LineSeparator]gives the expression for one of the building block \
+spacetime structures in the presence of a defect aligned with the last 4 - ",
+     StyleBox["defectCodimension",
+      FontSlant->"Italic"],
+     " coordinates"
+    }],ExpressionUUID->"67731c82-2710-5248-b24a-dff4d00fb001"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox[Cell[TextData[{
+   Cell[BoxData[
+    DynamicBox[ToBoxes[
+      If[
+       MatchQ[
+        CurrentValue[
+         EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, 
+         Closed], 
+        Alternatives[Open, True]], 
+       Style[
+        Graphics[{
+          Thickness[0.18], 
+          RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+          Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+        0.68 Inherited], 
+       Rotate[
+        Style[
+         Graphics[{
+           Thickness[0.18], 
+           RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+           Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+          PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+         0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+     ImageSizeCache->{
+      13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+    ExpressionUUID->"6cec27c1-9b47-254b-b08b-2d826ecb15d8"],
+   Cell[BoxData[
+    TemplateBox[{1},
+     "Spacer1"]],ExpressionUUID->"6c42884f-9b49-9341-b9b7-9d700a02da5e"],
+   "Details and Options"
+  }], "NotesFrameText",ExpressionUUID->"c3b01c2a-2822-fe42-b36c-e5a323cdd481"],
+  Appearance->{Automatic, None, "Normal", Automatic},
+  BaseStyle->None,
+  ButtonFunction:>(FrontEndExecute[{
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], All, ButtonCell], 
+     FrontEndToken["OpenCloseGroup"], 
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
+  Evaluator->None,
+  Method->
+   "Preemptive"]],ExpressionUUID->"5325461c-7079-3644-ab87-e5c0317d0cd2"]], \
+"NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CacheGraphics->False,
+ CellID->793930871,ExpressionUUID->"da8b2adc-d778-b14e-a44b-179c3e84d7a7"],
+
+Cell["\<\
+A summary of building block structures can be found in the conventions panel \
+of the Setup Wizard.\
+\>", "Notes",
+ CellID->1067943069,ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"2b2e131b-47f5-4d44-b761-5c905679b450"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"73cdc5df-1d68-be43-be8a-f6fab565efc9"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "8f17c456-43f8-8b48-88f5-6a1d55e59bc1"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->84297436,ExpressionUUID->"a0e61823-1910-a741-8585-48b98acceaa2"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"7d62ea6c-e21e-8946-9d3c-de5bb39b892a"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"4065f59d-9e16-7b49-939f-6b3463f2ec77"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "fa5bf3e5-f712-1e48-b0f0-e7df745e31e0"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->100922334,ExpressionUUID->"f4adaeb6-ff11-4f4c-b749-73b9b2d8847e"],
+
+Cell[TextData[{
+ "Each building-block structure can be written explicitly in terms of \
+spacetime coordinates, e.g. ",
+ Cell[BoxData[
+  FormBox[
+   SubsuperscriptBox["\<\"J\"\>", 
+    RowBox[{"2", ",", "3"}], "1"], TraditionalForm]], "Output",ExpressionUUID->
+  "efcdd9a6-4271-f54e-b591-147ca878b220"],
+ ":"
+}], "ExampleText",
+ CellID->524720737,ExpressionUUID->"358a26a2-1681-7848-b6c9-adc263be8f4c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Structure", "[", "\"\<J\>\"", "]"}], "[", 
+  RowBox[{"1", ",", "2", ",", "3"}], "]"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->659820735,ExpressionUUID->"239c4e93-5384-124b-9634-d1f83fc33b11"],
+
+Cell[BoxData[
+ FormBox[
+  FractionBox[
+   RowBox[{
+    FormBox[
+     SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"12\"\>", 
+      "2"],
+     TraditionalForm], " ", 
+    FormBox[
+     SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"13\"\>", 
+      "2"],
+     TraditionalForm], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      FractionBox[
+       FormBox[
+        TemplateBox[{
+          TemplateBox[{
+            FormBox[
+             SubscriptBox["\"\\!\\(TraditionalForm\\`x\\)\"", 
+              RowBox[{"2", ",", "1"}]], TraditionalForm], 
+            StyleBox[
+             TagBox["\[Mu]", HoldForm], 
+             RGBColor[
+             0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+             StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+           SuperscriptBox], 
+          SubscriptBox[
+           TagBox["\[Sigma]", HoldForm], 
+           TemplateBox[{
+             StyleBox[
+              TagBox["\[Mu]", HoldForm], 
+              RGBColor[
+              0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+              StripOnInput -> False], 
+             TemplateBox[{
+               TagBox["\[Alpha]", HoldForm], 
+               OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
+            "RowDefault"]]},
+         "RowDefault"],
+        TraditionalForm], 
+       FormBox[
+        SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", \
+"\<\"12\"\>", "2"],
+        TraditionalForm]], "-", 
+      FractionBox[
+       FormBox[
+        TemplateBox[{
+          TemplateBox[{
+            FormBox[
+             SubscriptBox["\"\\!\\(TraditionalForm\\`x\\)\"", 
+              RowBox[{"3", ",", "1"}]], TraditionalForm], 
+            StyleBox[
+             TagBox["\[Mu]", HoldForm], 
+             RGBColor[
+             0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+             StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+           SuperscriptBox], 
+          SubscriptBox[
+           TagBox["\[Sigma]", HoldForm], 
+           TemplateBox[{
+             StyleBox[
+              TagBox["\[Mu]", HoldForm], 
+              RGBColor[
+              0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+              StripOnInput -> False], 
+             TemplateBox[{
+               TagBox["\[Alpha]", HoldForm], 
+               OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
+            "RowDefault"]]},
+         "RowDefault"],
+        TraditionalForm], 
+       FormBox[
+        SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", \
+"\<\"13\"\>", "2"],
+        TraditionalForm]]}], ")"}]}], 
+   FormBox[
+    SubsuperscriptBox["\<\"\\!\\(TraditionalForm\\`x\\)\"\>", "\<\"23\"\>", 
+     "2"],
+    TraditionalForm]], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->213290061,ExpressionUUID->"1a41202e-c141-d44d-953f-e88d6a994db2"]
+}, Open  ]],
+
+Cell["\<\
+Additional building block structures are available in the presence of a \
+defect:\
+\>", "ExampleText",
+ CellID->57969570,ExpressionUUID->"1be74106-68cf-c340-afc2-88b9f69f54ab"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Structure", "[", 
+   RowBox[{"\"\<\!\(\*OverscriptBox[\(I\), \(~\)]\)\>\"", ",", "3"}], "]"}], 
+  "[", 
+  RowBox[{"1", ",", "2"}], "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->684990,ExpressionUUID->"c25cd7df-f622-e24e-9560-3c5a235ff042"],
+
+Cell[BoxData[
+ FormBox[
+  FractionBox[
+   RowBox[{
+    RowBox[{
+     FormBox[
+      TemplateBox[{"\"(\"", 
+        SubscriptBox[
+        "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \\(\[UpTee]\\)]\
+\\)\"", "1"], "\"\[CenterDot]\"", 
+        SubscriptBox[
+        "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \\(\[UpTee]\\)]\
+\\)\"", "2"], "\")\""},
+       "RowDefault"],
+      TraditionalForm], " ", 
+     FormBox[
+      TemplateBox[{
+        TemplateBox[{
+          FormBox[
+           SubscriptBox[
+           "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \\(\
+\[DoubleVerticalBar]\\)]\\)\"", 
+            RowBox[{"1", ",", "2"}]], TraditionalForm], 
+          StyleBox[
+           TagBox["\[Mu]", HoldForm], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+         SuperscriptBox], 
+        SubscriptBox[
+         TagBox["\[Sigma]", HoldForm], 
+         TemplateBox[{
+           StyleBox[
+            TagBox["\[Mu]", HoldForm], 
+            RGBColor[
+            0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+            StripOnInput -> False], 
+           TemplateBox[{
+             TagBox["\[Alpha]", HoldForm], 
+             OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
+          "RowDefault"]]},
+       "RowDefault"],
+      TraditionalForm]}], "+", 
+    FormBox[
+     TemplateBox[{
+       TemplateBox[{
+         FormBox[
+          SubscriptBox[
+          "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \
+\\(\[UpTee]\\)]\\)\"", "1"], TraditionalForm], 
+         StyleBox[
+          TagBox["\[Mu]", HoldForm], 
+          RGBColor[
+          0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+          StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+        SuperscriptBox], 
+       TemplateBox[{
+         FormBox[
+          SubscriptBox[
+          "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \
+\\(\[UpTee]\\)]\\)\"", "2"], TraditionalForm], 
+         StyleBox[
+          TagBox["\[Nu]", HoldForm], 
+          RGBColor[
+          0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+          StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+        SuperscriptBox], 
+       TemplateBox[{
+         FormBox[
+          SubscriptBox[
+          "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \\(\
+\[DoubleVerticalBar]\\)]\\)\"", 
+           RowBox[{"1", ",", "2"}]], TraditionalForm], 
+         StyleBox[
+          TagBox["\[Xi]", HoldForm], 
+          RGBColor[
+          0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+          StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+        SuperscriptBox], 
+       SubscriptBox[
+        TagBox["\[Epsilon]", HoldForm], 
+        TemplateBox[{
+          StyleBox[
+           TagBox["\[Mu]", HoldForm], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False], 
+          TemplateBox[{
+            StyleBox[
+             TagBox["\[Nu]", HoldForm], 
+             RGBColor[
+             0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+             StripOnInput -> False], 
+            TemplateBox[{
+              StyleBox[
+               TagBox["\[Xi]", HoldForm], 
+               RGBColor[
+               0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+               StripOnInput -> False], 
+              StyleBox[
+               TagBox["\[Omicron]", HoldForm], 
+               RGBColor[
+               0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+               StripOnInput -> False]}, "RowDefault"]}, "RowDefault"]}, 
+         "RowDefault"]], 
+       SubscriptBox[
+        TemplateBox[{
+          TagBox["\[Sigma]", HoldForm], 
+          StyleBox[
+           TagBox["\[Omicron]", HoldForm], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+         SuperscriptBox], 
+        TemplateBox[{
+          TagBox["\[Alpha]", HoldForm], 
+          OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]]},
+      "RowDefault"],
+     TraditionalForm], "+", 
+    RowBox[{
+     FormBox[
+      SubsuperscriptBox["\<\"(\\!\\(\\*SuperscriptBox[\\(x\\), \
+\\(\[UpTee]\\)]\\))\"\>", "\<\"1\"\>", "2"],
+      TraditionalForm], " ", 
+     FormBox[
+      TemplateBox[{
+        TemplateBox[{
+          FormBox[
+           SubscriptBox[
+           "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \
+\\(\[UpTee]\\)]\\)\"", "2"], TraditionalForm], 
+          StyleBox[
+           TagBox["\[Mu]", HoldForm], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+         SuperscriptBox], 
+        SubscriptBox[
+         TagBox["\[Sigma]", HoldForm], 
+         TemplateBox[{
+           StyleBox[
+            TagBox["\[Mu]", HoldForm], 
+            RGBColor[
+            0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+            StripOnInput -> False], 
+           TemplateBox[{
+             TagBox["\[Alpha]", HoldForm], 
+             OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
+          "RowDefault"]]},
+       "RowDefault"],
+      TraditionalForm]}], "-", 
+    RowBox[{
+     FormBox[
+      SubsuperscriptBox["\<\"(\\!\\(\\*SuperscriptBox[\\(x\\), \
+\\(\[UpTee]\\)]\\))\"\>", "\<\"2\"\>", "2"],
+      TraditionalForm], " ", 
+     FormBox[
+      TemplateBox[{
+        TemplateBox[{
+          FormBox[
+           SubscriptBox[
+           "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \
+\\(\[UpTee]\\)]\\)\"", "1"], TraditionalForm], 
+          StyleBox[
+           TagBox["\[Mu]", HoldForm], 
+           RGBColor[
+           0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+           StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+         SuperscriptBox], 
+        SubscriptBox[
+         TagBox["\[Sigma]", HoldForm], 
+         TemplateBox[{
+           StyleBox[
+            TagBox["\[Mu]", HoldForm], 
+            RGBColor[
+            0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+            StripOnInput -> False], 
+           TemplateBox[{
+             TagBox["\[Alpha]", HoldForm], 
+             OverscriptBox["\"\[Alpha]\"", "."]}, "RowDefault"]}, 
+          "RowDefault"]]},
+       "RowDefault"],
+      TraditionalForm]}]}], 
+   FormBox[
+    TemplateBox[{"\"(\"", 
+      SubscriptBox[
+      "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \
+\\(\[UpTee]\\)]\\)\"", "1"], "\"\[CenterDot]\"", 
+      SubscriptBox[
+      "\"\\!\\(\\*SuperscriptBox[\\(TraditionalForm\\`x\\), \
+\\(\[UpTee]\\)]\\)\"", "2"], "\")\""},
+     "RowDefault"],
+    TraditionalForm]], TraditionalForm]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->804881654,ExpressionUUID->"9e439941-3bfe-7f46-aafd-489f1a1fb697"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"072f6636-5d8f-1448-b3f7-\
+336ba3be152a"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"ff0ba136-60f5-5b42-8cb2-312b8ce69f6a"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Structure",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "AllOptsTable" -> Closed, "NotesSection" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 43, 53.7493996}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "Structure[type][idx1, ...] gives the expression for one of the building \
+block spacetime structures Structure[type, defectCodimension][idx1, ...] \
+gives the expression for one of the building block spacetime structures in \
+the presence of a defect aligned with the last 4 - defectCodimension \
+coordinates", "synonyms" -> {}, "tabletags" -> {}, "title" -> "Structure", 
+    "titlemodifier" -> "", "metadescription" -> "", "windowtitle" -> 
+    "Structure", "type" -> "Symbol", "uri" -> "SCWIGEE/ref/Structure"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"bc5987d3-475a-7042-b972-103413f762a0"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[8591, 231, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"a0e61823-1910-a741-8585-48b98acceaa2",
+   CellTags->"PrimaryExamplesSection",
+   CellID->84297436]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 25282, 697}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[581, 21, 3277, 77, 56, "AnchorBarGrid",ExpressionUUID->"f9cab399-1f17-604b-8f40-158fcc6665fa",
+ CellID->1],
+Cell[3861, 100, 90, 0, 23, "ContextNameCell",ExpressionUUID->"991eb343-7480-1444-b03c-9d144b48629b"],
+Cell[CellGroupData[{
+Cell[3976, 104, 552, 14, 56, "ObjectNameGrid",ExpressionUUID->"f53ebbce-1f3c-5a4b-b9fc-c8270fcde656"],
+Cell[4531, 120, 1774, 46, 212, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6342, 171, 1919, 48, 37, "NotesSection",ExpressionUUID->"da8b2adc-d778-b14e-a44b-179c3e84d7a7",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellID->793930871],
+Cell[8264, 221, 200, 4, 36, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
+ CellID->1067943069]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[8591, 231, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"a0e61823-1910-a741-8585-48b98acceaa2",
+ CellTags->"PrimaryExamplesSection",
+ CellID->84297436],
+Cell[CellGroupData[{
+Cell[10035, 272, 1398, 36, 30, "ExampleSection",ExpressionUUID->"f4adaeb6-ff11-4f4c-b749-73b9b2d8847e",
+ CellID->100922334],
+Cell[11436, 310, 401, 10, 40, "ExampleText",ExpressionUUID->"358a26a2-1681-7848-b6c9-adc263be8f4c",
+ CellID->524720737],
+Cell[CellGroupData[{
+Cell[11862, 324, 229, 5, 26, "Input",ExpressionUUID->"239c4e93-5384-124b-9634-d1f83fc33b11",
+ CellID->659820735],
+Cell[12094, 331, 2874, 81, 71, "Output",ExpressionUUID->"1a41202e-c141-d44d-953f-e88d6a994db2",
+ CellID->213290061]
+}, Open  ]],
+Cell[14983, 415, 186, 4, 38, "ExampleText",ExpressionUUID->"1be74106-68cf-c340-afc2-88b9f69f54ab",
+ CellID->57969570],
+Cell[CellGroupData[{
+Cell[15194, 423, 277, 7, 30, "Input",ExpressionUUID->"c25cd7df-f622-e24e-9560-3c5a235ff042",
+ CellID->684990],
+Cell[15474, 432, 6971, 194, 56, "Output",ExpressionUUID->"9e439941-3bfe-7f46-aafd-489f1a1fb697",
+ CellID->804881654]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[22687, 635, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"072f6636-5d8f-1448-b3f7-336ba3be152a"],
+Cell[23070, 648, 78, 0, 70, "FooterCell",ExpressionUUID->"ff0ba136-60f5-5b42-8cb2-312b8ce69f6a"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

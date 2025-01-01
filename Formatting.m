@@ -10,7 +10,7 @@ Format[Operator[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] :=
   ];
        
 Format[x[i_, j_], TraditionalForm] := Superscript[Subscript[x, i], j];
-MakeBoxes[Power[x[i_,j_], n_], TraditionalForm] := SuperscriptBox[RowBox[{"(", SubsuperscriptBox["x",i,j], ")"}], n]
+MakeBoxes[Power[x[i_,j_], n_], TraditionalForm] := SuperscriptBox[RowBox[{"(", SubsuperscriptBox["x",i,j], ")"}], ToBoxes[n, TraditionalForm]]
 Format[SpacetimePoint[i_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", i];
 Format[SpacetimePointDefect[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)" i];
 Format[SpacetimePointTransverse[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[UpTee]\)]\)", i];
@@ -23,21 +23,21 @@ MakeBoxes[Power[XXSquared[xs__], n_], TraditionalForm] :=
   If[n === 1/2, 
    TemplateBox[{SubscriptBox["x", StringJoin @@ (ToString /@ {xs})]}, 
     "Abs"], SuperscriptBox[
-    SubscriptBox["x", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    SubscriptBox["x", StringJoin @@ (ToString /@ {xs})], ToBoxes[2 n, TraditionalForm]]];
     
 Format[XXSquaredDefect[xs___], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", StringJoin @@ (ToString /@ {xs})])^2;
 MakeBoxes[Power[XXSquaredDefect[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
    TemplateBox[{SubscriptBox[SuperscriptBox["x", "\[DoubleVerticalBar]"], RowBox[ToString /@ {xs}]]}, 
     "Abs"], SuperscriptBox[
-    SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", StringJoin @@ (ToString /@ {xs})], 2 n]];
+    SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[DoubleVerticalBar]\)]\))", StringJoin @@ (ToString /@ {xs})], ToBoxes[2 n, TraditionalForm]]];
     
 Format[XXSquaredTransverse[xs__], TraditionalForm] := (Subscript["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", StringJoin @@ (ToString /@ {xs})])^2;
 MakeBoxes[Power[XXSquaredTransverse[xs__], n_], TraditionalForm] := 
   If[n === 1/2, 
    TemplateBox[{SubscriptBox[SuperscriptBox["x", "\[UpTee]"], StringJoin @@ (ToString /@ {xs})]}, 
     "Abs"], SuperscriptBox[
-    SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", RowBox[ToString /@ {xs}]], 2 n]];
+    SubscriptBox["(\!\(\*SuperscriptBox[\(x\), \(\[UpTee]\)]\))", RowBox[ToString /@ {xs}]], ToBoxes[2 n, TraditionalForm]]];
     
 Format[XXDot[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(TraditionalForm\`x\)", i], "\[CenterDot]", Subscript["\!\(TraditionalForm\`x\)", j], ")"}];
 Format[XXDotDefect[i_, j_], TraditionalForm] := Row[{"(",Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", i], "\[CenterDot]", Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)", j], ")"}];

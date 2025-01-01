@@ -1,0 +1,808 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26444,        798]
+NotebookOptionsPosition[     21977,        700]
+NotebookOutlinePosition[     24104,        756]
+CellTagsIndexPosition[     24019,        751]
+WindowTitle->v
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "707def3b-a164-a747-844f-c10e5276414b"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "fbc4e348-3844-924c-9b2e-16d0b7be593f"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "See Also",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "ddf2e340-e714-1944-adc3-b163c71b698d"]
+         }],ExpressionUUID->"dab4b05b-216c-2840-b318-f7bd8c087c94"],
+         StripOnInput->False],{
+        "\"u\"" :> Documentation`HelpLookup["paclet:SCWIGEE/ref/u"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"SeeAlso"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "e088d864-a8ba-794a-8230-9edd09cc9b05"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "3e6adc57-3eee-d44a-a19a-3e4806beadfa"]
+         }],ExpressionUUID->"d9c8176e-8f6c-e745-9abd-69c52b709ecf"],
+         StripOnInput->False],{
+        "\"SCWIGEE/ref/v\"" :> None, 
+         "\"Copy Wolfram Documentation Center URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[Notebook[{Cell["SCWIGEE/ref/v"]}, Visible -> False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+         "\"Copy web URL\"" :> 
+         Module[{DocumentationSearch`Private`nb$}, 
+           DocumentationSearch`Private`nb$ = 
+            NotebookPut[
+             Notebook[{
+               Cell[BoxData[
+                 MakeBoxes[
+                  Hyperlink[
+                   "http://reference.wolfram.com/language/SCWIGEE/ref/v.html"]\
+, StandardForm]], "Input", TextClipboardType -> "PlainText"]}, Visible -> 
+               False]]; 
+           SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+           FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+           NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+         "\"Go to web URL\"" :> 
+         FrontEndExecute[{
+           NotebookLocate[{
+             URL[If[TrueQ[False], 
+                 "http://reference.wolfram.com/system-modeler/", 
+                 "http://reference.wolfram.com/language/"] <> "SCWIGEE/ref/v" <> 
+               ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "2e870ada-b788-7c4d-982f-fbb2bf6a8615"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "2d702d7e-e9a6-3c40-bb0d-e3eef1757468"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"c5471f07-d37b-f742-b501-f28e353cc86f"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"b4da4f08-b162-a44f-a30d-d1fe3b5d5c1a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "v", "ObjectName",ExpressionUUID->"bb4a0a36-1c22-5947-933f-b3336bbe82cc"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"f85e8d8f-9064-b44b-9977-69bde2f2aa17"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "715383e7-da00-e34d-a924-f1adb67f9413"]
+    }],ExpressionUUID->"28b895d0-e972-9f42-97a0-a9c07e9ab957"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"df7976a7-6dc9-fa49-bf3d-\
+d929d9884ed4"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["v"]], "paclet:SCWIGEE/ref/v", "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox["perm",
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "44ac1ae3-86dc-ad4f-8f01-89833e02c843"],
+     " \[LineSeparator]gives the conformal cross-ratio ",
+     StyleBox["v",
+      FontSlant->"Italic"],
+     " with coordinates in the order ",
+     StyleBox["perm",
+      FontSlant->"Italic"]
+    }],ExpressionUUID->"1836ef53-f37d-5f4b-a4f2-d5de64ca356d"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"2b59f200-f46c-1845-b5fa-69a37915a5cf"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"559a1916-58d3-3f42-9700-a5f088c99585"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "df63b29b-ff33-8f48-9a4a-2d835ad88ff8"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->1001285691,ExpressionUUID->"19623d5b-27a7-fb46-a5f7-ebc5e8213972"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"051d7c96-3460-d34f-ba99-c316752bcc88"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"f4a35d4e-e054-6142-9d79-2d14be848aa1"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "d2b88d2b-0709-6448-9e98-b51ca27a92fb"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->325464266,ExpressionUUID->"0cbf5be3-5ad5-7a4e-9ce9-855b71b3b4de"],
+
+Cell["\<\
+In TraditionalForm the cross-ratio displays as a function of the cross-ratios \
+U and V with coordinates in standard order:\
+\>", "ExampleText",
+ CellID->292678488,ExpressionUUID->"bd7146be-202d-0c4b-bda5-fbc0d8ff6716"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"v", "[", 
+  RowBox[{"{", 
+   RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"v", "[", 
+  RowBox[{"{", 
+   RowBox[{"1", ",", "2", ",", "4", ",", "3"}], "}"}], "]"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->30814790,ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7"],
+
+Cell[BoxData[
+ FormBox["\<\"V\"\>", TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->342699668,ExpressionUUID->"6114d6dc-5be7-544e-8f19-e7f23a18de6e"],
+
+Cell[BoxData[
+ FormBox[
+  FractionBox["1", "\<\"V\"\>"], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->553828641,ExpressionUUID->"e35907ac-3500-bc42-b3e7-746945f93078"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The coordinate dependence can be obtained using ",
+ ButtonBox["Explicit",
+  BaseStyle->"Link",
+  ButtonData->"paclet:TensorTools/ref/Explicit"],
+ ":"
+}], "ExampleText",
+ CellID->78914495,ExpressionUUID->"b2314fb9-5f57-7946-99a8-bc0f55f419cf"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Explicit", "[", 
+  RowBox[{"v", "[", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "]"}], "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->94615047,ExpressionUUID->"f2a3149b-1400-6445-8b1e-bcb19821d4a0"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "2"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "2"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "3"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "3"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "4"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "4"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "2"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "2"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "3"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "3"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "4"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "4"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}]}]}], ")"}]}], ")"}], "/", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "2"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "2"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "3"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "3"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "4"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "4"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "3"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "1"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "2"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "2"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "3"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "3"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "4"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "4"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], "2"], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "4"], "1"},
+            "Superscript"],
+           TraditionalForm], "-", 
+          FormBox[
+           TemplateBox[{
+             SubscriptBox["x", "2"], "1"},
+            "Superscript"],
+           TraditionalForm]}], ")"}]}]}], ")"}]}], ")"}]}], 
+  TraditionalForm]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->635796146,ExpressionUUID->"35b007a5-41f2-7c4e-9ce1-85732b826194"]
+}, Open  ]],
+
+Cell["\<\
+If only two coordinates are given, v gives the cross-ratio in the presence of \
+a defect:\
+\>", "ExampleText",
+ CellID->67550968,ExpressionUUID->"2f0c4e90-f1fa-4f4a-a270-94837383afd1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDefectCodimension", "[", "3", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Explicit", "[", 
+  RowBox[{"v", "[", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], "]"}], "]"}]}], "Input",
+ CellLabel->"In[3]:=",
+ CellID->178902169,ExpressionUUID->"c3193d1f-8435-6048-971c-c9b06e596ffe"],
+
+Cell[BoxData[
+ FormBox[
+  FractionBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", 
+      FormBox[
+       TemplateBox[{
+         SubscriptBox["x", "1"], "1"},
+        "Superscript"],
+       TraditionalForm]}], " ", 
+     FormBox[
+      TemplateBox[{
+        SubscriptBox["x", "2"], "1"},
+       "Superscript"],
+      TraditionalForm]}], "+", 
+    RowBox[{
+     FormBox[
+      TemplateBox[{
+        SubscriptBox["x", "1"], "2"},
+       "Superscript"],
+      TraditionalForm], " ", 
+     FormBox[
+      TemplateBox[{
+        SubscriptBox["x", "2"], "2"},
+       "Superscript"],
+      TraditionalForm]}], "+", 
+    RowBox[{
+     FormBox[
+      TemplateBox[{
+        SubscriptBox["x", "1"], "3"},
+       "Superscript"],
+      TraditionalForm], " ", 
+     FormBox[
+      TemplateBox[{
+        SubscriptBox["x", "2"], "3"},
+       "Superscript"],
+      TraditionalForm]}]}], 
+   SqrtBox[
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          SubsuperscriptBox["x", "1", "1"], ")"}], 
+         FormBox["2",
+          TraditionalForm]]}], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SubsuperscriptBox["x", "1", "2"], ")"}], 
+        FormBox["2",
+         TraditionalForm]], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SubsuperscriptBox["x", "1", "3"], ")"}], 
+        FormBox["2",
+         TraditionalForm]]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          SubsuperscriptBox["x", "2", "1"], ")"}], 
+         FormBox["2",
+          TraditionalForm]]}], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SubsuperscriptBox["x", "2", "2"], ")"}], 
+        FormBox["2",
+         TraditionalForm]], "+", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         SubsuperscriptBox["x", "2", "3"], ")"}], 
+        FormBox["2",
+         TraditionalForm]]}], ")"}]}]]], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->906570334,ExpressionUUID->"546dd164-b633-5c40-adce-d03d661a6489"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]},
+      {Cell[TextData[ButtonBox["u",
+        BaseStyle->"Link",
+        ButtonData->"paclet:SCWIGEE/ref/u"]], "SeeAlso",ExpressionUUID->
+        "3de65992-430b-ec4c-b562-a70d02b2366f"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"f54de30c-d684-da43-ac66-\
+ced16bbc91b6"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"e61e8b26-2991-b34c-af47-b8b1c7f46740"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"v",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "AllOptsTable" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "HasOptions" -> 
+  True, "RootCaptions" -> "", "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 44, 13.7906841}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "v[perm] gives the conformal cross-ratio v with coordinates in the order \
+perm", "synonyms" -> {}, "tabletags" -> {}, "title" -> "v", "titlemodifier" -> 
+    "", "metadescription" -> "", "windowtitle" -> "v", "type" -> "Symbol", 
+    "uri" -> "SCWIGEE/ref/v"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"0993f307-ec70-9048-b43a-8ff0f7e41343"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[6283, 171, 1421, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"19623d5b-27a7-fb46-a5f7-ebc5e8213972",
+   CellTags->"PrimaryExamplesSection",
+   CellID->1001285691]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 23819, 744}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[573, 21, 4228, 103, 56, "AnchorBarGrid",ExpressionUUID->"c5471f07-d37b-f742-b501-f28e353cc86f",
+ CellID->1],
+Cell[4804, 126, 90, 0, 23, "ContextNameCell",ExpressionUUID->"b4da4f08-b162-a44f-a30d-d1fe3b5d5c1a"],
+Cell[CellGroupData[{
+Cell[4919, 130, 537, 13, 56, "ObjectNameGrid",ExpressionUUID->"df7976a7-6dc9-fa49-bf3d-d929d9884ed4"],
+Cell[5459, 145, 787, 21, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6283, 171, 1421, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"19623d5b-27a7-fb46-a5f7-ebc5e8213972",
+ CellTags->"PrimaryExamplesSection",
+ CellID->1001285691],
+Cell[CellGroupData[{
+Cell[7729, 212, 1398, 36, 30, "ExampleSection",ExpressionUUID->"0cbf5be3-5ad5-7a4e-9ce9-855b71b3b4de",
+ CellID->325464266],
+Cell[9130, 250, 229, 4, 38, "ExampleText",ExpressionUUID->"bd7146be-202d-0c4b-bda5-fbc0d8ff6716",
+ CellID->292678488],
+Cell[CellGroupData[{
+Cell[9384, 258, 345, 9, 42, "Input",ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7",
+ CellID->30814790],
+Cell[9732, 269, 162, 3, 34, "Output",ExpressionUUID->"6114d6dc-5be7-544e-8f19-e7f23a18de6e",
+ CellID->342699668],
+Cell[9897, 274, 183, 4, 51, "Output",ExpressionUUID->"e35907ac-3500-bc42-b3e7-746945f93078",
+ CellID->553828641]
+}, Open  ]],
+Cell[10095, 281, 260, 7, 38, "ExampleText",ExpressionUUID->"b2314fb9-5f57-7946-99a8-bc0f55f419cf",
+ CellID->78914495],
+Cell[CellGroupData[{
+Cell[10380, 292, 255, 6, 26, "Input",ExpressionUUID->"f2a3149b-1400-6445-8b1e-bcb19821d4a0",
+ CellID->94615047],
+Cell[10638, 300, 7810, 273, 56, "Output",ExpressionUUID->"35b007a5-41f2-7c4e-9ce1-85732b826194",
+ CellID->635796146]
+}, Open  ]],
+Cell[18463, 576, 194, 4, 38, "ExampleText",ExpressionUUID->"2f0c4e90-f1fa-4f4a-a270-94837383afd1",
+ CellID->67550968],
+Cell[CellGroupData[{
+Cell[18682, 584, 333, 9, 42, "Input",ExpressionUUID->"c3193d1f-8435-6048-971c-c9b06e596ffe",
+ CellID->178902169],
+Cell[19018, 595, 2066, 77, 62, "Output",ExpressionUUID->"546dd164-b633-5c40-adce-d03d661a6489",
+ CellID->906570334]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[21326, 681, 566, 15, 114, "SeeAlsoSection",ExpressionUUID->"f54de30c-d684-da43-ac66-ced16bbc91b6"],
+Cell[21895, 698, 78, 0, 70, "FooterCell",ExpressionUUID->"e61e8b26-2991-b34c-af47-b8b1c7f46740"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

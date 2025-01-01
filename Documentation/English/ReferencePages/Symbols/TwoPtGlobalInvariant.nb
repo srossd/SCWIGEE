@@ -1,0 +1,869 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     33693,        859]
+NotebookOptionsPosition[     27722,        736]
+NotebookOutlinePosition[     29999,        795]
+CellTagsIndexPosition[     29914,        790]
+WindowTitle->TwoPtGlobalInvariant
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell["S C W I G E E SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "0094b092-e166-8445-8b09-050b1e4cf16a"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "25a545d4-658e-6e4c-b646-5e51f39fecf0"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[Cell[BoxData[
+     TagBox[
+      ActionMenuBox[
+       FrameBox[Cell[TextData[{
+         "URL",
+         " ",
+         Cell[BoxData[
+          GraphicsBox[
+           {GrayLevel[0.66667], Thickness[0.13], 
+            LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+           AspectRatio->1,
+           ImageSize->20,
+           PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+          "50df2455-5923-7a48-ba82-a0aa7f6369f9"]
+        }],ExpressionUUID->"fd5190de-29b6-a842-ab9c-a21593ee8cc1"],
+        StripOnInput->False],{
+       "\"SCWIGEE/ref/TwoPtGlobalInvariant\"" :> None, 
+        "\"Copy Wolfram Documentation Center URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{Cell["SCWIGEE/ref/TwoPtGlobalInvariant"]}, Visible -> 
+              False]]; SelectionMove[
+           DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], Delimiter, 
+        "\"Copy web URL\"" :> 
+        Module[{DocumentationSearch`Private`nb$}, 
+          DocumentationSearch`Private`nb$ = 
+           NotebookPut[
+            Notebook[{
+              Cell[BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                  "http://reference.wolfram.com/language/SCWIGEE/ref/\
+TwoPtGlobalInvariant.html"], StandardForm]], "Input", TextClipboardType -> 
+                "PlainText"]}, Visible -> False]]; 
+          SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+          FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+          NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        "\"Go to web URL\"" :> 
+        FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[TrueQ[False], 
+                "http://reference.wolfram.com/system-modeler/", 
+                "http://reference.wolfram.com/language/"] <> 
+              "SCWIGEE/ref/TwoPtGlobalInvariant" <> ".html"], None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic,
+       MenuStyle->"URLMenu"],
+      MouseAppearanceTag["LinkHand"]]],
+     LineSpacing->{1.4, 0},ExpressionUUID->
+     "5680ed7b-f6af-4747-b9af-b217ec2c026d"]], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "136e76ef-16c6-3144-833b-9389a9555edf"]}
+  }]], "AnchorBarGrid",
+ GridBoxOptions->{GridBoxItemSize->{"Columns" -> {
+     Scaled[0.65], {
+      Scaled[0.34]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+   "RowsIndexed" -> {}}},
+ CellID->1,ExpressionUUID->"67302380-4f3a-1e45-8738-5705f00b50d2"],
+
+Cell["SCWIGEE`", "ContextNameCell",ExpressionUUID->"018a9818-f71a-0c40-9632-efd8cbc573f5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "TwoPtGlobalInvariant", "ObjectName",ExpressionUUID->
+      "a158dac8-38a5-9542-8c46-6147ef401da2"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"3f6d9a0a-41fe-f543-b9e3-f31701accf31"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "7c0a163f-04c2-6b4c-b9c0-0e2ef957b669"]
+    }],ExpressionUUID->"ac379506-7709-5140-b807-0658981a9feb"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"2e5e2955-eb11-e140-a49c-\
+8087c23030b8"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       TemplateBox[{
+         Cell[
+          TextData["TwoPtGlobalInvariant"]], 
+         "paclet:SCWIGEE/ref/TwoPtGlobalInvariant", "SCWIGEE Package Symbol"},
+        "PackageLink",
+        BaseStyle->"InlineFormula"], "[", 
+       StyleBox[
+        RowBox[{"rep1", ",", " ", "rep2"}],
+        FontSlant->"Italic"], "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "0960a75e-c578-a344-9ce0-1afebeda612d"],
+     " \[LineSeparator]gives a two-point invariant tensor"
+    }],ExpressionUUID->"ad4d0631-bd28-3343-8bf5-8d393a4d8cf3"]}
+  }]], "Usage",
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"94187d52-81e9-b14f-8094-0ca13b88a537"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"95275b7c-a991-2147-97a2-ba32e660c960"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(3)", "ExampleCount",ExpressionUUID->
+  "769eed76-54e4-5f4d-af6d-54e8fd2cd9eb"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->32444226,ExpressionUUID->"3332f000-f52c-d148-830c-2d017c25ad21"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"c9b2d657-fad3-8f45-8376-9841c898551b"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"5f8360bf-1a58-a04d-927f-ef4ebfb843d1"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "587ad775-8c37-cc41-982f-69485a39ca1c"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->14327973,ExpressionUUID->"b0b4f2a6-21f5-8b48-95b7-daa87c4b2573"],
+
+Cell[BoxData[
+ RowBox[{"<<", "SCWIGEE`"}]], "Input",
+ CellLabel->"In[1]:=",
+ CellID->306745537,ExpressionUUID->"612f77c3-b727-e14e-9c7f-24d84a0683e8"],
+
+Cell[BoxData[
+ PanelBox[
+  DynamicBox[ToBoxes[
+    Grid[{{"", "", 
+       Style["Setup Wizard", 20], 
+       Row[{
+         Style["Editing: ", 16], 
+         Spacer[5], 
+         Checkbox[
+          Dynamic[SCWIGEE`Private`$editing]]}]}, {"", "", 
+       Grid[{{
+          Style["Signature: ", 14], 
+          Dynamic[
+           RadioButtonBar[
+            Dynamic[SCWIGEE`Private`$signatureFactor], {
+            1 -> Style["Lorentzian", 12], I -> Style["Euclidean", 12]}, 
+            Enabled -> SCWIGEE`Private`$editing]]}, {
+          Style["Defect: ", 14], 
+          Dynamic[
+           RadioButtonBar[
+            Dynamic[SCWIGEE`Private`$qdefect], {
+            None -> Style["None", 12], 1 -> Tooltip[
+               Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 1", 12], 
+               "Defect codimension 1"], 2 -> Tooltip[
+               Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 2", 12], 
+               "Defect codimension 2"], 3 -> Tooltip[
+               Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], 
+               "Defect codimension 3"]}, Enabled -> 
+            SCWIGEE`Private`$editing]]}}, Alignment -> Left], 
+       Dynamic[
+        PopupWindow[
+         Button["View Conventions"], 
+         SCWIGEE`Private`conventionsPanel[], WindowSize -> {1100, 800}, 
+         WindowFloating -> False, WindowTitle -> "Conventions"]]}, {"", "", 
+       Dynamic[
+        Grid[{{
+           Tooltip[
+            Style["Global symmetry: ", 16], 
+            "The R-symmetry, along with any additional symmetries. For \
+instance, for an \[ScriptCapitalN] = 2 theory with SU(2) flavor symmetry, \
+enter {SU2, SU2, U1}"], 
+           Dynamic[
+            InputField[
+             Dynamic[
+             SCWIGEE`Private`$RSymmetry, {
+              Automatic, SCWIGEE`SetGlobalSymmetry[#]& }], Enabled -> 
+             And[SCWIGEE`Private`$multipletIndices === {}, 
+               SCWIGEE`Private`$editing], FieldSize -> {20, 1}, ImageSize -> 
+             50]], 
+           Style[
+            If[
+             And[
+             SCWIGEE`Private`$RSymmetry =!= Null, 
+              Head[SCWIGEE`Private`$RSymmetry] =!= Symbol], 
+             GroupMath`CMtoName[SCWIGEE`Private`$RSymmetry], ""], 14]}, {
+           Tooltip[
+            Style["Supercharge representation: ", 16], 
+            "The global symmetry representation of Q. For instance, for an \
+\[ScriptCapitalN] = 2 theory with SU(2) flavor symmetry, and thus SU(2)_F \
+\[Times] SU(2)_R \[Times] U(1)_R global symmetry, enter {1, 2, 1}."], 
+           Dynamic[
+            InputField[
+             Dynamic[SCWIGEE`Private`$QGlobalRep, {Automatic, If[# =!= Null, 
+                SCWIGEE`SetQGlobalRep[#]]& }], Enabled -> 
+             And[SCWIGEE`Private`$multipletIndices === {}, 
+               SCWIGEE`Private`$editing], FieldSize -> {20, 1}, ImageSize -> 
+             50]], 
+           Style[
+            If[
+             And[
+             SCWIGEE`Private`$RSymmetry =!= Null, SCWIGEE`Private`$QGlobalRep =!= 
+              Null, Head[SCWIGEE`Private`$RSymmetry] =!= Symbol, 
+              Head[SCWIGEE`Private`$QGlobalRep] =!= Symbol], 
+             GroupMath`RepName[
+             SCWIGEE`Private`$RSymmetry, SCWIGEE`Private`$QGlobalRep], ""], 
+            14]}, 
+          If[SCWIGEE`Private`$qdefect =!= None, {
+            Style["Defect global symmetry: ", 16], 
+            Dynamic[
+             InputField[
+              Dynamic[
+              SCWIGEE`Private`$DefectRSymmetry, {
+               Automatic, SCWIGEE`SetDefectGlobalSymmetry[#]& }], Enabled -> 
+              SCWIGEE`Private`$editing, FieldSize -> {20, 1}, ImageSize -> 
+              50]], 
+            If[
+             And[
+             SCWIGEE`Private`$DefectRSymmetry =!= Null, 
+              Head[SCWIGEE`Private`$DefectRSymmetry] =!= Symbol], 
+             Button[
+              Style[
+               GroupMath`CMtoName[SCWIGEE`Private`$DefectRSymmetry], 14], 
+              DialogInput[{
+                SCWIGEE`Private`embeddingSelector[
+                SCWIGEE`Private`$RSymmetry, SCWIGEE`Private`$DefectRSymmetry], 
+                DefaultButton[]}], Method -> "Queued"], ""]}, Nothing], 
+          If[
+           And[
+           SCWIGEE`Private`$DefectRSymmetry =!= Null, 
+            SCWIGEE`Private`$RSymmetry =!= Null, SCWIGEE`Private`$embedding =!= 
+            Null, Head[SCWIGEE`Private`$RSymmetry] =!= Symbol, 
+            Head[SCWIGEE`Private`$DefectRSymmetry] =!= Null, 
+            Head[SCWIGEE`Private`$embedding] =!= Null], {"", 
+            SCWIGEE`Private`displayBranching[
+            SCWIGEE`Private`$RSymmetry, SCWIGEE`Private`$DefectRSymmetry, 
+             SCWIGEE`Private`$embedding], SpanFromLeft}, Nothing]}, Alignment -> 
+         Right]], 
+       Dynamic[
+        If[Head[SCWIGEE`Private`$QTensor] =!= TensorTools`Tensor, "", 
+         Row[{
+           Spacer[20], 
+           Framed[
+            Graphics[{
+              AbsoluteThickness[1], 
+              Arrowheads[0.1], 
+              Arrow[{{0, 0}, {-1, -0.75}}], 
+              Text[
+               Style[
+                TraditionalForm[SCWIGEE`Private`$QTensor], 
+                14], {-0.35, -0.6}]}, ImageSize -> 75]]}]]], ""}, 
+      If[
+       And[SCWIGEE`Private`$qdefect =!= None, 
+        And[
+         SubsetQ[
+          SCWIGEE`GlobalSymmetry[], {GroupMath`SU2, GroupMath`U1}], Sort[
+           DeleteElements[
+            SCWIGEE`GlobalSymmetry[], 1 -> {GroupMath`SU2}]] === Sort[
+           SCWIGEE`DefectGlobalSymmetry[]], SCWIGEE`Private`$QGlobalRep =!= 
+         Null]], {"", "", 
+        Grid[
+         SCWIGEE`Private`preservedSusyPanel[SCWIGEE`Private`$qdefect]], ""}, 
+       Nothing], {"", "", 
+       Dynamic[
+        If[Length[SCWIGEE`Private`$multipletIndices] == 0, 
+         Style[
+         "Set the global symmetry, and then add a multiplet.", 11, Italic], 
+         TabView[
+          Table[SCWIGEE`Private`$multipletName[SCWIGEE`Private`i] -> Column[{
+              Framed[
+               SCWIGEE`DisplayMultiplet[
+               SCWIGEE`Private`i, "EditMode" -> SCWIGEE`Private`$editing]], 
+              Button[
+               Style["Copy as TeX", 14], 
+               CopyToClipboard[
+                SCWIGEE`Private`tikzMultiplet[
+                SCWIGEE`Private`$viewingMultiplet]], ImageSize -> 200], 
+              Button[
+               Style["Write Code to Cell", 14], 
+               CellPrint[
+                Cell[
+                 BoxData[
+                  RowBox[{"SetMultiplet", "[", 
+                    RowBox[{
+                    ToBoxes[
+                    SCWIGEE`Multiplet[SCWIGEE`Private`$viewingMultiplet]], 
+                    ",", "\"" <> ToString[
+                    SCWIGEE`Private`$multipletName[
+                    SCWIGEE`Private`$viewingMultiplet]] <> "\"", ",", 
+                    SCWIGEE`Private`$multipletSC[
+                    SCWIGEE`Private`$viewingMultiplet], ",", 
+                    SCWIGEE`Private`$viewingMultiplet}], "]"}]], "Input"]], 
+               ImageSize -> 200]}, Alignment -> Center], {
+           SCWIGEE`Private`i, SCWIGEE`Private`$multipletIndices}], 
+          Dynamic[SCWIGEE`Private`$viewingMultiplet], Alignment -> Center, 
+          ImageSize -> Automatic]]], 
+       Button["Add Multiplet", 
+        With[{
+         SCWIGEE`Private`res = SCWIGEE`Private`multipletDialog[], 
+          SCWIGEE`Private`new = 
+          If[Length[SCWIGEE`Private`$multipletIndices] == 0, 0, 
+             Max[SCWIGEE`Private`$multipletIndices]] + 1}, 
+         If[
+         Length[SCWIGEE`Private`res] === 2, 
+          AppendTo[SCWIGEE`Private`$multipletIndices, SCWIGEE`Private`new]; 
+          SCWIGEE`Private`$multiplet[SCWIGEE`Private`new] = If[
+             Part[SCWIGEE`Private`res, 2], {}, {{}, {}}]; 
+          SCWIGEE`Private`$multipletName[SCWIGEE`Private`new] = 
+           Part[SCWIGEE`Private`res, 1]; 
+          SCWIGEE`Private`$multipletSC[SCWIGEE`Private`new] = 
+           Part[SCWIGEE`Private`res, 2]; Null]], Method -> "Queued", 
+        ImageSize -> {Automatic, 30}, Enabled -> 
+        Dynamic[SCWIGEE`Private`$RSymmetry =!= Null]]}, 
+      If[Length[
+         SCWIGEE`SolvedCorrelators[]] == 0, Nothing, {"", "", 
+        Style[
+         ToString[
+          StringForm["Progress: `` correlators computed", 
+           Length[
+            GroupBy[
+             Normal[
+              Map[First, 
+               SCWIGEE`SolvedCorrelators[]]], Part[#, 1, 1]& ]]]], 16], 
+        Style[
+         Button["Write Results Notebook", 
+          SCWIGEE`Private`resultsNotebook[]], DynamicEvaluationTimeout -> 
+         Infinity]}]}, Alignment -> Center, Spacings -> {Automatic, 2}, 
+     Dividers -> {True, All}], StandardForm],
+   ImageSizeCache->{
+    366.02812976837157`, {93.39833914141637, 97.53115176458378}}],
+  Background->RGBColor[0.95, 0.95, 0.95]]],
+ GeneratedCell->True,
+ CellAutoOverwrite->True,
+ TextAlignment->Center,
+ CellID->170270002,ExpressionUUID->"fd198dd0-7707-664f-8536-4d6d3171e33b"],
+
+Cell[BoxData[
+ RowBox[{"SetGlobalSymmetry", "[", "SU4", "]"}]], "Input",
+ CellLabel->"In[2]:=",
+ CellID->30814790,ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7"],
+
+Cell["\<\
+Representations can be specified using dimension labels or Dynkin labels:\
+\>", "ExampleText",
+ CellID->97170297,ExpressionUUID->"29c9dfba-4a2f-bf4c-996a-aa1516d53db5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"TwoPtGlobalInvariant", "[", 
+  RowBox[{"10", ",", 
+   RowBox[{"-", "10"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"TwoPtGlobalInvariant", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "2", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "2", ",", "0"}], "}"}]}], "]"}]}], "Input",
+ CellLabel->"In[3]:=",
+ CellID->822409443,ExpressionUUID->"22e5e9cc-ddb9-d34b-b85a-8136f05899ea"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+    TagBox["\[Delta]", HoldForm], 
+    TemplateBox[{
+      SubscriptBox["\"i\"", 
+       StyleBox["\"10\"", Bold, StripOnInput -> False]], 
+      SubscriptBox["\"i\"", 
+       OverscriptBox[
+        StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]]}, 
+     "RowDefault"]},
+   "Superscript"], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->359816171,ExpressionUUID->"4c33ffb4-7893-c648-8e97-f11158848d0e"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+    TagBox["\[Delta]", HoldForm], 
+    TemplateBox[{
+      SubscriptBox["\"i\"", 
+       StyleBox["\"20'\"", Bold, StripOnInput -> False]], 
+      SubscriptBox["\"j\"", 
+       StyleBox["\"20'\"", Bold, StripOnInput -> False]]}, "RowDefault"]},
+   "Superscript"], TraditionalForm]], "Output",
+ CellLabel->"Out[3]=",
+ CellID->505571208,ExpressionUUID->"6591843d-fe6b-5947-b3d2-c26ac67eac72"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{
+    13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+  ExpressionUUID->"f31cf7d6-c7bd-ed45-a783-b048423fef79"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"c1ad7b04-a7fa-d248-8270-8bc33a5ca37d"],
+ "Options",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "1036c079-2257-a74b-bda4-da84ced47a40"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->2061341341,ExpressionUUID->"86cea5a6-78cf-4276-a603-1ebac8af9374"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "ExampleSubsection", "0"}, Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{13.600000000000001`, {5., 8.600000000000001}}]],
+  ExpressionUUID->"b1497972-6326-6f42-bd47-18afce7bd175"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"f47bc3ee-81dd-e64a-a841-8087828419ef"],
+ "Conjugate",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "dee820e5-2912-7345-86cb-39a1b4faf353"]
+}], "ExampleSubsection", "ExampleSubsection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->1757724783,ExpressionUUID->"b6e13847-3ee5-4597-930e-519127ef23a7"],
+
+Cell["\<\
+The two-point invariant with lowered indices can be obtained using the \
+Conjugate option:\
+\>", "ExampleText",
+ CellID->348371251,ExpressionUUID->"5209e0b2-c3b2-0a4f-aae5-7173999b1bb4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"TwoPtGlobalInvariant", "[", 
+  RowBox[{"10", ",", 
+   RowBox[{"-", "10"}], ",", 
+   RowBox[{"\"\<Conjugate\>\"", "->", "True"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"TwoPtGlobalInvariant", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "2", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "2", ",", "0"}], "}"}], ",", 
+   RowBox[{"\"\<Conjugate\>\"", "->", "True"}]}], "]"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->444919124,ExpressionUUID->"99973252-e1f9-d943-98c1-ae8f406a8387"],
+
+Cell[BoxData[
+ FormBox[
+  SubscriptBox[
+   TagBox["\[Delta]",
+    HoldForm], 
+   TemplateBox[{
+     SubscriptBox["\"i\"", 
+      StyleBox["\"10\"", Bold, StripOnInput -> False]], 
+     SubscriptBox["\"i\"", 
+      OverscriptBox[
+       StyleBox["\"10\"", Bold, StripOnInput -> False], "_"]]},
+    "RowDefault"]], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->4669015,ExpressionUUID->"7fe0e519-d050-db4e-bf3b-523eb4844fcf"],
+
+Cell[BoxData[
+ FormBox[
+  SubscriptBox[
+   TagBox["\[Delta]",
+    HoldForm], 
+   TemplateBox[{
+     SubscriptBox["\"i\"", 
+      StyleBox["\"20'\"", Bold, StripOnInput -> False]], 
+     SubscriptBox["\"j\"", 
+      StyleBox["\"20'\"", Bold, StripOnInput -> False]]},
+    "RowDefault"]], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->162859441,ExpressionUUID->"e93b9f1b-2fa5-8248-aecc-3881df03d49c"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSubsection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"}, 
+  Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "2"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{
+    13.600000000000001`, {0.5800000000000001, 13.020000000000001`}}]],
+  ExpressionUUID->"fd6944b7-6a9d-7e47-ad04-f6cc504450ec"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"dcdbfe31-a1b0-8140-aaee-6d5f69e38e6d"],
+ "Possible Issues",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "96204f66-c322-b94a-b7ce-c0f7d1fb234c"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->1305812373,ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24"],
+
+Cell["\<\
+If there is no two-point invariant tensor on the given representations, there \
+will be an error when evaluating the components of the tensor:\
+\>", "ExampleText",
+ CellID->382844846,ExpressionUUID->"74835640-99af-6744-a06a-2b4668afc7d1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"TwoPtGlobalInvariant", "[", 
+  RowBox[{"6", ",", " ", "10"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Components", "[", "%", "]"}]}], "Input",
+ CellLabel->"In[1]:=",
+ CellID->27052019,ExpressionUUID->"6622fe61-c549-fd47-bcee-19afa0e12c51"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+    TagBox["\[Delta]", HoldForm], 
+    TemplateBox[{
+      SubscriptBox["\"i\"", 
+       StyleBox["\"6\"", Bold, StripOnInput -> False]], 
+      SubscriptBox["\"i\"", 
+       StyleBox["\"10\"", Bold, StripOnInput -> False]]}, "RowDefault"]},
+   "Superscript"], TraditionalForm]], "Output",
+ CellLabel->"Out[1]=",
+ CellID->47124175,ExpressionUUID->"ea0fa37b-c8ee-2543-a3cb-f303b638eff0"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+   "SCWIGEE`Private`twopt", "undefined", 
+    "\"The two-point invariant for representations (\\!\\(\\*FormBox[RowBox[{\
+\\\"{\\\", RowBox[{\\\"0\\\", \\\",\\\", \\\"1\\\", \\\",\\\", \\\"0\\\"}], \
+\\\"}\\\"}], TraditionalForm]\\), \\!\\(\\*FormBox[RowBox[{\\\"{\\\", \
+RowBox[{\\\"2\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}], \
+TraditionalForm]\\)) has not been defined.\"", 2, 7, 7, 27755124307558017403, 
+    "Local", "SCWIGEE`Private`twopt"},
+   "MessageTemplate2"], TraditionalForm]], "Message", "MSG",
+ CellLabel->"During evaluation of In[1]:=",
+ CellID->682722942,ExpressionUUID->"1430483a-1b7c-e044-9e7b-8f307182b766"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "2"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"653d0cf2-9a01-f541-9f1d-\
+76e3d0abe973"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"998a9278-d815-e041-8404-8d63b452aa34"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 783.375},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"TwoPtGlobalInvariant",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, 
+    "ExampleSection" -> {"0" -> Open, "1" -> Closed, "2" -> Closed}, 
+    "AllOptsTable" -> Closed, "ExampleSubsection" -> {"0" -> Closed}}, 
+  "NewStyles" -> True, "CitationPopupData" -> $Failed, "ShowCitation" -> 
+  False, "HasOptions" -> True, "RootCaptions" -> "", 
+  "HeaderCoreAreaLink" -> {}, 
+  "Metadata" -> {
+   "built" -> "{2024, 12, 31, 21, 44, 8.9347182}", 
+    "history" -> {"0.0", "", "", ""}, "context" -> "SCWIGEE`", 
+    "keywords" -> {}, "specialkeywords" -> {}, 
+    "tutorialcollectionlinks" -> {}, "index" -> True, "label" -> 
+    "S C W I G E E Symbol", "language" -> "en", "paclet" -> "SCWIGEE", 
+    "status" -> "None", "summary" -> 
+    "TwoPtGlobalInvariant[rep1, rep2] gives a two-point invariant tensor", 
+    "synonyms" -> {}, "tabletags" -> {}, "title" -> "TwoPtGlobalInvariant", 
+    "titlemodifier" -> "", "metadescription" -> "", "windowtitle" -> 
+    "TwoPtGlobalInvariant", "type" -> "Symbol", "uri" -> 
+    "SCWIGEE/ref/TwoPtGlobalInvariant"}},
+CellContext->"Global`",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> FrontEnd`FileName[{"Wolfram"}, "Reference.nb"]]], 
+   Cell[
+    StyleData["Input"], CellContext -> "Global`"], 
+   Cell[
+    StyleData["Output"], CellContext -> "Global`"]}, Visible -> False, 
+  FrontEndVersion -> 
+  "14.0 for Microsoft Windows (64-bit) (December 12, 2023)", StyleDefinitions -> 
+  "Default.nb"],
+ExpressionUUID->"19a36b56-6781-b14a-ab5d-9603049b3e7b"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[5389, 144, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"3332f000-f52c-d148-830c-2d017c25ad21",
+   CellTags->"PrimaryExamplesSection",
+   CellID->32444226]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 29716, 783}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[592, 21, 3339, 78, 56, "AnchorBarGrid",ExpressionUUID->"67302380-4f3a-1e45-8738-5705f00b50d2",
+ CellID->1],
+Cell[3934, 101, 90, 0, 23, "ContextNameCell",ExpressionUUID->"018a9818-f71a-0c40-9632-efd8cbc573f5"],
+Cell[CellGroupData[{
+Cell[4049, 105, 563, 14, 56, "ObjectNameGrid",ExpressionUUID->"2e5e2955-eb11-e140-a49c-8087c23030b8"],
+Cell[4615, 121, 737, 18, 113, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5389, 144, 1419, 37, 35, "PrimaryExamplesSection",ExpressionUUID->"3332f000-f52c-d148-830c-2d017c25ad21",
+ CellTags->"PrimaryExamplesSection",
+ CellID->32444226],
+Cell[CellGroupData[{
+Cell[6833, 185, 1397, 36, 30, "ExampleSection",ExpressionUUID->"b0b4f2a6-21f5-8b48-95b7-daa87c4b2573",
+ CellID->14327973],
+Cell[8233, 223, 150, 3, 26, "Input",ExpressionUUID->"612f77c3-b727-e14e-9c7f-24d84a0683e8",
+ CellID->306745537],
+Cell[8386, 228, 8957, 203, 216, InheritFromParent,ExpressionUUID->"fd198dd0-7707-664f-8536-4d6d3171e33b",
+ CellID->170270002],
+Cell[17346, 433, 169, 3, 26, "Input",ExpressionUUID->"39fbcae8-ee84-984d-a9b2-3f8744d21fd7",
+ CellID->30814790],
+Cell[17518, 438, 178, 3, 38, "ExampleText",ExpressionUUID->"29c9dfba-4a2f-bf4c-996a-aa1516d53db5",
+ CellID->97170297],
+Cell[CellGroupData[{
+Cell[17721, 445, 432, 11, 42, "Input",ExpressionUUID->"22e5e9cc-ddb9-d34b-b85a-8136f05899ea",
+ CellID->822409443],
+Cell[18156, 458, 463, 13, 37, "Output",ExpressionUUID->"4c33ffb4-7893-c648-8e97-f11158848d0e",
+ CellID->359816171],
+Cell[18622, 473, 430, 11, 35, "Output",ExpressionUUID->"6591843d-fe6b-5947-b3d2-c26ac67eac72",
+ CellID->505571208]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[19201, 492, 1415, 37, 30, "ExampleSection",ExpressionUUID->"86cea5a6-78cf-4276-a603-1ebac8af9374",
+ CellID->2061341341],
+Cell[CellGroupData[{
+Cell[20641, 533, 1403, 36, 30, "ExampleSubsection",ExpressionUUID->"b6e13847-3ee5-4597-930e-519127ef23a7",
+ CellID->1757724783],
+Cell[22047, 571, 196, 4, 38, "ExampleText",ExpressionUUID->"5209e0b2-c3b2-0a4f-aae5-7173999b1bb4",
+ CellID->348371251],
+Cell[CellGroupData[{
+Cell[22268, 579, 543, 14, 70, "Input",ExpressionUUID->"99973252-e1f9-d943-98c1-ae8f406a8387",
+ CellID->444919124],
+Cell[22814, 595, 437, 13, 40, "Output",ExpressionUUID->"7fe0e519-d050-db4e-bf3b-523eb4844fcf",
+ CellID->4669015],
+Cell[23254, 610, 413, 12, 37, "Output",ExpressionUUID->"e93b9f1b-2fa5-8248-aecc-3881df03d49c",
+ CellID->162859441]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSubsection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "1"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[23931, 633, 1423, 37, 24, "ExampleSection",ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24",
+ CellID->1305812373],
+Cell[25357, 672, 248, 4, 70, "ExampleText",ExpressionUUID->"74835640-99af-6744-a06a-2b4668afc7d1",
+ CellID->382844846],
+Cell[CellGroupData[{
+Cell[25630, 680, 265, 5, 70, "Input",ExpressionUUID->"6622fe61-c549-fd47-bcee-19afa0e12c51",
+ CellID->27052019],
+Cell[25898, 687, 426, 11, 35, "Output",ExpressionUUID->"ea0fa37b-c8ee-2543-a3cb-f303b638eff0",
+ CellID->47124175],
+Cell[26327, 700, 688, 12, 70, "Message",ExpressionUUID->"1430483a-1b7c-e044-9e7b-8f307182b766",
+ CellID->682722942]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "2"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[27257, 721, 380, 11, 114, "SeeAlsoSection",ExpressionUUID->"653d0cf2-9a01-f541-9f1d-76e3d0abe973"],
+Cell[27640, 734, 78, 0, 70, "FooterCell",ExpressionUUID->"998a9278-d815-e041-8404-8d63b452aa34"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
