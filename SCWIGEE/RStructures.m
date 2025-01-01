@@ -106,9 +106,11 @@ branching[grp_, subgrp_, prj_] := branching[grp, subgrp] =
     TakeList[#,GroupRank /@ grp] & /@ IdentityMatrix[Total[GroupRank /@ grp]]}];
 displayBranching[grp_, subgrp_, prj_] /; IsSimpleGroupQ[grp] := 
   displayBranching[{grp}, subgrp, prj];
-displayBranching[grp_, subgrp_, prj_] := displayBranching[grp, subgrp, prj] =
- Column[Prepend[repName[#[[1]]] -> 
-     Table[repName[r], {r, #[[2]]}] & /@ 
+displayBranching[grp_, subgrp_, prj_] /; IsSimpleGroupQ[subgrp] := 
+  displayBranching[grp, {subgrp}, prj];
+displayBranching[grp_, subgrp_, prj_] /; !IsSimpleGroupQ[grp] && !IsSimpleGroupQ[subgrp] := displayBranching[grp, subgrp, prj] =
+ Column[Prepend[RepName[grp, #[[1]]] -> 
+     Table[RepName[subgrp, r], {r, #[[2]]}] & /@ 
    branching[grp, subgrp, prj], "Branching:"]]
 
 embeddingSelector[grp_, subgrp_] /; IsSimpleGroupQ[grp] := 
@@ -118,7 +120,7 @@ embeddingSelector[grp_, subgrp_] /; IsSimpleGroupQ[subgrp] :=
 embeddingSelector[grp_, subgrp_] /; !IsSimpleGroupQ[grp] && !IsSimpleGroupQ[subgrp] := (ClearAll[embeddingParameter]; 
    Column[{Style[
       ToString@
-       StringForm["Embedding of `` into ``", CMtoName[subgrp], 
+       StringForm["Choose embedding of `` into ``", CMtoName[subgrp], 
         CMtoName[grp]], 16],
      Spacer[20],
      Grid[Table[
@@ -169,7 +171,7 @@ embeddingSelector[grp_, subgrp_] /; !IsSimpleGroupQ[grp] && !IsSimpleGroupQ[subg
      }]
    );
 
-decomposeRepDefectFP[rep_] := Flatten[If[#[[2]] == 1, {#[[1]]}, Table[RepWithMultiplicity[#[[1]], i], {i, #[[2]]}]] & /@ Tally[Sort@DecomposeRep[$RSymmetry, rep, $DefectRSymmetry, $embedding]]];
+decomposeRepDefectFP[rep_] := Flatten[If[#[[2]] == 1, {{#[[1]]}}, Table[RepWithMultiplicity[#[[1]], i], {i, #[[2]]}]] & /@ Tally[Sort@DecomposeRep[$RSymmetry, rep, $DefectRSymmetry, $embedding]], 2];
 
 branchingRules[] := With[{groups = GroupBy[Append[Flatten[Table[dynkin@*GlobalRep /@ Multiplet[idx], {idx, $multipletIndices}], 1], QGlobalRep[]], decomposeRepDefectFP]},
    Association[Flatten[Table[Thread[groups[k] -> Table[k, Length[groups[k]]]], {k, Keys[groups]}]]]
@@ -268,14 +270,17 @@ BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Lowered[Def
 
 (*transformer[rep_] := (branchingRules[]; transformer[rep]);*)
 
-TwoPtGlobalInvariant[rep1_, rep2_] := Tensor[{{"\[Delta]", Raised[toIndex[rep1]], Raised[toIndex[rep2]]}}];
+Options[TwoPtGlobalInvariant] = {"Conjugate" -> False};
+TwoPtGlobalInvariant[rep1_, rep2_, OptionsPattern[]] := If[OptionValue["Conjugate"], ConjugateTwoPtGlobalInvariant[rep1, rep2], Tensor[{{"\[Delta]", Raised[toIndex[rep1]], Raised[toIndex[rep2]]}}]];
 ConjugateTwoPtGlobalInvariant[rep1_, rep2_] := Tensor[{{"\[Delta]", Lowered[toIndex[rep1]], Lowered[toIndex[rep2]]}}];
 
-ThreePtGlobalInvariant[{rep1_, rep2_}, target_] := Tensor[{{"C", Raised[toIndex[target]], Lowered[toIndex[rep1]], Lowered[toIndex[rep2]]}}];
+Options[ThreePtGlobalInvariant] = {"Conjugate" -> False};
+ThreePtGlobalInvariant[{rep1_, rep2_}, target_, OptionsPattern[]] := If[OptionValue["Conjugate"], ConjugateThreePtGlobalInvariant[{rep1, rep2}, target], Tensor[{{"C", Raised[toIndex[target]], Lowered[toIndex[rep1]], Lowered[toIndex[rep2]]}}]];
 ConjugateThreePtGlobalInvariant[{rep1_, rep2_}, target_] := Tensor[{{"C", Lowered[toIndex[target]], Raised[toIndex[rep1]], Raised[toIndex[rep2]]}}];
 
-ThreePtGlobalInvariant[r1_, r2_, r3_] := Tensor[{{"C", Raised[toIndex[r1]], Raised[toIndex[r2]], Raised[toIndex[r3]]}}];
-ThreePtGlobalInvariant[r1_, r2_, r3_] := Tensor[{{"C", Lowered[toIndex[r1]], Lowered[toIndex[r2]], Lowered[toIndex[r3]]}}];
+Options[ThreePtGlobalInvariant] = {"Conjugate" -> False};
+ThreePtGlobalInvariant[r1_, r2_, r3_, OptionsPattern[]] := If[OptionValue["Conjugate"], ConjugateThreePtGlobalInvariant[r1, r2, r3], Tensor[{{"C", Raised[toIndex[r1]], Raised[toIndex[r2]], Raised[toIndex[r3]]}}]];
+ConjugateThreePtGlobalInvariant[r1_, r2_, r3_] := Tensor[{{"C", Lowered[toIndex[r1]], Lowered[toIndex[r2]], Lowered[toIndex[r3]]}}];
      
 BuildTensor[arg : {"\[Delta]", Raised[i1_], Raised[i2_]}] := twopt[i1, i2];
 BuildTensor[arg : {"\[Delta]", Lowered[i1_], Lowered[i2_]}] := SparseArray@Inverse[Components@Tensor[{{"\[Delta]", Raised[i2], Raised[i1]}}]];
@@ -293,7 +298,10 @@ twopt[DefectGlobalIndex[r1_, p1_], DefectGlobalIndex[r2_, p2_]] := Module[{reps 
 
 twopt[r1_, r2_] := twopt[r1, r2] = If[$customInvariants,
    Message[twopt::undefined, r1, r2],
-   IrrepInProduct[GlobalSymmetry[], {r1, r2}, singRep[GlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
+   If[!MemberQ[ReduceRepProduct[GlobalSymmetry[], {r1, r2}][[;;, 1]], singRep[GlobalSymmetry[]]],
+      Message[twopt::undefined, r1, r2],
+   	  IrrepInProduct[GlobalSymmetry[], {r1, r2}, singRep[GlobalSymmetry[]], TensorForm -> True][[1,1,;;,;;,1]]
+   ]
 ];
 twopt[r1_, p1_, r2_, p2_] := twopt[r1, p1, r2, p2] = If[$customInvariants,
    Message[twopt::undefined, {r1, p1}, {r2, p2}],
@@ -316,13 +324,16 @@ threept[GlobalIndex[r1_], GlobalIndex[r2_], GlobalIndex[r3_]] := Module[{reps = 
 ];
 threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
    Message[threept::undefined, r1, r2, r3],
-   Module[{temp, other},
-   	temp = IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,1]];
-   	If[OrderedQ[{{r1, r2, r3}, Sort@{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}}],
-   	   temp,
-   	   other = threept@@ Sort[{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}];
-   	   (Norm[Flatten[other]]/Norm[Flatten[temp]]) temp
-   	]
+   If[!MemberQ[ReduceRepProduct[GlobalSymmetry[], {r1, r2, r3}][[;;, 1]], singRep[GlobalSymmetry[]]],
+      Message[threept::undefined, r1, r2, r3],
+	   Module[{temp, other},
+	   	temp = IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,1]];
+	   	If[OrderedQ[{{r1, r2, r3}, Sort@{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}}],
+	   	   temp,
+	   	   other = threept@@ Sort[{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}];
+	   	   (Norm[Flatten[other]]/Norm[Flatten[temp]]) temp
+	   	]
+	   ]
    ]
 ];
 
@@ -482,14 +493,14 @@ treeGraphs[reps_] := treeGraphs[reps] = Flatten@Table[
      conjRep /@ (Select[ReduceRepProduct[appropriateGroup[reps[[1]]], reps[[p[[3 ;;]]]]], #[[2]] == 1 &][[;; , 1]])]}
    ];
 
-InvariantFourPtGraphs[reps_] /; Length[reps] == 4 := InvariantFourPtGraphs[reps] = 
+FourPtInvariantGraphs[reps_] /; Length[reps] == 4 := FourPtInvariantGraphs[reps] = 
  With[{graphs = SortBy[Join[treeGraphs[reps], loopGraphs[reps]], {Max[Cases[#[[1]], {_Internal, _Internal, rep_} :> Times @@ repDim[rep]]], 
   Length[Cases[#[[1]], _Internal, All]]} &]},
     graphs[[IndependentSet[buildExpression /@ graphs, "MaxIndependent" -> numInvariants[reps], "Indices" -> True]]]
   ]
    
 InvariantFourPts[reps_] /; Length[reps] == 4 := InvariantFourPts[reps] = With[{order = Ordering[dynkin /@ reps]},
-   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ InvariantFourPtGraphs[reps])
+   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ FourPtInvariantGraphs[reps])
 ];
 
   

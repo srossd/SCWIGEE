@@ -211,7 +211,7 @@ solveGroups[grps_, vars_, OptionsPattern[]] :=
             OptionValue["Transformation"][First[tmp], 
              OptionValue["Assumptions"]]]]]]}, 
       If[MissingQ[sol], Message[solveGroups::nosol]; 
-       Append[#1, None],
+       {},
        Sort@
         DeleteDuplicatesBy[
          Table[If[FreeQ[rule, Alternatives @@ Keys[sol]], rule, 

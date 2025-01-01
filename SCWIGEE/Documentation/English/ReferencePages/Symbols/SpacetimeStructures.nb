@@ -1,0 +1,4658 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    167062,       4650]
+NotebookOptionsPosition[    158251,       4468]
+NotebookOutlinePosition[    159083,       4495]
+CellTagsIndexPosition[    159002,       4490]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"065d3d63-284d-4960-872d-07e4ace680c5"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"38676bc3-3a87-4a43-88c7-94be432a1845"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->"5c066ae4-34a5-451c-aa2c-e98ef2fc1a92"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised",ExpressionUUID->"990ecf24-6165-406d-8789-428716bcf2cc"]
+}], "History",
+ CellID->1247902091,ExpressionUUID->"4fd4dc38-d4c0-49b6-9db4-356f52442962"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449,ExpressionUUID->"301900d9-6846-4f8f-adca-b0b5e8a9f7dc"],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507,ExpressionUUID->"afffcbad-f6a6-4b08-93eb-7d0c469aaf85"],
+
+Cell["SCWIGEE", "Categorization",
+ CellChangeTimes->{{3.9443039063605633`*^9, 3.944303907994236*^9}},
+ CellLabel->"Paclet Name",
+ CellID->605800465,ExpressionUUID->"8bd39359-368b-4207-b5ed-8b8e76890866"],
+
+Cell["SCWIGEE`", "Categorization",
+ CellChangeTimes->{{3.9443039093475*^9, 3.944303910508423*^9}},
+ CellLabel->"Context",
+ CellID->468444828,ExpressionUUID->"8ec3d5bc-6c8d-4619-90cf-42d2d151132c"],
+
+Cell["SCWIGEE/ref/SpacetimeStructures", "Categorization",
+ CellChangeTimes->{{3.94430391269985*^9, 3.9443039153833485`*^9}, {
+  3.944309236907604*^9, 3.944309238369591*^9}, {3.944309354826296*^9, 
+  3.9443093552828865`*^9}, {3.944597903301579*^9, 3.944597905624243*^9}, {
+  3.9445992893696632`*^9, 3.944599292922735*^9}, {3.944601784573303*^9, 
+  3.944601785954998*^9}},
+ CellLabel->"URI",ExpressionUUID->"0d5bc91c-f3f9-4197-9505-9951e3ca7e82"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294,ExpressionUUID->"ee4584b9-eb8e-47bd-8a27-6e64978caa91"],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360,ExpressionUUID->"bf93b532-c7d4-460d-9f67-da58fa6f9b29"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408,ExpressionUUID->"77880115-7bec-483b-9602-e811829c3f04"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412,ExpressionUUID->"8de29b3d-e730-41c1-97eb-e973313b5e5d"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909,ExpressionUUID->"6fd2d24d-2f92-4af6-896d-b9090352efef"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930,ExpressionUUID->"d20eab54-de79-468d-88ba-d18748013cc1"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254,ExpressionUUID->"c7812a6f-396e-48c2-b498-08047e68c823"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771,ExpressionUUID->"99e7cf04-a469-44fe-92e1-4122531e4776"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175,ExpressionUUID->"37237da0-e2de-4a81-876a-530915d5c58d"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985,ExpressionUUID->"93278733-98ad-4bac-8b86-30473ec05ee2"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405,ExpressionUUID->"e8f13340-b51a-4028-b7d5-e41d9aa4d6c6"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269,ExpressionUUID->"6db87730-89ad-47b1-8774-64f1781757de"],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205,ExpressionUUID->"a928b6c4-2c80-4745-9751-cc67851e898c"],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745,ExpressionUUID->"a5cfdfd5-a383-4ce5-9cba-1771b7831016"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810,ExpressionUUID->"cf6a215e-1811-4f8a-a8c4-048ba93fb50b"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350,ExpressionUUID->"e3016231-686e-453e-9665-0bb01fae4e21"],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365,ExpressionUUID->"78a8e782-2312-4c1d-83a0-c486066236a3"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["SpacetimeStructures", "ObjectName",
+ CellChangeTimes->{{3.944302181817047*^9, 3.944302182832617*^9}, {
+   3.944309239792097*^9, 3.944309241216051*^9}, {3.944309375985935*^9, 
+   3.944309377381634*^9}, {3.944597907291167*^9, 3.944597909517559*^9}, 
+   3.944599296667912*^9, {3.94460186535668*^9, 3.9446018665483437`*^9}},
+ CellID->1224892054,ExpressionUUID->"65bd0691-0764-43ab-8cf7-71d5d41463a7"],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo",ExpressionUUID->"5d284c7c-bb91-5043-913a-38a528454e6f"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["SpacetimeStructures",
+    BaseStyle->"Link",
+    ButtonData->"paclet:SCWIGEE/ref/SpacetimeStructures"], "[", 
+   StyleBox[
+    RowBox[{
+    "dims", ",", " ", "spins", ",", " ", "derivatives", ",", " ", 
+     "permutation"}],
+    FontSlant->"Italic"], "]"}]], "InlineFormula",ExpressionUUID->
+  "95db421c-5bbc-4d4c-81ef-77fdc68f63e4"],
+ " \[LineSeparator]gives a list of linearly independent spacetime structures \
+for a correlator of operators with the given dimensions and spins, with \
+derivatives applied, and points in a given permutation\n",
+ Cell["   ", "ModInfo",ExpressionUUID->"9992dbba-cdf4-9040-9fa0-646a613d7e1c"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["SpacetimeStructures",
+    BaseStyle->"Link",
+    ButtonData->"paclet:TensorTools/ref/SpacetimeStructures"], "[", 
+   StyleBox[
+    RowBox[{
+    "dims", ",", " ", "spins", ",", " ", "derivatives", ",", " ", 
+     "permutation", ",", " ", "defectCodimension"}],
+    FontSlant->"Italic"], "]"}]], "InlineFormula",ExpressionUUID->
+  "d723f3a9-6bab-8b4e-9592-04799b256d7a"],
+ " \[LineSeparator]gives the independent spacetime structures in the presence \
+of a defect aligned with the last 4 - ",
+ StyleBox["defectCodimension",
+  FontSlant->"Italic"],
+ " coordinates"
+}], "Usage",
+ CellChangeTimes->{{3.889906643175341*^9, 3.8899066505851407`*^9}, {
+  3.944206932171461*^9, 3.944206932171461*^9}, {3.9442069863469048`*^9, 
+  3.94420701076017*^9}, {3.9442131609300404`*^9, 3.944213166636675*^9}, {
+  3.944302168758015*^9, 3.944302213934019*^9}, {3.944308904664961*^9, 
+  3.944308905943802*^9}, {3.944309249186184*^9, 3.944309270196211*^9}, {
+  3.944598040225472*^9, 3.94459813385321*^9}, {3.9445985290110874`*^9, 
+  3.944598537087643*^9}, {3.9445992996783295`*^9, 3.9445993394549313`*^9}, {
+  3.944601886345873*^9, 3.944601986547861*^9}, {3.9446020418665085`*^9, 
+  3.9446020481865063`*^9}, {3.9446021382902336`*^9, 3.9446021386450157`*^9}, {
+  3.944602293076914*^9, 3.9446023028882313`*^9}},
+ CellID->982511436,ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1"],
+
+Cell["XXXX", "Notes",
+ CellID->1067943069,ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057,ExpressionUUID->"d871016d-a813-4415-9d0a-b4c2d722c4f0"],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938,ExpressionUUID->"2c9b315d-4d33-48a8-bb80-c630d17c6057"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905,ExpressionUUID->"a607508e-9e31-4cce-8fe2-708a6ce8a1b3"],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860,ExpressionUUID->"fbe60b42-7910-4d3b-851f-f19838a9db2f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535,ExpressionUUID->"966461bc-34b9-4510-b9d5-c1be2a32acc4"],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239,ExpressionUUID->"eba843ea-3d5b-4157-95ec-d5790959730b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704,ExpressionUUID->"ad38be0f-c076-4b86-9ff1-e15eae8cebb3"],
+
+Cell[TextData[ButtonBox["SpacetimeStructureExpressions",
+ BaseStyle->"Link",
+ ButtonData->"paclet:SCWIGEE/ref/SpacetimeStructureExpressions"]], "SeeAlso",
+ CellChangeTimes->{{3.9443089940815544`*^9, 3.944309001225798*^9}, 
+   3.944599358458737*^9},
+ CellID->174123400,ExpressionUUID->"3de65992-430b-ec4c-b562-a70d02b2366f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248,ExpressionUUID->"254e95d2-a043-4d72-90d6-588b1d366b75"],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683,ExpressionUUID->"3ea5a583-89e8-4111-b412-25040f5a86c0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151,ExpressionUUID->"7acb6014-bfb1-4861-8e19-da50f2f07cf4"],
+
+Cell["Structures are denoted abstractly:", "ExampleText",
+ CellChangeTimes->{{3.944599386693035*^9, 3.94459940683473*^9}, 
+   3.944602335109312*^9, {3.944602405559475*^9, 3.9446024099698887`*^9}},
+ CellID->361554010,ExpressionUUID->"814dcaaa-92a5-e64d-8660-72b3d8f2beef"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"structs", "=", 
+  RowBox[{"SpacetimeStructures", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"2", ",", "2", ",", "3", ",", "3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1", "/", "2"}], ",", 
+        RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1", "/", "2"}], ",", 
+        RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+    RowBox[{"{", "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.9445993508581448`*^9, 3.944599376557905*^9}, {
+  3.944602311595379*^9, 3.944602323412796*^9}, {3.944602421163805*^9, 
+  3.9446024219870567`*^9}},
+ CellLabel->"In[24]:=",
+ CellID->66265664,ExpressionUUID->"4773619a-b1f5-ab46-8939-ce213a1a5549"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "3"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "4"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "5"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "6"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{3.944599378137333*^9, 3.944602323906477*^9, 
+  3.9446024223692265`*^9},
+ CellLabel->"Out[24]=",
+ CellID->262091372,ExpressionUUID->"b0c11081-000f-db4f-9f24-26cbcba879da"]
+}, Open  ]],
+
+Cell[TextData[{
+ "They are computed explicitly using the formulas given in ",
+ ButtonBox["SpacetimeStructureExpressions",
+  BaseStyle->"Link",
+  ButtonData->"paclet:SCWIGEE/ref/SpacetimeStructureExpressions"],
+ ":"
+}], "ExampleText",
+ CellChangeTimes->{{3.944602418226145*^9, 3.944602450560669*^9}},
+ CellID->287295023,ExpressionUUID->"487a6cc5-f4f3-c248-9331-11b3604b57c9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Components", "[", 
+   RowBox[{"structs", "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "]"}], "//", "Normal"}]], "Input",
+ CellChangeTimes->{{3.944602453297308*^9, 3.9446024617583485`*^9}},
+ CellLabel->"In[26]:=",
+ CellID->169860219,ExpressionUUID->"a889a034-b772-fa4b-bd7c-a6d63842e7d4"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]},
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}], 
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]},
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}]},
+     {
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]},
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}], 
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]},
+         {
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "2"},
+                 "Superscript"],
+                TraditionalForm]}], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "2"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              RowBox[{"\[ImaginaryI]", " ", 
+               RowBox[{"(", 
+                RowBox[{
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                   "Superscript"],
+                  TraditionalForm], "-", 
+                 FormBox[
+                  TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                   "Superscript"],
+                  TraditionalForm]}], ")"}]}]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]], 
+          FractionBox[
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", 
+               FormBox[
+                TemplateBox[{
+                  SubscriptBox["x", "3"], "1"},
+                 "Superscript"],
+                TraditionalForm]}], "-", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "3"], "4"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "1"},
+                "Superscript"],
+               TraditionalForm], "+", 
+              FormBox[
+               TemplateBox[{
+                 SubscriptBox["x", "4"], "4"},
+                "Superscript"],
+               TraditionalForm]}], ")"}]}], 
+           RowBox[{
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "2"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "1"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "2"], " ", 
+            SuperscriptBox[
+             RowBox[{"(", 
+              RowBox[{
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "2"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "2"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "3"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "3"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               SuperscriptBox[
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "4"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "4"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], "2"], "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}], " ", 
+                RowBox[{"(", 
+                 RowBox[{
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "4"], "1"},
+                    "Superscript"],
+                   TraditionalForm], "-", 
+                  FormBox[
+                   TemplateBox[{
+                    SubscriptBox["x", "3"], "1"},
+                    "Superscript"],
+                   TraditionalForm]}], ")"}]}]}], ")"}], "4"]}]]}
+        },
+        GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.7]}, 
+            Offset[0.27999999999999997`]}, "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}}], "\[NoBreak]", ")"}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9446024586483593`*^9, 3.9446024623507843`*^9}},
+ CellLabel->"Out[26]=",
+ CellID->408994320,ExpressionUUID->"8fc88dd1-60ad-ee4f-bdb8-90bc98df8255"]
+}, Open  ]],
+
+Cell["\<\
+Derivatives can be of type \"\[PartialD]\", \"u\", or \"v\", and can be \
+combined.\
+\>", "ExampleText",
+ CellChangeTimes->{{3.944602510268196*^9, 3.9446025148250656`*^9}, {
+  3.944602592141268*^9, 3.944602612890541*^9}, {3.944602697946409*^9, 
+  3.9446027246658382`*^9}},
+ CellID->132591984,ExpressionUUID->"4ed35f20-6fa6-9c4c-b8a0-dc0137e00614"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2", ",", "2", ",", "2", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2", ",", "2", ",", "2", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"\"\<u\>\"", ",", "1"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2", ",", "2", ",", "2", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"\"\<v\>\"", ",", "3"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2", ",", "2", ",", "2", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"\"\<\[PartialD]\>\"", ",", "4"}], "}"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"2", ",", "2", ",", "2", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\"\<\[PartialD]\>\"", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<v\>\"", ",", "2"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.9446026195390854`*^9, 3.944602659070011*^9}},
+ CellLabel->"In[39]:=",
+ CellID->516252180,ExpressionUUID->"e15afa87-7996-744d-b474-cfd7e552da47"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        OverscriptBox["\"\[Alpha]\"", "."]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        OverscriptBox["\"\[Alpha]\"", "."]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9446026240998993`*^9, 3.9446026594073906`*^9}},
+ CellLabel->"Out[39]=",
+ CellID->632457949,ExpressionUUID->"3a78aa36-fdf4-a049-8721-55a942073034"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(1)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"(\"", 
+             FormBox["\"U\"", TraditionalForm], "\")\""}, "RowDefault"], 
+           "\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(1)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"(\"", 
+             FormBox["\"U\"", TraditionalForm], "\")\""}, "RowDefault"], 
+           "\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9446026240998993`*^9, 3.9446026594163857`*^9}},
+ CellLabel->"Out[40]=",
+ CellID->76596459,ExpressionUUID->"f1aa67e8-129f-bd40-adf5-ac156ea14394"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(3)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"(\"", 
+             FormBox["\"V\"", TraditionalForm], "\")\""}, "RowDefault"], 
+           "\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(3)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"(\"", 
+             FormBox["\"V\"", TraditionalForm], "\")\""}, "RowDefault"], 
+           "\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9446026240998993`*^9, 3.944602659424387*^9}},
+ CellLabel->"Out[41]=",
+ CellID->182854536,ExpressionUUID->"1a1f3b24-d578-bd4c-862f-02d2fb5543d0"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           
+           TemplateBox[{"\"\[PartialD]\"", "\"(4)\""}, "Superscript", 
+            SyntaxForm -> SuperscriptBox], "\"\[ScriptCapitalS]\""}, 
+          "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           
+           TemplateBox[{"\"\[PartialD]\"", "\"(4)\""}, "Superscript", 
+            SyntaxForm -> SuperscriptBox], "\"\[ScriptCapitalS]\""}, 
+          "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9446026240998993`*^9, 3.9446026594334126`*^9}},
+ CellLabel->"Out[42]=",
+ CellID->289405705,ExpressionUUID->"135d8668-69a9-5f49-9f2f-50e93db612e8"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           
+           TemplateBox[{"\"\[PartialD]\"", "\"(1)\""}, "Superscript", 
+            SyntaxForm -> SuperscriptBox], 
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(2)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"(\"", 
+             FormBox["\"V\"", TraditionalForm], "\")\""}, "RowDefault"], 
+           "\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            TemplateBox[{
+              OverscriptBox["\"\[Beta]\"", "."], 
+              TemplateBox[{
+                TagBox["\[Gamma]", HoldForm], 
+                OverscriptBox["\"\[Gamma]\"", "."]}, "RowDefault"]}, 
+             "RowDefault"]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{
+           
+           TemplateBox[{"\"\[PartialD]\"", "\"(1)\""}, "Superscript", 
+            SyntaxForm -> SuperscriptBox], 
+           TemplateBox[{
+             
+             TemplateBox[{"\"\[PartialD]\"", "\"(2)\""}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], "\"(\"", 
+             FormBox["\"V\"", TraditionalForm], "\")\""}, "RowDefault"], 
+           "\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "\";\"", 
+           "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"2", ",", 
+               RowBox[{"{", 
+                 RowBox[{"0", ",", "0"}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            TemplateBox[{
+              OverscriptBox["\"\[Beta]\"", "."], 
+              TemplateBox[{
+                TagBox["\[Gamma]", HoldForm], 
+                OverscriptBox["\"\[Gamma]\"", "."]}, "RowDefault"]}, 
+             "RowDefault"]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9446026240998993`*^9, 3.944602659439415*^9}},
+ CellLabel->"Out[43]=",
+ CellID->98908968,ExpressionUUID->"6f7d7ec2-cb01-ec4b-a768-260301d6edc2"]
+}, Open  ]],
+
+Cell["\<\
+There are more two-point structures in the presence of a defect:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.9446027515676327`*^9, 3.94460276925663*^9}},
+ CellID->383342566,ExpressionUUID->"041ba18e-6d9e-004c-8da3-f8f42a39295b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"3", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SpacetimeStructures", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"3", ",", "3"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2"}], "}"}], ",", "1"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.9446027766353207`*^9, 3.9446027868963966`*^9}, {
+  3.944602846531708*^9, 3.94460285125305*^9}},
+ CellLabel->"In[46]:=",
+ CellID->440223315,ExpressionUUID->"6e0054ac-5028-714d-8e4a-9d10d597e75c"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   FormBox[
+    SubscriptBox[
+     FormBox[
+      TemplateBox[{
+        TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+        TemplateBox[{
+          RowBox[{"{", 
+            RowBox[{"1", ",", "2"}], "}"}], "\";\"", "1"}, "RowDefault"], 
+        TemplateBox[{
+          RowBox[{"{", 
+            RowBox[{"3", ",", 
+              RowBox[{"{", 
+                RowBox[{
+                  FractionBox["1", "2"], ",", 
+                  FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+          RowBox[{"{", 
+            RowBox[{"3", ",", 
+              RowBox[{"{", 
+                RowBox[{
+                  FractionBox["1", "2"], ",", 
+                  FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+       "Subsuperscript"],
+      TraditionalForm], 
+     TemplateBox[{
+       TagBox["\[Alpha]", HoldForm], 
+       TemplateBox[{
+         OverscriptBox["\"\[Alpha]\"", "."], 
+         TemplateBox[{
+           TagBox["\[Beta]", HoldForm], 
+           OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+      "RowDefault"]],
+    TraditionalForm], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{3.9446027872185364`*^9, 3.9446028516072445`*^9},
+ CellLabel->"Out[46]=",
+ CellID->343764755,ExpressionUUID->"49732b56-2fd2-4145-96d8-554d7d751d58"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2"}], "}"}], "\";\"", "\"q = \"", "1", 
+           "\";\"", "1"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2"}], "}"}], "\";\"", "\"q = \"", "1", 
+           "\";\"", "2"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm], ",", 
+    FormBox[
+     SubscriptBox[
+      FormBox[
+       TemplateBox[{
+         TemplateBox[{"\"\[ScriptCapitalS]\""}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"1", ",", "2"}], "}"}], "\";\"", "\"q = \"", "1", 
+           "\";\"", "3"}, "RowDefault"], 
+         TemplateBox[{
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}], "\";\"", 
+           RowBox[{"{", 
+             RowBox[{"3", ",", 
+               RowBox[{"{", 
+                 RowBox[{
+                   FractionBox["1", "2"], ",", 
+                   FractionBox["1", "2"]}], "}"}]}], "}"}]}, "RowDefault"]},
+        "Subsuperscript"],
+       TraditionalForm], 
+      TemplateBox[{
+        TagBox["\[Alpha]", HoldForm], 
+        TemplateBox[{
+          OverscriptBox["\"\[Alpha]\"", "."], 
+          TemplateBox[{
+            TagBox["\[Beta]", HoldForm], 
+            OverscriptBox["\"\[Beta]\"", "."]}, "RowDefault"]}, "RowDefault"]},
+       "RowDefault"]],
+     TraditionalForm]}], "}"}], TraditionalForm]], "Output",
+ CellChangeTimes->{3.9446027872185364`*^9, 3.9446028524276085`*^9},
+ CellLabel->"Out[47]=",
+ CellID->46363020,ExpressionUUID->"72294d95-edb8-7444-a134-dbae18829a64"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968,ExpressionUUID->"62902b28-df29-4d9d-9fd7-7bbf4c33d7ae"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Scope", "ExampleSection",ExpressionUUID->
+   "ba2e8c5a-3f18-4492-bfaf-f9017893ae39"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265,ExpressionUUID->"0acfeba7-de8d-4cac-a36e-5b05cbe43c10"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Generalizations & Extensions", "ExampleSection",ExpressionUUID->
+   "7e2ef3e7-0213-458f-aace-181a94884cac"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627,ExpressionUUID->"db66f23c-fd67-4176-b8b8-1f8121c3157c"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Options", "ExampleSection",ExpressionUUID->
+   "6f241ebf-ce26-4895-a608-ed83232b3f68"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341,ExpressionUUID->"86cea5a6-78cf-4276-a603-1ebac8af9374"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Applications", "ExampleSection",ExpressionUUID->
+   "28cee30f-60cb-47d6-a2fc-9d5157db8bf7"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157,ExpressionUUID->"bbf67748-e770-429c-aabd-44c06edfee31"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Properties & Relations", "ExampleSection",ExpressionUUID->
+   "a6b31391-9509-49e0-b922-518a48ecb383"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759,ExpressionUUID->"d59dadf1-7c95-467e-94b7-5ae5810bac4e"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Possible Issues", "ExampleSection",ExpressionUUID->
+   "dc1dce63-c94f-4766-a74a-75bc75e63deb"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373,ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Interactive Examples", "ExampleSection",ExpressionUUID->
+   "4b3afa75-8eaa-44d2-bd1b-27aee731cb22"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318,ExpressionUUID->"2f655a1a-547a-499d-8255-2caa01b5d4b2"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Neat Examples", "ExampleSection",ExpressionUUID->
+   "1f7e255e-8bb3-45f4-b029-3e43931d9614"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740,ExpressionUUID->"b4175e11-6f19-45bc-84c2-c8c9aa9ef4bc"]
+}, Open  ]]
+},
+PrintingStyleEnvironment->"Preview",
+WindowSize->{718.5, 732.75},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+CommonDefaultFormatTypes->{"Output"->TraditionalForm},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"2de4c5e0-0323-4ab1-b5ab-af8bc8ebcdf8"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExtendedExamples"->{
+  Cell[156040, 4407, 155, 2, 55, "ExtendedExamplesSection",ExpressionUUID->"62902b28-df29-4d9d-9fd7-7bbf4c33d7ae",
+   CellTags->"ExtendedExamples",
+   CellID->1854448968]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExtendedExamples", 158806, 4483}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 600, 14, 24, "History",ExpressionUUID->"4fd4dc38-d4c0-49b6-9db4-356f52442962",
+ CellID->1247902091],
+Cell[CellGroupData[{
+Cell[1183, 38, 123, 1, 29, "CategorizationSection",ExpressionUUID->"301900d9-6846-4f8f-adca-b0b5e8a9f7dc",
+ CellID->1122911449],
+Cell[1309, 41, 134, 2, 33, "Categorization",ExpressionUUID->"afffcbad-f6a6-4b08-93eb-7d0c469aaf85",
+ CellID->686433507],
+Cell[1446, 45, 203, 3, 33, "Categorization",ExpressionUUID->"8bd39359-368b-4207-b5ed-8b8e76890866",
+ CellID->605800465],
+Cell[1652, 50, 196, 3, 33, "Categorization",ExpressionUUID->"8ec3d5bc-6c8d-4619-90cf-42d2d151132c",
+ CellID->468444828],
+Cell[1851, 55, 444, 6, 33, "Categorization",ExpressionUUID->"0d5bc91c-f3f9-4197-9505-9951e3ca7e82"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2332, 66, 110, 1, 29, "KeywordsSection",ExpressionUUID->"ee4584b9-eb8e-47bd-8a27-6e64978caa91",
+ CellID->477174294],
+Cell[2445, 69, 100, 1, 70, "Keywords",ExpressionUUID->"bf93b532-c7d4-460d-9f67-da58fa6f9b29",
+ CellID->1164421360]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2582, 75, 120, 1, 19, "TemplatesSection",ExpressionUUID->"77880115-7bec-483b-9602-e811829c3f04",
+ CellID->1872225408],
+Cell[2705, 78, 149, 2, 70, "Template",ExpressionUUID->"8de29b3d-e730-41c1-97eb-e973313b5e5d",
+ CellID->1562036412],
+Cell[2857, 82, 137, 2, 70, "Template",ExpressionUUID->"6fd2d24d-2f92-4af6-896d-b9090352efef",
+ CellID->158391909],
+Cell[2997, 86, 136, 2, 70, "Template",ExpressionUUID->"d20eab54-de79-468d-88ba-d18748013cc1",
+ CellID->1360575930],
+Cell[3136, 90, 137, 2, 70, "Template",ExpressionUUID->"c7812a6f-396e-48c2-b498-08047e68c823",
+ CellID->793782254]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[3310, 97, 108, 1, 19, "DetailsSection",ExpressionUUID->"99e7cf04-a469-44fe-92e1-4122531e4776",
+ CellID->307771771],
+Cell[3421, 100, 118, 2, 70, "Details",ExpressionUUID->"37237da0-e2de-4a81-876a-530915d5c58d",
+ CellID->670882175],
+Cell[3542, 104, 124, 2, 70, "Details",ExpressionUUID->"93278733-98ad-4bac-8b86-30473ec05ee2",
+ CellID->350963985],
+Cell[3669, 108, 119, 2, 70, "Details",ExpressionUUID->"e8f13340-b51a-4028-b7d5-e41d9aa4d6c6",
+ CellID->8391405],
+Cell[3791, 112, 124, 2, 70, "Details",ExpressionUUID->"6db87730-89ad-47b1-8774-64f1781757de",
+ CellID->3610269],
+Cell[3918, 116, 116, 2, 70, "Details",ExpressionUUID->"a928b6c4-2c80-4745-9751-cc67851e898c",
+ CellID->401364205],
+Cell[4037, 120, 116, 2, 70, "Details",ExpressionUUID->"a5cfdfd5-a383-4ce5-9cba-1771b7831016",
+ CellID->350204745],
+Cell[4156, 124, 118, 2, 70, "Details",ExpressionUUID->"cf6a215e-1811-4f8a-a8c4-048ba93fb50b",
+ CellID->732958810],
+Cell[4277, 128, 133, 2, 70, "Details",ExpressionUUID->"e3016231-686e-453e-9665-0bb01fae4e21",
+ CellID->222905350],
+Cell[4413, 132, 122, 2, 70, "Details",ExpressionUUID->"78a8e782-2312-4c1d-83a0-c486066236a3",
+ CellID->240026365]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[4572, 139, 402, 5, 63, "ObjectName",ExpressionUUID->"65bd0691-0764-43ab-8cf7-71d5d41463a7",
+ CellID->1224892054],
+Cell[4977, 146, 2163, 44, 147, "Usage",ExpressionUUID->"b29816d3-d982-4f89-82df-7f69057e2de1",
+ CellID->982511436],
+Cell[7143, 192, 97, 1, 25, "Notes",ExpressionUUID->"c0395b7e-ae6a-428d-89f0-5fae636a0ae8",
+ CellID->1067943069]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7277, 198, 112, 1, 43, "TutorialsSection",ExpressionUUID->"d871016d-a813-4415-9d0a-b4c2d722c4f0",
+ CellID->250839057],
+Cell[7392, 201, 100, 1, 16, "Tutorials",ExpressionUUID->"2c9b315d-4d33-48a8-bb80-c630d17c6057",
+ CellID->341631938]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7529, 207, 138, 1, 30, "RelatedDemonstrationsSection",ExpressionUUID->"a607508e-9e31-4cce-8fe2-708a6ce8a1b3",
+ CellID->1268215905],
+Cell[7670, 210, 113, 1, 16, "RelatedDemonstrations",ExpressionUUID->"fbe60b42-7910-4d3b-851f-f19838a9db2f",
+ CellID->1129518860]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7820, 216, 120, 1, 30, "RelatedLinksSection",ExpressionUUID->"966461bc-34b9-4510-b9d5-c1be2a32acc4",
+ CellID->1584193535],
+Cell[7943, 219, 104, 1, 16, "RelatedLinks",ExpressionUUID->"eba843ea-3d5b-4157-95ec-d5790959730b",
+ CellID->1038487239]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8084, 225, 110, 1, 30, "SeeAlsoSection",ExpressionUUID->"ad38be0f-c076-4b86-9ff1-e15eae8cebb3",
+ CellID->1255426704],
+Cell[8197, 228, 323, 5, 16, "SeeAlso",ExpressionUUID->"3de65992-430b-ec4c-b562-a70d02b2366f",
+ CellID->174123400]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8557, 238, 112, 1, 30, "MoreAboutSection",ExpressionUUID->"254e95d2-a043-4d72-90d6-588b1d366b75",
+ CellID->38303248],
+Cell[8672, 241, 101, 1, 16, "MoreAbout",ExpressionUUID->"3ea5a583-89e8-4111-b412-25040f5a86c0",
+ CellID->1665078683]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8810, 247, 411, 11, 68, "PrimaryExamplesSection",ExpressionUUID->"7acb6014-bfb1-4861-8e19-da50f2f07cf4",
+ CellID->880084151],
+Cell[9224, 260, 271, 3, 22, "ExampleText",ExpressionUUID->"814dcaaa-92a5-e64d-8660-72b3d8f2beef",
+ CellID->361554010],
+Cell[CellGroupData[{
+Cell[9520, 267, 980, 27, 43, "Input",ExpressionUUID->"4773619a-b1f5-ab46-8939-ce213a1a5549",
+ CellID->66265664],
+Cell[10503, 296, 9063, 253, 111, "Output",ExpressionUUID->"b0c11081-000f-db4f-9f24-26cbcba879da",
+ CellID->262091372]
+}, Open  ]],
+Cell[19581, 552, 374, 8, 22, "ExampleText",ExpressionUUID->"487a6cc5-f4f3-c248-9331-11b3604b57c9",
+ CellID->287295023],
+Cell[CellGroupData[{
+Cell[19980, 564, 319, 7, 25, "Input",ExpressionUUID->"a889a034-b772-fa4b-bd7c-a6d63842e7d4",
+ CellID->169860219],
+Cell[20302, 573, 107849, 3024, 150, "Output",ExpressionUUID->"8fc88dd1-60ad-ee4f-bdb8-90bc98df8255",
+ CellID->408994320]
+}, Open  ]],
+Cell[128166, 3600, 357, 7, 22, "ExampleText",ExpressionUUID->"4ed35f20-6fa6-9c4c-b8a0-dc0137e00614",
+ CellID->132591984],
+Cell[CellGroupData[{
+Cell[128548, 3611, 3594, 113, 184, "Input",ExpressionUUID->"e15afa87-7996-744d-b474-cfd7e552da47",
+ CellID->516252180],
+Cell[132145, 3726, 2690, 76, 39, "Output",ExpressionUUID->"3a78aa36-fdf4-a049-8721-55a942073034",
+ CellID->632457949],
+Cell[134838, 3804, 3535, 96, 40, "Output",ExpressionUUID->"f1aa67e8-129f-bd40-adf5-ac156ea14394",
+ CellID->76596459],
+Cell[138376, 3902, 3534, 96, 40, "Output",ExpressionUUID->"1a1f3b24-d578-bd4c-862f-02d2fb5543d0",
+ CellID->182854536],
+Cell[141913, 4000, 3306, 92, 40, "Output",ExpressionUUID->"135d8668-69a9-5f49-9f2f-50e93db612e8",
+ CellID->289405705],
+Cell[145222, 4094, 4191, 112, 40, "Output",ExpressionUUID->"6f7d7ec2-cb01-ec4b-a768-260301d6edc2",
+ CellID->98908968]
+}, Open  ]],
+Cell[149428, 4209, 237, 4, 22, "ExampleText",ExpressionUUID->"041ba18e-6d9e-004c-8da3-f8f42a39295b",
+ CellID->383342566],
+Cell[CellGroupData[{
+Cell[149690, 4217, 1228, 38, 61, "Input",ExpressionUUID->"6e0054ac-5028-714d-8e4a-9d10d597e75c",
+ CellID->440223315],
+Cell[150921, 4257, 1329, 37, 40, "Output",ExpressionUUID->"49732b56-2fd2-4145-96d8-554d7d751d58",
+ CellID->343764755],
+Cell[152253, 4296, 3738, 105, 40, "Output",ExpressionUUID->"72294d95-edb8-7444-a134-dbae18829a64",
+ CellID->46363020]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[156040, 4407, 155, 2, 55, "ExtendedExamplesSection",ExpressionUUID->"62902b28-df29-4d9d-9fd7-7bbf4c33d7ae",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+Cell[156198, 4411, 242, 5, 33, "ExampleSection",ExpressionUUID->"0acfeba7-de8d-4cac-a36e-5b05cbe43c10",
+ CellID->1293636265],
+Cell[156443, 4418, 265, 5, 21, "ExampleSection",ExpressionUUID->"db66f23c-fd67-4176-b8b8-1f8121c3157c",
+ CellID->1020263627],
+Cell[156711, 4425, 244, 5, 21, "ExampleSection",ExpressionUUID->"86cea5a6-78cf-4276-a603-1ebac8af9374",
+ CellID->2061341341],
+Cell[156958, 4432, 248, 5, 21, "ExampleSection",ExpressionUUID->"bbf67748-e770-429c-aabd-44c06edfee31",
+ CellID->258228157],
+Cell[157209, 4439, 259, 5, 21, "ExampleSection",ExpressionUUID->"d59dadf1-7c95-467e-94b7-5ae5810bac4e",
+ CellID->2123667759],
+Cell[157471, 4446, 252, 5, 21, "ExampleSection",ExpressionUUID->"5e54554b-739c-4336-a331-8ac431badc24",
+ CellID->1305812373],
+Cell[157726, 4453, 257, 5, 21, "ExampleSection",ExpressionUUID->"2f655a1a-547a-499d-8255-2caa01b5d4b2",
+ CellID->1653164318],
+Cell[157986, 4460, 249, 5, 21, "ExampleSection",ExpressionUUID->"b4175e11-6f19-45bc-84c2-c8c9aa9ef4bc",
+ CellID->589267740]
+}, Open  ]]
+}
+]
+*)
+

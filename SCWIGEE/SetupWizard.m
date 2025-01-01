@@ -21,7 +21,7 @@ SetDefectGlobalSymmetry::noembed = "There is no embedding of `1` into `2`; canno
 SetDefectGlobalSymmetry[group_] := Module[{embeddings},
 	embeddings = Embeddings[$RSymmetry, group];
 	If[embeddings == {}, 
-	   Message[SetDefectGlobalSymmetry::noembed, CMtoName[$DefectRSymmetry], CMtoName[$RSymmetry]],
+	   Message[SetDefectGlobalSymmetry::noembed, CMtoName[group], CMtoName[$RSymmetry]],
 	
 		$DefectRSymmetry = group;
 		If[$RSymmetry === {SU2, U1} && $qdefect === 2, Which[group === SU2, $q2type = {4, 0}, group === U1, $q2type = {2,2}]];
@@ -56,18 +56,18 @@ Multiplet[i_] := $multiplet[i];
 $signatureFactor = 1;
 SignatureFactor[] := $signatureFactor;
 
-SetSignature["Lorentzian"] := ($signatureFactor = 1);
-SetSignature["Euclidean"] := ($signatureFactor = I);
+SetSignature["Lorentzian"] := ($signatureFactor = 1;);
+SetSignature["Euclidean"] := ($signatureFactor = I;);
 
 SetSignature::badsig = "The signature `` is not recognized; use \"Lorentzian\" or \"Euclidean\".";
 SetSignature[sig_] := Message[SetSignature::badsig, sig];
 
 SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
-SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q), Message[SetDefectCodimension::invalid, q]];
+SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q;), Message[SetDefectCodimension::invalid, q]];
 
-SetDefectCodimension[3, \[CurlyPhi]_] := ($qdefect = 3; $q3angle = \[CurlyPhi]);
-SetDefectCodimension[2, type_] := ($qdefect = 2; $q2type = type);
-SetDefectCodimension[1, \[CurlyPhi]_] := ($qdefect = 3; $q1angle = \[CurlyPhi]);
+SetDefectCodimension[3, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q3angle = \[CurlyPhi];);
+SetDefectCodimension[2, type_] := ($qdefect = 2; $q2type = type;);
+SetDefectCodimension[1, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q1angle = \[CurlyPhi];);
 
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
@@ -328,7 +328,7 @@ resultsNotebook[] := CreateDocument[{
       	      CellGroup[{
 	      	   	  TextCell["Contractions of three-point invariants: ", "Subsubsection"],
 	      	      ExpressionCell[Module[{rrep = If[$qdefect =!= None, DefectGlobalRep, GlobalRep]},
-	      	       Format[InvariantFourPtGraphs[rrep /@ grp[[1]]], TraditionalForm]
+	      	       Format[FourPtInvariantGraphs[rrep /@ grp[[1]]], TraditionalForm]
 	      	      ], "Output"]
       	   	  }, Closed],
       	   	  Nothing
@@ -519,7 +519,7 @@ wizardPanel[] := Panel[Dynamic[Grid[
      ], 
      ""
     }, 
-	If[$qdefect =!= None && (SubsetQ[GlobalSymmetry[], {SU2, U1}] && Sort[DeleteElements[GlobalSymmetry[], 1 -> {SU2}]] === Sort[DefectGlobalSymmetry[]] && $QGlobalRep =!= Null),
+	If[$qdefect =!= None && GlobalSymmetry[] =!= Null && DefectGlobalSymmetry[] =!= Null && (SubsetQ[GlobalSymmetry[], {SU2, U1}] && Sort[DeleteElements[GlobalSymmetry[], 1 -> {SU2}]] === Sort[DefectGlobalSymmetry[]] && $QGlobalRep =!= Null),
 	   {"", "", Grid[preservedSusyPanel[$qdefect]], ""},
 	   Nothing
 	],

@@ -295,16 +295,6 @@ StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)).";
-ConjugateTwoPtGlobalInvariant::usage = "ConjugateTwoPtGlobalInvariant[\!\(\*
-StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"]\",\nFontSlant->\"Italic\"]\) gives the invariant tensor with lowered indices in representations (\!\(\*
-StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)).";
 
 ThreePtGlobalInvariant::usage = "ThreePtGlobalInvariant[{\!\(\*
 StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
@@ -312,19 +302,6 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\)}, \!\(\*
 StyleBox[\"k\",\nFontSlant->\"Italic\"]\)] gives the invariant tensor \!\(\*SubscriptBox[SuperscriptBox[\"C\", 
-StyleBox[\"k\",\nFontSlant->\"Italic\"]], 
-StyleBox[\"ij\",\nFontSlant->\"Italic\"]]\) describing how \!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\) appears in the product \!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Times]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\".\",\nFontSlant->\"Italic\"]\)";
-ConjugateThreePtGlobalInvariant::usage = "ConjugateThreePtGlobalInvariant[{\!\(\*
-StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"j\",\nFontSlant->\"Italic\"]\)}, \!\(\*
-StyleBox[\"k\",\nFontSlant->\"Italic\"]\)] gives the invariant tensor \!\(\*SuperscriptBox[SubscriptBox[\"C\", 
 StyleBox[\"k\",\nFontSlant->\"Italic\"]], 
 StyleBox[\"ij\",\nFontSlant->\"Italic\"]]\) describing how \!\(\*
 StyleBox[\"k\",\nFontSlant->\"Italic\"]\) appears in the product \!\(\*
@@ -340,31 +317,7 @@ NonRPart::usage = "NonRPart[\!\(\*
 StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\)] removes the global symmetry invariants from \!\(\*
 StyleBox[\"tensor\",\nFontSlant->\"Italic\"]\).";
 
-InvariantFourPts::usage = "InvariantFourPts[\!\(\*
-StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep3\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep4\",\nFontSlant->\"Italic\"]\)] gives a list of invariant tensors with raised global symmetry indices in the representations \!\(\*
-StyleBox[\"rep1\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep2\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep3\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"rep4\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\" \",\nFontSlant->\"Italic\"]\)constructed by contracting primitive three-pt invariants.";
-
-InvariantFourPtGraphs::usage = "InvariantFourPtGraphs[\!\(\*
+FourPtInvariantGraphs::usage = "InvariantFourPtGraphs[\!\(\*
 StyleBox[\"reps\",\nFontSlant->\"Italic\"]\)] gives the graphs of three-pt invariant tensors used to build InvariantFourPts[\!\(\*
 StyleBox[\"reps\",\nFontSlant->\"Italic\"]\)].";
 
@@ -429,6 +382,15 @@ StyleBox[\"modifiers\",\nFontSlant->\"Italic\"]\)] gives an \[Epsilon]-tensor, e
 StyleBox[\"modifiers\",\nFontSlant->\"Italic\"]\)] gives a \[Sigma]-tensor, e.g., \[Sigma][Bar] gives \!\(\*SubscriptBox[OverscriptBox[\(\[Sigma]\), \(_\)], \(\[Mu] \*OverscriptBox[\(\[Alpha]\), \(.\)] \[Alpha]\)]\)";
 \[Eta]::usage = "\[Eta][\!\(\*
 StyleBox[\"modifiers\",\nFontSlant->\"Italic\"]\)] gives an \[Eta]-tensor, e.g., \[Eta][Upper] gives \!\(\*SuperscriptBox[\(\[Eta]\), \(\[Mu]\[Nu]\)]\)";
+
+Upper::usage = "Upper is a modifier for \[Epsilon], \[Sigma], or \[Eta] tensors";
+Lower::usage = "Lower is a modifier for \[Epsilon], \[Sigma], or \[Eta] tensors";
+Defect::usage = "Defect is a modifier for \[Epsilon] or \[Eta] tensors";
+Transverse::usage = "Transverse is a modifier for \[Epsilon] or \[Eta] tensors";
+Bar::usage = "Bar is a modifier for \[Sigma] tensors";
+NoBar::usage = "NoBar is a modifier for \[Sigma] tensors";
+Bare::usage = "Bar is a modifier for \[Sigma] tensors";
+Vector::usage = "Vector is a modifier for \[Sigma] tensors";
 
 SpacetimeStructureExpressions::usage = "SpacetimeStructureExpressions[\!\(\*
 StyleBox[\"spins\",\nFontSlant->\"Italic\"]\)] gives a list of symbolic expressions for the normalized spacetime structures with spins \!\(\*
@@ -690,6 +652,15 @@ StyleBox[\"rep\",\nFontSlant->\"Italic\"]\) appearing in the decomposition of so
 ExportResults::usage = "ExportResults[\!\(\*
 StyleBox[\"file\",\nFontSlant->\"Italic\"]\)] generates a notebook containing all correlators and basis functions and exports it to \!\(\*
 StyleBox[\"file\",\nFontSlant->\"Italic\"]\).";
+
+\[Lambda]::usage = "\[Lambda][\!\(\*
+StyleBox[\"ops\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"i\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] is an unknown constant appearing in three-point functions.";
 
 
 EndPackage[]

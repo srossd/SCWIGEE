@@ -1,9 +1,9 @@
 (* Wolfram Language package *)
 
-Options[QTensor] = {"QBar" -> False};
-QTensor[OptionsPattern[]] := Switch[{OptionValue["QBar"]},
-   {False}, $QTensor,
-   {True}, $QBarTensor
+Options[QTensor] = {"QBar" -> False, "Defect" -> False};
+QTensor[OptionsPattern[]] := If[OptionValue["Defect"],
+   defectSupercharge[$qdefect, Sequence @@ Switch[$qdefect, 1, {$q1angle}, 2, {$q2type, OptionValue["QBar"]}, 3, {$q3angle}]],
+   If[OptionValue["QBar"],$QBarTensor, $QTensor]
 ];
 
 ScalingDimension[Operator[name_, rep_, dim_, {j1_, j2_}, y_]] := dim;
@@ -33,7 +33,7 @@ makeConjugate[f : Operator[name_, rep_, dim_, js_, y_]] := Operator[
    ConjugateIrrep[GlobalSymmetry[], rep],
    dim, Reverse[js], -y];
  
-name2field[name_] := SelectFirst[Flatten[Multiplet[whichMultiplet[name]]], #[[1]] == name &];
+name2field[name_] := SelectFirst[Flatten[Multiplet[whichMultiplet[name]]], #[[1]] == name || #[[1]] == ToString[ToExpression[name], TraditionalForm] &];
 
 IndexData[Spinor] = Index[2, "Greek", 1];
 IndexData[DottedSpinor] = Index[2, "Greek", 1, OverDot];
@@ -47,7 +47,7 @@ IndexData[DefectGlobalIndex[defectRep_, parentRep_]] :=
 
 Unprotect[Tensor];
 Tensor[{x___, f_Operator, y___}] := Tensor[{x, ToTensor[f][[1, 1]], y}];
-Tensor[names: {__String}] := Tensor[name2field[ToString[ToExpression[#], TraditionalForm]] & /@ names];
+Tensor[names: {__String}] := Tensor[name2field[#] & /@ names];
 Protect[Tensor];
 
 \[Eta]Upper = 
@@ -213,10 +213,10 @@ SetAttributes[\[Sigma], Orderless];
 \[Sigma][Upper, NoBar, Bare, Vector] = \[Sigma]Upper;
 \[Sigma][Lower, Bar, Bare, Vector] = \[Sigma]BarLower;
 \[Sigma][Upper, Bar, Bare, Vector] = \[Sigma]BarUpper;
-\[Sigma][Lower, NoBar, Commutator, Vector] = \[Sigma]CommLower;
-\[Sigma][Upper, NoBar, Commutator, Vector] = \[Sigma]CommUpper;
-\[Sigma][Lower, Bar, Commutator, Vector] = \[Sigma]CommLowerDot;
-\[Sigma][Upper, Bar, Commutator, Vector] = \[Sigma]CommUpperDot;
+\[Sigma][Lower, NoBar, Commutator] = \[Sigma]CommLower;
+\[Sigma][Upper, NoBar, Commutator] = \[Sigma]CommUpper;
+\[Sigma][Lower, Bar, Commutator] = \[Sigma]CommLowerDot;
+\[Sigma][Upper, Bar, Commutator] = \[Sigma]CommUpperDot;
 \[Sigma][Lower, NoBar, Bare, n_Integer] = \[Sigma]LowerSingle[n];
 \[Sigma][Upper, NoBar, Bare, n_Integer] = \[Sigma]UpperSingle[n];
 \[Sigma][Lower, Bar, Bare, n_Integer] = \[Sigma]BarLowerSingle[n];
@@ -267,17 +267,17 @@ BuildTensor[{"\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\[DoubleVerticalBar]\)]\)",
   
 SetAttributes[\[Epsilon], Orderless];
 \[Epsilon][attrs___] /; FreeQ[{attrs}, Lower | Upper] := \[Epsilon][attrs, Lower];
-\[Epsilon][attrs___] /; FreeQ[{attrs}, Spinor | Spacetime] := \[Epsilon][attrs, Spinor];
+\[Epsilon][attrs___] /; FreeQ[{attrs}, Spinor | SpaceTime] := \[Epsilon][attrs, Spinor];
 \[Epsilon][attrs___] /; MemberQ[{attrs}, Spinor] && FreeQ[{attrs}, Dot | NoDot] := \[Epsilon][attrs, NoDot];
-\[Epsilon][attrs___] /; MemberQ[{attrs}, Spacetime] && FreeQ[{attrs}, Defect | Transverse | Full] := \[Epsilon][attrs, Full];
+\[Epsilon][attrs___] /; MemberQ[{attrs}, SpaceTime] && FreeQ[{attrs}, Defect | Transverse | Full] := \[Epsilon][attrs, Full];
 \[Epsilon][Lower, Spinor, NoDot] = \[Epsilon]Lower;
 \[Epsilon][Upper, Spinor, NoDot] = \[Epsilon]Upper;
 \[Epsilon][Lower, Spinor, Dot] = \[Epsilon]LowerDot;
 \[Epsilon][Upper, Spinor, Dot] = \[Epsilon]UpperDot;
-\[Epsilon][Lower, Spacetime, Full] = \[Epsilon]Spacetime;
-\[Epsilon][Upper, Spacetime, Full] = \[Epsilon]SpacetimeUpper;
-\[Epsilon][Lower, Spacetime, Transverse] := \[Epsilon]Transverse[$qdefect];
-\[Epsilon][Lower, Spacetime, Defect] := \[Epsilon]Defect[$qdefect];
+\[Epsilon][Lower, SpaceTime, Full] = \[Epsilon]Spacetime;
+\[Epsilon][Upper, SpaceTime, Full] = \[Epsilon]SpacetimeUpper;
+\[Epsilon][Lower, SpaceTime, Transverse] := \[Epsilon]Transverse[$qdefect];
+\[Epsilon][Lower, SpaceTime, Defect] := \[Epsilon]Defect[$qdefect];
 
 XX[i_] := Tensor[{{SpacetimePoint[i], Raised[SpaceTime]}}];
 BuildTensor[{SpacetimePoint[i_], Raised[SpaceTime]}] := SparseArray@Table[x[i, k], {k, 4}];
