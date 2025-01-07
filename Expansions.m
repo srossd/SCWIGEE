@@ -104,7 +104,7 @@ ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms =
 ];
 ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> If[And @@ (Thread[Flatten[Normal@Components[t]] === 0]), 0, 1]},{1,1}];
       
-fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Reverse@Spin[#1], GlobalRep[#1], Abs[Last[#1]], -Last[#1]}, {N@ScalingDimension[#2], Reverse@Spin[#2], GlobalRep[#2], Abs[Last[#2]], -Last[#2]}}] &;
+fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Reverse@Spin[#1], GlobalRep[#1], Abs[Last[#1]], -Last[#1], First[#1]}, {N@ScalingDimension[#2], Reverse@Spin[#2], GlobalRep[#2], Abs[Last[#2]], -Last[#2], First[#2]}}] &;
       
 crossingPermutationST[t_Tensor, order_] := 
   With[{ordered = SwapFactors[t, order]},

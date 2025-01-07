@@ -9,7 +9,7 @@ Format[Operator[name_, rep_, dim_, {j1_, j2_}, y_], TraditionalForm] :=
   ToString[ToExpression[s, TraditionalForm]]]
   ];
        
-Format[x[i_, j_], TraditionalForm] := Superscript[Subscript[x, i], j];
+Format[x[i_, j_], TraditionalForm] := Subsuperscript[x, i, j];
 MakeBoxes[Power[x[i_,j_], n_], TraditionalForm] := SuperscriptBox[RowBox[{"(", SubsuperscriptBox["x",i,j], ")"}], ToBoxes[n, TraditionalForm]]
 Format[SpacetimePoint[i_], TraditionalForm] := Subscript["\!\(TraditionalForm\`x\)", i];
 Format[SpacetimePointDefect[i_], TraditionalForm] := Subscript["\!\(\*SuperscriptBox[\(TraditionalForm\`x\), \(\[DoubleVerticalBar]\)]\)" i];
