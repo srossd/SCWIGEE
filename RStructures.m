@@ -452,8 +452,9 @@ buildExpression[TreeInvariant[edges_]] :=
        Cases[edges, {i, _External, rep_} :> rep], {i, internals}]]]
   ]
 
+$internalReps = Automatic;
 
-allReps[] := DeleteDuplicates[GlobalRep /@ Flatten[Multiplet /@ $multipletIndices]];
+allReps[] := If[$internalReps === Automatic, DeleteDuplicates[GlobalRep /@ Flatten[Multiplet /@ $multipletIndices]], $internalReps];
 repTree[reps_] := repTree[reps] =
  Graph[Flatten[
    Table[{i, r}, {i, 0, Length[reps]}, {r, allReps[]}], 1], 
@@ -468,7 +469,11 @@ repTree[reps_] := repTree[reps] =
     ]], VertexCoordinates -> 
    Flatten[Table[{i, (allReps[])[[j]]} -> {j, i}, {i, 0, 
       Length[reps]}, {j, Length[allReps[]]}], 1]]
-loopGraphs[reps_] := loopGraphs[reps] = Flatten@Table[
+
+
+Options[treeGraphs] = {"IrrepSet" -> Automatic};
+Options[loopGraphs] = {"IrrepSet" -> Automatic};
+loopGraphs[reps_, opt : OptionsPattern[]] := loopGraphs[reps, opt] = Flatten@Table[
     LoopInvariant[
      Join[Table[{Internal[i], External[i], reps[[i]]}, {i, 
         Length[reps]}], 
@@ -493,14 +498,14 @@ treeGraphs[reps_] := treeGraphs[reps] = Flatten@Table[
      conjRep /@ (Select[ReduceRepProduct[appropriateGroup[reps[[1]]], reps[[p[[3 ;;]]]]], #[[2]] == 1 &][[;; , 1]])]}
    ];
 
-FourPtInvariantGraphs[reps_] /; Length[reps] == 4 := FourPtInvariantGraphs[reps] = 
+FourPtInvariantGraphs[reps_] /; Length[reps] == 4 := FourPtInvariantGraphs[reps, opt] = 
  With[{graphs = SortBy[Join[treeGraphs[reps], loopGraphs[reps]], {Max[Cases[#[[1]], {_Internal, _Internal, rep_} :> Times @@ repDim[rep]]], 
   Length[Cases[#[[1]], _Internal, All]]} &]},
     graphs[[IndependentSet[buildExpression /@ graphs, "MaxIndependent" -> numInvariants[reps], "Indices" -> True]]]
   ]
    
 InvariantFourPts[reps_] /; Length[reps] == 4 := InvariantFourPts[reps] = With[{order = Ordering[dynkin /@ reps]},
-   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ FourPtInvariantGraphs[reps])
+   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ FourPtInvariantGraphs[reps, opt])
 ];
 
   
