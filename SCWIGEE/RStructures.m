@@ -473,7 +473,7 @@ repTree[reps_] := repTree[reps] =
 
 Options[treeGraphs] = {"IrrepSet" -> Automatic};
 Options[loopGraphs] = {"IrrepSet" -> Automatic};
-loopGraphs[reps_, opt : OptionsPattern[]] := loopGraphs[reps, opt] = Flatten@Table[
+loopGraphs[reps_] := loopGraphs[reps] = Flatten@Table[
     LoopInvariant[
      Join[Table[{Internal[i], External[i], reps[[i]]}, {i, 
         Length[reps]}], 
@@ -498,18 +498,18 @@ treeGraphs[reps_] := treeGraphs[reps] = Flatten@Table[
      conjRep /@ (Select[ReduceRepProduct[appropriateGroup[reps[[1]]], reps[[p[[3 ;;]]]]], #[[2]] == 1 &][[;; , 1]])]}
    ];
 
-FourPtInvariantGraphs[reps_] /; Length[reps] == 4 := FourPtInvariantGraphs[reps, opt] = 
- With[{graphs = SortBy[Join[treeGraphs[reps], loopGraphs[reps]], {Max[Cases[#[[1]], {_Internal, _Internal, rep_} :> Times @@ repDim[rep]]], 
+FourPtInvariantGraphs[reps_] /; Length[reps] == 4 := FourPtInvariantGraphs[reps] = 
+ With[{graphs = SortBy[Join[treeGraphs[dynkin /@ reps], loopGraphs[dynkin /@ reps]], {Max[Cases[#[[1]], {_Internal, _Internal, rep_} :> Times @@ repDim[rep]]], 
   Length[Cases[#[[1]], _Internal, All]]} &]},
     graphs[[IndependentSet[buildExpression /@ graphs, "MaxIndependent" -> numInvariants[reps], "Indices" -> True]]]
   ]
    
 InvariantFourPts[reps_] /; Length[reps] == 4 := InvariantFourPts[reps] = With[{order = Ordering[dynkin /@ reps]},
-   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ FourPtInvariantGraphs[reps, opt])
+   SparseArray@(TensorTranspose[CanonicallyOrderedComponents@buildExpression[#], order] & /@ FourPtInvariantGraphs[reps])
 ];
 
   
-FourPtGlobalInvariant[reps_, i_] := Tensor[{{GlobalInvariant[i], Sequence @@ Table[Raised[If[appropriateGroup[reps[[1]]] == GlobalSymmetry[], GlobalIndex, DefectGlobalIndex][r]], {r, reps}]}}];
+FourPtGlobalInvariant[reps_, i_] := Tensor[{{GlobalInvariant[i], Sequence @@ Table[Raised[If[appropriateGroup[reps[[1]]] == GlobalSymmetry[], GlobalIndex, DefectGlobalIndex][dynkin[r]]], {r, reps}]}}];
 BuildTensor[{GlobalInvariant[i_], Raised[GlobalIndex[r1_]], Raised[GlobalIndex[r2_]], Raised[GlobalIndex[r3_]], Raised[GlobalIndex[r4_]]}] := InvariantFourPts[{r1, r2, r3, r4}][[i]];
 BuildTensor[{GlobalInvariant[i_], Raised[DefectGlobalIndex[r1_]], Raised[DefectGlobalIndex[r2_]], Raised[DefectGlobalIndex[r3_]], Raised[DefectGlobalIndex[r4_]]}] := InvariantFourPts[{r1, r2, r3, r4}][[i]];
 
