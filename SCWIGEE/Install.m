@@ -65,10 +65,11 @@ InstallSCWIGEE[]:= Module[{
 	Get["https://raw.githubusercontent.com/srossd/TensorTools/main/Install.m"];
 	Print[Style["TensorTools dependency resolved", Bold]];
 
-	
+	Block[{$checkedTensorTools = True},
 	Print[Style["Checking ConformalStructures dependency...",Bold]];
 	Get["https://raw.githubusercontent.com/srossd/ConformalStructures/main/Install.m"];
 	Print[Style["ConformalStructures dependency resolved", Bold]];
+	];
 	
 	Print[Style["Checking GroupMath dependency...",Bold]];
 	InstallGroupMath[];
