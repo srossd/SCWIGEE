@@ -2,7 +2,7 @@
 
 (* Wolfram Language Init File *)
 
-Block[{Print},Quiet[BeginPackage["SCWIGEE`",{"TensorTools`","GroupMath`"}]]]
+Block[{Print},Quiet[BeginPackage["SCWIGEE`",{"TensorTools`","ConformalStructures`","GroupMath`"}]]]
 
 Get[ "SCWIGEE`Usage`"];
 
@@ -17,7 +17,6 @@ Get[ "SCWIGEE`Formatting`"]
 Get[ "SCWIGEE`SetupWizard`"]
 Get[ "SCWIGEE`SUSYVariations`"]
 Get[ "SCWIGEE`RStructures`"]
-Get[ "SCWIGEE`SpacetimeStructures`"]
 Get[ "SCWIGEE`ConformalCheck`"]
 Get[ "SCWIGEE`Expansions`"]
 Get[ "SCWIGEE`Ward`"]

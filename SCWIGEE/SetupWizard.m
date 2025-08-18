@@ -1,10 +1,19 @@
 (* Wolfram Language package *)
 
+SetSpacetimeDimension[dim_] := (
+	$D = dim;
+	setQ[];
+	If[OddQ[dim],
+	   DeclareTensorSymmetry["\[PartialD]", {{Cycles[{{1,2}}], If[Mod[dim, 8] == 1 || Mod[dim, 8] == 3, 1, -1]}}]
+	];
+	DeclareTensorSymmetry[chargeconj[], {{Cycles[{{1,2}}], If[MemberQ[{0,1,2,7}, Mod[dim, 8]], 1, -1]}}]
+);
+SpacetimeDimension[] := $D;
+
 SetGlobalSymmetry[group_] := (
 	$RSymmetry = group;
 	SetQGlobalRep[fundRep[$RSymmetry]];
-	$QTensor = Tensor[{{"Q", Raised[GlobalIndex[QGlobalRep[]]], Lowered[Spinor]}}];
-	$QBarTensor = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[GlobalIndex[QGlobalRep[]]], Lowered[DottedSpinor]}}];
+	setQ[];
 	
 	$DefectRSymmetry = Null;
 	$embedding = Null;
@@ -13,9 +22,13 @@ SetGlobalSymmetry[group_] := (
 SetQGlobalRep[rep_] := If[FailureQ[Enclose[ConfirmQuiet[RepName[GlobalSymmetry[], rep]]]], 
    MessageDialog[StringForm["`` is not a valid R-symmetry representation.", rep]],
    $QGlobalRep = SimpleRepInputConversion[GlobalSymmetry[], rep];
-   $QTensor = Tensor[{{"Q", Raised[GlobalIndex[QGlobalRep[]]], Lowered[Spinor]}}];
-   $QBarTensor = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[GlobalIndex[QGlobalRep[]]], Lowered[DottedSpinor]}}];
+   setQ[];
 ];
+
+setQ[] := (
+	$QTensor = Tensor[{{"Q", Raised[GlobalIndex[QGlobalRep[]]], Lowered[If[OddQ[$D], DiracSpinor[$D], WeylSpinor[$D]]]}}];
+	$QBarTensor = Tensor[{{"\!\(\*OverscriptBox[\(Q\), \(~\)]\)", Lowered[GlobalIndex[QGlobalRep[]]], Lowered[If[OddQ[$D], DiracSpinor[$D], DottedWeylSpinor[$D]]]}}];
+);
 
 SetDefectGlobalSymmetry::noembed = "There is no embedding of `1` into `2`; cannot proceed.";
 SetDefectGlobalSymmetry[group_] := Module[{embeddings},
@@ -33,10 +46,15 @@ SetDefectGlobalSymmetry[group_] := Module[{embeddings},
 SetDefectGlobalSymmetry[group_, embedding_] := ($DefectRSymmetry = group; $embedding = embedding;);
 
 SetSymmetries[ops_] := Do[
-	DeclareTensorSymmetry[op[[1]], Join[
-		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}],
-		Table[{Cycles[{{i, i+1}}], 1}, {i, 2 + 2 Spin[op][[1]], 2 + 2 Spin[op][[1]] + 2 Spin[op][[2]] - 2}]
-	]],
+	DeclareTensorSymmetry[op[[1]], Which[$D == 4,
+		Join[
+			Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}],
+			Table[{Cycles[{{i, i+1}}], 1}, {i, 2 + 2 Spin[op][[1]], 2 + 2 Spin[op][[1]] + 2 Spin[op][[2]] - 2}]
+		],
+		$D == 3,
+		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op] - 2}]
+	]
+	],
 	{op, ops}];
 
 $multipletIndices = {};
@@ -53,15 +71,6 @@ QGlobalRep[] := $QGlobalRep;
 DefectGlobalSymmetry[] := $DefectRSymmetry;
 Multiplet[i_] := $multiplet[i];
 
-$signatureFactor = 1;
-SignatureFactor[] := $signatureFactor;
-
-SetSignature["Lorentzian"] := ($signatureFactor = 1;);
-SetSignature["Euclidean"] := ($signatureFactor = I;);
-
-SetSignature::badsig = "The signature `` is not recognized; use \"Lorentzian\" or \"Euclidean\".";
-SetSignature[sig_] := Message[SetSignature::badsig, sig];
-
 SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
 SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q;), Message[SetDefectCodimension::invalid, q]];
 
@@ -71,15 +80,16 @@ SetDefectCodimension[1, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q1angle = \[CurlyPh
 
 extraPos[mult_] := 
   With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
-   Complement[
-    Join[pos, # + {1, 1/2} & /@ pos, # + {-1, 1/2} & /@ pos], pos]];
+   Select[Complement[
+    Join[pos, # + {1, 1/2} & /@ pos, # + {-1, 1/2} & /@ pos], pos], If[$D == 4, True, #[[1]] >= 0] & ]];
 fundRep[grp_] := 
   If[IsSimpleGroupQ[grp], 
    If[grp == {}, 1, PadRight[{1}, Length[grp]]], fundRep /@ grp];
 singRep[grp_] := 
   If[IsSimpleGroupQ[grp], 
    If[grp == {}, 0, PadRight[{}, Length[grp]]], singRep /@ grp];
-   
+
+$D = 4;
 $RSymmetry = Null;
 $QGlobalRep = Null;
 $DefectRSymmetry = Null;
@@ -179,11 +189,11 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                     1]], {diff, {{-1, -1/2}, {1, -1/2}}}, {f, 
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "New Operator", 
-                    Operator[Null, 1, #[[1, 2]], {0, 0}, #[[1, 1]]]]}, 
+                    Operator[Null, 1, #[[1, 2]], If[$D == 4, 0, #[[1,1]]/2], #[[1, 1]]]]}, 
                  If[MatchQ[res, _Operator] && StringQ[res[[1]]], 
                     If[$multipletSC[i], 
                        AppendTo[$multiplet[i], res];
-                       If[res[[-1]] != 0, AppendTo[$multiplet[i], makeConjugate[res]]], 
+                       If[res[[-1]] != 0 && $D == 4, AppendTo[$multiplet[i], makeConjugate[res]]], 
                        $multiplet[i] = {
                           Append[$multiplet[i][[1]], If[res[[-1]] >= 0, res, makeConjugate[res]]],
                        	  Append[$multiplet[i][[2]], If[res[[-1]] >= 0, makeConjugate[res], res]]
@@ -206,8 +216,8 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
    
 opDialog[reps_, label_, 
    init_ : Operator[Null, 1, 2, {0, 0}, 0]] := ($nfName = 
-    init[[1]]; $nfRep = init[[2]]; $nfL = 2 init[[4, 1]]; $nfLb = 
-    2 init[[4, 2]]; $nfDim = init[[3]]; $nfRCharge = If[init[[5]] === Null, Null, init[[5]]];
+    init[[1]]; $nfRep = init[[2]]; $nfL = 2 If[ListQ[init[[4]]], init[[4, 1]], init[[4]]]; $nfLb = 
+    2 If[ListQ[init[[4]]],init[[4, 2]], 0]; $nfDim = init[[3]]; $nfRCharge = If[init[[5]] === Null, Null, init[[5]]];
    DialogInput[
     DialogNotebook[{Framed@
        Panel[Grid[{{"Operator name:", 
@@ -215,10 +225,10 @@ opDialog[reps_, label_,
            If[Length[reps] == 0, InputField[Dynamic[$nfRep]], 
             RadioButtonBar[Dynamic[$nfRep], 
              AssociationMap[RepName[$RSymmetry, #] &, 
-              reps]]]}, {"Spinor indices:", 
+              reps]]]}, If[$D == 4, {"Spinor indices:", 
            InputField[Dynamic[$nfL], 
-            Number]}, {"Dotted spinor indices:", 
-           InputField[Dynamic[$nfLb], Number]}, 
+            Number]}, Nothing], If[$D == 4, {"Dotted spinor indices:", 
+           InputField[Dynamic[$nfLb], Number]}, Nothing], 
           If[init[[3]] === Null, {"Scaling dimension:", 
             InputField[Dynamic[$nfDim], Number]}, Nothing],
           If[init[[5]] === Null, {"R-charge:", 
@@ -228,19 +238,19 @@ opDialog[reps_, label_,
        DialogReturn[
         Operator[ReleaseHold[
           ToString[#, TraditionalForm] & /@ 
-           Hold[$nfName]], SimpleRepInputConversion[GlobalSymmetry[], $nfRep], $nfDim, {$nfL, $nfLb}/2, 
+           Hold[$nfName]], SimpleRepInputConversion[GlobalSymmetry[], $nfRep], $nfDim, If[$D == 4, {$nfL, $nfLb}/2, $nfL/2], 
          $nfRCharge]]]}]]);
          
 multipletDialog[] := ($multName = Null; $multSC = True;
    DialogInput[
     DialogNotebook[{Framed@
        Panel[Grid[{{"Multiplet name:", 
-           InputField[Dynamic[$multName]]}, {"Self-conjugate:", 
-           Checkbox[Dynamic[$multSC]]}}], 
+           InputField[Dynamic[$multName]]}, If[$D == 4, {"Self-conjugate:", 
+           Checkbox[Dynamic[$multSC]]}, Nothing]}], 
         Style["Add Multiplet", 20], Top, Background -> LightBlue], 
-      DefaultButton[DialogReturn[{ToString[$multName], $multSC}]]}]]);
+      DefaultButton[DialogReturn[{ToString[$multName], If[$D == 3, True, $multSC]}]]}]]);
       
-conventionButton[eq_] := With[{s = ToString@TeXForm[eq]},
+(*conventionButton[eq_] := With[{s = ToString@TeXForm[eq]},
    Button[ClickToCopy[
   Style[eq, {"Output", "TraditionalForm"}], Null], 
  CopyToClipboard@s, 
@@ -263,16 +273,16 @@ conventions[2] := Flatten[Table[
 conventionsPanel[] := Row[{Column[Prepend[conventions[1], Style["General conventions", Bold, 16]], Spacings -> 2]//TraditionalForm, 
    Spacer[20], 
    Column[{Style["Spacetime structure building blocks", Bold, 16], Pane[Column[conventions[2]] //TraditionalForm, ImageSize -> {700, 500}, Scrollbars -> True]}, Spacings -> 1]
-}, Alignment -> Top];
+}, Alignment -> Top];*)
 
 ExportResults[file_] := NotebookSave[resultsNotebook[], file];
 
 resultsNotebook[] := CreateDocument[{
    Cell[TextData[{ButtonBox["SCWIGEE", BaseStyle->"Hyperlink", ButtonData->{URL["https://github.com/srossd/SCWIGEE"], None}, ButtonNote->"https://github.com/srossd/SCWIGEE"], " Results"}], "Title"],
-   CellGroup[{
+  (* CellGroup[{
       TextCell["Conventions", "Chapter"],
    	  ExpressionCell[conventionsPanel[]]
-   }, Closed],
+   }, Closed],*)
    CellGroup[{
      TextCell["Operators", "Chapter"],
      TextCell["SUSY Multiplets", "Section"],
@@ -349,12 +359,12 @@ resultsNotebook[] := CreateDocument[{
       	   TextCell["Spacetime Structures", "Subsection"],
       	   CellGroup[{
       	      TextCell["In terms of building block structures: ", "Subsubsection"],
-      	   	  ExpressionCell[TraditionalForm[KinematicPrefactor[ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], $qdefect] SpacetimeStructureExpressions[Spin /@ grp[[1]], $qdefect][[;;,1]]], "Output"]
+      	   	  ExpressionCell[TraditionalForm[KinematicPrefactor[SpacetimeDimension[], ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], "DefectCodimension" -> $qdefect] ConformalCorrelatorExpressions[SpacetimeDimension[], Spin /@ grp[[1]], "DefectCodimension" -> $qdefect][[;;,1]]], "Output"]
       	   }, Closed],
       	   CellGroup[{
       	   	  TextCell["Explicit components: ", "Subsubsection"],
       	   	  TextCell["The spinor indices appear in the same order in which they appear in the correlator. X[i, j] denotes the jth coordinate of the ith operator position.", "Text"],
-      	      ExpressionCell[If[ArrayQ[#], SparseArray[#], #] & /@ (Normal@*Components /@ SpacetimeStructures[ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], {}, Range[Length[grp[[1]]]], $qdefect] /. SCWIGEE`x -> Global`X), "Output"]
+      	      ExpressionCell[If[ArrayQ[#], SparseArray[#], #] & /@ (Normal@*Components /@ ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ grp[[1]], Spin /@ grp[[1]], {}, Range[Length[grp[[1]]]], $qdefect] /. ConformalStructures`x -> Global`X), "Output"]
       	   }, Closed]
       	},Closed],
       	Cell["Coefficients", "Subsection"],
@@ -453,8 +463,12 @@ wizardPanel[] := Panel[Dynamic[Grid[
        Grid[
           {
              {
+                Style["Spacetime dimension: ", 14], 
+      			Dynamic[RadioButtonBar[Dynamic[$D], {3 -> Style["3", 12], 4 -> Style["4", 12]}, Enabled -> $editing]]
+      		 },
+             {
                 Style["Signature: ", 14], 
-      			Dynamic[RadioButtonBar[Dynamic[$signatureFactor], {1 -> Style["Lorentzian", 12], I -> Style["Euclidean", 12]}, Enabled -> $editing]]
+      			Dynamic[RadioButtonBar[Dynamic[ConformalStructures`Private`$signatureFactor, SetSignature[If[#1 == I, "Lorentzian", "Euclidean"]] &], {1 -> Style["Euclidean", 12], I -> Style["Lorentzian", 12]}, Enabled -> $editing]]
       		 },
       		 {
       		    Style["Defect: ", 14], 
@@ -462,14 +476,15 @@ wizardPanel[] := Panel[Dynamic[Grid[
       		       None -> Style["None", 12], 
       		       1 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 1", 12], "Defect codimension 1"], 
            		   2 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 2", 12], "Defect codimension 2"], 
-         		   3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"]}, 
+         		   If[$D == 4, 3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"], Nothing]}, 
          		  Enabled -> $editing]
          		]
          	 }
          }, 
          Alignment -> Left
        ], 
-      Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {1100, 800}, WindowFloating -> False, WindowTitle -> "Conventions"]]
+      (*Dynamic[PopupWindow[Button["View Conventions"], conventionsPanel[], WindowSize -> {1100, 800}, WindowFloating -> False, WindowTitle -> "Conventions"]]*)
+      ""
      }, 
      {
       "", 
