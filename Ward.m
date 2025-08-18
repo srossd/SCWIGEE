@@ -98,7 +98,7 @@ AddSolutions[soln_] :=
    With[{uvVersions = Values /@ GroupBy[
          Select[
           Flatten[Table[s /. cross, {s, soln}, {cross, crosses[$qdefect]}]], 
-          MatchQ[#[[1]], g[__][Sequence @@ crossRatios[$qdefect]] | Derivative[__][g[__]][Sequence @@ crossRatios[$qdefect]]] &
+          MatchQ[#[[1]], h_[Sequence @@ crossRatios[$qdefect]] | Derivative[__][h_][Sequence @@ crossRatios[$qdefect]] /; (MemberQ[$ArbitraryFunctions, h] || MatchQ[h, _g])] &
          ] /. HoldPattern[a_ -> b_] :> (Head[a] -> (Function[Evaluate[crossRatios[$qdefect]], tmp] /. tmp -> b)), 
       First]
     },
@@ -133,3 +133,23 @@ CrossingSimplify[expr_] :=
         Table[f[args__] | 
           Derivative[__][f][args__], {f, $ArbitraryFunctions}]) /; 
      Length[{args}] == 2 && {args} =!= crossRatios[$qdefect] :> crossIt[tterm];
+     
+CrossingRelations[ops_] := Module[{start, ninds, eqs, vars},
+   start = ExpandCorrelator@Correlator[Tensor[ops]];
+   ninds = Length[Indices[(List @@ start)[[1]]]];
+   eqs = Thread[DeleteCases[Simplify@Flatten@Table[
+          Normal@ExpansionComponents[
+             start -
+              (TensorPermute[ExpandCorrelator@Correlator[Tensor[ops]],
+                  Join[p, Range[Length[ops] + 1, ninds]]] /. 
+                Range[Length[ops]] -> p)
+             ] /. Normal[First /@ SolvedCorrelators[]],
+          {p, 
+           Select[Permutations[Range[Length[ops]]], ops[[#]] === ops &]}
+          ], 0] == 0];
+   vars = 
+    DeleteDuplicates@
+     Cases[eqs, 
+      h_[args__] /; MemberQ[$ArbitraryFunctions, h] && {args} =!= crossRatios[$qdefect], All];
+   First@Solve[eqs, vars]
+   ];

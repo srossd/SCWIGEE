@@ -83,7 +83,7 @@ RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{re
 	relations
 ];
 
-uvReplace =  {u[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[1, perm], u], v[perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ uvpowers[2, perm], v]};
+uvReplace =  {u[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 1, perm], u], v[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 2, perm], v]};
 
 Options[ExpansionComponents] = {"MonitorProgress" -> False};
 ExpansionComponents[a_ b_, rest___, opt: OptionsPattern[]] /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] := Explicit[a /. uvReplace] ExpansionComponents[b, rest, opt];
@@ -96,8 +96,8 @@ ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _T
 ];
 
 ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms = List @@ Expand[Plus[a, rest]]},
-   With[{largeRBasis = DeleteDuplicates[RPart /@ allterms], largeSTBasis = SortBy[DeleteDuplicates[NonRPart /@ allterms], First@Cases[#, s_SpacetimeStructure :> {Length[s[[3]]], s[[4]], -s[[6]]}, All] &]},
-      With[{RRels = RRelations[largeRBasis, opt], STRels = SpacetimeRelations[largeSTBasis]},
+   With[{largeRBasis = DeleteDuplicates[RPart /@ allterms], largeSTBasis = SortBy[DeleteDuplicates[NonRPart /@ allterms], First@Cases[#, s_correlator :> {Length[s[[4]]], s[[5]], -s[[7]]}, All] &]},
+      With[{RRels = RRelations[largeRBasis, opt], STRels = StructureRelations[largeSTBasis]},
       	Sum[ExpansionComponents[t /. uvReplace, {largeRBasis, RRels}, {largeSTBasis, STRels}], {t, List @@ Expand[Plus[a, rest]]}]
       ]
    ]
@@ -113,7 +113,7 @@ crossingPermutationST[t_Tensor, order_] :=
     Ordering[
      TensorPermutation[ordered][[
       Select[Range@
-        Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], Spinor | DottedSpinor] &]]]]
+        Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], DiracSpinor | WeylSpinor | DottedWeylSpinor] &]]]]
    ];
 crossingPermutationR[t_Tensor, order_] := 
   With[{ordered = SwapFactors[t, order]},
@@ -149,12 +149,13 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
      derivs = Flatten@Table[i, {i, Length[names]}, {j, Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
      q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
      rreps = FirstCase[#, Raised[ind : (_GlobalIndex | _DefectGlobalIndex)] :> ind] & /@ names,
-     fieldsReplaced, sfields, order, numinvs, numSTs, sign, STindperm, Rindperm, arrangements},
+     fieldsReplaced, sfields, order, numinvs, STs, numSTs, sign, STindperm, Rindperm, arrangements},
     	fieldsReplaced = ReplacePart[fields, Thread[Table[{i, 2}, {i, Length[fields]}] -> rreps[[;;, 1]]]];
    		sfields = Sort[fieldsReplaced, fieldOrder]; 
      	order = Ordering[fieldsReplaced, All, fieldOrder];
     	numinvs = numInvariants[rreps];
-      	numSTs = Length@SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, {}, order, q];
+    	STs = ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ sfields, Spin /@ sfields, {}, order, "DefectCodimension" -> q];
+      	numSTs = Length@STs;
       	sign = Signature@InversePermutation[order][[Select[Range@Length@fields, ! IntegerQ[ScalingDimension[fields[[#]]]] &]]];
       	STindperm = crossingPermutationST[Tensor[names], order]; 
       	Rindperm = crossingPermutationR[Tensor[names], order];
@@ -165,15 +166,15 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
      	sign Sum[
        		Switch[{Length[names], OptionValue[Correlator, "Defect"]},
           		{2, False},
-          		If[Total[derivArrangement[[1]]] != 0, 0, I^(2 Abs[Subtract @@ Spin[fields[[1]]]])],
+          		If[Total[derivArrangement[[1]]] != 0, 0, If[ListQ[Spin[fields[[1]]]], I^(2 Abs[Subtract @@ Spin[fields[[1]]]]), If[IntegerQ[Spin[fields[[1]]]], 1, I]]],
           		{3, False}, 
           		If[Total[derivArrangement[[1]]] != 0, 0, \[Lambda][sfields,i,j]], 
           		{4, False},
-          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][u[order], v[order]],
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[q]}]],
           		{1, True},
           		If[Total[derivArrangement[[1]]] != 0, 0, a[sfields[[1]]]],
           		{2, True},
-          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[order], {c, crossRatios[$qdefect]}]]
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[q]}]]
        		] TensorProduct[
           TensorPermute[
            Switch[Length[names],
@@ -183,7 +184,7 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
            	1, 1
            ], 
            Rindperm], 
-          TensorPermute[SpacetimeStructures[ScalingDimension /@ sfields, Spin /@ sfields, derivArrangement[[2]], order, q][[j]], STindperm]
+          TensorPermute[ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ sfields, Spin /@ sfields, derivArrangement[[2]], order, "DefectCodimension" -> q][[j]], STindperm]
        ],
        {i, numinvs}, {j, numSTs}, {derivArrangement, arrangements}
        ]

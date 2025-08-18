@@ -453,6 +453,7 @@ buildExpression[TreeInvariant[edges_]] :=
   ]
 
 $internalReps = Automatic;
+SetInternalReps[reps_] := ($internalReps = reps);
 
 allReps[] := If[$internalReps === Automatic, DeleteDuplicates[GlobalRep /@ Flatten[Multiplet /@ $multipletIndices]], $internalReps];
 repTree[reps_] := repTree[reps] =
@@ -471,8 +472,6 @@ repTree[reps_] := repTree[reps] =
       Length[reps]}, {j, Length[allReps[]]}], 1]]
 
 
-Options[treeGraphs] = {"IrrepSet" -> Automatic};
-Options[loopGraphs] = {"IrrepSet" -> Automatic};
 loopGraphs[reps_] := loopGraphs[reps] = Flatten@Table[
     LoopInvariant[
      Join[Table[{Internal[i], External[i], reps[[i]]}, {i, 
