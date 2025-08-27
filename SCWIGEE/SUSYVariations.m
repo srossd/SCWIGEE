@@ -117,7 +117,7 @@ symmetryInconsistent[gen1_, gen2_] := Max[Length /@ Values[GroupBy[DeleteDuplica
 Options[PossibleQActions] = {"QBar" -> False};
 PossibleQActions::noqbar = "No \!\(\*OverscriptBox[\(Q\), \(_\)]\) in odd dimensions";
 PossibleQActions[f : Operator[_, rep_, dim_, spin_, y_], opt: OptionsPattern[]] := PossibleQActions[f, opt] = If[TrueQ[OptionValue["QBar"]],
-   If[ListQ[spin], qToQBar /@ PossibleQActions[Conjugate[f], "QBar" -> False], Message[PossibleQActions::noqbar]],
+   If[ListQ[spin], qToQBar @ PossibleQActions[Conjugate[f], "QBar" -> False], Message[PossibleQActions::noqbar]],
    DeleteDuplicates[(SymmetryReduce /@
     Select[
      With[ {reps = ReduceRepProduct[GlobalSymmetry[], {QGlobalRep[], rep}][[;; , 1]]},
@@ -147,8 +147,81 @@ fieldPerm[t_] := With[{inds =
 	PermutationPower[Cycles[{inds}], 2 Spin[f][[1]]]
 ];
 (* specific to QAnsatz expressions *)
-qToQBar[expr_] := expr /. t_Contract :> qToQBar[t]/. SUSYCoefficient[name_, idx_, "QBar" -> False] :> SUSYCoefficient[Conjugate[name2field[name]][[1]], idx, "QBar" -> True];
-qToQBar[Contract[t_, pairs_]] := With[{fp = fieldPerm[t]},
+qToQBar[expr_] := 
+  Replace[expr, {SUSYCoefficient[name_, idx_, "QBar" -> False] :> 
+     SUSYCoefficient[Conjugate[name2field[name]][[1]], idx, 
+      "QBar" -> True], 
+    Contract[
+      t2 : Tensor[{{"C", Lowered[r1_], Raised[r2_], Raised[r3_]}, 
+         op : {s_, __}, 
+         Optional[c : {chargeconj[], __}, Nothing]}], {{1, 4}, 
+       rest___}] :> 
+     Module[{fp2 = PermutationList[fieldPerm[t2], Length[Indices[t2]]]},
+       Contract[
+       Tensor[{{"C", Raised[conjIndex[r3]], Lowered[r2], 
+          Lowered[conjIndex[r1]]}, 
+         ToTensor[Conjugate@name2field[s]][[1, 1]], 
+         c /. {WeylSpinor -> DottedWeylSpinor, 
+           DottedWeylSpinor -> WeylSpinor}}], {{3, 4}, 
+        Sequence @@ ({rest} /. i_Integer :> fp2[[i]])}]], 
+    Contract[
+      t2 : Tensor[{{"C", Lowered[r1_], Raised[r2_], Raised[r3_]}, 
+         deriv : {"\[PartialD]", __}, op : {s_, __}, 
+         Optional[c : {chargeconj[], __}, Nothing]}], {{1, 6}, 
+       rest___}] :> 
+     Module[{fp2 = 
+        PermutationList[
+         PermutationProduct[Cycles[{{4, 5}}], fieldPerm[t2]], 
+         Length[Indices[t2]]]}, 
+      Contract[
+       Tensor[{{"C", Raised[conjIndex[r3]], Lowered[r2], 
+          Lowered[conjIndex[r1]]}, deriv, 
+         ToTensor[Conjugate@name2field[s]][[1, 1]], 
+         c /. {WeylSpinor -> DottedWeylSpinor, 
+           DottedWeylSpinor -> WeylSpinor}}], {{3, 6}, 
+        Sequence @@ ({rest} /. i_Integer :> fp2[[i]])}]], 
+    TensorPermute[
+      t : Contract[
+        t2 : Tensor[{{"C", Lowered[r1_], Raised[r2_], Raised[r3_]}, 
+           op : {s_, __}, 
+           Optional[c : {chargeconj[], __}, Nothing]}], {{1, 4}, 
+         rest___}], perm_] :> 
+     Module[{fp = fieldPerm[t], 
+       fp2 = PermutationList[fieldPerm[t2], Length[Indices[t2]]]}, 
+      TensorPermute[
+       Contract[
+        Tensor[{{"C", Raised[conjIndex[r3]], Lowered[r2], 
+           Lowered[conjIndex[r1]]}, 
+          ToTensor[Conjugate@name2field[s]][[1, 1]], 
+          c /. {WeylSpinor -> DottedWeylSpinor, 
+            DottedWeylSpinor -> WeylSpinor}}], {{3, 4}, 
+         Sequence @@ ({rest} /. i_Integer :> fp2[[i]])}], 
+       PermutationList[
+        PermutationProduct[fp, perm, InversePermutation[fp]], 
+        Length[perm]]]], 
+    TensorPermute[
+      t : Contract[
+        t2 : Tensor[{{"C", Lowered[r1_], Raised[r2_], Raised[r3_]}, 
+           deriv : {"\[PartialD]", __}, op : {s_, __}, 
+           Optional[c : {chargeconj[], __}, Nothing]}], {{1, 6}, 
+         rest___}], perm_] :> 
+     Module[{fp = fieldPerm[t], 
+       fp2 = PermutationList[
+         PermutationProduct[Cycles[{{4, 5}}], fieldPerm[t2]], 
+         Length[Indices[t2]]]}, 
+      TensorPermute[
+       Contract[
+        Tensor[{{"C", Raised[conjIndex[r3]], Lowered[r2], 
+           Lowered[conjIndex[r1]]}, deriv, 
+          ToTensor[Conjugate@name2field[s]][[1, 1]], 
+          c /. {WeylSpinor -> DottedWeylSpinor, 
+            DottedWeylSpinor -> WeylSpinor}}], {{3, 6}, 
+         Sequence @@ ({rest} /. i_Integer :> fp2[[i]])}], 
+       PermutationList[
+        PermutationProduct[fp, Cycles[{{3, 4}}], perm, Cycles[{{3, 4}}],
+          InversePermutation[fp]], Length[perm]]]]}, 
+   If[Head[expr] === Plus, {2}, {1}]];
+(*qToQBar[Contract[t_, pairs_]] := With[{fp = fieldPerm[t]},
    Contract[qToQBar[t], If[Symbolic[t][[2,1]] == "\[PartialD]", pairs /. {1 -> 3, 4 -> 5, 5 -> 4}, pairs /. 1 -> 3] /. Thread[Range@Length[Indices[t]] -> PermutationList[InversePermutation[fp], Length@Indices[t]]]]
 ];
 qToQBar[TensorPermute[t_, perm_]] := 
@@ -166,22 +239,22 @@ qToQBar[t_Tensor] := t /. {{"C", Lowered[GlobalIndex[i_]], Raised[GlobalIndex[j_
    {chargeconj[], Raised[DottedWeylSpinor[4]], Raised[DottedWeylSpinor[4]]} -> {chargeconj[], Raised[WeylSpinor[4]], Raised[WeylSpinor[4]]},
    {chargeconj[], Lowered[DottedWeylSpinor[4]], Lowered[DottedWeylSpinor[4]]} -> {chargeconj[], Lowered[WeylSpinor[4]], Lowered[WeylSpinor[4]]},
    {name_, idxs___} /; MemberQ[Flatten[$multiplet /@ $multipletIndices][[;;,1]], name] :> Symbolic[ToTensor[Conjugate[name2field[name]]]][[1]]
-};
+};*)
 
 fingerprint[Contract[t_, pairs_]] := Module[{indpos},
    indpos = Position[Symbolic[t], _Raised | _Lowered];
    Delete[Symbolic[t], indpos[[Flatten[pairs]]]]
 ];
-fingerprint[Contract[TensorPermute[t_, perm_], pairs_]] := Module[{indpos},
+fingerprint[TensorPermute[Contract[t_, pairs_], perm_]] := Module[{indpos},
    indpos = Position[Symbolic[t], _Raised | _Lowered];
-   Delete[Symbolic[t], indpos[[Flatten[pairs] /. x_Integer :> InversePermutation[perm][[x]]]]]
+   Delete[Symbolic[t], indpos[[Flatten[pairs]]]]
 ];
 
 Options["QAnsatz"] = {"QBar" -> False, "Symmetrized" -> True};
 QAnsatz[f_Operator, opt : OptionsPattern[]] := 
   QAnsatz[f, opt] = If[OptionValue["Symmetrized"],
    If[OptionValue["QBar"],
-      QAnsatz[Conjugate[f], "QBar" -> False] /. SUSYCoefficient[name_, idx_, "QBar" -> False] t_ :> SUSYCoefficient[Conjugate[name2field[name]][[1]], idx, "QBar" -> True] qToQBar[t],
+      qToQBar[QAnsatz[Conjugate[f], "QBar" -> False]],
 	   With[{unsym = QAnsatz[f, "QBar" -> OptionValue["QBar"], "Symmetrized" -> False]},
 	      Which[unsym === 0, 0,
 	         Head[unsym] =!= Plus, unsym, 
@@ -212,8 +285,8 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 		    Do[
 				monitorProgress[
 					Do[
-						If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
-						If[EvenQ[SpacetimeDimension[]], If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
+						If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
+						If[EvenQ[SpacetimeDimension[]], If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
 						{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
 					],
 					"Label" -> "Determining SUSY ansatzes ("<>$multipletName[i]<>")",
@@ -221,25 +294,25 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 				],
 			{i, $multipletIndices}],
 			Do[
-				If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
-				If[EvenQ[SpacetimeDimension[]], If[IntegerQ[ScalingDimension[op]], Commutator, Anticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
+				If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
+				If[EvenQ[SpacetimeDimension[]], If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
 				{i, $multipletIndices},
 				{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
 			]
 		];
 		
-		Commutator[$QTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
-		Commutator[$QBarTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
-		Commutator[$QTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
-		Commutator[$QBarTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
-		Commutator[$QTensor, Tensor[{{"C", ___}}]] = 0;
-		Commutator[$QBarTensor, Tensor[{{"C", ___}}]] = 0;
-		Commutator[$QTensor, Tensor[{{chargeconj[], ___}}]] = 0;
-		Commutator[$QBarTensor, Tensor[{{chargeconj[], ___}}]] = 0;
-		Commutator[$QTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
-		Commutator[$QBarTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
-		Commutator[$QTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
-		Commutator[$QBarTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
+		TensorCommutator[$QTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
+		TensorCommutator[$QBarTensor, Tensor[{{"\[Delta]", ___}}]] = 0;
+		TensorCommutator[$QTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
+		TensorCommutator[$QBarTensor, Tensor[{{\[Sigma]LowerTensor[_], ___}}]] = 0;
+		TensorCommutator[$QTensor, Tensor[{{"C", ___}}]] = 0;
+		TensorCommutator[$QBarTensor, Tensor[{{"C", ___}}]] = 0;
+		TensorCommutator[$QTensor, Tensor[{{chargeconj[], ___}}]] = 0;
+		TensorCommutator[$QBarTensor, Tensor[{{chargeconj[], ___}}]] = 0;
+		TensorCommutator[$QTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
+		TensorCommutator[$QBarTensor, Tensor[{{"\[PartialD]", ___}}]] = 0;
+		TensorCommutator[$QTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
+		TensorCommutator[$QBarTensor, Tensor[{{SU2BreakingTensor[], ___}}]] = 0;
     ];
 	
 	$algebraDeclared = True;
@@ -248,17 +321,8 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 quadraticZero[op_] := quadraticZero[op] = Which[
    SpacetimeDimension[] == 4, (* {Q, Qb} = 2P *)
    	NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] + 2 I TensorProduct[Kronecker[GlobalIndex[QGlobalRep[]]], Tensor[{{"\[PartialD]", Lowered[WeylSpinor[4]], Lowered[DottedWeylSpinor[4]]}}], Tensor[{op}]],
-   SpacetimeDimension[] == 3, (* {Q, Q} = P *) (* hack to dodge SwapIn bug *)
-    ((# + (Expand[#] /. a_ b_ /; ! FreeQ[b, Alternatives @@  TensorTools`Private`$TensorHeads] :> (a TensorPermute[b, 
-     PermutationList[
-      Cycles[{InversePermutation[
-          TensorPermutation[
-           b]][[Position[Indices[b], Lowered[DiracSpinor[3]]][[;; 2, 
-            1]]]], InversePermutation[
-          TensorPermutation[
-           b]][[Position[Indices[b], 
-            Raised[GlobalIndex[QGlobalRep[]]]][[;; 2, 1]]]]}], 
-      Length[Indices[b]]]]))) & @ NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True]) + 2 I TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[DiracSpinor[3]], Lowered[DiracSpinor[3]]}}], Tensor[{op}]]
+   SpacetimeDimension[] == 3, (* {Q, Q} = 2P *)
+    NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + 2 I TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[DiracSpinor[3]], Lowered[DiracSpinor[3]]}}], Tensor[{op}]]
 ];
 
 Options[opGroup] = {"Conjugate" -> False};
