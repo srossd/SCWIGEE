@@ -319,10 +319,10 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 ];
 
 quadraticZero[op_] := quadraticZero[op] = Which[
-   SpacetimeDimension[] == 4, (* {Q, Qb} = 2P *)
-   	NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] + 2 I TensorProduct[Kronecker[GlobalIndex[QGlobalRep[]]], Tensor[{{"\[PartialD]", Lowered[WeylSpinor[4]], Lowered[DottedWeylSpinor[4]]}}], Tensor[{op}]],
-   SpacetimeDimension[] == 3, (* {Q, Q} = 2P *)
-    NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + 2 I TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[DiracSpinor[3]], Lowered[DiracSpinor[3]]}}], Tensor[{op}]]
+   SpacetimeDimension[] == 4, (* {Q, Qb} = (1/2)P *)
+   	NormalOrder[TensorProduct[$QTensor, $QBarTensor, Tensor[{op}]] + TensorProduct[$QBarTensor, $QTensor, Tensor[{op}]], "Vacuum" -> True] + (I/2) TensorProduct[Kronecker[GlobalIndex[QGlobalRep[]]], Tensor[{{"\[PartialD]", Lowered[WeylSpinor[4]], Lowered[DottedWeylSpinor[4]]}}], Tensor[{op}]],
+   SpacetimeDimension[] == 3, (* {Q, Q} = (1/2)P *)
+    NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + (I/2) TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[DiracSpinor[3]], Lowered[DiracSpinor[3]]}}], Tensor[{op}]]
 ];
 
 Options[opGroup] = {"Conjugate" -> False};
