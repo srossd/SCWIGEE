@@ -68,7 +68,7 @@ RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{re
 	   RandomSample[Range@size, Min[5000, size]]];
 	relations = 
 	  If[# === {}, {}, RowReduce@#] &@
-	   NullSpace[
+	   NullSpace@Simplify[
 	    Transpose[
 	     ArrayFlatten[
 	       If[OptionValue["MonitorProgress"],
