@@ -87,32 +87,37 @@ expansion[structure_, basis_, relations_] :=
    ]
   ];
 
-Options[solveGroups] = {"Assumptions" -> {}, 
-   "Transformation" -> Simplify, "TempRules" -> {}};
+Options[solveGroups] = {"Assumptions" -> {}, "Transformation" -> Simplify, "TempRules" -> {}, "RemoveRedundant" -> False};
 solveGroups::nosol = "No solution could be found.";
 solveGroups[grps_, vars_, OptionsPattern[]] := 
  DeleteCases[
  monitorProgress[
-  Fold[If[Length[#1] == 
-       Length[vars] || (Length[#1] > 0 && Last[#1] === None), #1, 
-     With[{sol = 
-        Quiet[Assuming[OptionValue["Assumptions"], 
-          With[{tmp = 
-             Solve[OptionValue["Transformation"][#2 /. #1] /. OptionValue["TempRules"], 
-               vars /. OptionValue["TempRules"]] /. (Reverse /@ 
-                OptionValue["TempRules"])}, 
-           If[tmp === {}, Missing[], 
-            OptionValue["Transformation"][First[tmp], 
-             OptionValue["Assumptions"]]]]]]}, 
-      If[MissingQ[sol], Message[solveGroups::nosol]; 
-       {},
-       Sort@
-        DeleteDuplicatesBy[
-         Table[If[FreeQ[rule, Alternatives @@ Keys[sol]], rule, 
-           OptionValue["Transformation"][
-            rule /. HoldPattern[a_ -> b_] :> (a -> (b /. sol)), 
-            OptionValue["Assumptions"]]], {rule, Join[#1, sol]}], 
-         First]]]] &, {}, grps], "Label" -> "Solving equations", 
+  Fold[If[Length[#1] == Length[vars] || #1 === {None}, 
+        #1, 
+        Module[{teqs, tvars, bb, mm, inds, sol, tmp},
+          teqs = OptionValue["Transformation"][#2 /. #1] /. OptionValue["TempRules"];
+          tvars = vars /. OptionValue["TempRules"];
+          tmp = Quiet@Solve[teqs, tvars] /. (Reverse /@ OptionValue["TempRules"]);
+          If[tmp === {} && OptionValue["RemoveRedundant"],
+            {bb, mm} = CoefficientArrays[teqs, tvars];
+            inds = If[OptionValue["RemoveRedundant"], IndependentSet[mm, "Indices" -> True], Range@Length[mm]];
+            tmp = Quiet@Solve[teqs[[inds]], tvars] /. (Reverse /@ OptionValue["TempRules"]);
+          ];
+          sol = Assuming[OptionValue["Assumptions"], If[tmp === {}, Missing[], OptionValue["Transformation"][First[tmp], OptionValue["Assumptions"]]]];
+          If[MissingQ[sol], 
+            Message[solveGroups::nosol]; {None},
+            Sort@DeleteDuplicatesBy[
+              Table[
+                If[FreeQ[rule, Alternatives @@ Keys[sol]], 
+                  rule, 
+                  OptionValue["Transformation"][rule /. HoldPattern[a_ -> b_] :> (a -> (b /. sol)), OptionValue["Assumptions"]]
+                ], 
+              {rule, Join[#1, sol]}
+              ], 
+            First]
+          ]
+        ]
+      ] &, {}, grps], "Label" -> "Solving equations", 
   "CurrentDisplayFunction" -> None], None]
   
 withCounts[xs_] := Last@FoldList[

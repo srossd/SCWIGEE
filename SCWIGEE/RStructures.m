@@ -212,53 +212,23 @@ fixPermutation[Contract[t_, pairs_]] := Module[{newt},
   Contract[newt, pairs /. n_Integer :> deltaperm[[n]]]
 ];
 
-convertRToDefect[t_Tensor | t_TensorPermute] := Module[{perm, symbolic, rIndexPos},
-   perm = TensorPermutation[t];
-   symbolic = Symbolic[t];
-   rIndexPos = SortBy[Position[symbolic, (Raised|Lowered)[_GlobalIndex]], {symbolic[[Sequence @@ #]], Total[(Length /@ symbolic[[;; #[[1]] - 1]]) - 1] + #[[2]] - 1} &];
-   Table[
-      fixPermutation@TensorPermute[
-         Tensor[
-            ReplacePart[
-               symbolic, 
-               Thread[
-                  (Append[#, 1] & /@ rIndexPos) -> 
-                  (toIndex @@@ Thread[{tup, symbolic[[Sequence @@ #,1,1]] & /@ rIndexPos}])
-               ]
-            ]
-         ], 
-      perm],
-      {tup, Tuples[branchingRules[][symbolic[[Sequence @@ #,1,1]]] & /@ rIndexPos]}   
-   ] /. invSelectionRule
-];
-
-convertRToDefect[Contract[t_, pairs_, OptionsPattern[]]] := Module[{perm, symbolic, rIndexPos, contracted, uncontracted},
-   perm = TensorPermutation[t];
-   symbolic = Symbolic[t];
-   rIndexPos = Position[symbolic, (Raised|Lowered)[_GlobalIndex]];
-   contracted = DeleteCases[pairs /. n_Integer :> SelectFirst[rIndexPos, Total[(Length /@ symbolic[[;; #[[1]] - 1]]) - 1] + #[[2]] - 1 == n &], {_?MissingQ, _?MissingQ}];
-   uncontracted = SortBy[Complement[rIndexPos, Flatten[contracted, 1]], {symbolic[[Sequence @@ #]], Total[(Length /@ symbolic[[;; #[[1]] - 1]]) - 1] + #[[2]] - 1} &];
-   Table[
-      Sum[
-      fixPermutation@Contract[
-         TensorPermute[
-            Tensor[
-               ReplacePart[
-                  symbolic, 
-                  Thread[
-                     (Append[#, 1] & /@ Join[uncontracted, contracted[[;;, 1]], contracted[[;;, 2]]]) -> 
-                     (toIndex @@@ Thread[{Join[uTup, cTup, cTup], symbolic[[Sequence @@ #,1,1]] & /@ Join[uncontracted, contracted[[;;, 1]], contracted[[;;, 2]]]}])
-                  ]
-               ]
-            ], 
-         perm], 
-      pairs],
-      {cTup, Tuples[branchingRules[][symbolic[[Sequence @@ #,1,1]]] & /@ contracted[[;;,1]]]} 
-      ],
-      {uTup, Tuples[branchingRules[][symbolic[[Sequence @@ #,1,1]]] & /@ uncontracted]}  
-   ] /. invSelectionRule  
-];
-
+convertRToDefect[t_Tensor | t_TensorPermute | t_Contract] := 
+  Module[{ncon, freeR, summedR, freeBranch, summedBranch, summedPairs},
+     ncon = NCON[t];
+     freeR = Sort@Cases[ncon, {i_, (Raised | Lowered)[_GlobalIndex]} /; i > 0, All];
+     summedR = Cases[ncon, {i_, (Raised | Lowered)[_GlobalIndex]} /; i < 0, All];
+     summedPairs = Select[Subsets[Range@Length@summedR, {2}], MatchQ[summedR[[#]], {OrderlessPatternSequence[{i_, Lowered[ind_]}, {i_, Raised[ind_]}]}] &];
+     freeBranch = Tuples[Table[{#[[1]], #[[2, 0]][toIndex[branch, #[[2, 1, 1]]]]}, {branch, branchingRules[][#[[2, 1, 1]]]}] & /@ freeR];
+     summedBranch = Select[
+        Tuples[Table[{#[[1]], #[[2, 0]][toIndex[branch, #[[2, 1, 1]]]]}, {branch, branchingRules[][#[[2, 1, 1]]]}] & /@ summedR], 
+       And @@ (Equal @@@ Table[#[[pair]] /. (Raised | Lowered) -> Identity, {pair, summedPairs}]) &];
+     Table[
+     	Sum[
+     	   FromNCON[ncon /. Thread[freeR -> fb] /. Thread[summedR -> sb]], 
+        {sb, summedBranch}], 
+     {fb, freeBranch}]
+   ] /. invSelectionRule;
+   
 Options[SU2Breaker] = {"Mixed" -> False};
 SU2Breaker[OptionsPattern[]] := 
 	If[OptionValue["Mixed"],
@@ -267,8 +237,6 @@ SU2Breaker[OptionsPattern[]] :=
 	];
 BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Raised[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {r1, r2}][[;;,1]], singRep[DefectGlobalSymmetry[]]] ]}}];
 BuildTensor[{SU2BreakingTensor[], Raised[DefectGlobalIndex[r1_, _]], Lowered[DefectGlobalIndex[r2_, _]]}] := SparseArray[{{Boole[MemberQ[ReduceRepProduct[DefectGlobalSymmetry[], {r1, ConjugateIrrep[DefectGlobalSymmetry[], r2]}][[;;,1]], singRep[DefectGlobalSymmetry[]]] ]}}];
-
-(*transformer[rep_] := (branchingRules[]; transformer[rep]);*)
 
 Options[TwoPtGlobalInvariant] = {"Conjugate" -> False};
 TwoPtGlobalInvariant[rep1_, rep2_, OptionsPattern[]] := If[OptionValue["Conjugate"], ConjugateTwoPtGlobalInvariant[rep1, rep2], Tensor[{{"\[Delta]", Raised[toIndex[rep1]], Raised[toIndex[rep2]]}}]];
