@@ -10,12 +10,12 @@ DeclareArbitraryFunction[head_] :=
 $SolvedCorrelators = {};
 SolvedCorrelators[] := $SolvedCorrelators;
 
-defectSupercharge[3, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], \[Sigma]LowerSingle[4], \[Epsilon]UpperDot, QTensor["QBar" -> True]], {{1, 7}, {4, 5}, {6, 8}}];
-defectSupercharge[2, {4, 0}, True] := QTensor["QBar" -> True] - I Contract[TensorProduct[\[Epsilon]Defect[2], \[Sigma]CommUpperDot, \[Epsilon]UpperDot, QTensor["QBar" -> True]], {{1, 3}, {2, 4}, {6, 7}, {8, 10}}];
-defectSupercharge[2, {4, 0}, False] := QTensor[] - I Contract[TensorProduct[\[Epsilon]Defect[2], \[Sigma]CommUpper, \[Epsilon]Upper, QTensor[]], {{1, 3}, {2, 4}, {6, 7}, {8, 10}}];
-defectSupercharge[2, {2, 2}, True] :=QTensor["QBar"->True] - I Contract[TensorProduct[LeviCivita[4, "Defect" -> True, "DefectCodimension" -> 2, "Raised" -> True], RotationGenerators[4, "Weyl"->True, "Dotted"->True], SU2Breaker["Mixed" -> True], QTensor["QBar"->True]], {{1, 3}, {2, 4}, {6, 10}, {8, 9}}];
+defectSupercharge[3, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], BasisVector[4, "DefectCodimension" -> 3, "Defect" -> True], SigmaTensor[4], WeylChargeConjugationMatrix[4, "Raised" -> True, "Dotted" -> True], QTensor["QBar" -> True]], {{2, 9}, {3, 4}, {6, 7}, {8, 10}}];
+defectSupercharge[2, {4, 0}, True] := QTensor["QBar" -> True] - I Contract[TensorProduct[LeviCivita[4, "DefectCodimension" -> 2, "Defect" -> True, "Raised" -> True], RotationGenerators[4, "Weyl" -> True, "Dotted" -> True], QTensor["QBar" -> True]], {{1, 3}, {2, 4}, {6, 8}}]
+defectSupercharge[2, {4, 0}, False] := QTensor[] - I Contract[TensorProduct[LeviCivita[4, "DefectCodimension" -> 2, "Defect" -> True, "Raised" -> True], RotationGenerators[4, "Weyl" -> True], QTensor[]], {{1, 3}, {2, 4}, {6, 8}}]
+defectSupercharge[2, {2, 2}, True] :=QTensor["QBar"->True] - I Contract[TensorProduct[LeviCivita[4, "Defect" -> True, "DefectCodimension" -> 2, "Raised" -> True], RotationGenerators[4, "Weyl"->True, "Dotted"->True], SU2Breaker["Mixed" -> True], QTensor["QBar"->True]], {{1, 3}, {2, 4}, {6, 10}, {7, 9}}];
 defectSupercharge[2, {2, 2}, False] := QTensor[] - I Contract[TensorProduct[LeviCivita[4, "Defect" -> True, "DefectCodimension" -> 2, "Raised" -> True], RotationGenerators[4, "Weyl"->True], SU2Breaker["Mixed" -> True], QTensor[]], {{1, 3}, {2, 4}, {6, 10}, {8, 9}}];
-defectSupercharge[1, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[SU2Breaker[], \[Sigma]LowerSingle[1], \[Epsilon]UpperDot, QTensor["QBar"->True]], {{1, 7}, {4, 5}, {6, 8}}];
+defectSupercharge[1, param_] := QTensor[] + Exp[I param] Contract[TensorProduct[SU2Breaker[], BasisVector[4, "DefectCodimension" -> 1, "Transverse" -> True], SigmaTensor[4], WeylChargeConjugationMatrix[4, "Raised" -> True, "Dotted" -> True], QTensor["QBar" -> True]], {{2, 9}, {3, 4}, {6, 7}, {8, 10}}]
   
 Options[WardEquations] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True};
 WardEquations[names : {Except[_Operator]..}, opt : OptionsPattern[]] := WardEquations[name2field /@ names, opt];
@@ -61,21 +61,20 @@ swSimplify[expr_, assum_ : {}] := With[{swapRules = Thread[{u, v} -> {Catalan, E
    ]
 ];
 
-Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True, "EquationGroupSize" -> 10};
-SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] :=
-   SolveWard[name2field /@ names, opt];
-SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, eqsReplaced, bm},
-   eqs = DeleteCases[
-      swSimplify[
-         CrossingSimplify[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]] //. Normal[First /@ SolvedCorrelators[]]] //. Normal[First /@ SolvedCorrelators[]] (* after CrossingSimplify for derivative relations *)
-      ]
+prepareEquations[eqs_] := DeleteCases[
+      monitorProgress[Table[swSimplify[CrossingSimplify[eqs[[i]] //. Normal[First /@ SolvedCorrelators[]]] //. Normal[First /@ SolvedCorrelators[]] (* after CrossingSimplify for derivative relations *)], {i, Length[eqs]}], "Label" -> "Preparing equations", "CurrentDisplayFunction" -> None]
     , True];
+
+Options[SolveWard] = {"QBar" -> False, "Defect" -> False, "UseSUSYRules" -> True, "EquationGroupSize" -> 10};
+SolveWard[names : {Except[_Operator]..}, opt : OptionsPattern[]] := SolveWard[name2field /@ names, opt];
+SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, eqsReplaced, bm},
+   eqs = prepareEquations[WardEquations[fields, "QBar" -> OptionValue["QBar"], "Defect" -> OptionValue["Defect"], "UseSUSYRules" -> OptionValue["UseSUSYRules"]]];
    vars = SortBy[Select[DeleteDuplicates@Cases[eqs, g[__][__] | \[Lambda][__], All], !superprimaryCorrelatorQ[#]&], Total[Table[Boole[IntegerQ[i]], {i, (# /. g[params__][__] :> g[params])[[1]]}]] &];
    eqsReplaced = SortBy[DeleteDuplicates[eqs /. Thread[vars -> Array[\[Alpha], Length[vars]]]], Count[#, _\[Alpha], All] &];
    bm = CoefficientArrays[eqs, vars];
    If[ AllTrue[bm[[1]], # === 0 &],
       Thread[vars -> 0],
-      Sort[solveGroups[Partition[eqsReplaced, UpTo[OptionValue["EquationGroupSize"]]], Array[\[Alpha], Length[vars]], "Transformation" -> swSimplify, "TempRules" -> Thread[{u,v} -> {Catalan, EulerGamma}]] /. Thread[Array[\[Alpha], Length[vars]] -> vars]] /. Thread[{Catalan, EulerGamma} -> {u, v}]
+      Sort[solveGroups[Partition[eqsReplaced, UpTo[OptionValue["EquationGroupSize"]]], Array[\[Alpha], Length[vars]], "Transformation" -> swSimplify, "TempRules" -> Thread[{u,v} -> {Catalan, EulerGamma}], "RemoveRedundant" -> True] /. Thread[Array[\[Alpha], Length[vars]] -> vars]] /. Thread[{Catalan, EulerGamma} -> {u, v}]
    ]
 ];
   

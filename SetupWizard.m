@@ -89,7 +89,7 @@ singRep[grp_] :=
   If[IsSimpleGroupQ[grp], 
    If[grp == {}, 0, PadRight[{}, Length[grp]]], singRep /@ grp];
 
-$D = 4;
+$D = Null;
 $RSymmetry = Null;
 $QGlobalRep = Null;
 $DefectRSymmetry = Null;
@@ -476,7 +476,7 @@ wizardPanel[] := Panel[Dynamic[Grid[
       		       None -> Style["None", 12], 
       		       1 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 1", 12], "Defect codimension 1"], 
            		   2 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 2", 12], "Defect codimension 2"], 
-         		   If[$D == 4, 3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"], Nothing]}, 
+         		   If[$D === 4, 3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"], Nothing]}, 
          		  Enabled -> $editing]
          		]
          	 }

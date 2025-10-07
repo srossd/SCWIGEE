@@ -61,26 +61,23 @@ NonRPart[TensorDerivative[t_, i_]] := TensorDerivative[NonRPart[t], i];
 RPart[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := RPart[b];
 NonRPart[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := NonRPart[b];
    
-Options[RRelations] = {"MonitorProgress" -> False};
-RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, choice},
-	choice = 
-	  With[{size = Length@Flatten@CanonicallyOrderedComponents[largebasis[[1]]]}, 
-	   RandomSample[Range@size, Min[5000, size]]];
-	relations = 
-	  If[# === {}, {}, RowReduce@#] &@
-	   NullSpace@Simplify[
-	    Transpose[
-	     ArrayFlatten[
+Options[RRelations] = {"MonitorProgress" -> False, "SampleSize" -> 5000, "Rigorous" -> False};
+RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, comps, choice, choice2, size},
+  	size = Length@Flatten@CanonicallyOrderedComponents[largebasis[[1]]];
+	choice = RandomSample[Range@size, Min[OptionValue["SampleSize"], size]];
+	choice2 = RandomSample[Range@size, If[OptionValue["Rigorous"], size, Min[2 OptionValue["SampleSize"], size]]]; 
+	comps = ArrayFlatten[
 	       If[OptionValue["MonitorProgress"],
 	       monitorProgress[Table[
 	         Flatten[CanonicallyOrderedComponents[largebasis[[ri]]]][[
-	          choice]], {ri, Length[largebasis]}], "Label" -> "Global symmetry structure relations",
+	          Join[choice, choice2]]], {ri, Length[largebasis]}], "Label" -> "Global symmetry structure relations",
 				"CurrentDisplayFunction" -> None
 	        ],
 	        Table[
 	         Flatten[CanonicallyOrderedComponents[largebasis[[ri]]]][[
-	          choice]], {ri, Length[largebasis]}]]]]];
-	relations
+	          Join[choice, choice2]]], {ri, Length[largebasis]}]]];
+	relations = If[# === {}, {}, RowReduce@#] &@ NullSpace@Simplify[Transpose[comps][[;;Length[choice]]]];
+	If[OptionValue["SampleSize"] >= size || Max[Chop@N@Flatten[relations . comps]] == 0, relations, RRelations[largebasis, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rigorous" -> OptionValue["Rigorous"], "SampleSize" -> 2 OptionValue["SampleSize"]]]
 ];
 
 uvReplace =  {u[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 1, perm], u], v[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 2, perm], v]};
@@ -104,8 +101,8 @@ ExpansionComponents[Plus[a_, rest__], opt: OptionsPattern[]] := With[{allterms =
 ];
 ExpansionComponents[t : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), OptionsPattern[]] := SparseArray[{{1,1} -> If[And @@ (Thread[Flatten[Normal@Components[t]] === 0]), 0, 1]},{1,1}];
       
-fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Abs[Last[#1]], -Last[#1], First[#2]}, 
-                       {N@ScalingDimension[#2], Abs[Last[#2]], -Last[#2], First[#1]}}] &;
+fieldOrder = OrderedQ[{{N@ScalingDimension[#1], Abs[Last[#1]], -Last[#1], dynkin[#1[[2]]], First[#2]}, 
+                       {N@ScalingDimension[#2], Abs[Last[#2]], -Last[#2], dynkin[#2[[2]]], First[#1]}}] &;
                              
 crossingPermutationST[t_Tensor, order_] := 
   With[{ordered = SwapFactors[t, order]},
