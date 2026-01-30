@@ -93,7 +93,7 @@ crosses[None] = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u,
     v -> u}}; 
 
 AddSolutions[soln_] := 
-  Block[{tmp}, 
+  Block[{tmp, unknowns}, 
    With[{uvVersions = Values /@ GroupBy[
          Select[
           Flatten[Table[s /. cross, {s, soln}, {cross, crosses[$qdefect]}]], 
@@ -110,18 +110,17 @@ AddSolutions[soln_] :=
            ], 
         {val, $SolvedCorrelators[k]}], 
         {k, Keys[$SolvedCorrelators]}];
-    ]
+    ];
+    unknowns = Sort[DeleteDuplicates@Cases[Values[SolvedCorrelators[]], g[__], All, Heads -> True]];
+    $SolvedCorrelators = KeySelect[$SolvedCorrelators, !MemberQ[unknowns, #] &];
    ];
 
-DeclareCrossingRule::unknown = "The function `` has not been declared using DeclareArbitraryFunction.";
 DeclareCrossingRule::invalid = "The function `` is not related by crossing to ``[u, v].";
 DeclareCrossingRule[head_[arg1_, arg2_], rhs_] := 
   If[! MemberQ[crosses[$qdefect][[;; , ;; , 2]], {arg1, arg2}], 
    Message[DeclareCrossingRule::invalid, head[arg1, arg2], head],
-   If[! MemberQ[$ArbitraryFunctions, head], 
-    Message[DeclareCrossingRule::unknown, head],
-    $crossingRules[head[arg1, arg2]] = Function[{$x, $y}, Evaluate[rhs /. Solve[$x == arg1 && $y == arg2, {u,v}][[1]]]]
-   ]
+   DeclareArbitraryFunction[head];
+   $crossingRules[head[arg1, arg2]] = Function[{$x, $y}, Evaluate[rhs /. Solve[$x == arg1 && $y == arg2, {u,v}][[1]]]];
   ];
 
 crossIt[expr: head_[__]] := crossIt[expr] = Simplify[expr /. head -> $crossingRules[expr]];
@@ -133,22 +132,30 @@ CrossingSimplify[expr_] :=
           Derivative[__][f][args__], {f, $ArbitraryFunctions}]) /; 
      Length[{args}] == 2 && {args} =!= crossRatios[$qdefect] :> crossIt[tterm];
      
-CrossingRelations[ops_] := Module[{start, ninds, eqs, vars},
+Options[CrossingRelations] = {"Solved" -> True};
+CrossingRelations[ops_, OptionsPattern[]] := Module[{realops,start, ninds, eqs, vars, sign, STindperm, Rindperm},
+   realops = Replace[ops, s_String :> name2field[s], {1}];
    start = ExpandCorrelator@Correlator[Tensor[ops]];
    ninds = Length[Indices[(List @@ start)[[1]]]];
    eqs = Thread[DeleteCases[Simplify@Flatten@Table[
+   		sign = Signature@InversePermutation[p][[Select[Range@Length@ops, ! IntegerQ[ScalingDimension[realops[[#]]]] &]]];
+      	STindperm = crossingPermutationST[Tensor[ops], p]; 
+      	Rindperm = crossingPermutationR[Tensor[ops], p];
           Normal@ExpansionComponents[
              start -
-              (TensorPermute[ExpandCorrelator@Correlator[Tensor[ops]],
-                  Join[p, Range[Length[ops] + 1, ninds]]] /. 
+              sign (TensorPermute[ExpandCorrelator@Correlator[Tensor[ops]],
+                  Join[Rindperm, Length[ops] + STindperm]] /. 
                 Range[Length[ops]] -> p)
              ] /. Normal[First /@ SolvedCorrelators[]],
           {p, 
            Select[Permutations[Range[Length[ops]]], ops[[#]] === ops &]}
           ], 0] == 0];
+   If[!OptionValue["Solved"],
+   	eqs,
    vars = 
     DeleteDuplicates@
      Cases[eqs, 
-      h_[args__] /; MemberQ[$ArbitraryFunctions, h] && {args} =!= crossRatios[$qdefect], All];
+      h_[args__] /; (MemberQ[$ArbitraryFunctions, h] || MatchQ[h, _g | _\[Lambda]]) && {args} =!= crossRatios[$qdefect], All];
    First@Solve[eqs, vars]
+   ]
 ];
