@@ -352,7 +352,7 @@ linearEquations[i_, opt: OptionsPattern[]] := linearEquations[i, opt] = DeleteCa
 	] == 0], True];
 	
 Options[quadraticEquations] = {"MaxDepth" -> 0};
-quadraticEquations[i_, opt: OptionsPattern[]] := quadraticEquations[i, opt] = DeleteDuplicates@DeleteCases[Simplify[Reduce[#], _SUSYCoefficient != 0] & /@ Thread[Flatten @ monitorProgress[
+quadraticEquations[i_, opt: OptionsPattern[]] := quadraticEquations[i, opt] = DeleteDuplicates@DeleteCases[Simplify /@ Thread[Flatten @ monitorProgress[
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator[TensorProduct[quadraticZero[op1], Tensor[{op2}]]],
 		   {op1, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"] - 1}, {k, 0, OptionValue["MaxDepth"] - 1 - j}]]]}, 
@@ -365,7 +365,7 @@ quadraticEquations[i_, opt: OptionsPattern[]] := quadraticEquations[i, opt] = De
 
 Options[SUSYRules] = {"EquationGroupSize" -> 10, "MaxDepth" -> 0};
 SUSYRules::nosol = "No consistent SUSY transformations could be found for the multiplet '``'.";
-SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, normsol, vars, rvars, quadgroups, quadsol, partialsol},
+SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Module[{linears, linsol, quadratics, norms, normsol, vars, rvars, rvars2, rsol, quadgroups, quadsol, partialsol},
 	DeclareAlgebra["MaxDepth" -> OptionValue["MaxDepth"]];
 	
 	linears = linearEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
@@ -378,12 +378,12 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Modul
 	
 	quadratics = quadraticEquations[i, "MaxDepth" -> OptionValue["MaxDepth"]];
 	
-	quadgroups = Partition[DeleteCases[DeleteDuplicates[Simplify[#, SUSYCoefficient[__] != 0] & /@ (quadratics /. linsol)], True], UpTo[OptionValue["EquationGroupSize"]]];
+	quadgroups = Partition[DeleteCases[DeleteDuplicates[Simplify /@ (quadratics /. linsol)], True], UpTo[OptionValue["EquationGroupSize"]]];
 	
 	vars = DeleteDuplicates@Cases[quadgroups, _SUSYCoefficient, All];
 	
 	Off[Solve::ifun];
-	quadsol = Check[solveGroups[quadgroups, vars, "Assumptions" -> Thread[vars != 0]], Missing[], solveGroups::nosol];
+	quadsol = Check[solveGroups[quadgroups, vars, "SortBy" -> (Count[#[[;;,2]], 0] &)], Missing[], solveGroups::nosol];
 	On[Solve::ifun];
 	If[MissingQ[quadsol], Message[SUSYRules::nosol, $multipletName[i]]; Return[{}]];
 	
@@ -397,10 +397,12 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Modul
 		x_ /; ! FreeQ[x, SUSYCoefficient]];
 		
 		normsol = Last[Solve[norms]],
-		normsol = {}
+		normsol = {} 
 	];
+	rvars2 = Complement[rvars, normsol[[;;, 1]]];
+	rsol = Thread[rvars2 -> 1]; (* fix remaining variables arbitrarily to 1 *)
 	
-	Thread[Join[partialsol[[;;, 1]], rvars] -> (Join[partialsol[[;;, 2]], rvars] /. Thread[rvars -> Array[\[Alpha], Length[rvars]]] /. normsol /. Thread[Array[\[Alpha], Length[rvars]] -> rvars])]
+	Thread[Join[partialsol[[;;, 1]], rvars] -> (Join[partialsol[[;;, 2]], rvars] /. Thread[rvars -> Array[\[Alpha], Length[rvars]]] /. normsol /. Thread[Array[\[Alpha], Length[rvars]] -> rvars /. rsol])]
 ];
 
 Options[susyTable] = {"Solved" -> True, "MaxDepth" -> 0};
