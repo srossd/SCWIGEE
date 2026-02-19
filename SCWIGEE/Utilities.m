@@ -87,7 +87,7 @@ expansion[structure_, basis_, relations_] :=
    ]
   ];
 
-Options[solveGroups] = {"Assumptions" -> {}, "Transformation" -> Simplify, "TempRules" -> {}, "RemoveRedundant" -> False};
+Options[solveGroups] = {"Assumptions" -> {}, "Transformation" -> Simplify, "TempRules" -> {}, "RemoveRedundant" -> False, "SortBy" -> ByteCount};
 solveGroups::nosol = "No solution could be found.";
 solveGroups[grps_, vars_, OptionsPattern[]] := 
  DeleteCases[
@@ -103,7 +103,7 @@ solveGroups[grps_, vars_, OptionsPattern[]] :=
             inds = If[OptionValue["RemoveRedundant"], IndependentSet[mm, "Indices" -> True], Range@Length[mm]];
             tmp = Quiet@Solve[teqs[[inds]], tvars] /. (Reverse /@ OptionValue["TempRules"]);
           ];
-          sol = Assuming[OptionValue["Assumptions"], If[tmp === {}, Missing[], OptionValue["Transformation"][First[tmp], OptionValue["Assumptions"]]]];
+          sol = Assuming[OptionValue["Assumptions"], If[tmp === {}, Missing[], OptionValue["Transformation"][First[SortBy[tmp, OptionValue["SortBy"]]], OptionValue["Assumptions"]]]];
           If[MissingQ[sol], 
             Message[solveGroups::nosol]; {None},
             Sort@DeleteDuplicatesBy[
