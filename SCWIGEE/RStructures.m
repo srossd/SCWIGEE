@@ -421,7 +421,7 @@ buildExpression[TreeInvariant[edges_]] :=
   ]
 
 $internalReps = Automatic;
-SetInternalReps[reps_] := ($internalReps = reps);
+SetInternalReps[reps_] := ($internalReps = reps;);
 
 allReps[] := If[$internalReps === Automatic, DeleteDuplicates[GlobalRep /@ Flatten[Multiplet /@ $multipletIndices]], $internalReps];
 repTree[reps_] := repTree[reps] =

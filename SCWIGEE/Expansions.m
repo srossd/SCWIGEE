@@ -62,9 +62,10 @@ RPart[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := RP
 NonRPart[a_ b_] /; FreeQ[a, Alternatives @@ TensorTools`Private`$TensorHeads] := NonRPart[b];
    
 Options[RRelations] = {"MonitorProgress" -> False, "SampleSize" -> 5000, "Rigorous" -> False};
-RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, comps, choice, choice2, size},
+RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{relations, comps, choice, choice2, size, nz},
   	size = Length@Flatten@CanonicallyOrderedComponents[largebasis[[1]]];
-	choice = RandomSample[Range@size, Min[OptionValue["SampleSize"], size]];
+  	nz = DeleteDuplicates[Join @@ Table[ArrayRules[Flatten@CanonicallyOrderedComponents[s]][[;; -2, 1, 1]], {s, largebasis}]];
+	choice = RandomSample[nz, Min[OptionValue["SampleSize"], Length[nz]]];
 	choice2 = RandomSample[Range@size, If[OptionValue["Rigorous"], size, Min[2 OptionValue["SampleSize"], size]]]; 
 	comps = ArrayFlatten[
 	       If[OptionValue["MonitorProgress"],
@@ -76,11 +77,16 @@ RRelations[largebasis_, OptionsPattern[]] := RRelations[largebasis] = Module[{re
 	        Table[
 	         Flatten[CanonicallyOrderedComponents[largebasis[[ri]]]][[
 	          Join[choice, choice2]]], {ri, Length[largebasis]}]]];
-	relations = If[# === {}, {}, RowReduce@#] &@ NullSpace@Simplify[Transpose[comps][[;;Length[choice]]]];
-	If[OptionValue["SampleSize"] >= size || Max[Chop@N@Flatten[relations . comps]] == 0, relations, RRelations[largebasis, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rigorous" -> OptionValue["Rigorous"], "SampleSize" -> 2 OptionValue["SampleSize"]]]
+	relations = If[# === {}, {}, RowReduce@Transpose@First@clearRadicals@Transpose@#] &@ NullSpace@Simplify[Transpose[comps][[;;Length[choice]]]];
+	If[OptionValue["SampleSize"] >= size || relations === {} || Max[Chop@N@Flatten[relations . comps]] == 0, relations, RRelations[largebasis, "MonitorProgress" -> OptionValue["MonitorProgress"], "Rigorous" -> OptionValue["Rigorous"], "SampleSize" -> 2 OptionValue["SampleSize"]]]
 ];
 
-uvReplace =  {u[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 1, perm], u], v[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 2, perm], v]};
+uvReplace =  {
+	u[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 1, perm], u], 
+	v[dim_, perm_] :> If[Length[perm] == 4, u^#1 v^#2 & @@ ConformalStructures`Private`uvpowers[dim, 2, perm], v],
+	z[dim_, perm_] :> (z[dim, perm] /. ConformalStructures`Private`zcross),
+	zb[dim_, perm_] :> (zb[dim, perm] /. ConformalStructures`Private`zcross)
+};
 
 Options[ExpansionComponents] = {"MonitorProgress" -> False};
 ExpansionComponents[a_ b_, rest___, opt: OptionsPattern[]] /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] := Explicit[a /. uvReplace] ExpansionComponents[b, rest, opt];
@@ -158,8 +164,8 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
       	Rindperm = crossingPermutationR[Tensor[names], order];
       	arrangements = Fold[Join[
 		   Table[{term[[1]], Append[term[[2]], {"\[PartialD]", #2}]}, {term, #1}],
-		   Flatten[Table[{term[[1]] + Table[Boole[icr == j], {j, Length@crossRatios[q]}], Append[term[[2]], {ToString[crossRatios[q][[icr]]], #2}]}, {icr, Length@crossRatios[q]}, {term, #1}], 1]
-		   ] &, {{Table[0, Length[crossRatios[q]]], {}}}, InversePermutation[order][[#]] & /@ derivs];
+		   Flatten[Table[{term[[1]] + Table[Boole[icr == j], {j, Length@crossRatios[SpacetimeDimension[], q]}], Append[term[[2]], {ToString[crossRatios[SpacetimeDimension[], q][[icr]]], #2}]}, {icr, If[SpacetimeDimension[] == 2, 1, Length@crossRatios[SpacetimeDimension[], q]]}, {term, #1}], 1]
+		   ] &, {{Table[0, Length[crossRatios[SpacetimeDimension[], q]]], {}}}, InversePermutation[order][[#]] & /@ derivs];
      	sign Sum[
        		Switch[{Length[names], OptionValue[Correlator, "Defect"]},
           		{2, False},
@@ -167,11 +173,11 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
           		{3, False}, 
           		If[Total[derivArrangement[[1]]] != 0, 0, \[Lambda][sfields,i,j]], 
           		{4, False},
-          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[q]}]],
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[SpacetimeDimension[], q]}]],
           		{1, True},
           		If[Total[derivArrangement[[1]]] != 0, 0, a[sfields[[1]]]],
           		{2, True},
-          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[q]}]]
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[SpacetimeDimension[], q]}]]
        		] TensorProduct[
           TensorPermute[
            Switch[Length[names],

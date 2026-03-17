@@ -6,6 +6,9 @@ SetSpacetimeDimension[dim_] := (
 	If[OddQ[dim],
 	   DeclareTensorSymmetry["\[PartialD]", {{Cycles[{{1,2}}], If[Mod[dim, 8] == 1 || Mod[dim, 8] == 3, 1, -1]}}]
 	];
+	If[dim == 2,
+	   DeclareTensorSymmetry["\[PartialD]", {{Cycles[{{1,2}}], 1}}]
+	];
 	DeclareTensorSymmetry[chargeconj[], {{Cycles[{{1,2}}], If[MemberQ[{0,1,2,7}, Mod[dim, 8]], 1, -1]}}]
 );
 SpacetimeDimension[] := $D;
@@ -52,7 +55,9 @@ SetSymmetries[ops_] := Do[
 			Table[{Cycles[{{i, i+1}}], 1}, {i, 2 + 2 Spin[op][[1]], 2 + 2 Spin[op][[1]] + 2 Spin[op][[2]] - 2}]
 		],
 		$D == 3,
-		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op] - 2}]
+		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op] - 2}],
+		$D == 2,
+		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}] (* only holomorphic for now *)
 	]
 	],
 	{op, ops}];
