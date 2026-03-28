@@ -53,11 +53,11 @@ superprimaryCorrelatorQ[\[Lambda][ffs_, __]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[g[ffs_, __][__]] := AllTrue[ffs, superprimaryQ];
 superprimaryCorrelatorQ[Derivative[__][g[ffs_, __]][__]] := AllTrue[ffs, superprimaryQ];
 
-swSimplify[expr_, assum_ : {}] := With[{swapRules = Thread[{u, v} -> {Catalan, EulerGamma}]},
+swSimplify[expr_, assum_ : {}] := With[{swapRules = Thread[{u, v, z, zb} -> {Catalan, EulerGamma, Pi, E}]},
    Collect[
       expr,
       _\[Alpha] | g[__][__] | \[Lambda][__] | (Alternatives @@ $ArbitraryFunctions)[__] | Derivative[__][(Alternatives @@ $ArbitraryFunctions)][__],
-      Simplify[# /. swapRules, assum] /. (Reverse /@ swapRules) &
+      Simplify[Simplify[#, ConformalStructures`Private`crossRatioAssumptions[SpacetimeDimension[], $qdefect]] /. swapRules, assum] /. (Reverse /@ swapRules) &
    ]
 ];
 
@@ -74,7 +74,7 @@ SolveWard[fields : {_Operator..}, OptionsPattern[]] := Module[{eqs, vars, eqsRep
    bm = CoefficientArrays[eqs, vars];
    If[ AllTrue[bm[[1]], # === 0 &],
       Thread[vars -> 0],
-      Sort[solveGroups[Partition[eqsReplaced, UpTo[OptionValue["EquationGroupSize"]]], Array[\[Alpha], Length[vars]], "Transformation" -> swSimplify, "TempRules" -> Thread[{u,v} -> {Catalan, EulerGamma}], "RemoveRedundant" -> True] /. Thread[Array[\[Alpha], Length[vars]] -> vars]] /. Thread[{Catalan, EulerGamma} -> {u, v}]
+      Sort[solveGroups[Partition[eqsReplaced, UpTo[OptionValue["EquationGroupSize"]]], Array[\[Alpha], Length[vars]], "Transformation" -> swSimplify, "TempRules" -> Thread[{u, v, z, zb} -> {Catalan, EulerGamma, Pi, E}], "RemoveRedundant" -> True] /. Thread[Array[\[Alpha], Length[vars]] -> vars]] /. Thread[{Catalan, EulerGamma, Pi, E} -> {u, v, z, zb}]
    ]
 ];
   
@@ -110,8 +110,8 @@ AddSolutions[soln_] :=
         {val, $SolvedCorrelators[k]}], 
         {k, Keys[$SolvedCorrelators]}];
     ];
-    unknowns = Sort[DeleteDuplicates@Cases[Values[SolvedCorrelators[]], g[__], All, Heads -> True]];
-    $SolvedCorrelators = KeySelect[$SolvedCorrelators, !MemberQ[unknowns, #] &];
+    (*unknowns = Sort[DeleteDuplicates@Cases[Values[SolvedCorrelators[]], g[__], All, Heads -> True]];
+    $SolvedCorrelators = KeySelect[$SolvedCorrelators, !MemberQ[unknowns, #] &];*)
    ];
 
 DeclareCrossingRule::invalid = "The function `` is not related by crossing to ``[``, ``].";
@@ -157,6 +157,8 @@ CrossingRelations[ops_, OptionsPattern[]] := If[OptionValue["PermuteOperators"],
 	              sign (TensorPermute[ExpandCorrelator@Correlator[Tensor[ops]],
 	                  Join[Rindperm, Length[ops] + STindperm]] /. 
 	                {
+	                	u[dim_, {i_Integer, j_Integer, k_Integer, l_Integer}] :> u[dim, p[[{i,j,k,l}]]],
+	                	v[dim_, {i_Integer, j_Integer, k_Integer, l_Integer}] :> v[dim, p[[{i,j,k,l}]]],
 	                	z[2, {i_Integer, j_Integer, k_Integer, l_Integer}] :> z[2, p[[{i,j,k,l}]]],
 	                	zb[2, {i_Integer, j_Integer, k_Integer, l_Integer}] :> zb[2, p[[{i,j,k,l}]]],
 	                	correlator[dim_, \[CapitalDelta]s_, spins_, derivs_, {i_Integer, j_Integer, k_Integer, l_Integer}, y___] :> correlator[dim, \[CapitalDelta]s, spins, derivs, p[[{i, j, k, l}]], y]
