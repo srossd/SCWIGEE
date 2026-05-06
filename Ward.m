@@ -105,7 +105,7 @@ AddSolutions[soln_] :=
         Table[
            Function[
               Evaluate[crossRatios[SpacetimeDimension[], $qdefect]], 
-           	  Evaluate[swSimplify[CrossingSimplify[(val @@ crossRatios[SpacetimeDimension[], $qdefect]) /. (First /@ $SolvedCorrelators)]]]
+           	  Evaluate[swSimplify[CrossingSimplify[(val @@ crossRatios[SpacetimeDimension[], $qdefect]) /. (First /@ $SolvedCorrelators)] /. (First /@ $SolvedCorrelators)]]
            ], 
         {val, $SolvedCorrelators[k]}], 
         {k, Keys[$SolvedCorrelators]}];

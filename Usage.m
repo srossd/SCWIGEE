@@ -366,5 +366,9 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\" \",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"j\",\nFontSlant->\"Italic\"]\)] is an unknown constant appearing in three-point functions.";
 
+GFFTRules::usage = "GFFTRules[\!\(\*
+StyleBox[\"ops\",\nFontSlant->\"Italic\"]\)] gives the rules that specialize ExpandCorrelator[Correlator[\!\(\*
+StyleBox[\"ops\",\nFontSlant->\"Italic\"]\)]] to generalized free-field theory.";
+
 
 EndPackage[]
