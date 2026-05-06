@@ -1,4 +1,4 @@
-(* Wolfram Language package *)
+	(* Wolfram Language package *)
 
 RPart[Tensor[names_]] := 
   Tensor[Select[names, 
@@ -126,38 +126,52 @@ crossingPermutationR[t_Tensor, order_] :=
       Select[Range@
         Length[Indices[ordered]], ! FreeQ[Indices[ordered][[#]], GlobalIndex | DefectGlobalIndex] &]]]]
    ];
+   
+RSTperm[0, __] := 0;
+RSTperm[t1 : (_Tensor | _TensorPermute | _Contract | _Correlator | _TP), t2_Tensor] := Module[{order, inds, rinds, stinds, rperm, stperm},
+	order = InversePermutation@Ordering[Join @@ Cases[t1, correlator[__, p_, _, _] :> p, All]];
+	inds = Indices[t1];
+	rinds = Position[inds, Raised[_GlobalIndex | _DefectGlobalIndex]][[;;,1]];
+	stinds = Position[inds, Lowered[_DiracSpinor | _WeylSpinor | _DottedWeylSpinor]][[;;,1]];
+	
+	rperm = crossingPermutationR[t2, order];
+	stperm = crossingPermutationST[t2, order];
+	
+	TensorPermute[TensorPermute[t1, InversePermutation@TensorPermutation[t1]], Range@Length[inds] /. Join[Thread[rinds -> rinds[[rperm]]], Thread[stinds -> stinds[[stperm]]]]]
+];
+RSTperm[a_ b_, t2_] /; ! FreeQ[b, Alternatives @@ TensorTools`Private`$TensorHeads] := a RSTperm[b, t2];
+RSTperm[a_ + b_, t2_] := RSTperm[a, t2] + RSTperm[b, t2];
 
 SetAttributes[ExpandCorrelator, Listable];
-ExpandCorrelator[0] = 0;
+Options[ExpandCorrelator] = {"GFFT" -> False, "Points" -> Automatic};
+ExpandCorrelator[x_?NumericQ, OptionsPattern[]] = x;
 
-ExpandCorrelator[expr : Except[_Correlator]] /;
+ExpandCorrelator[expr : Except[_Correlator], opt : OptionsPattern[]] /;
     Length[Cases[expr, _Correlator, All]] == 1 := 
   With[{swap = 
-     ExpandCorrelator[First@Cases[expr, _Correlator, All]]},
+     ExpandCorrelator[First@Cases[expr, _Correlator, All], opt]},
    SwapIn[
     expr /. Correlator[t_, OptionsPattern[]] :> t, {Min[#], Max[#]} &@
      CorrelatedFields[expr], swap]
    ];
-ExpandCorrelator[a_ + b_] := 
-  ExpandCorrelator[a] + ExpandCorrelator[b];
-ExpandCorrelator[a_ b_] /; FreeQ[a, Tensor] :=
-   a ExpandCorrelator[b];
+ExpandCorrelator[a_ + b_, opt: OptionsPattern[]] := 
+  ExpandCorrelator[a, opt] + ExpandCorrelator[b, opt];
+ExpandCorrelator[a_ b_, opt : OptionsPattern[]] /; FreeQ[a, Tensor] :=
+   a ExpandCorrelator[b, opt];
 
-ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[names, 
-      !MissingQ[name2field@StringDrop[#[[1]], 
-         Count[Characters[#[[1]]], "\[PartialD]"]]] &] && 
-     ((!OptionValue[Correlator, "Defect"] && 2 <= Length[names] <= 4) || (Length[names] <= 2))) := 
+ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]], opt2 : OptionsPattern[]] := 
   Module[{
      fields = name2field[StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names, 
      derivs = Flatten@Table[i, {i, Length[names]}, {j, Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
      q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
      rreps = FirstCase[#, Raised[ind : (_GlobalIndex | _DefectGlobalIndex)] :> ind] & /@ names,
-     fieldsReplaced, sfields, order, numinvs, STs, numSTs, sign, STindperm, Rindperm, arrangements},
+     fieldsReplaced, sfields, order, pts,  numinvs, STs, numSTs, sign, STindperm, Rindperm, arrangements},
     	fieldsReplaced = ReplacePart[fields, Thread[Table[{i, 2}, {i, Length[fields]}] -> rreps[[;;, 1]]]];
    		sfields = Sort[fieldsReplaced, fieldOrder]; 
-     	order = Ordering[fieldsReplaced, All, fieldOrder];
+   		order = Ordering[fieldsReplaced, All, fieldOrder];
+     	pts = If[OptionValue[ExpandCorrelator, "Points"] === Automatic, Range@Length[names], OptionValue[ExpandCorrelator, "Points"]][[order]];
     	numinvs = numInvariants[rreps];
-    	STs = ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ sfields, Spin /@ sfields, {}, order, "DefectCodimension" -> q];
+    	STs = ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ sfields, Spin /@ sfields, {}, pts, "DefectCodimension" -> q];
       	numSTs = Length@STs;
       	sign = Signature@InversePermutation[order][[Select[Range@Length@fields, ! IntegerQ[ScalingDimension[fields[[#]]]] &]]];
       	STindperm = crossingPermutationST[Tensor[names], order]; 
@@ -173,11 +187,11 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
           		{3, False}, 
           		If[Total[derivArrangement[[1]]] != 0, 0, \[Lambda][sfields,i,j]], 
           		{4, False},
-          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[SpacetimeDimension[], q]}]],
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], pts], {c, crossRatios[SpacetimeDimension[], q]}]],
           		{1, True},
           		If[Total[derivArrangement[[1]]] != 0, 0, a[sfields[[1]]]],
           		{2, True},
-          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], order], {c, crossRatios[SpacetimeDimension[], q]}]]
+          		Derivative[Sequence @@ derivArrangement[[1]]][g[sfields, i, j]][Sequence @@ Table[c[SpacetimeDimension[], pts], {c, crossRatios[SpacetimeDimension[], q]}]]
        		] TensorProduct[
           TensorPermute[
            Switch[Length[names],
@@ -187,8 +201,36 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]]] /; (AllTrue[
            	1, 1
            ], 
            Rindperm], 
-          TensorPermute[ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ sfields, Spin /@ sfields, derivArrangement[[2]], order, "DefectCodimension" -> q][[j]], STindperm]
+          TensorPermute[ConformalCorrelators[SpacetimeDimension[], ScalingDimension /@ sfields, Spin /@ sfields, derivArrangement[[2]], pts, "DefectCodimension" -> q][[j]], STindperm]
        ],
        {i, numinvs}, {j, numSTs}, {derivArrangement, arrangements}
        ]
-     ];
+     ]  /; (AllTrue[names, 
+      !MissingQ[name2field@StringDrop[#[[1]], 
+         Count[Characters[#[[1]]], "\[PartialD]"]]] &] && 
+     ((!OptionValue[Correlator, "Defect"] && 2 <= Length[names] <= 4) || (Length[names] <= 2)) && !OptionValue[ExpandCorrelator, "GFFT"]);
+     
+
+     
+ExpandCorrelator[Correlator[Tensor[{}], OptionsPattern[]], OptionsPattern[]] := 1;
+ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]], opt2 : OptionsPattern[]] := Module[
+     	{operators, fakepts, realpts},
+     	operators = name2field[StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names;
+     	fakepts = Range@Length[names];
+     	realpts = OptionValue[ExpandCorrelator, "Points"] /. Automatic -> Range@Length[names];
+     	Sum[
+     	 (-1)^(2 ScalingDimension[First[operators]] * (2 Total[ScalingDimension /@ operators[[2;;j-1]]]))*
+     	 RSTperm[TensorProduct[
+     	 	ExpandCorrelator[Correlator[Tensor[names[[{1,j}]]], opt], "Points" -> fakepts[[{1, j}]]],
+     	 	ExpandCorrelator[Correlator[Tensor[Delete[names,{{1},{j}}]], opt], "GFFT" -> True, "Points" -> Delete[fakepts,{{1},{j}}]]	
+     	 ], Tensor[names]]
+     	,{j,Select[Range[2,Length[names]], realpts[[#]] =!= realpts[[1]] &]}] /. correlator[x__, p_, y_, z_] :> correlator[x, p /. Thread[fakepts -> realpts], y, z] /. Tensor[{___, {correlator[__, p_, _, _], ___}, ___}] /; Length[DeleteDuplicates[p]] != Length[p] -> 0
+     ] /; (AllTrue[names, 
+      !MissingQ[name2field@StringDrop[#[[1]], 
+         Count[Characters[#[[1]]], "\[PartialD]"]]] &] && OptionValue[ExpandCorrelator, "GFFT"]);
+         
+GFFTRules[ops_] := Module[{zeros},
+	zeros = Flatten@ExpansionComponents[ExpandCorrelator[Correlator[Tensor[ops]]] - ExpandCorrelator[Correlator[Tensor[ops]], "GFFT" -> True]];
+	First@Solve[Thread[zeros == 0], DeleteDuplicates@Cases[Normal@zeros, g[__][__], All]] /. HoldPattern[h_[args__] -> val_] :> (h -> Function[{args}, val])
+]
+	

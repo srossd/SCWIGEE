@@ -65,8 +65,8 @@ findSwap[{1, ys___}, n_] := findSwap[{ys} - 1, n + 1];
 findSwap[{x_, ys___}, n_] := {n + x, n + 1};
 
 rPattern = "C" | SU2BreakingTensor[];
-epsPattern = chargeconj[] | _eps;
-sigmaPattern = _sigma | "M" | _basis;
+epsPattern = chargeconj[] | _eps | "\[Gamma]";
+sigmaPattern = _sigma | "M" | _basis | _point;
 
 Correlator[t_Tensor | t_TensorPermute | t_Contract, opt: OptionsPattern[]] /; !readyToCorrelate[Symbolic[t], {rPattern}] := 
   With[{swap = findSwap[Position[Symbolic[t], rPattern][[;; , 1]], 0]}, 

@@ -290,12 +290,12 @@ threept::undefined = "The three-point invariant for representations (``, ``, ``)
 threept[GlobalIndex[r1_], GlobalIndex[r2_], GlobalIndex[r3_]] := Module[{reps = {dynkin[r1], dynkin[r2], dynkin[r3]}},
 	TensorTranspose[threept @@ Sort[reps], Ordering[reps]]
 ];
-threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
+threept[r1_, r2_, r3_, mult_] := threept[r1, r2, r3, mult] = If[$customInvariants,
    Message[threept::undefined, r1, r2, r3],
    If[!MemberQ[ReduceRepProduct[GlobalSymmetry[], {r1, r2, r3}][[;;, 1]], singRep[GlobalSymmetry[]]],
       Message[threept::undefined, r1, r2, r3],
 	   Module[{temp, other},
-	   	temp = IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,1]];
+	   	temp = IrrepInProduct[GlobalSymmetry[], {r1, r2}, r3, ConjugateTargetRep -> True, TensorForm -> True][[1,mult]];
 	   	If[OrderedQ[{{r1, r2, r3}, Sort@{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}}],
 	   	   temp,
 	   	   other = threept@@ Sort[{ConjugateIrrep[GlobalSymmetry[], r1], ConjugateIrrep[GlobalSymmetry[], r2], ConjugateIrrep[GlobalSymmetry[], r3]}];
@@ -304,6 +304,7 @@ threept[r1_, r2_, r3_] := threept[r1, r2, r3] = If[$customInvariants,
 	   ]
    ]
 ];
+threept[r1_, r2_, r3_] := threept[r1, r2, r3, 1];
 
 SetTwoPtGlobalInvariant[r1_, r2_, mat_] := Module[{reps = dynkin /@ ({r1, r2}), sorted, order},
     $customInvariants = True;

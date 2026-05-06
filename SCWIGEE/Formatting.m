@@ -71,19 +71,6 @@ Format[TreeInvariant[edges_], TraditionalForm] :=
 
 Format[LoopInvariant[edges_], TraditionalForm] := 
   Format[TreeInvariant[edges], TraditionalForm];
-
-Format[SpacetimeStructure[dims_, ls_, derivs_, perm_, q_, i_], TraditionalForm] := 
-   Subsuperscript[
-      Row[Append[Table[
-         If[d[[1]] == "\[PartialD]",
-            Superscript["\[PartialD]","("<>ToString[perm[[d[[2]]]]]<>")"],
-            Row[{Superscript["\[PartialD]","("<>ToString[perm[[d[[2]]]]]<>")"],"(",ToExpression[d[[1]]][perm],")"}]
-         ],
-         {d, derivs}
-      ], "\[ScriptCapitalS]"]], 
-      Row[{perm, ";", If[q =!= None, Sequence @@ {"q = ",q,";"}, Nothing], i}], 
-      Row[Riffle[Thread[{dims, ls}], ";"]]
-   ];
    
 Format[g[fields_, i_, j_], TraditionalForm] := Subsuperscript["g", Row[{i, ",", j}], Row[Table[If[field[[2]] === GlobalRep[name2field[field[[1]]]], field[[1]], Subscript[field[[1]], repName[field[[2]]]]], {field, fields}]]];
      
