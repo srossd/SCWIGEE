@@ -133,15 +133,8 @@ CrossingSimplify[expr_] :=
      
 Options[CrossingRelations] = {"Solved" -> True, "PermuteOperators" -> False};
 CrossingRelations[ops_, OptionsPattern[]] := If[OptionValue["PermuteOperators"],
-	Module[{alleqs, vars},
-		alleqs = Flatten[CrossingRelations[#, "Solved" -> False, "PermuteOperators" -> False] & /@ Permutations[ops]];
-		vars = DeleteDuplicates@Cases[eqs, h_[args__] /; (MemberQ[$ArbitraryFunctions, h] || MatchQ[h, _g | _\[Lambda]]) && {args} =!= crossRatios[SpacetimeDimension[], $qdefect], All];
-		If[OptionValue["Solved"],
-			First@Quiet@Solve[alleqs, vars],
-			alleqs	
-		]
-	],	
-	Module[{realops, sortedops, order, sortedp, start, ninds, eqs, vars, sign, STindperm, Rindperm},
+	DeleteDuplicates[Join @@ (CrossingRelations[#, "Solved" -> OptionValue["Solved"], "PermuteOperators" -> False] & /@ Permutations[ops])],	
+	Module[{realops, sortedops, order, sortedp, start, ninds, eqs, vars, sign, STindperm, Rindperm, rank},
 	   realops = Replace[ops, s_String :> name2field[s], {1}];
 	   start = ExpandCorrelator@Correlator[Tensor[ops]];
 	   sortedops = First@Cases[start, g[s_, __][__] :> s, All];
@@ -170,10 +163,11 @@ CrossingRelations[ops_, OptionsPattern[]] := If[OptionValue["PermuteOperators"],
 	   If[!OptionValue["Solved"],
 	   	eqs,
 	   vars = 
-	    DeleteDuplicates@
+	    SortBy[DeleteDuplicates@
 	     Cases[eqs, 
-	      h_[args__] /; (MemberQ[$ArbitraryFunctions, h] || MatchQ[h, _g | _\[Lambda]]) && {args} =!= crossRatios[SpacetimeDimension[], $qdefect], All];
-	   First@Solve[eqs, vars]
+	      h_[args__] /; (MemberQ[$ArbitraryFunctions, h] || MatchQ[h, _g | _\[Lambda]]) && {args} =!= crossRatios[SpacetimeDimension[], $qdefect], All], ByteCount[List @@ #] &];
+	   rank = MatrixRank[CoefficientArrays[eqs, vars][[2]]];
+	   First@Solve[eqs, Take[vars, -rank]]
 	   ]
 	]
 ];
