@@ -100,7 +100,8 @@ AddSolutions[soln_] :=
          ] /. HoldPattern[a_ -> b_] :> (Head[a] -> (Function[Evaluate[crossRatios[SpacetimeDimension[], $qdefect]], tmp] /. tmp -> b)), 
       First]
     },
-    $SolvedCorrelators = Merge[{$SolvedCorrelators, Association[uvVersions]}, DeleteDuplicates@*Flatten@*List];
+    unknowns = Sort[DeleteDuplicates@Cases[Values[soln], g[__], All, Heads -> True]];
+    $SolvedCorrelators = KeySelect[Merge[{$SolvedCorrelators, Association[uvVersions]}, DeleteDuplicates@*Flatten@*List], !MemberQ[unknowns, #] &];
     $SolvedCorrelators = Association @@ Table[k -> 
         Table[
            Function[
@@ -110,8 +111,7 @@ AddSolutions[soln_] :=
         {val, $SolvedCorrelators[k]}], 
         {k, Keys[$SolvedCorrelators]}];
     ];
-    (*unknowns = Sort[DeleteDuplicates@Cases[Values[SolvedCorrelators[]], g[__], All, Heads -> True]];
-    $SolvedCorrelators = KeySelect[$SolvedCorrelators, !MemberQ[unknowns, #] &];*)
+    $SolvedCorrelators = (fcts |-> SortBy[fcts, Count[# @@ crossRatios[SpacetimeDimension[], $qdefect], g[__][args__] /; {args} =!= crossRatios[SpacetimeDimension[], $qdefect], All] &]) /@ $SolvedCorrelators; 
    ];
 
 DeclareCrossingRule::invalid = "The function `` is not related by crossing to ``[``, ``].";
