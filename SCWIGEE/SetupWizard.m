@@ -9,6 +9,14 @@ SetSpacetimeDimension[dim_] := (
 	If[dim == 2,
 	   DeclareTensorSymmetry["\[PartialD]", {{Cycles[{{1,2}}], 1}}]
 	];
+	(* In dim = 2 mod 4 the sigma tensor is {Weyl, Weyl}, so the derivative carries two
+	   undotted spinor indices.  In d = 6 the vector is Lambda^2(4) and sigma^mu_{AB} is
+	   antisymmetric, so d_{AB} is too (in d = 2 the Weyl index has a single component
+	   and the symmetric declaration above is vacuous either way). *)
+	If[dim == 6,
+	   DeclareTensorSymmetry["\[PartialD]", {{Cycles[{{1,2}}], -1}}];
+	   declareSixDSymmetries[]
+	];
 	DeclareTensorSymmetry[chargeconj[], {{Cycles[{{1,2}}], If[MemberQ[{0,1,2,7}, Mod[dim, 8]], 1, -1]}}]
 );
 SpacetimeDimension[] := $D;
@@ -48,6 +56,7 @@ SetDefectGlobalSymmetry[group_] := Module[{embeddings},
 
 SetDefectGlobalSymmetry[group_, embedding_] := ($DefectRSymmetry = group; $embedding = embedding;);
 
+SetSymmetries::badspin = "`` is not a valid spin for d = ``.";
 SetSymmetries[ops_] := Do[
 	DeclareTensorSymmetry[op[[1]], Which[$D == 4,
 		Join[
@@ -57,7 +66,18 @@ SetSymmetries[ops_] := Do[
 		$D == 3,
 		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op] - 2}],
 		$D == 2,
-		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}] (* only holomorphic for now *)
+		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}], (* only holomorphic for now *)
+		$D == 6,
+		(* The spin is an SU(4) Dynkin label and the index block is Young-projected, not
+		   fully symmetrized.  Only the row symmetry is a permutation symmetry (the Young
+		   symmetrizer applies the row symmetrizer last); the column antisymmetry and the
+		   Garnir relations are carried by the projection itself. *)
+		If[validDynkinQ[Spin[op]],
+		   rowSymmetryGenerators6[Spin[op]],
+		   Message[SetSymmetries::badspin, Spin[op], $D]; {}
+		],
+		True,
+		Message[SetSymmetries::badspin, Spin[op], $D]; {}
 	]
 	],
 	{op, ops}];

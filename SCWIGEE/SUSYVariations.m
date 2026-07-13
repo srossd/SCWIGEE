@@ -93,11 +93,8 @@ OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
         }
     ]) /. a_ b_ /; FreeQ[a, Alternatives @@ (TensorTools`Private`$TensorHeads)] :> b], 0];
 
-ToTensor[f_Operator] := Tensor[{{f[[1]], Raised[GlobalIndex[GlobalRep[f]]], 
-     Sequence @@ If[ListQ[Spin[f]],
-        Join[Table[Lowered[WeylSpinor[SpacetimeDimension[]]], 2 Spin[f][[1]]], Table[Lowered[DottedWeylSpinor[SpacetimeDimension[]]], 2 Spin[f][[2]]]],
-        Table[Lowered[DiracSpinor[SpacetimeDimension[]]], 2 Spin[f]]
-     ]}}];
+ToTensor[f_Operator] := Tensor[{{f[[1]], Raised[GlobalIndex[GlobalRep[f]]],
+     Sequence @@ spinorIndicesOf[f]}}];
      
 BuildTensor[{name_String, idxs___}] := 
    With[{perms = SymmetryPermutations[TensorSymmetries[name], "Minimal" -> False]},
@@ -286,7 +283,7 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 				monitorProgress[
 					Do[
 						If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
-						If[EvenQ[SpacetimeDimension[]] && SpacetimeDimension[] > 2, If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
+						If[hasQBar[], If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
 						{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
 					],
 					"Label" -> "Determining SUSY ansatzes ("<>$multipletName[i]<>")",
@@ -295,7 +292,7 @@ DeclareAlgebra[OptionsPattern[]] := Module[{},
 			{i, $multipletIndices}],
 			Do[
 				If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> False];
-				If[EvenQ[SpacetimeDimension[]] && SpacetimeDimension[] > 2, If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
+				If[hasQBar[], If[IntegerQ[ScalingDimension[op]], TensorCommutator, TensorAnticommutator][$QBarTensor, Tensor[{op}]] = QAnsatz[op, "QBar" -> True]];,
 				{i, $multipletIndices},
 				{op, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, 2 OptionValue["MaxDepth"] - 1}, {k, 0, 2 OptionValue["MaxDepth"] - 1 - j}]]]}
 			]
@@ -324,12 +321,32 @@ quadraticZero[op_] := quadraticZero[op] = Which[
    SpacetimeDimension[] == 3, (* {Q, Q} = (1/2)P *)
     NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + (I/2) TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[DiracSpinor[3]], Lowered[DiracSpinor[3]]}}], Tensor[{op}]],
    SpacetimeDimension[] == 2, (* {Q, Q} = 2P *)
-   	NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + (2I) TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[WeylSpinor[2]], Lowered[WeylSpinor[2]]}}], Tensor[{op}]]
+   	NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + (2I) TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[WeylSpinor[2]], Lowered[WeylSpinor[2]]}}], Tensor[{op}]],
+   SpacetimeDimension[] == 6, (* {Q, Q} = (1/2)P *)
+   (* 6D (N, 0) supersymmetry is chiral: a single Weyl supercharge Q_A^i, symplectic-
+      Majorana with respect to the R-symmetry, so the anticommutator closes on Q alone,
+      {Q_A^i, Q_B^j} ~ Omega^{ij} P_{AB}.  The R-symmetry factor is therefore the
+      symplectic two-point invariant (as in d = 2, 3), not a Kronecker delta pairing Q
+      with a Qbar (as in d = 4), and P_{AB} = sigma^mu_{AB} P_mu carries two undotted
+      Weyl indices and is antisymmetric.  Q is bosonic in the index pair (A i), so the
+      two Q's are symmetrized exactly as in the d = 2, 3 cases. *)
+   	NormalOrder[TensorProduct[$QTensor, $QTensor, Tensor[{op}]] + TensorPermute[TensorProduct[$QTensor, $QTensor, Tensor[{op}]], Join[{3,4,1,2},4 + Range[Length[Indices[Tensor[{op}]]]]]],"Vacuum"->True] + (I/2) TensorProduct[TwoPtGlobalInvariant[QGlobalRep[], QGlobalRep[]], Tensor[{{"\[PartialD]", Lowered[WeylSpinor[6]], Lowered[WeylSpinor[6]]}}], Tensor[{op}]]
+];
+
+(* A multiplet is graded by how many Q's and Qbar's separate an operator from the
+   superprimary.  Where there is a U(1) R-charge that grading is read off from the
+   dimension and the R-charge together.  In d = 6 there is no U(1) R-symmetry (the
+   R-symmetry is SU(2) for (1, 0) and USp(4) for (2, 0)), the fifth Operator slot is
+   identically zero, and there is no Qbar -- so the level is 2 (Delta - Delta_bottom)
+   Q's, with the Qbar count pinned to zero. *)
+inQGroupQ[f_, bottom_, i_, j_] := If[hasU1RCharge[],
+   ScalingDimension[f] - ScalingDimension[bottom] == (i + j)/2 && Last[f] - Last[bottom] == i - j,
+   j == 0 && ScalingDimension[f] - ScalingDimension[bottom] == i/2
 ];
 
 Options[opGroup] = {"Conjugate" -> False};
 opGroup[m_, i_, j_, OptionsPattern[]] := With[{bottom = First@MinimalBy[If[$multipletSC[m], Multiplet[m], Multiplet[m][[If[OptionValue["Conjugate"], 2, 1]]]], ScalingDimension]},
-   Select[If[$multipletSC[m], Multiplet[m], Multiplet[m][[If[OptionValue["Conjugate"], 2, 1]]]], ScalingDimension[#] - ScalingDimension[bottom] == (i + j)/2 && Last[#] - Last[bottom] == i - j & ]
+   Select[If[$multipletSC[m], Multiplet[m], Multiplet[m][[If[OptionValue["Conjugate"], 2, 1]]]], inQGroupQ[#, bottom, i, j] & ]
 ];
 
 groupOf[f_Operator] := Module[{mult, conj, bottom, dimdiff, ydiff},
@@ -338,13 +355,24 @@ groupOf[f_Operator] := Module[{mult, conj, bottom, dimdiff, ydiff},
    bottom = First@opGroup[mult, 0, 0, "Conjugate" -> conj];
    dimdiff = ScalingDimension[f] - ScalingDimension[bottom];
    ydiff = Last[f] - Last[bottom];
-   {dimdiff + ydiff/2, dimdiff - ydiff/2, conj}
+   If[hasU1RCharge[],
+      {dimdiff + ydiff/2, dimdiff - ydiff/2, conj},
+      {2 dimdiff, 0, conj}
+   ]
+];
+
+(* The level shift produced by the two supercharges in quadraticZero: {Q, Qbar} raises
+   the Q and Qbar counts by one each, whereas the chiral {Q, Q} of d = 6 raises the Q
+   count by two. *)
+quadraticShifts[] := If[hasQBar[] || hasU1RCharge[],
+   {{-1, -1}, {0, 0}, {1, 1}},
+   {{-2, 0}, {0, 0}, {2, 0}}
 ];
    
 Options[linearEquations] = {"MaxDepth" -> 0};
 linearEquations[i_, opt: OptionsPattern[]] := linearEquations[i, opt] = DeleteCases[Reduce /@ Thread[Flatten @ monitorProgress[
 		Table[
-		   ExpansionComponents@ExpandCorrelator@Correlator@NormalOrder[TensorProduct[QTensor["QBar" -> If[EvenQ[SpacetimeDimension[]], qbar, False]], Tensor[{op1, op2}]], "Vacuum" -> True],
+		   ExpansionComponents@ExpandCorrelator@Correlator@NormalOrder[TensorProduct[QTensor["QBar" -> If[hasQBar[], qbar, False]], Tensor[{op1, op2}]], "Vacuum" -> True],
 		   {op1, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"] - 1}, {k, 0, OptionValue["MaxDepth"] - 1 - j}]]]}, 
 		   {qbar, {False, True}}, 
 		   {op2, With[{grp = groupOf[op1]}, opGroup[i, Sequence @@ If[SpacetimeDimension[] == 4, Reverse, Identity][grp[[;;2]] + If[qbar, {0, 1}, {1, 0}]], "Conjugate" -> ! grp[[3]]]]}
@@ -358,7 +386,7 @@ quadraticEquations[i_, opt: OptionsPattern[]] := quadraticEquations[i, opt] = De
 		Table[
 		   ExpansionComponents@ExpandCorrelator@Correlator[TensorProduct[quadraticZero[op1], Tensor[{op2}]]],
 		   {op1, If[OptionValue["MaxDepth"] == 0, Flatten[Multiplet[i]], Flatten[Table[opGroup[i, j, k], {j, 0, OptionValue["MaxDepth"] - 1}, {k, 0, OptionValue["MaxDepth"] - 1 - j}]]]}, 
-		   {shift, {{-1,-1},{0,0},{1,1}}}, 
+		   {shift, quadraticShifts[]},
 		   {op2, With[{grp = groupOf[op1]}, opGroup[i, Sequence @@ If[SpacetimeDimension[] == 4, Reverse, Identity][grp[[;;2]] + shift], "Conjugate" -> ! grp[[3]]]]}
 		],
 		"Label" -> "Generating quadratic equations",
@@ -392,7 +420,7 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Modul
 	partialsol = Join[linsol /. quadsol, quadsol];
 	
 	rvars = DeleteDuplicates[Cases[partialsol[[;;, 2]], _SUSYCoefficient, All]];	
-	If[EvenQ[SpacetimeDimension[]],
+	If[hasQBar[],
 		norms = DeleteCases[Simplify[Cases[partialsol[[;; , 1]], 
 		   s : SUSYCoefficient[a_, b_, "QBar" -> qb_] :> (Abs[s] == Abs[SUSYCoefficient[Conjugate[name2field[a]][[1]], b, "QBar" -> !qb]]), 
 		   All] /. partialsol /. Thread[rvars -> Array[\[Alpha], Length[rvars]]], \[Alpha][_] > 0], 
@@ -410,7 +438,7 @@ SUSYRules[i_, opt: OptionsPattern[]] := SUSYRules[i] = SUSYRules[i, opt] = Modul
 Options[susyTable] = {"Solved" -> True, "MaxDepth" -> 0};
 susyTable[ops_, OptionsPattern[]] := With[{g = Grid[Table[{TensorProduct[$QTensor, ToTensor[op]], 
     QAnsatz[op, "QBar" -> False] /. If[TrueQ[OptionValue["Solved"]], If[OptionValue["MaxDepth"] == 0, SUSYRules[whichMultiplet[ops[[1]]]], SUSYRules[whichMultiplet[ops[[1]]], "MaxDepth" -> OptionValue["MaxDepth"]]], {}], 
-    Sequence @@ If[EvenQ[SpacetimeDimension[]] && SpacetimeDimension[] > 2, {
+    Sequence @@ If[hasQBar[], {
        TensorProduct[$QBarTensor, ToTensor[Conjugate[op]]], 
        QAnsatz[Conjugate@op, "QBar" -> True] /.  If[TrueQ[OptionValue["Solved"]], If[OptionValue["MaxDepth"] == 0, SUSYRules[whichMultiplet[ops[[1]]]], SUSYRules[whichMultiplet[ops[[1]]], "MaxDepth" -> OptionValue["MaxDepth"]]], {}]
     }, {}
