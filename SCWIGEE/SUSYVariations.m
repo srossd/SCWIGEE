@@ -96,25 +96,84 @@ OperatorsWithQuantumNumbers[multiplet_, rep_, dim_, {j1_, j2_}, y_] :=
 ToTensor[f_Operator] := Tensor[{{f[[1]], Raised[GlobalIndex[GlobalRep[f]]],
      Sequence @@ spinorIndicesOf[f]}}];
      
-BuildTensor[{name_String, idxs___}] := 
+BuildTensor[{name_String, idxs___}] /; sixDOperatorQ[name] := sixDOperatorComponents[name, {idxs}];
+
+(* The canonical component of a tensor with declared symmetry: the orbit of an index tuple
+   under the symmetry group, represented by its smallest member with the matching sign.
+
+   The sign matters.  A tuple fixed by a group element of sign -1 has a vanishing
+   component, and the representative of an orbit has to be chosen by the INDEX TUPLE, not
+   by sorting the resulting expressions -- sorting expressions happens to work for an
+   all-plus symmetry, but for an antisymmetric tensor it yields nonsense (the diagonal
+   comes out as -Component[d][1,1] rather than 0).  Nothing before d = 6 declared a
+   signed symmetry through this path: the derivative is symmetric in d = 2, 3, carries two
+   different index types in d = 4, and is antisymmetric only in d = 6, where the vector is
+   Lambda^2 of the 4. *)
+canonicalComponent[name_, idx_List, perms_] := Module[{n = Length[idx], orbit},
+   orbit = Table[{idx[[PermutationList[p[[1]], n]]], p[[2]]}, {p, perms}];
+   If[AnyTrue[orbit, #[[1]] === idx && #[[2]] == -1 &],
+      0,
+      With[{best = First@SortBy[orbit, First]}, best[[2]] (Component[name] @@ best[[1]])]
+   ]
+];
+
+BuildTensor[{name_String, idxs___}] :=
    With[{perms = SymmetryPermutations[TensorSymmetries[name], "Minimal" -> False]},
     SparseArray[
-     Flatten@Table[($i /@ Range@Length[{idxs}]) :> 
-       Evaluate[First[Sort[
-          Table[p[[2]] (Component[name] @@ ($i /@ Range@Length[{idxs}])[[PermutationList[p[[1]], Length[{idxs}]]]]), {p, perms}]]]], 
+     Flatten@Table[($i /@ Range@Length[{idxs}]) :>
+       Evaluate[canonicalComponent[name, $i /@ Range@Length[{idxs}], perms]],
        Evaluate[
-        Sequence @@ 
-         Table[{$i[ii], IndexData[{idxs}[[ii, 1]]][[1]]}, {ii, 
-           Length[{idxs}]}]]], 
+        Sequence @@
+         Table[{$i[ii], IndexData[{idxs}[[ii, 1]]][[1]]}, {ii,
+           Length[{idxs}]}]]],
      Table[IndexData[{idxs}[[ii, 1]]][[1]], {ii, Length[{idxs}]}]]
    ];
    
 symmetryInconsistent[gen1_, gen2_] := Max[Length /@ Values[GroupBy[DeleteDuplicates@Join[SymmetryPermutations[gen1], SymmetryPermutations[gen2]], First]]] > 1;
 
+(* [Q_A^i, O] in d = 6.  The ansatz index order is [Q's R index, O's R index, Q's spinor
+   index, O's spinor indices], so O's block starts at slot 4 and is where O's Young
+   symmetry has to be imposed.  Note the target is fixed by INDEX CONTENT, not by a target
+   spin: Q's action is set-valued in d = 6 (rep (x) [1,0,0] is a sum of reps, e.g.
+   [1,0,0] (x) [1,0,0] = [2,0,0] + [0,1,0]), so there is no single spin to aim at. *)
+ansatzTensor6[rep_, rep2_, op_] := Contract[
+   TensorProduct[ConjugateThreePtGlobalInvariant[{QGlobalRep[], rep}, rep2], op],
+   {{1, 3 + Position[Indices[op], _Raised][[1, 1]]}}
+];
+
+possibleQActions6[f : Operator[_, rep_, dim_, spin_, y_]] := Module[
+   {targetInds, n, terms, structs},
+   targetInds = Prepend[spinorIndicesOf[f], lowW6];
+   n = Length[targetInds];
+   (* [Q_A, O] inherits O's Young symmetry in O's slots, so each structure is projected
+      there.  Permuting O's slots carries one member of a family to another, so the
+      projection is taken by re-keying the assignment rather than by wrapping the tensor in
+      a further TensorPermute (which TensorTools composes incorrectly -- see SixD.m).
+      Transpose[T_asg, rho] === T_(asg[[InversePermutation[rho]]]). *)
+   terms = youngSlotTerms6[partition6[spin], n];
+   structs = Flatten@Table[
+      Table[
+         Total[Function[tm,
+               tm[[2]] ansatzTensor6[rep, rep2,
+                  familyLookup6[family, asg[[InversePermutation[tm[[1]]]]]]]
+            ] /@ terms],
+         {asg, familyAssignments6[family]}],
+      {rep2, ReduceRepProduct[GlobalSymmetry[], {QGlobalRep[], rep}][[;; , 1]]},
+      {family, operatorFamilies6[multipletOf[f], rep2, dim + 1/2, targetInds]}
+   ];
+   independentStructures6[DeleteCases[structs, 0]]
+];
+
 Options[PossibleQActions] = {"QBar" -> False};
-PossibleQActions::noqbar = "No \!\(\*OverscriptBox[\(Q\), \(_\)]\) in odd dimensions";
-PossibleQActions[f : Operator[_, rep_, dim_, spin_, y_], opt: OptionsPattern[]] := PossibleQActions[f, opt] = If[TrueQ[OptionValue["QBar"]],
-   If[ListQ[spin], qToQBar @ PossibleQActions[Conjugate[f], "QBar" -> False], Message[PossibleQActions::noqbar]],
+PossibleQActions::noqbar = "There is no \!\(\*OverscriptBox[\(Q\), \(_\)]\) in d = ``.";
+PossibleQActions[f : Operator[_, rep_, dim_, spin_, y_], opt: OptionsPattern[]] := PossibleQActions[f, opt] = Which[
+   TrueQ[OptionValue["QBar"]] && ! hasQBar[],
+      Message[PossibleQActions::noqbar, SpacetimeDimension[]]; {},
+   TrueQ[OptionValue["QBar"]],
+      qToQBar @ PossibleQActions[Conjugate[f], "QBar" -> False],
+   SpacetimeDimension[] == 6,
+      possibleQActions6[f],
+   True,
    DeleteDuplicates[(SymmetryReduce /@
     Select[
      With[ {reps = ReduceRepProduct[GlobalSymmetry[], {QGlobalRep[], rep}][[;; , 1]]},
@@ -248,10 +307,17 @@ fingerprint[TensorPermute[Contract[t_, pairs_], perm_]] := Module[{indpos},
 ];
 
 Options["QAnsatz"] = {"QBar" -> False, "Symmetrized" -> True};
-QAnsatz[f_Operator, opt : OptionsPattern[]] := 
+QAnsatz[f_Operator, opt : OptionsPattern[]] :=
   QAnsatz[f, opt] = If[OptionValue["Symmetrized"],
    If[OptionValue["QBar"],
       qToQBar[QAnsatz[Conjugate[f], "QBar" -> False]],
+   If[SpacetimeDimension[] == 6,
+      (* possibleQActions6 already Young-projects each structure onto O's index symmetry and
+         returns a linearly independent set, so there is nothing left to symmetrize.  The
+         grouping below -- merging the coefficients of terms related by ANY permutation of
+         O's index slots -- is only valid when that block is fully symmetric, which in
+         d = 6 holds solely for single-row reps. *)
+      QAnsatz[f, "QBar" -> False, "Symmetrized" -> False],
 	   With[{unsym = QAnsatz[f, "QBar" -> OptionValue["QBar"], "Symmetrized" -> False]},
 	      Which[unsym === 0, 0,
 	         Head[unsym] =!= Plus, unsym, 
@@ -265,8 +331,9 @@ QAnsatz[f_Operator, opt : OptionsPattern[]] :=
 	      ]
 	   ]
    ]
+   ]
    ,
-   With[{terms = PossibleQActions[f, "QBar" -> OptionValue["QBar"]]}, 
+   With[{terms = PossibleQActions[f, "QBar" -> OptionValue["QBar"]]},
     Sum[SUSYCoefficient[f[[1]], i, "QBar" -> OptionValue["QBar"]] terms[[i]], {i, Length[terms]}]
    ]
 ];

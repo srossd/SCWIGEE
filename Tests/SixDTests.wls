@@ -166,6 +166,44 @@ assert["opGroup recovers each level", {opGroup[1, 0, 0], opGroup[1, 1, 0], opGro
 assert["the chiral {Q,Q} shifts the level by two, not one",
    quadraticShifts[] === {{-2, 0}, {0, 0}, {2, 0}}, quadraticShifts[]];
 
+(* ------------------------------------------------------------------ *)
+Print["\nd = 6: the QAnsatz pipeline on the (1,0) tensor multiplet"];
+(* ------------------------------------------------------------------ *)
+
+(* The known variations are  [Q,phi] ~ psi,  [Q,psi] ~ H_{AB} + d_{AB} phi,
+   [Q,H] ~ d_{A(B} psi_{C)}.  Note d_{BC} psi_A must die: it is antisymmetric in H's two
+   slots, which H's Young projection symmetrizes. *)
+namesIn[s_] := DeleteDuplicates@Cases[s, nm_String /; MemberQ[{"\[Phi]", "\[Psi]", "H", "\[PartialD]"}, nm], All];
+builtFrom[op_] := Sort[namesIn /@ PossibleQActions[op]];
+
+assert["[Q, phi] has exactly one structure, and it is psi",
+   builtFrom[phi6] === {{"\[Psi]"}}, builtFrom[phi6]];
+assert["[Q, psi] has exactly two structures: H and d phi",
+   Sort[builtFrom[psi6]] === Sort[{{"H"}, {"\[PartialD]", "\[Phi]"}}], builtFrom[psi6]];
+assert["[Q, H] has exactly one structure, d psi",
+   builtFrom[h6] === {{"\[PartialD]", "\[Psi]"}}, builtFrom[h6]];
+
+(* The surviving [Q,H] structure must carry H's symmetry.  In the ansatz index order
+   [Q's R index, O's R index, Q's spinor index, O's spinor indices], H's block is slots 4,5. *)
+qh = structureComponents6[First@PossibleQActions[h6]];
+assert["[Q, H] is symmetric in H's two slots",
+   AllTrue[Flatten[Expand[qh - Transpose[qh, {1, 2, 3, 5, 4}]]], PossibleZeroQ]];
+assert["[Q, H] is not identically zero", ! AllTrue[Flatten[Expand[qh]], PossibleZeroQ]];
+
+(* the antisymmetric derivative is what kills d_{BC} psi_A *)
+assert["d_{AB} is antisymmetric in components (not merely declared so)",
+   With[{cd = Normal@Components[Tensor[{{"\[PartialD]", lowW6, lowW6}}]]},
+      Expand[cd + Transpose[cd]] === ConstantArray[0, {4, 4}] && Diagonal[cd] === {0, 0, 0, 0}]];
+
+(* an operator's own components are Young-projected, not just symmetry-canonicalised *)
+assert["H's components are symmetric in its two Weyl slots",
+   With[{ch = Normal@Components[ToTensor[h6]]},
+      Expand[ch - Transpose[ch, {1, 3, 2}]] === ConstantArray[0, Dimensions[ch]]]];
+
+assert["QAnsatz assigns one coefficient per structure",
+   Length[DeleteDuplicates@Cases[QAnsatz[psi6], _SUSYCoefficient, All]] == 2,
+   Cases[QAnsatz[psi6], _SUSYCoefficient, All]];
+
 (* {Q_A^i, Q_B^j} = Omega^{ij} P_{AB}: R-symmetry factor is the symplectic 2pt invariant,
    and P carries two undotted Weyl indices *)
 qz = quadraticZero[phi6];

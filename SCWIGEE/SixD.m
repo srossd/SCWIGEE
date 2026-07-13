@@ -83,6 +83,28 @@ rowSymmetryGenerators6[rep_] := With[{rows = partition6[rep]},
    ]
 ];
 
+(* The EXACT permutation symmetry of a Young-projected index block, read off the projector
+   rather than assumed.  Row symmetry always holds, but it is not always the whole story: a
+   single-column shape (the vector [0,1,0], say) has no row symmetry at all yet is totally
+   antisymmetric, because its row symmetrizer is trivial and only the column
+   antisymmetrizer acts.  So each transposition of the block is tested against the
+   projector and kept when it acts with a definite sign.  Index 1 of an operator tensor is
+   its R-symmetry index, hence the offset by one. *)
+youngSymmetryGenerators6[rep_] := youngSymmetryGenerators6[rep] =
+   Module[{lambda = partition6[rep], n, arr, swapped},
+      n = Total[lambda];
+      If[n <= 1, Return[{}]];
+      arr = youngProjectTensor6[Array[$y, ConstantArray[4, n]], rep];
+      Flatten[Table[
+         swapped = TensorTranspose[arr, PermutationList[Cycles[{{i, j}}], n]];
+         Which[
+            Flatten[Expand[swapped - arr]] === ConstantArray[0, 4^n], {{Cycles[{{i + 1, j + 1}}], 1}},
+            Flatten[Expand[swapped + arr]] === ConstantArray[0, 4^n], {{Cycles[{{i + 1, j + 1}}], -1}},
+            True, {}
+         ],
+         {i, n - 1}, {j, i + 1, n}], 2]
+   ];
+
 (* Young-project the index block [first, first + n - 1] of an array onto the
    diagram of rep, using ConformalStructures' symmetrizer term list. *)
 youngProjectTensor6[arr_, rep_, first_ : 1] := With[{lambda = partition6[rep], r = ArrayDepth[arr]},
@@ -132,3 +154,155 @@ BuildTensor[{su4delta[], _, _}] := SparseArray[su4PairingMatrix];
 
 (* su4delta pairs two different index types, so it has no permutation symmetry. *)
 declareSixDSymmetries[] := DeclareTensorSymmetry[su4eps[], {Antisymmetric[Range[4]]}];
+
+(* ------------------------------------------------------------------------- *)
+(* d = 6 SUSY ansatz structures.                                             *)
+(*                                                                            *)
+(* In d = 2, 3, 4 an ansatz structure is built by CProducts, which matches an  *)
+(* operator's spinor index count to a target by tensoring with, or contracting *)
+(* against, the two-index charge conjugation matrix.  That matrix vanishes in  *)
+(* d = 6, so the whole mechanism has to be rebuilt on the invariants that do   *)
+(* exist: eps_{ABCD}, which changes one chirality's index count by FOUR, and   *)
+(* the pairing K, which adds or removes one index of EACH chirality.  A single *)
+(* index can therefore never be raised or lowered on its own, and the shifts   *)
+(* that are reachable, (+-4, 0), (0, +-4) and (+-1, +-1), preserve the SU(4)   *)
+(* N-ality of the index block -- exactly as representation theory demands.     *)
+(* ------------------------------------------------------------------------- *)
+lowW6 := Lowered[WeylSpinor[6]];
+lowD6 := Lowered[DottedWeylSpinor[6]];
+raiW6 := Raised[WeylSpinor[6]];
+raiD6 := Raised[DottedWeylSpinor[6]];
+
+(* Which multisets of invariants carry an index block from (mW, mD) to (nW, nD)?  The
+   counts are bounded: physical multiplets never need more than one epsilon or a couple of
+   pairings, and an unbounded search would blow up the ansatz with redundant structures. *)
+adjustSchemes6[mW_, mD_, nW_, nD_] := Select[
+   Flatten[Table[{ea, ec, da, dc, ka, kc},
+      {ea, 0, 1}, {ec, 0, 1}, {da, 0, 1}, {dc, 0, 1}, {ka, 0, 2}, {kc, 0, 2}], 5],
+   Function[s,
+      With[{ea = s[[1]], ec = s[[2]], da = s[[3]], dc = s[[4]], ka = s[[5]], kc = s[[6]]},
+         nW == mW + 4 ea - 4 ec + ka - kc && nD == mD + 4 da - 4 dc + ka - kc &&
+            4 ec + kc <= mW && 4 dc + kc <= mD
+      ]
+   ]
+];
+
+schemeFactors6[{ea_, ec_, da_, dc_, ka_, kc_}] := Join[
+   Table[SU4Epsilon[], ea],
+   Table[SU4Epsilon["Raised" -> True], ec],
+   Table[SU4Epsilon["Dotted" -> True], da],
+   Table[SU4Epsilon["Raised" -> True, "Dotted" -> True], dc],
+   Table[SU4Pairing[], ka],
+   Table[SU4Pairing["Raised" -> True], kc]
+];
+
+(* One "family" is a base tensor, a scheme, and a choice of which of base's indices are
+   contracted against the invariants.  It is returned as an Association from the ASSIGNMENT
+   -- which free index of the contracted product lands in which target slot -- to the
+   resulting tensor, with every assignment enumerated.
+
+   Keying by assignment is what lets the Young projection below be taken without ever
+   nesting one TensorPermute inside another.  That matters: TensorTools composes
+   TensorPermute[TensorPermute[x, q], p] to TensorPermute[x, q[[p]]], whereas its own
+   single-level semantics (Components[TensorPermute[t, p]] === Transpose[Components[t], p])
+   require p[[q]].  The two agree only when a permutation is an involution, so a nested
+   permute silently produces the wrong tensor for, say, a 4-cycle.  Everything here
+   therefore applies at most ONE TensorPermute, to an unpermuted base. *)
+structureFamily6[base_, factors_, wSel_, dSel_, targetInds_] := Module[
+   {prod, inds, nb, raiWf, raiDf, pairs, c, cinds, rpos, spos, asgs},
+   prod = If[factors === {}, base, TensorProduct[base, Sequence @@ factors]];
+   inds = Indices[prod];
+   nb = Length[Indices[base]];
+   raiWf = Select[Range[nb + 1, Length[inds]], inds[[#]] === raiW6 &];
+   raiDf = Select[Range[nb + 1, Length[inds]], inds[[#]] === raiD6 &];
+   pairs = Join[Transpose[{wSel, raiWf}], Transpose[{dSel, raiDf}]];
+   c = If[pairs === {}, prod, Contract[prod, pairs]];
+   cinds = Indices[c];
+   (* every invariant's raised index is contracted, so the only raised index left is the
+      operator's R-symmetry index.  It is left where it sits -- possibleQActions6 locates it
+      by position and contracts it away -- and only the spinor slots are reordered. *)
+   rpos = Position[cinds, _Raised][[1, 1]];
+   spos = Complement[Range[Length[cinds]], {rpos}];
+   If[Sort[cinds[[spos]]] =!= Sort[targetInds], Return[{}]];
+   asgs = Select[Permutations[spos], cinds[[#]] === targetInds &];
+   Table[
+      {asg, TensorPermute[c,
+         InversePermutation[ReplacePart[Range[Length[cinds]], Thread[spos -> asg]]]]},
+      {asg, asgs}]
+];
+
+(* the tensor in a family whose free spinor indices sit in the order given by asg *)
+familyLookup6[family_, asg_] := SelectFirst[family, First[#] === asg &][[2]];
+familyAssignments6[family_] := First /@ family;
+
+(* Every family of structures built from base whose free spinor indices are targetInds. *)
+structureFamilies6[base_, targetInds_] := Module[{binds, lowWb, lowDb, mW, mD, nW, nD},
+   binds = Indices[base];
+   lowWb = Select[Range[Length[binds]], binds[[#]] === lowW6 &];
+   lowDb = Select[Range[Length[binds]], binds[[#]] === lowD6 &];
+   mW = Length[lowWb]; mD = Length[lowDb];
+   nW = Count[targetInds, lowW6]; nD = Count[targetInds, lowD6];
+   DeleteCases[Flatten[Table[
+      With[{factors = schemeFactors6[scheme],
+            nrw = 4 scheme[[2]] + scheme[[6]], nrd = 4 scheme[[4]] + scheme[[6]]},
+         Table[structureFamily6[base, factors, wSel, dSel, targetInds],
+            {wSel, Permutations[lowWb, {nrw}]}, {dSel, Permutations[lowDb, {nrd}]}]
+      ],
+      {scheme, adjustSchemes6[mW, mD, nW, nD]}
+   ], 2], {}]
+];
+
+(* The d = 6 counterpart of OperatorsWithQuantumNumbers: instead of a target spin (which in
+   d = 6 Q's action does not determine -- rep (x) [1,0,0] is a SUM of reps) it takes the
+   target index content directly.  Operators at the target dimension contribute directly;
+   operators one unit below contribute through a derivative, which carries two undotted
+   Weyl indices.  There is no U(1) R-charge to select on. *)
+operatorFamilies6[multiplet_, rep_, dim_, targetInds_] := Join[
+   Flatten[structureFamilies6[ToTensor[#], targetInds] & /@
+      Select[multiplet, dynkin[rep] == dynkin[GlobalRep[#]] && ScalingDimension[#] == dim &], 1],
+   Flatten[structureFamilies6[Tensor[{{"\[PartialD]", lowW6, lowW6}, ToTensor[#][[1, 1]]}], targetInds] & /@
+      Select[multiplet, dynkin[rep] == dynkin[GlobalRep[#]] && ScalingDimension[#] == dim - 1 &], 1]
+];
+
+(* The Young symmetrizer of shape lambda, as permutations of the n target spinor slots.
+   Slot 1 is Q's own index and is left alone; O's block is slots 2 .. n. *)
+youngSlotTerms6[lambda_, n_] := If[Total[lambda] <= 1,
+   {{Range[n], 1}},
+   {Join[{1}, 1 + #[[1]]], #[[2]]} & /@ youngSymmetrizerTerms[lambda]
+];
+
+(* Components[] does not evaluate on a sum of tensors, and a Young-projected structure is
+   precisely such a sum, so the components are assembled term by term. *)
+structureComponents6[a_Plus] := Total[structureComponents6 /@ (List @@ a)];
+structureComponents6[c_ t_] /; FreeQ[c, Alternatives @@ TensorTools`Private`$TensorHeads] :=
+   c structureComponents6[t];
+structureComponents6[0] := 0;
+structureComponents6[t_] := Normal[Components[t]];
+
+(* Keep a maximal linearly independent subset.  Independence is decided on components --
+   a 6D operator's components are Young-projected (see sixDOperatorComponents), so two
+   structures that agree only by virtue of the column antisymmetry or a Garnir relation are
+   correctly seen as dependent, which a purely symbolic comparison would miss. *)
+independentStructures6[structs_] := Module[{vecs, kept = {}, mat = {}, r = 0},
+   vecs = Flatten[structureComponents6[#]] & /@ structs;
+   Do[
+      If[! AllTrue[vecs[[i]], PossibleZeroQ] &&
+            MatrixRank[Append[mat, vecs[[i]]]] > r,
+         mat = Append[mat, vecs[[i]]]; r = r + 1; kept = Append[kept, structs[[i]]]
+      ],
+      {i, Length[structs]}];
+   kept
+];
+
+(* A 6D operator's spinor block is Young-projected, not merely symmetrized: for a mixed
+   shape the declared permutation symmetry is only part of the story ([0,2,0] has 21
+   components under its row/column symmetry but 20 in the irrep).  Its components are
+   therefore built by applying the Young symmetrizer to a generic array. *)
+sixDOperatorQ[name_String] := SpacetimeDimension[] === 6 &&
+   $multipletIndices =!= {} &&
+   MemberQ[Flatten[Multiplet /@ $multipletIndices][[;; , 1]], name];
+
+sixDOperatorComponents[name_String, idxs_List] := With[
+   {dims = Table[IndexData[idxs[[i, 1]]][[1]], {i, Length[idxs]}]},
+   SparseArray[youngProjectTensor6[Array[Component[name], dims], Spin[name2field[name]], 2]]
+];
