@@ -387,7 +387,7 @@ resultsNotebook[] := CreateDocument[{
       		}]
       	], "Output"]
       }
-      ,{grp, Normal@GroupBy[Normal[First /@ SolvedCorrelators[]], First@Cases[#, g[fields_, __] :> fields, All, Heads -> True] &]}]]
+      ,{grp, Normal@GroupBy[Normal[First /@ SolvedCorrelators[]], First@Cases[#, (g | \[Lambda])[fields_, __] :> fields, All, Heads -> True] &]}]]
 }];
 
 preservedSusyPanel[q_] := Which[
