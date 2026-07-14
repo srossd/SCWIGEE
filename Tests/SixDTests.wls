@@ -185,6 +185,20 @@ assert["the multiplet lattice moves by dimension alone in d = 6",
 assert["...and by +-1 in R-charge in d = 4",
    Block[{$D = 4}, qLatticeMoves[]] === {{-1, -1/2}, {1, -1/2}}];
 
+(* DisplayMultiplet lays operators out at {x, Delta} with x the U(1) R-charge.  With no such
+   charge every operator sits at x = 0, so the 4D edge rule (|dx| == 1) draws nothing and the
+   width 75 (max x - min x) collapses to zero -- the multiplet has to be drawn as a single
+   column instead. *)
+assert["Q moves diagonally on the lattice in d = 4, straight down in d = 6",
+   {qLatticeStep[], Block[{$D = 4}, qLatticeStep[]]} === {0, 1}];
+assert["consecutive dimension levels are joined in d = 6",
+   qAdjacentQ[{0, 4}, {0, 9/2}] && ! qAdjacentQ[{0, 4}, {0, 5}], "6D column edges"];
+assert["...while d = 4 still joins only diagonal neighbours",
+   Block[{$D = 4}, qAdjacentQ[{1, 3}, {2, 7/2}] && ! qAdjacentQ[{1, 3}, {1, 7/2}]]];
+assert["the diagram has a nonzero width even when every operator has x = 0",
+   multipletImageWidth[<|{0, 4} -> {}, {0, 5} -> {}|>] > 0,
+   multipletImageWidth[<|{0, 4} -> {}, {0, 5} -> {}|>]];
+
 (* the two-point phase is I^(chirality imbalance); in d = 6 that is the whole box count *)
 assert["two-point phase: 1 for a scalar, I for a spinor",
    {twoPtPhase[scal], twoPtPhase[spin]} === {1, I}, {twoPtPhase[scal], twoPtPhase[spin]}];

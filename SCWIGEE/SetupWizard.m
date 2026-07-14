@@ -153,12 +153,26 @@ plusIcon =
   Graphics[{Darker@Orange, Disk[], Thickness[.15], White, 
     Line[{{-.5, 0}, {.5, 0}}], Line[{{0, -.5}, {0, .5}}]}];
    
+(* Layout of the multiplet diagram.  An operator sits at {x, \[CapitalDelta]}, where the
+   horizontal coordinate is its U(1) R-charge; Q and Qbar then move diagonally, by
+   {+-1, 1/2}, and the diagram fans out sideways.
+
+   In d = 6 there is no U(1) R-symmetry, so every operator has x = 0: the multiplet is a
+   single column graded by dimension alone, and Q moves straight down by {0, 1/2}.  Both the
+   edge rule (which demanded |dx| == 1) and the width (75 (max x - min x), which collapses
+   to zero) therefore have to be generalized rather than assume the 4D lattice. *)
+qLatticeStep[] := If[hasU1RCharge[], 1, 0];
+qAdjacentQ[k1_, k2_] := Abs[k1[[2]] - k2[[2]]] == 1/2 && Abs[k1[[1]] - k2[[1]]] == qLatticeStep[];
+multipletEdges[grp_] := Select[Subsets[Keys[grp], {2}], qAdjacentQ @@ # &];
+multipletImageWidth[grp_] :=
+   Max[75 (Max[Keys[grp][[;; , 1]]] - Min[Keys[grp][[;; , 1]]]), 300];
+
 tikzLine[{{x1_, y1_}, {x2_, y2_}}] := StringForm["\\draw (``, ``) -- (``, ``);", x1, y1, x2, y2];
 tikzNode[exprs_, style_, {x1_, y1_}] := StringForm["\\node[``] at (``, ``) {$``$};", style, x1, y1, StringRiffle[exprs, " \\quad "]];
 tikzMultiplet[i_] := With[{grp = GroupBy[Flatten[$multiplet[i]], List @@ (#[[{5, 3}]]) &]},
    StringRiffle[Flatten[{
    "\\begin{tikzpicture}[box/.style = {draw,black,thick,rectangle,fill=orange!20,inner sep=.1cm},scale=1.5]",
-   tikzLine /@ Map[{-2, -2} # &, Select[Subsets[Keys[grp], {2}],Abs[Subtract @@ #] == {1, 1/2} &], {2}],
+   tikzLine /@ Map[{-2, -2} # &, multipletEdges[grp], {2}],
    Table[tikzNode[ToString@*TeXForm /@ vals, "box", {-2 vals[[1,5]], -2 vals[[1,3]]}], {vals, Values[grp]}],
    Table[tikzNode[{"\\Delta = "<>ToString[TeXForm[dim]]}, "", {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
    "\\end{tikzpicture}"
@@ -173,9 +187,7 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
       GroupBy[Flatten[$multiplet[i]], List @@ (#[[{5, 3}]]) &]},
    If[(! OptionValue["EditMode"]) || Length[Flatten[$multiplet[i]]] > 30,
     Graphics[{
-      Line /@ Map[{-1, -2} # &, 
-  Select[Subsets[Keys[grp], {2}], 
-   Abs[Subtract @@ #] == {1, 1/2} &], {2}], 
+      Line /@ Map[{-1, -2} # &, multipletEdges[grp], {2}],
       Text[Style[
           Framed[Row[If[Length[#] > 1 && Length[Flatten[$multiplet[i]]] > 30, {Style[Length[#], Italic]}, TraditionalForm /@ #], Spacer[2]], 
            Background -> LightOrange], 20, 
@@ -183,9 +195,8 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
        Values[grp],
        If[!$multipletSC[i], {Thick, Dashed, Line[{{0, -2 Min[ScalingDimension /@ Flatten[$multiplet[i]]] + .5}, {0, -2 Max[ScalingDimension /@ Flatten[$multiplet[i]]] - .5}}]}, Nothing],
        Table[Text[Style["\[CapitalDelta] = "<>ToString[dim,TraditionalForm], 14, FontFamily -> "CMU Serif"], {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}]
-      }, 
-     ImageSize -> (75 (Max[Keys[grp][[;; , 1]]] - 
-          Min[Keys[grp][[;; , 1]]]))],
+      },
+     ImageSize -> multipletImageWidth[grp]],
     If[Length[grp] == 0,
      Graphics[{
        Text[
@@ -201,8 +212,7 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
          FontFamily -> "CMU Serif"], {0, 0}]}],
      Graphics[{ 
        Table[Text[Style["\[CapitalDelta] = "<>ToString[dim,TraditionalForm], 14, FontFamily -> "CMU Serif"], {Min[-.75 Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
-       Line /@ (Select[Subsets[Keys[grp], {2}], 
-           Abs[Subtract @@ #] == {1, 1/2} &] . {{-0.75, 0}, {0, -2}}), 
+       Line /@ (multipletEdges[grp] . {{-0.75, 0}, {0, -2}}),
        Text[Style[Framed[Grid[{Append[
                Function[x, Button[
                    Style[TraditionalForm[x], 18], 
@@ -249,10 +259,9 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                ]}, Alignment -> {Center, Center}, Spacings -> .5], 
             Background -> LightOrange], 20, 
            FontFamily -> 
-            "CMU Serif"], {-0.75 #[[1, 1]], -2 #[[1, 2]]}] & /@ 
-        Normal[grp]}, 
-      ImageSize -> (75 (Max[Keys[grp][[;; , 1]]] - 
-           Min[Keys[grp][[;; , 1]]]))]
+            "CMU Serif"], {-0.75 #[[1, 1]], -2 #[[1, 2]]}] & /@
+        Normal[grp]},
+      ImageSize -> multipletImageWidth[grp]]
      ]
     ]
    ];
