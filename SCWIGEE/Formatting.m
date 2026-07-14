@@ -9,16 +9,58 @@ $dottedLetters = {"\!\(\*OverscriptBox[\(\[Alpha]\), \(.\)]\)",
 
 (* A d = 6 operator carries a + 2b + 3c indices of a SINGLE chirality -- dotted when a < c --
    rather than an undotted block followed by a dotted one. *)
+operatorIndexLetters[spin_] :=
+   Which[
+      SpacetimeDimension[] === 6 && validDynkinQ[spin],
+      Take[If[dottedQ6[spin], $dottedLetters, $undottedLetters], boxes6[spin]],
+      ListQ[spin],
+      Join[$undottedLetters[[;; 2 spin[[1]]]], $dottedLetters[[;; 2 spin[[2]]]]],
+      True,
+      $undottedLetters[[;; 2 spin]]
+   ];
+
+(* How an operator's indices are grouped, as {block length, sign}: +1 for a symmetrized
+   block, -1 for an antisymmetrized one.  In d = 2, 3, 4 an operator is symmetric within its
+   undotted block and within its dotted one.  In d = 6 the index block is Young-projected, so
+   the grouping is read off the diagram: each ROW is symmetric, and a shape that is a single
+   COLUMN (the vector [0,1,0], say) is totally antisymmetric -- exactly the symmetry
+   SetSymmetries declares, so the notation cannot drift from what the code actually uses. *)
+operatorIndexBlocks[spin_] :=
+   Which[
+      SpacetimeDimension[] === 6 && validDynkinQ[spin],
+      With[{lambda = partition6[spin]},
+         If[Length[lambda] > 1 && Max[lambda] == 1,
+            {{Total[lambda], -1}},
+            {#, 1} & /@ lambda
+         ]
+      ],
+      ListQ[spin], {{2 spin[[1]], 1}, {2 spin[[2]], 1}},
+      True, {{2 spin, 1}}
+   ];
+
+(* (...) for a symmetrized block, [...] for an antisymmetrized one; a lone index gets neither *)
+bracketIndices[letters_, blocks_] := Module[{pos = 0},
+   Row[Table[
+      With[{n = b[[1]], sgn = b[[2]]},
+         With[{grp = letters[[pos + 1 ;; pos + n]]},
+            pos += n;
+            Which[
+               n == 0, Nothing,
+               n == 1, Row[grp],
+               sgn === 1, Row[{"(", Row[grp], ")"}],
+               True, Row[{"[", Row[grp], "]"}]
+            ]
+         ]
+      ],
+      {b, blocks}]]
+];
+
 Format[Operator[name_, rep_, dim_, spin_, y_], TraditionalForm] :=
-  With[{indices =
-     Which[
-        SpacetimeDimension[] === 6 && validDynkinQ[spin],
-        Take[If[dottedQ6[spin], $dottedLetters, $undottedLetters], boxes6[spin]],
-        ListQ[spin],
-        Join[$undottedLetters[[;; 2 spin[[1]]]], $dottedLetters[[;; 2 spin[[2]]]]],
-        True,
-        $undottedLetters[[;; 2 spin]]]},
-     Subsuperscript[If[StringQ[name], ToExpression[name, TraditionalForm, HoldForm], name], If[indices == {}, "", Row[ToExpression[#, TraditionalForm, HoldForm] & /@ indices]],repName[rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
+  With[{indices = operatorIndexLetters[spin], blocks = operatorIndexBlocks[spin]},
+     Subsuperscript[If[StringQ[name], ToExpression[name, TraditionalForm, HoldForm], name],
+        If[indices == {}, "",
+           bracketIndices[ToExpression[#, TraditionalForm, HoldForm] & /@ indices, blocks]],
+        repName[rep] /. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :>
   ToString[ToExpression[s, TraditionalForm]]]
   ];
 

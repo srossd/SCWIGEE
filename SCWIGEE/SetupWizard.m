@@ -97,10 +97,10 @@ QGlobalRep[] := $QGlobalRep;
 DefectGlobalSymmetry[] := $DefectRSymmetry;
 Multiplet[i_] := $multiplet[i];
 
-(* Which lattice moves reach the operator one Q-step below a given site {R-charge, dim}?
-   With a U(1) R-charge, Q shifts it by +-1 and Qbar by -+1; without one (d = 6) the only
-   grading is the dimension. *)
-qLatticeMoves[] := If[hasU1RCharge[], {{-1, -1/2}, {1, -1/2}}, {{0, -1/2}}];
+(* Which lattice moves reach the operator one supercharge BELOW a given site?  With a U(1)
+   R-charge, Q and Qbar arrive from the two diagonals; without one (d = 6) there is a single
+   supercharge, so only one diagonal. *)
+qLatticeMoves[] := If[hasU1RCharge[], {{-1, -1/2}, {1, -1/2}}, {{-1, -1/2}}];
 
 SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
 SetDefectCodimension::nodefect = "Defects are not supported in d = ``; ConformalStructures has no defect structures there.";
@@ -114,14 +114,15 @@ SetDefectCodimension[3, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q3angle = \[CurlyPh
 SetDefectCodimension[2, type_] := ($qdefect = 2; $q2type = type;);
 SetDefectCodimension[1, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q1angle = \[CurlyPhi];);
 
-(* Candidate lattice sites {R-charge, dimension} at which an operator may be added.  Q
-   raises the dimension by 1/2 and, where there is one, shifts the U(1) R-charge by +-1.
-   In d = 6 there is no U(1) R-symmetry, so the tower is graded by dimension alone and the
-   only move is {0, 1/2}. *)
+(* Candidate lattice sites at which an operator may be added, in the same {x, dimension}
+   coordinates the diagram uses.  A supercharge always raises the dimension by 1/2 and shifts
+   x by one: where x is the U(1) R-charge, Q and Qbar shift it in opposite directions, so
+   both moves are offered; where x is the Q-level (d = 6, no U(1) R-symmetry) there is only
+   one supercharge, so the chain only extends one way. *)
 extraPos[mult_] :=
-  With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]},
+  With[{pos = DeleteDuplicates[multipletKey[mult] /@ mult]},
    If[! hasU1RCharge[],
-      Complement[Join[pos, # + {0, 1/2} & /@ pos], pos],
+      Complement[Join[pos, # + {1, 1/2} & /@ pos], pos],
       Select[Complement[
        Join[pos, # + {1, 1/2} & /@ pos, # + {-1, 1/2} & /@ pos], pos], If[$D == 4, True, #[[1]] >= 0] & ]
    ]];
@@ -153,27 +154,36 @@ plusIcon =
   Graphics[{Darker@Orange, Disk[], Thickness[.15], White, 
     Line[{{-.5, 0}, {.5, 0}}], Line[{{0, -.5}, {0, .5}}]}];
    
-(* Layout of the multiplet diagram.  An operator sits at {x, \[CapitalDelta]}, where the
-   horizontal coordinate is its U(1) R-charge; Q and Qbar then move diagonally, by
-   {+-1, 1/2}, and the diagram fans out sideways.
+(* Layout of the multiplet diagram.  An operator sits at {x, \[CapitalDelta]}, and a
+   supercharge always steps DIAGONALLY, by {+-1, 1/2} -- as the wizard's supercharge
+   indicator shows it.
 
-   In d = 6 there is no U(1) R-symmetry, so every operator has x = 0: the multiplet is a
-   single column graded by dimension alone, and Q moves straight down by {0, 1/2}.  Both the
-   edge rule (which demanded |dx| == 1) and the width (75 (max x - min x), which collapses
-   to zero) therefore have to be generalized rather than assume the 4D lattice. *)
-qLatticeStep[] := If[hasU1RCharge[], 1, 0];
-qAdjacentQ[k1_, k2_] := Abs[k1[[2]] - k2[[2]]] == 1/2 && Abs[k1[[1]] - k2[[1]]] == qLatticeStep[];
+   Where there is a U(1) R-charge, x is that charge: Q and Qbar shift it oppositely, so the
+   multiplet fans out to both sides.  Where there is none (d = 6) the multiplet is a single
+   Q-chain, and the Q-LEVEL plays the same role -- the number of supercharges separating an
+   operator from the superprimary, 2 (\[CapitalDelta] - \[CapitalDelta]_bottom).  Since that
+   also advances by one per supercharge, the chain is still drawn diagonally and the edge
+   rule below is the same in every dimension. *)
+multipletX[ops_][f_] := If[hasU1RCharge[],
+   Last[f],
+   2 (ScalingDimension[f] - Min[ScalingDimension /@ ops])
+];
+multipletKey[ops_][f_] := {multipletX[ops][f], ScalingDimension[f]};
+multipletGroups[ops_] := GroupBy[ops, multipletKey[ops]];
+
+qAdjacentQ[k1_, k2_] := Abs[k1[[2]] - k2[[2]]] == 1/2 && Abs[k1[[1]] - k2[[1]]] == 1;
 multipletEdges[grp_] := Select[Subsets[Keys[grp], {2}], qAdjacentQ @@ # &];
+(* a one-operator multiplet has no horizontal extent, so guard against a zero-width image *)
 multipletImageWidth[grp_] :=
    Max[75 (Max[Keys[grp][[;; , 1]]] - Min[Keys[grp][[;; , 1]]]), 300];
 
 tikzLine[{{x1_, y1_}, {x2_, y2_}}] := StringForm["\\draw (``, ``) -- (``, ``);", x1, y1, x2, y2];
 tikzNode[exprs_, style_, {x1_, y1_}] := StringForm["\\node[``] at (``, ``) {$``$};", style, x1, y1, StringRiffle[exprs, " \\quad "]];
-tikzMultiplet[i_] := With[{grp = GroupBy[Flatten[$multiplet[i]], List @@ (#[[{5, 3}]]) &]},
+tikzMultiplet[i_] := With[{grp = multipletGroups[Flatten[$multiplet[i]]]},
    StringRiffle[Flatten[{
    "\\begin{tikzpicture}[box/.style = {draw,black,thick,rectangle,fill=orange!20,inner sep=.1cm},scale=1.5]",
    tikzLine /@ Map[{-2, -2} # &, multipletEdges[grp], {2}],
-   Table[tikzNode[ToString@*TeXForm /@ vals, "box", {-2 vals[[1,5]], -2 vals[[1,3]]}], {vals, Values[grp]}],
+   Table[tikzNode[ToString@*TeXForm /@ kv[[2]], "box", {-2 kv[[1, 1]], -2 kv[[1, 2]]}], {kv, Normal[grp]}],
    Table[tikzNode[{"\\Delta = "<>ToString[TeXForm[dim]]}, "", {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
    "\\end{tikzpicture}"
 }], "\n"]];
@@ -182,17 +192,19 @@ Options[DisplayMultiplet] := {"EditMode" -> False};
 DisplayMultiplet[i_, OptionsPattern[]] := 
   With[{grp = 
      If[OptionValue["EditMode"] && Length[Flatten[$multiplet[i]]] <= 30, 
-       Merge[{#, AssociationMap[Function[x, {}], extraPos@Flatten[$multiplet[i]]]}, 
+       Merge[{#, AssociationMap[Function[x, {}], extraPos@Flatten[$multiplet[i]]]},
          Flatten@*Join] &, # &]@
-      GroupBy[Flatten[$multiplet[i]], List @@ (#[[{5, 3}]]) &]},
+      multipletGroups[Flatten[$multiplet[i]]]},
    If[(! OptionValue["EditMode"]) || Length[Flatten[$multiplet[i]]] > 30,
     Graphics[{
       Line /@ Map[{-1, -2} # &, multipletEdges[grp], {2}],
+      (* the box sits at the group's lattice key, which is the R-charge only when there is
+         one -- otherwise it is the Q-level, so the chain still runs diagonally *)
       Text[Style[
-          Framed[Row[If[Length[#] > 1 && Length[Flatten[$multiplet[i]]] > 30, {Style[Length[#], Italic]}, TraditionalForm /@ #], Spacer[2]], 
-           Background -> LightOrange], 20, 
-          FontFamily -> "CMU Serif"], {- #[[1, 5]], -2 #[[1, 3]]}] & /@ 
-       Values[grp],
+          Framed[Row[If[Length[#[[2]]] > 1 && Length[Flatten[$multiplet[i]]] > 30, {Style[Length[#[[2]]], Italic]}, TraditionalForm /@ #[[2]]], Spacer[2]],
+           Background -> LightOrange], 20,
+          FontFamily -> "CMU Serif"], {- #[[1, 1]], -2 #[[1, 2]]}] & /@
+       Normal[grp],
        If[!$multipletSC[i], {Thick, Dashed, Line[{{0, -2 Min[ScalingDimension /@ Flatten[$multiplet[i]]] + .5}, {0, -2 Max[ScalingDimension /@ Flatten[$multiplet[i]]] - .5}}]}, Nothing],
        Table[Text[Style["\[CapitalDelta] = "<>ToString[dim,TraditionalForm], 14, FontFamily -> "CMU Serif"], {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}]
       },
@@ -241,8 +253,12 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                     QGlobalRep[]], GlobalRep[f]}][[;; , 
                     1]], {diff, qLatticeMoves[]}, {f,
                     If[KeyExistsQ[grp, #[[1]] + diff], 
-                    grp[#[[1]] + diff], {}]}], 2]], "New Operator", 
-                    Operator[Null, 1, #[[1, 2]], If[$D == 4, 0, #[[1,1]]/2], #[[1, 1]]]]}, 
+                    grp[#[[1]] + diff], {}]}], 2]], "New Operator",
+                    (* the lattice x is the R-charge only when the theory has one; in d = 6
+                       it is the Q-level, and the R-charge slot is identically zero *)
+                    Operator[Null, 1, #[[1, 2]],
+                       Which[$D == 6, {0, 0, 0}, $D == 4, 0, True, #[[1, 1]]/2],
+                       If[hasU1RCharge[], #[[1, 1]], 0]]]},
                  If[MatchQ[res, _Operator] && StringQ[res[[1]]], 
                     If[$multipletSC[i], 
                        AppendTo[$multiplet[i], res];

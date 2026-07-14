@@ -179,25 +179,49 @@ assert["the chiral {Q,Q} shifts the level by two, not one",
 Print["\nd = 6: wizard and expansion plumbing"];
 (* ------------------------------------------------------------------ *)
 
-(* Q shifts the U(1) R-charge where there is one; in d = 6 it only raises the dimension. *)
-assert["the multiplet lattice moves by dimension alone in d = 6",
-   qLatticeMoves[] === {{0, -1/2}}, qLatticeMoves[]];
-assert["...and by +-1 in R-charge in d = 4",
+(* A supercharge always steps diagonally on the lattice.  With a U(1) R-charge, Q and Qbar
+   arrive from the two diagonals; in d = 6 there is a single supercharge, so only one. *)
+assert["one supercharge means one diagonal move in d = 6",
+   qLatticeMoves[] === {{-1, -1/2}}, qLatticeMoves[]];
+assert["...and both diagonals in d = 4, where there is also a Qbar",
    Block[{$D = 4}, qLatticeMoves[]] === {{-1, -1/2}, {1, -1/2}}];
 
-(* DisplayMultiplet lays operators out at {x, Delta} with x the U(1) R-charge.  With no such
-   charge every operator sits at x = 0, so the 4D edge rule (|dx| == 1) draws nothing and the
-   width 75 (max x - min x) collapses to zero -- the multiplet has to be drawn as a single
-   column instead. *)
-assert["Q moves diagonally on the lattice in d = 4, straight down in d = 6",
-   {qLatticeStep[], Block[{$D = 4}, qLatticeStep[]]} === {0, 1}];
-assert["consecutive dimension levels are joined in d = 6",
-   qAdjacentQ[{0, 4}, {0, 9/2}] && ! qAdjacentQ[{0, 4}, {0, 5}], "6D column edges"];
-assert["...while d = 4 still joins only diagonal neighbours",
-   Block[{$D = 4}, qAdjacentQ[{1, 3}, {2, 7/2}] && ! qAdjacentQ[{1, 3}, {1, 7/2}]]];
-assert["the diagram has a nonzero width even when every operator has x = 0",
-   multipletImageWidth[<|{0, 4} -> {}, {0, 5} -> {}|>] > 0,
-   multipletImageWidth[<|{0, 4} -> {}, {0, 5} -> {}|>]];
+(* DisplayMultiplet lays operators out at {x, Delta}, and a supercharge always steps
+   DIAGONALLY.  Where there is a U(1) R-charge, x is that charge.  Where there is none the
+   Q-level -- 2 (Delta - Delta_bottom) -- plays the same role, so the multiplet is still a
+   diagonal chain rather than collapsing onto a single vertical line at x = 0. *)
+Module[{ops, grp},
+   ops = {Operator["A", sing6, 4, scal, 0], Operator["B", fund6, 9/2, spin, 0],
+          Operator["C", sing6, 5, sdt, 0], Operator["D", sing6, 5, vec, 0]};
+   grp = multipletGroups[ops];
+   assert["without a U(1) R-charge the lattice x is the Q-level, not 0",
+      Sort[Keys[grp]] === {{0, 4}, {1, 9/2}, {2, 5}}, Sort[Keys[grp]]];
+   assert["...so the multiplet is a diagonal chain, with every level joined",
+      Length[multipletEdges[grp]] == 2, multipletEdges[grp]];
+   assert["...and the diagram has a nonzero width", multipletImageWidth[grp] > 0];
+];
+assert["the edge rule is now the same in every dimension (a supercharge moves diagonally)",
+   qAdjacentQ[{1, 3}, {2, 7/2}] && ! qAdjacentQ[{1, 3}, {1, 7/2}]];
+
+(* Index symmetry is shown with brackets, taken from the same Young data SetSymmetries uses:
+   (...) for a symmetrized block, [...] for an antisymmetrized one. *)
+assert["a single row is symmetric: [2,0,0] -> one (..) block of two",
+   operatorIndexBlocks[sdt] === {{2, 1}}, operatorIndexBlocks[sdt]];
+assert["a single column is ANTIsymmetric: [0,1,0] -> one [..] block of two",
+   operatorIndexBlocks[vec] === {{2, -1}}, operatorIndexBlocks[vec]];
+assert["a mixed shape brackets each row: [1,1,0] -> (ab)c, [0,2,0] -> (ab)(cd)",
+   {operatorIndexBlocks[{1, 1, 0}], operatorIndexBlocks[stt]} ===
+      {{{2, 1}, {1, 1}}, {{2, 1}, {2, 1}}},
+   {operatorIndexBlocks[{1, 1, 0}], operatorIndexBlocks[stt]}];
+assert["the brackets agree with the symmetry actually declared",
+   And @@ Table[
+      With[{blocks = operatorIndexBlocks[r], gens = youngSymmetryGenerators6[r]},
+         (* a two-index block is declared symmetric iff its bracket is round *)
+         If[blocks === {{2, 1}}, gens === {{Cycles[{{2, 3}}], 1}},
+            If[blocks === {{2, -1}}, gens === {{Cycles[{{2, 3}}], -1}}, True]]],
+      {r, {sdt, vec}}]];
+assert["d = 4 brackets the undotted and dotted blocks separately",
+   Block[{$D = 4}, operatorIndexBlocks[{1, 1/2}]] === {{2, 1}, {1, 1}}];
 
 (* the two-point phase is I^(chirality imbalance); in d = 6 that is the whole box count *)
 assert["two-point phase: 1 for a scalar, I for a spinor",
