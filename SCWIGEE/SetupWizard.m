@@ -69,11 +69,12 @@ SetSymmetries[ops_] := Do[
 		Table[{Cycles[{{i, i+1}}], 1}, {i, 2, 2 + 2 Spin[op][[1]] - 2}], (* only holomorphic for now *)
 		$D == 6,
 		(* The spin is an SU(4) Dynkin label and the index block is Young-projected, not
-		   fully symmetrized.  Only the row symmetry is a permutation symmetry (the Young
-		   symmetrizer applies the row symmetrizer last); the column antisymmetry and the
-		   Garnir relations are carried by the projection itself. *)
+		   fully symmetrized, so its symmetry is read off the projector rather than assumed:
+		   a single row is symmetric, a single column (the vector [0,1,0], say) is
+		   ANTIsymmetric even though it has no row symmetry at all, and a mixed shape is
+		   symmetric within rows only. *)
 		If[validDynkinQ[Spin[op]],
-		   rowSymmetryGenerators6[Spin[op]],
+		   youngSymmetryGenerators6[Spin[op]],
 		   Message[SetSymmetries::badspin, Spin[op], $D]; {}
 		],
 		True,

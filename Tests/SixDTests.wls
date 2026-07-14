@@ -151,6 +151,15 @@ assert["ToTensor[H] has two undotted Weyl indices",
 assert["H's index block is declared symmetric (one row of two boxes)",
    TensorSymmetries["H"] === {{Cycles[{{2, 3}}], 1}}, TensorSymmetries["H"]];
 
+(* SetSymmetries must declare the symmetry the PROJECTOR gives, not merely the row
+   symmetry: a single-column rep has no row symmetry at all and yet is antisymmetric.
+   Declaring {} for it would leave the vector with no symmetry whatsoever. *)
+Block[{$multiplet = $multiplet, $multipletIndices = $multipletIndices},
+   SetMultiplet[{Operator["V", sing6, 5, vec, 0]}, "v", True, 2];
+   assert["a single-column rep [0,1,0] is declared ANTIsymmetric, not symmetryless",
+      TensorSymmetries["V"] === {{Cycles[{{2, 3}}], -1}}, TensorSymmetries["V"]];
+];
+
 (* a dotted operator really does get dotted indices *)
 chib = Operator["\[Chi]", fund6, 5/2, abar, 0];
 assert["a dotted rep [0,0,1] yields one dotted Weyl index",
