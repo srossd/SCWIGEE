@@ -55,11 +55,50 @@ bracketIndices[letters_, blocks_] := Module[{pos = 0},
       {b, blocks}]]
 ];
 
+(* Brackets can only express a symmetry that IS a symmetrization or an antisymmetrization:
+   a single-row Young shape, a single-column one, or (in d = 2, 3, 4) the symmetric blocks an
+   operator's spin decomposes into.  A mixed shape -- the SUSY current [1,1,0], shape {2,1},
+   or the stress tensor [0,2,0], shape {2,2} -- has no such reading: bracketing its rows would
+   claim only the row symmetry and quietly drop the column antisymmetry and the Garnir
+   relations.  Those are drawn as a Young diagram instead. *)
+bracketsSufficientQ[spin_] := ! (SpacetimeDimension[] === 6 && validDynkinQ[spin]) ||
+   With[{lambda = partition6[spin]},
+      lambda === {} || Length[lambda] == 1 || Max[lambda] == 1
+   ];
+
+(* The diagram is typeset as a Grid rather than drawn as Graphics: ItemSize is measured in
+   ems and line heights, so the cells scale with whatever font size the operator is being
+   displayed at, and a two-row diagram stands about as tall as the index characters beside
+   it.  A Graphics with an absolute ImageSize would stay the same size while the text around
+   it grew -- exactly the wrong behaviour inside a subscript.
+
+   The cells are framed through Grid's per-cell Frame specification rather than by giving
+   each Item its own Frame: with per-Item frames a ragged row loses the edges it shares with
+   an unframed neighbour, and the diagram comes out broken. *)
+$tableauCellSize = {0.45, 0.4};
+youngTableauGlyph[lambda_] := Grid[
+   Table["", {i, Length[lambda]}, {j, Max[lambda]}],
+   Frame -> {None, None,
+      Flatten@Table[If[j <= lambda[[i]], {i, j} -> True, Nothing],
+         {i, Length[lambda]}, {j, Max[lambda]}]},
+   ItemSize -> $tableauCellSize,
+   Spacings -> {0, 0},
+   Alignment -> {Left, Top},
+   FrameStyle -> Directive[AbsoluteThickness[0.7], GrayLevel[0.25]],
+   BaselinePosition -> Center
+];
+
+tableauIndices[letters_, lambda_] :=
+   Row[{youngTableauGlyph[lambda], "(", Row[letters], ")"}];
+
 Format[Operator[name_, rep_, dim_, spin_, y_], TraditionalForm] :=
-  With[{indices = operatorIndexLetters[spin], blocks = operatorIndexBlocks[spin]},
+  With[{indices = ToExpression[#, TraditionalForm, HoldForm] & /@ operatorIndexLetters[spin]},
      Subsuperscript[If[StringQ[name], ToExpression[name, TraditionalForm, HoldForm], name],
-        If[indices == {}, "",
-           bracketIndices[ToExpression[#, TraditionalForm, HoldForm] & /@ indices, blocks]],
+        Which[
+           indices === {}, "",
+           bracketsSufficientQ[spin], bracketIndices[indices, operatorIndexBlocks[spin]],
+           True, tableauIndices[indices, partition6[spin]]
+        ],
         repName[rep] /. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :>
   ToString[ToExpression[s, TraditionalForm]]]
   ];

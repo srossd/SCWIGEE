@@ -223,6 +223,24 @@ assert["the brackets agree with the symmetry actually declared",
 assert["d = 4 brackets the undotted and dotted blocks separately",
    Block[{$D = 4}, operatorIndexBlocks[{1, 1/2}]] === {{2, 1}, {1, 1}}];
 
+(* Brackets can only say "symmetrized" or "antisymmetrized".  A mixed shape means neither, so
+   bracketing its rows would claim the row symmetry and silently drop the column antisymmetry
+   and the Garnir relations; those get a Young diagram instead. *)
+assert["brackets suffice for a single row and a single column, not for a mixed shape",
+   (bracketsSufficientQ /@ {scal, spin, sdt, vec, abar, {1, 1, 0}, stt, {1, 0, 1}}) ===
+      {True, True, True, True, True, False, False, False},
+   bracketsSufficientQ /@ {scal, spin, sdt, vec, abar, {1, 1, 0}, stt, {1, 0, 1}}];
+assert["...and brackets always suffice outside d = 6",
+   Block[{$D = 4}, bracketsSufficientQ[{1, 1/2}]] && Block[{$D = 3}, bracketsSufficientQ[1]]];
+
+(* the diagram must have the shape of the Young tableau, ragged rows and all *)
+assert["the Young diagram frames exactly the cells of the shape",
+   With[{g = youngTableauGlyph[{2, 1}]},
+      Sort[Cases[g, HoldPattern[{i_, j_} -> True], All]] === Sort[{{1, 1} -> True, {1, 2} -> True, {2, 1} -> True}]],
+   Cases[youngTableauGlyph[{2, 1}], HoldPattern[{_, _} -> True], All]];
+assert["...for the stress tensor's {2,2} too",
+   Length[Cases[youngTableauGlyph[stt // partition6], HoldPattern[{_, _} -> True], All]] == 4];
+
 (* the two-point phase is I^(chirality imbalance); in d = 6 that is the whole box count *)
 assert["two-point phase: 1 for a scalar, I for a spinor",
    {twoPtPhase[scal], twoPtPhase[spin]} === {1, I}, {twoPtPhase[scal], twoPtPhase[spin]}];
