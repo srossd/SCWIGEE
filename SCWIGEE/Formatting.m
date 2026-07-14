@@ -1,12 +1,23 @@
 (* Wolfram Language package *)
 
-Format[Operator[name_, rep_, dim_, spin_, y_], TraditionalForm] := 
-  With[{indices = 
-     If[ListQ[spin],
-        Join[{"\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]"}[[;; 
-        2 spin[[1]]]], {"\!\(\*OverscriptBox[\(\[Alpha]\), \(.\)]\)", 
-        "\!\(\*OverscriptBox[\(\[Beta]\), \(.\)]\)", "\!\(\*OverscriptBox[\(\[Gamma]\), \(.\)]\)", "\!\(\*OverscriptBox[\(\[Delta]\), \(.\)]\)"}[[;; 2 spin[[2]]]]],
-        {"\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]"}[[;;2 spin]]]},
+$undottedLetters = {"\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]", "\[Epsilon]", "\[Zeta]", "\[Eta]", "\[Theta]"};
+$dottedLetters = {"\!\(\*OverscriptBox[\(\[Alpha]\), \(.\)]\)",
+   "\!\(\*OverscriptBox[\(\[Beta]\), \(.\)]\)", "\!\(\*OverscriptBox[\(\[Gamma]\), \(.\)]\)",
+   "\!\(\*OverscriptBox[\(\[Delta]\), \(.\)]\)", "\!\(\*OverscriptBox[\(\[Epsilon]\), \(.\)]\)",
+   "\!\(\*OverscriptBox[\(\[Zeta]\), \(.\)]\)", "\!\(\*OverscriptBox[\(\[Eta]\), \(.\)]\)",
+   "\!\(\*OverscriptBox[\(\[Theta]\), \(.\)]\)"};
+
+(* A d = 6 operator carries a + 2b + 3c indices of a SINGLE chirality -- dotted when a < c --
+   rather than an undotted block followed by a dotted one. *)
+Format[Operator[name_, rep_, dim_, spin_, y_], TraditionalForm] :=
+  With[{indices =
+     Which[
+        SpacetimeDimension[] === 6 && validDynkinQ[spin],
+        Take[If[dottedQ6[spin], $dottedLetters, $undottedLetters], boxes6[spin]],
+        ListQ[spin],
+        Join[$undottedLetters[[;; 2 spin[[1]]]], $dottedLetters[[;; 2 spin[[2]]]]],
+        True,
+        $undottedLetters[[;; 2 spin]]]},
      Subsuperscript[If[StringQ[name], ToExpression[name, TraditionalForm, HoldForm], name], If[indices == {}, "", Row[ToExpression[#, TraditionalForm, HoldForm] & /@ indices]],repName[rep]/. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :> 
   ToString[ToExpression[s, TraditionalForm]]]
   ];

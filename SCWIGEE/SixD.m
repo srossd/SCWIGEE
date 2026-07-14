@@ -279,20 +279,32 @@ structureComponents6[c_ t_] /; FreeQ[c, Alternatives @@ TensorTools`Private`$Ten
 structureComponents6[0] := 0;
 structureComponents6[t_] := Normal[Components[t]];
 
-(* Keep a maximal linearly independent subset.  Independence is decided on components --
-   a 6D operator's components are Young-projected (see sixDOperatorComponents), so two
-   structures that agree only by virtue of the column antisymmetry or a Garnir relation are
-   correctly seen as dependent, which a purely symbolic comparison would miss. *)
-independentStructures6[structs_] := Module[{vecs, kept = {}, mat = {}, r = 0},
-   vecs = Flatten[structureComponents6[#]] & /@ structs;
+(* Independence of structures is decided on components -- a 6D operator's components are
+   Young-projected (see sixDOperatorComponents), so two structures that agree only by virtue
+   of a column antisymmetry or a Garnir relation are correctly seen as dependent, which a
+   purely symbolic comparison would miss.
+
+   The components are polynomials in the abstract symbols Component[name][...], and ranking
+   symbolic matrices is far too slow once an operator carries four indices.  Each symbol is
+   therefore specialised to a large exact random integer, deterministically seeded from the
+   symbol itself, so the ranks are exact integer computations.  A specialisation can only
+   ever LOSE rank, and does so with negligible probability at this size; ConformalStructures
+   reduces its own 6D structure bases at a single random frame for the same reason. *)
+numComponent[c_] := numComponent[c] = BlockRandom[SeedRandom[Hash[c]]; RandomInteger[{-10^7, 10^7}]];
+numericVector6[arr_] := Flatten[arr] /. (x : Component[_][___]) :> numComponent[x];
+
+(* greedy maximal independent subset of structs, given a numeric vector for each *)
+independentByVectors6[structs_, vecs_] := Module[{kept = {}, mat = {}, r = 0},
    Do[
-      If[! AllTrue[vecs[[i]], PossibleZeroQ] &&
-            MatrixRank[Append[mat, vecs[[i]]]] > r,
+      If[! AllTrue[vecs[[i]], # === 0 &] && MatrixRank[Append[mat, vecs[[i]]]] > r,
          mat = Append[mat, vecs[[i]]]; r = r + 1; kept = Append[kept, structs[[i]]]
       ],
       {i, Length[structs]}];
    kept
 ];
+
+independentStructures6[structs_] :=
+   independentByVectors6[structs, numericVector6[structureComponents6[#]] & /@ structs];
 
 (* A 6D operator's spinor block is Young-projected, not merely symmetrized: for a mixed
    shape the declared permutation symmetry is only part of the story ([0,2,0] has 21

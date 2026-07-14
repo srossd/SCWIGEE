@@ -159,9 +159,20 @@ ExpandCorrelator[a_ + b_, opt: OptionsPattern[]] :=
 ExpandCorrelator[a_ b_, opt : OptionsPattern[]] /; FreeQ[a, Tensor] :=
    a ExpandCorrelator[b, opt];
 
-ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]], opt2 : OptionsPattern[]] := 
+(* Phase of the (unit-normalised) two-point function.  In d = 4 it is I raised to the
+   chirality imbalance 2|j1 - j2| of the operator's spinor indices, and in d = 2, 3 simply I
+   for a fermion.  In d = 6 an operator's indices are all of one chirality, so the imbalance
+   is the whole box count a + 2b + 3c -- which reduces to I for a spinor [1,0,0] and 1 for a
+   scalar, as it must. *)
+twoPtPhase[spin_] := Which[
+   SpacetimeDimension[] == 6, I^boxes6[spin],
+   ListQ[spin], I^(2 Abs[Subtract @@ spin]),
+   True, If[IntegerQ[spin], 1, I]
+];
+
+ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]], opt2 : OptionsPattern[]] :=
   Module[{
-     fields = name2field[StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names, 
+     fields = name2field[StringDrop[#[[1]], Count[Characters[#[[1]]], "\[PartialD]"]]] & /@ names,
      derivs = Flatten@Table[i, {i, Length[names]}, {j, Count[Characters[names[[i, 1]]], "\[PartialD]"]}],
      q = If[OptionValue[Correlator, "Defect"], $qdefect, None],
      rreps = FirstCase[#, Raised[ind : (_GlobalIndex | _DefectGlobalIndex)] :> ind] & /@ names,
@@ -183,7 +194,7 @@ ExpandCorrelator[Correlator[Tensor[names_], opt: OptionsPattern[]], opt2 : Optio
      	sign Sum[
        		Switch[{Length[names], OptionValue[Correlator, "Defect"]},
           		{2, False},
-          		If[Total[derivArrangement[[1]]] != 0, 0, If[ListQ[Spin[fields[[1]]]], I^(2 Abs[Subtract @@ Spin[fields[[1]]]]), If[IntegerQ[Spin[fields[[1]]]], 1, I]]],
+          		If[Total[derivArrangement[[1]]] != 0, 0, twoPtPhase[Spin[fields[[1]]]]],
           		{3, False}, 
           		If[Total[derivArrangement[[1]]] != 0, 0, \[Lambda][sfields,i,j]], 
           		{4, False},

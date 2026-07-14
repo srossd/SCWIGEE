@@ -142,7 +142,7 @@ ansatzTensor6[rep_, rep2_, op_] := Contract[
 ];
 
 possibleQActions6[f : Operator[_, rep_, dim_, spin_, y_]] := Module[
-   {targetInds, n, terms, structs},
+   {targetInds, n, terms, pairs},
    targetInds = Prepend[spinorIndicesOf[f], lowW6];
    n = Length[targetInds];
    (* [Q_A, O] inherits O's Young symmetry in O's slots, so each structure is projected
@@ -151,17 +151,27 @@ possibleQActions6[f : Operator[_, rep_, dim_, spin_, y_]] := Module[
       a further TensorPermute (which TensorTools composes incorrectly -- see SixD.m).
       Transpose[T_asg, rho] === T_(asg[[InversePermutation[rho]]]). *)
    terms = youngSlotTerms6[partition6[spin], n];
-   structs = Flatten@Table[
-      Table[
-         Total[Function[tm,
-               tm[[2]] ansatzTensor6[rep, rep2,
-                  familyLookup6[family, asg[[InversePermutation[tm[[1]]]]]]]
-            ] /@ terms],
-         {asg, familyAssignments6[family]}],
+   (* Each family member's components are evaluated once and specialised to numbers; the
+      projected structures are then linear combinations of those vectors, so no projected
+      sum ever has to be handed back to Components.  Without this an operator with four
+      spinor indices (the stress tensor) puts 120 assignments times the symmetrizer's terms
+      through a five-index Components evaluation apiece. *)
+   pairs = Flatten[Table[
+      Module[{asgs, tensors, vecs, slot},
+         asgs = familyAssignments6[family];
+         tensors = Table[ansatzTensor6[rep, rep2, familyLookup6[family, a]], {a, asgs}];
+         vecs = Table[numericVector6[structureComponents6[t]], {t, tensors}];
+         (* the member reached by permuting O's slots according to a symmetrizer term *)
+         slot[asg_, tm_] := FirstPosition[asgs, asg[[InversePermutation[tm[[1]]]]]][[1]];
+         Table[
+            {Total[Function[tm, tm[[2]] tensors[[slot[asg, tm]]]] /@ terms],
+             Total[Function[tm, tm[[2]] vecs[[slot[asg, tm]]]] /@ terms]},
+            {asg, asgs}]
+      ],
       {rep2, ReduceRepProduct[GlobalSymmetry[], {QGlobalRep[], rep}][[;; , 1]]},
       {family, operatorFamilies6[multipletOf[f], rep2, dim + 1/2, targetInds]}
-   ];
-   independentStructures6[DeleteCases[structs, 0]]
+   ], 2];
+   independentByVectors6[pairs[[;; , 1]], pairs[[;; , 2]]]
 ];
 
 Options[PossibleQActions] = {"QBar" -> False};

@@ -167,6 +167,33 @@ assert["the chiral {Q,Q} shifts the level by two, not one",
    quadraticShifts[] === {{-2, 0}, {0, 0}, {2, 0}}, quadraticShifts[]];
 
 (* ------------------------------------------------------------------ *)
+Print["\nd = 6: wizard and expansion plumbing"];
+(* ------------------------------------------------------------------ *)
+
+(* Q shifts the U(1) R-charge where there is one; in d = 6 it only raises the dimension. *)
+assert["the multiplet lattice moves by dimension alone in d = 6",
+   qLatticeMoves[] === {{0, -1/2}}, qLatticeMoves[]];
+assert["...and by +-1 in R-charge in d = 4",
+   Block[{$D = 4}, qLatticeMoves[]] === {{-1, -1/2}, {1, -1/2}}];
+
+(* the two-point phase is I^(chirality imbalance); in d = 6 that is the whole box count *)
+assert["two-point phase: 1 for a scalar, I for a spinor",
+   {twoPtPhase[scal], twoPtPhase[spin]} === {1, I}, {twoPtPhase[scal], twoPtPhase[spin]}];
+assert["two-point phase in d = 4 is unchanged",
+   Block[{$D = 4}, {twoPtPhase[{0, 0}], twoPtPhase[{1/2, 0}]}] === {1, I}];
+
+(* ConformalStructures has no defect structures in d = 6 *)
+assert["setting a defect codimension in d = 6 is refused with a message",
+   Block[{$qdefect = None},
+      Quiet[Check[SetDefectCodimension[2]; False, True, SetDefectCodimension::nodefect],
+         SetDefectCodimension::nodefect] && $qdefect === None]];
+
+(* a 6D operator prints with one chirality's worth of indices, not an undotted+dotted pair *)
+assert["formatting gives an operator boxes6 indices of a single chirality",
+   With[{ind = ToString[TraditionalForm[Operator["O", sing6, 3, stt, 0]]]},
+      StringQ[ind] && ind =!= ""]];
+
+(* ------------------------------------------------------------------ *)
 Print["\nd = 6: the QAnsatz pipeline on the (1,0) tensor multiplet"];
 (* ------------------------------------------------------------------ *)
 

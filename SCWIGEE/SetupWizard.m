@@ -96,17 +96,34 @@ QGlobalRep[] := $QGlobalRep;
 DefectGlobalSymmetry[] := $DefectRSymmetry;
 Multiplet[i_] := $multiplet[i];
 
+(* Which lattice moves reach the operator one Q-step below a given site {R-charge, dim}?
+   With a U(1) R-charge, Q shifts it by +-1 and Qbar by -+1; without one (d = 6) the only
+   grading is the dimension. *)
+qLatticeMoves[] := If[hasU1RCharge[], {{-1, -1/2}, {1, -1/2}}, {{0, -1/2}}];
+
 SetDefectCodimension::invalid = "The codimension `` needs to be an integer between 1 and 3 inclusive, or None.";
-SetDefectCodimension[q_] := If[MemberQ[{None,1,2,3},q], ($qdefect = q;), Message[SetDefectCodimension::invalid, q]];
+SetDefectCodimension::nodefect = "Defects are not supported in d = ``; ConformalStructures has no defect structures there.";
+SetDefectCodimension[q_] := Which[
+   q =!= None && SpacetimeDimension[] === 6, Message[SetDefectCodimension::nodefect, 6],
+   MemberQ[{None,1,2,3},q], ($qdefect = q;),
+   True, Message[SetDefectCodimension::invalid, q]
+];
 
 SetDefectCodimension[3, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q3angle = \[CurlyPhi];);
 SetDefectCodimension[2, type_] := ($qdefect = 2; $q2type = type;);
 SetDefectCodimension[1, \[CurlyPhi]_ : 0] := ($qdefect = 3; $q1angle = \[CurlyPhi];);
 
-extraPos[mult_] := 
-  With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]}, 
-   Select[Complement[
-    Join[pos, # + {1, 1/2} & /@ pos, # + {-1, 1/2} & /@ pos], pos], If[$D == 4, True, #[[1]] >= 0] & ]];
+(* Candidate lattice sites {R-charge, dimension} at which an operator may be added.  Q
+   raises the dimension by 1/2 and, where there is one, shifts the U(1) R-charge by +-1.
+   In d = 6 there is no U(1) R-symmetry, so the tower is graded by dimension alone and the
+   only move is {0, 1/2}. *)
+extraPos[mult_] :=
+  With[{pos = DeleteDuplicates[List @@@ mult[[;; , {5, 3}]]]},
+   If[! hasU1RCharge[],
+      Complement[Join[pos, # + {0, 1/2} & /@ pos], pos],
+      Select[Complement[
+       Join[pos, # + {1, 1/2} & /@ pos, # + {-1, 1/2} & /@ pos], pos], If[$D == 4, True, #[[1]] >= 0] & ]
+   ]];
 fundRep[grp_] := 
   If[IsSimpleGroupQ[grp], 
    If[grp == {}, 1, PadRight[{1}, Length[grp]]], fundRep /@ grp];
@@ -195,7 +212,7 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                     ReduceRepProduct[$RSymmetry, {If[diff[[1]] == 1, 
                     ConjugateIrrep[$RSymmetry, QGlobalRep[]], 
                     QGlobalRep[]], GlobalRep[f]}][[;; , 
-                    1]], {diff, {{-1, -1/2}, {1, -1/2}}}, {f, 
+                    1]], {diff, qLatticeMoves[]}, {f,
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "Edit Operator", 
                     x]}, If[MatchQ[res, _Operator] && StringQ[res[[1]]], 
@@ -211,7 +228,7 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
                     ReduceRepProduct[$RSymmetry, {If[diff[[1]] == 1, 
                     ConjugateIrrep[$RSymmetry, QGlobalRep[]], 
                     QGlobalRep[]], GlobalRep[f]}][[;; , 
-                    1]], {diff, {{-1, -1/2}, {1, -1/2}}}, {f, 
+                    1]], {diff, qLatticeMoves[]}, {f,
                     If[KeyExistsQ[grp, #[[1]] + diff], 
                     grp[#[[1]] + diff], {}]}], 2]], "New Operator", 
                     Operator[Null, 1, #[[1, 2]], If[$D == 4, 0, #[[1,1]]/2], #[[1, 1]]]]}, 
@@ -239,32 +256,44 @@ DisplayMultiplet[i_, OptionsPattern[]] :=
     ]
    ];
    
-opDialog[reps_, label_, 
-   init_ : Operator[Null, 1, 2, {0, 0}, 0]] := ($nfName = 
-    init[[1]]; $nfRep = init[[2]]; $nfL = 2 If[ListQ[init[[4]]], init[[4, 1]], init[[4]]]; $nfLb = 
-    2 If[ListQ[init[[4]]],init[[4, 2]], 0]; $nfDim = init[[3]]; $nfRCharge = If[init[[5]] === Null, Null, init[[5]]];
+(* The spin is entered differently in each dimension: two integers (undotted and dotted
+   spinor index counts) in d = 4, one in d = 2, 3, and in d = 6 the three non-negative
+   integers of an SU(4) Dynkin label {a, b, c} -- a scalar is {0,0,0}, the vector (and the
+   derivative) {0,1,0}, the self-dual tensor {2,0,0}, the stress tensor {0,2,0}. *)
+opDialog[reps_, label_,
+   init_ : Operator[Null, 1, 2, {0, 0}, 0]] := ($nfName =
+    init[[1]]; $nfRep = init[[2]];
+    $nfL = If[$D == 6, 0, 2 If[ListQ[init[[4]]], init[[4, 1]], init[[4]]]];
+    $nfLb = If[$D == 6, 0, 2 If[ListQ[init[[4]]], init[[4, 2]], 0]];
+    {$nfA, $nfB, $nfC} = If[$D == 6 && validDynkinQ[init[[4]]], init[[4]], {0, 0, 0}];
+    $nfDim = init[[3]]; $nfRCharge = If[init[[5]] === Null, Null, init[[5]]];
    DialogInput[
     DialogNotebook[{Framed@
-       Panel[Grid[{{"Operator name:", 
-           InputField[Dynamic[$nfName]]}, {"Global symmetry rep:", 
-           If[Length[reps] == 0, InputField[Dynamic[$nfRep]], 
-            RadioButtonBar[Dynamic[$nfRep], 
-             AssociationMap[RepName[$RSymmetry, #] &, 
-              reps]]]}, If[$D == 4, {"Spinor indices:", 
-           InputField[Dynamic[$nfL], 
-            Number]}, Nothing], If[$D == 4, {"Dotted spinor indices:", 
-           InputField[Dynamic[$nfLb], Number]}, Nothing], 
-          If[init[[3]] === Null, {"Scaling dimension:", 
+       Panel[Grid[{{"Operator name:",
+           InputField[Dynamic[$nfName]]}, {"Global symmetry rep:",
+           If[Length[reps] == 0, InputField[Dynamic[$nfRep]],
+            RadioButtonBar[Dynamic[$nfRep],
+             AssociationMap[RepName[$RSymmetry, #] &,
+              reps]]]}, If[$D == 4, {"Spinor indices:",
+           InputField[Dynamic[$nfL],
+            Number]}, Nothing], If[$D == 4, {"Dotted spinor indices:",
+           InputField[Dynamic[$nfLb], Number]}, Nothing],
+          If[$D == 6, {"SU(4) Dynkin label:",
+             Row[{InputField[Dynamic[$nfA], Number, FieldSize -> 3], Spacer[3],
+                  InputField[Dynamic[$nfB], Number, FieldSize -> 3], Spacer[3],
+                  InputField[Dynamic[$nfC], Number, FieldSize -> 3]}]}, Nothing],
+          If[init[[3]] === Null, {"Scaling dimension:",
             InputField[Dynamic[$nfDim], Number]}, Nothing],
-          If[init[[5]] === Null, {"R-charge:", 
-            InputField[Dynamic[$nfRCharge], Number]}, Nothing]}], 
-        Style[label, 20], Top, Background -> LightBlue], 
+          If[init[[5]] === Null && hasU1RCharge[], {"R-charge:",
+            InputField[Dynamic[$nfRCharge], Number]}, Nothing]}],
+        Style[label, 20], Top, Background -> LightBlue],
       DefaultButton[
        DialogReturn[
         Operator[ReleaseHold[
-          ToString[#, TraditionalForm] & /@ 
-           Hold[$nfName]], SimpleRepInputConversion[GlobalSymmetry[], $nfRep], $nfDim, If[$D == 4, {$nfL, $nfLb}/2, $nfL/2], 
-         $nfRCharge]]]}]]);
+          ToString[#, TraditionalForm] & /@
+           Hold[$nfName]], SimpleRepInputConversion[GlobalSymmetry[], $nfRep], $nfDim,
+         Which[$D == 6, {$nfA, $nfB, $nfC}, $D == 4, {$nfL, $nfLb}/2, True, $nfL/2],
+         If[hasU1RCharge[], $nfRCharge, 0]]]]}]]);
          
 multipletDialog[] := ($multName = Null; $multSC = True;
    DialogInput[
@@ -273,7 +302,9 @@ multipletDialog[] := ($multName = Null; $multSC = True;
            InputField[Dynamic[$multName]]}, If[$D == 4, {"Self-conjugate:", 
            Checkbox[Dynamic[$multSC]]}, Nothing]}], 
         Style["Add Multiplet", 20], Top, Background -> LightBlue], 
-      DefaultButton[DialogReturn[{ToString[$multName], If[$D == 3, True, $multSC]}]]}]]);
+      (* With no U(1) R-charge there is no separate conjugate branch to grade against, so a
+         d = 6 multiplet is a single tower, as in d = 3. *)
+      DefaultButton[DialogReturn[{ToString[$multName], If[$D == 3 || ! hasU1RCharge[], True, $multSC]}]]}]]);
       
 (*conventionButton[eq_] := With[{s = ToString@TeXForm[eq]},
    Button[ClickToCopy[
@@ -488,20 +519,26 @@ wizardPanel[] := Panel[Dynamic[Grid[
        Grid[
           {
              {
-                Style["Spacetime dimension: ", 14], 
-      			Dynamic[RadioButtonBar[Dynamic[$D], {3 -> Style["3", 12], 4 -> Style["4", 12]}, Enabled -> $editing]]
+                Style["Spacetime dimension: ", 14],
+      			(* Route through SetSpacetimeDimension rather than assigning $D directly: it also
+      			   builds the supercharge tensors and declares the dimension-dependent tensor
+      			   symmetries (the derivative's, and in d = 6 the SU(4) epsilon's), none of which
+      			   a bare assignment would do. *)
+      			Dynamic[RadioButtonBar[Dynamic[$D, SetSpacetimeDimension[#] &], {3 -> Style["3", 12], 4 -> Style["4", 12], 6 -> Style["6", 12]}, Enabled -> $editing]]
       		 },
              {
                 Style["Signature: ", 14], 
       			Dynamic[RadioButtonBar[Dynamic[ConformalStructures`Private`$signatureFactor, SetSignature[If[#1 == I, "Lorentzian", "Euclidean"]] &], {1 -> Style["Euclidean", 12], I -> Style["Lorentzian", 12]}, Enabled -> $editing]]
       		 },
       		 {
-      		    Style["Defect: ", 14], 
+      		    Style["Defect: ", 14],
       		    Dynamic[RadioButtonBar[Dynamic[$qdefect], {
-      		       None -> Style["None", 12], 
-      		       1 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 1", 12], "Defect codimension 1"], 
-           		   2 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 2", 12], "Defect codimension 2"], 
-         		   If[$D === 4, 3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"], Nothing]}, 
+      		       None -> Style["None", 12],
+      		       (* ConformalStructures has no defect structures in d = 6 (the correlator count
+      		          comes back Infinity), so only the bulk theory is offered there. *)
+      		       If[$D === 6, Nothing, 1 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 1", 12], "Defect codimension 1"]],
+           		   If[$D === 6, Nothing, 2 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 2", 12], "Defect codimension 2"]],
+         		   If[$D === 4, 3 -> Tooltip[Style["\!\(\*FormBox[\(q\), TraditionalForm]\) = 3", 12], "Defect codimension 3"], Nothing]},
          		  Enabled -> $editing]
          		]
          	 }
