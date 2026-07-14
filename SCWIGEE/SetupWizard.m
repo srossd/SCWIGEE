@@ -179,14 +179,28 @@ multipletImageWidth[grp_] :=
 
 tikzLine[{{x1_, y1_}, {x2_, y2_}}] := StringForm["\\draw (``, ``) -- (``, ``);", x1, y1, x2, y2];
 tikzNode[exprs_, style_, {x1_, y1_}] := StringForm["\\node[``] at (``, ``) {$``$};", style, x1, y1, StringRiffle[exprs, " \\quad "]];
-tikzMultiplet[i_] := With[{grp = multipletGroups[Flatten[$multiplet[i]]]},
+
+(* Everything is placed in one coordinate system: a lattice site {x, \[CapitalDelta]} maps to
+   {-2 x, -2 \[CapitalDelta]}.  The dimension labels used to be placed at Min[-x] - 1, i.e. on
+   the LATTICE scale while the boxes were on the doubled one, so they landed on top of the
+   diagram rather than to the left of it.  They now sit two units clear of the leftmost box. *)
+tikzMultiplet[i_] := With[{grp = multipletGroups[Flatten[$multiplet[i]]], ops = Flatten[$multiplet[i]]},
+   With[{labelX = Min[-2 Keys[grp][[;; , 1]]] - 2},
    StringRiffle[Flatten[{
+   If[usesYoungDiagramQ[ops],
+      "% needs \\usepackage{ytableau}; \\ytableausetup{boxsize=0.5em} keeps the diagrams inline-sized",
+      Nothing],
    "\\begin{tikzpicture}[box/.style = {draw,black,thick,rectangle,fill=orange!20,inner sep=.1cm},scale=1.5]",
    tikzLine /@ Map[{-2, -2} # &, multipletEdges[grp], {2}],
-   Table[tikzNode[ToString@*TeXForm /@ kv[[2]], "box", {-2 kv[[1, 1]], -2 kv[[1, 2]]}], {kv, Normal[grp]}],
-   Table[tikzNode[{"\\Delta = "<>ToString[TeXForm[dim]]}, "", {Min[-Keys[grp][[;;,1]]] - 1, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
+   (* the dashed divider between a multiplet and its conjugate branch, as on screen *)
+   If[! $multipletSC[i],
+      StringForm["\\draw[thick,dashed] (0, ``) -- (0, ``);",
+         -2 Min[ScalingDimension /@ ops] + 0.5, -2 Max[ScalingDimension /@ ops] - 0.5],
+      Nothing],
+   Table[tikzNode[operatorTeX /@ kv[[2]], "box", {-2 kv[[1, 1]], -2 kv[[1, 2]]}], {kv, Normal[grp]}],
+   Table[tikzNode[{"\\Delta = "<>ToString[TeXForm[dim]]}, "", {labelX, -2 dim}], {dim, Keys[grp][[;;,2]] // DeleteDuplicates}],
    "\\end{tikzpicture}"
-}], "\n"]];
+}], "\n"]]];
 
 Options[DisplayMultiplet] := {"EditMode" -> False};
 DisplayMultiplet[i_, OptionsPattern[]] := 

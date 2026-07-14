@@ -103,6 +103,54 @@ Format[Operator[name_, rep_, dim_, spin_, y_], TraditionalForm] :=
   ToString[ToExpression[s, TraditionalForm]]]
   ];
 
+(* ------------------------------------------------------------------------- *)
+(* TeX rendering of an operator.                                              *)
+(*                                                                            *)
+(* Built directly rather than by taking TeXForm of the on-screen format.  That *)
+(* format is a typeset object -- the Young diagram is a Grid -- and TeXForm    *)
+(* turns it into a frameless \begin{array}, of the wrong shape at that, since  *)
+(* the array is rectangular while the diagram is ragged.  An operator with no  *)
+(* indices also picked up an empty _{\text{}} subscript.                       *)
+(* ------------------------------------------------------------------------- *)
+texOf[s_String] := StringTrim[ToString[TeXForm[ToExpression[s, TraditionalForm, HoldForm]]]];
+texOf[x_] := StringTrim[ToString[TeXForm[x]]];
+
+bracketTeX[letters_, blocks_] := Module[{pos = 0},
+   StringJoin[Table[
+      With[{n = b[[1]], sgn = b[[2]]},
+         With[{grp = StringJoin[letters[[pos + 1 ;; pos + n]]]},
+            pos += n;
+            Which[
+               n == 0, "",
+               n == 1, grp,
+               sgn === 1, "(" <> grp <> ")",
+               True, "[" <> grp <> "]"
+            ]
+         ]
+      ],
+      {b, blocks}]]
+];
+
+(* A mixed Young shape is drawn with \ydiagram from the ytableau package, exactly as it is
+   drawn on screen; brackets are used wherever they genuinely express the symmetry. *)
+operatorIndexTeX[spin_] := With[{letters = texOf /@ operatorIndexLetters[spin]},
+   Which[
+      letters === {}, "",
+      bracketsSufficientQ[spin], bracketTeX[letters, operatorIndexBlocks[spin]],
+      True, "\\ydiagram{" <> StringRiffle[ToString /@ partition6[spin], ","] <> "}(" <>
+            StringJoin[letters] <> ")"
+   ]
+];
+
+operatorTeX[Operator[name_, rep_, dim_, spin_, y_]] := StringJoin[
+   texOf[name],
+   With[{idx = operatorIndexTeX[spin]}, If[idx === "", "", "_{" <> idx <> "}"]],
+   "^{" <> texOf[repName[rep] /. s_?StringQ /; StringMatchQ[s, "\!" ~~ ___] :>
+      ToString[ToExpression[s, TraditionalForm]]] <> "}"
+];
+
+usesYoungDiagramQ[ops_] := AnyTrue[ops, ! bracketsSufficientQ[Spin[#]] &];
+
 Format[SUSYCoefficient[name_, idx_, opt : OptionsPattern[]], TraditionalForm] := Subscript[
 	If[OptionValue[SUSYCoefficient, opt, "QBar"], "\!\(\*OverscriptBox[\(\[ScriptA]\), \(_\)]\)", "\[ScriptA]"],
    Row[{name, ",", idx}]];

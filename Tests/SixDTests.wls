@@ -241,6 +241,40 @@ assert["the Young diagram frames exactly the cells of the shape",
 assert["...for the stress tensor's {2,2} too",
    Length[Cases[youngTableauGlyph[stt // partition6], HoldPattern[{_, _} -> True], All]] == 4];
 
+(* ------------------------------------------------------------------ *)
+Print["\nTeX export"];
+(* ------------------------------------------------------------------ *)
+
+(* The TeX is built directly, not by taking TeXForm of the on-screen format: that format's
+   Young diagram is a Grid, which TeXForm turns into a frameless (and rectangular, hence
+   wrong-shaped) \begin{array}, and an index-free operator picked up an empty _{\text{}}. *)
+assert["an operator with no indices gets no subscript at all",
+   ! StringContainsQ[operatorTeX[Operator["\[CapitalSigma]", sing6, 4, scal, 0]], "_{"],
+   operatorTeX[Operator["\[CapitalSigma]", sing6, 4, scal, 0]]];
+assert["a symmetrized block is bracketed with (), an antisymmetrized one with []",
+   StringContainsQ[operatorTeX[Operator["Z", sing6, 5, sdt, 0]], "(\\alpha \\beta )" | "(\\alpha\\beta)"] &&
+   StringContainsQ[operatorTeX[Operator["J", sing6, 5, vec, 0]], "[\\alpha \\beta ]" | "[\\alpha\\beta]"],
+   {operatorTeX[Operator["Z", sing6, 5, sdt, 0]], operatorTeX[Operator["J", sing6, 5, vec, 0]]}];
+assert["a mixed shape emits \\ydiagram of the right shape, not a stray array",
+   StringContainsQ[operatorTeX[Operator["S", fund6, 11/2, {1, 1, 0}, 0]], "\\ydiagram{2,1}"] &&
+   StringContainsQ[operatorTeX[Operator["T", sing6, 6, stt, 0]], "\\ydiagram{2,2}"] &&
+   ! StringContainsQ[operatorTeX[Operator["T", sing6, 6, stt, 0]], "array"],
+   {operatorTeX[Operator["S", fund6, 11/2, {1, 1, 0}, 0]], operatorTeX[Operator["T", sing6, 6, stt, 0]]}];
+assert["a multiplet with a mixed shape is flagged as needing ytableau",
+   usesYoungDiagramQ[{Operator["T", sing6, 6, stt, 0]}] &&
+   ! usesYoungDiagramQ[{Operator["Z", sing6, 5, sdt, 0]}]];
+
+(* the dimension labels were placed on the lattice scale while the boxes were on the doubled
+   one, so they landed on top of the diagram *)
+Module[{tex, boxXs, labelXs},
+   tex = tikzMultiplet[1];
+   boxXs = ToExpression /@ StringCases[tex, "\\node[box] at (" ~~ x : Except[","] .. ~~ "," -> x];
+   labelXs = ToExpression /@ StringCases[tex, "\\node[] at (" ~~ x : Except[","] .. ~~ "," -> x];
+   assert["the dimension labels sit clear of every operator box",
+      labelXs =!= {} && boxXs =!= {} && Max[labelXs] < Min[boxXs],
+      {labelXs, boxXs}];
+];
+
 (* the two-point phase is I^(chirality imbalance); in d = 6 that is the whole box count *)
 assert["two-point phase: 1 for a scalar, I for a spinor",
    {twoPtPhase[scal], twoPtPhase[spin]} === {1, I}, {twoPtPhase[scal], twoPtPhase[spin]}];
