@@ -1,0 +1,54 @@
+name: tests
+
+# Runs the regression suite on a self-hosted runner (e.g. a Raspberry Pi, where
+# the Wolfram Engine ships free and pre-licensed). The runner connects outbound
+# to GitHub, so it needs no inbound access.
+#
+# Only triggers on the dev branch: dev holds the development layout with the
+# Tests/ directory, whereas main holds the flattened, install-ready paclet and
+# has no tests. A successful run here triggers deploy.yml, which builds main.
+#
+# Security note: self-hosted runners must NOT execute untrusted code, so this
+# workflow intentionally does not trigger on pull_request (a fork PR could
+# otherwise run arbitrary code on the runner).
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Ensure dependencies are installed
+        # SCWIGEE needs TensorTools, ConformalStructures and GroupMath.  The
+        # ConformalStructures installer would re-fetch TensorTools itself, so it
+        # is run with $checkedTensorTools set once TensorTools is present.
+        # GroupMath (needed for the R-symmetry rep arithmetic, e.g. the d=6 SU(4)
+        # products) is extracted into the Applications directory so Needs
+        # resolves it.  Each step is skipped if the package is already present,
+        # which also keeps the installers from prompting to overwrite.
+        run: |
+          wolframscript -code '
+            If[FindFile["TensorTools`"] === $Failed,
+               Get["https://raw.githubusercontent.com/srossd/TensorTools/main/Install.m"]];
+            If[FindFile["ConformalStructures`"] === $Failed,
+               Block[{$checkedTensorTools = True},
+                  Get["https://raw.githubusercontent.com/srossd/ConformalStructures/main/Install.m"]]];
+            If[FindFile["GroupMath`"] === $Failed,
+               ExtractArchive[
+                 URLSave["https://renatofonseca.net/groupmath/ProgramVersions/GroupMath-1.1.3.zip"],
+                 FileNameJoin[{$UserBaseDirectory, "Applications"}]]];
+            Exit[If[FindFile["TensorTools`"] === $Failed
+                    || FindFile["ConformalStructures`"] === $Failed
+                    || FindFile["GroupMath`"] === $Failed, 1, 0]]'
+
+      - name: Run regression tests
+        # The suite pins the d=4 N=1 chiral multiplet solve and the d=6 support.
+        # It deliberately stays below the heaviest d=6 reduction (the stress
+        # tensor's <Q S T>, whose exact StructureRelations peaks well past the
+        # runner's RAM); that identity is exercised by hand, not in CI.
+        run: wolframscript -file Tests/RegressionTests.wls
