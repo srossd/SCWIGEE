@@ -13,11 +13,11 @@ If[!$consoleMode, SetOptions[EvaluationNotebook[], CommonDefaultFormatTypes -> {
 
 Get[ "SCWIGEE`Definitions`"]
 Get[ "SCWIGEE`Utilities`"]
+Get[ "SCWIGEE`SixD`"]
 Get[ "SCWIGEE`Formatting`"]
 Get[ "SCWIGEE`SetupWizard`"]
 Get[ "SCWIGEE`SUSYVariations`"]
 Get[ "SCWIGEE`RStructures`"]
-Get[ "SCWIGEE`ConformalCheck`"]
 Get[ "SCWIGEE`Expansions`"]
 Get[ "SCWIGEE`Ward`"]
 

@@ -11,7 +11,7 @@ StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the global symmetry to \!\(\
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\).";
 SetSpacetimeDimension::usage = "SetSpacetimeDimension[\!\(\*
 StyleBox[\"d\",\nFontSlant->\"Italic\"]\)] sets the spacetime dimension to \!\(\*
-StyleBox[\"d\",\nFontSlant->\"Italic\"]\) = 3 or 4.";
+StyleBox[\"d\",\nFontSlant->\"Italic\"]\) = 3, 4 or 6. In d = 6 an operator's spin is an SU(4) Dynkin label {a, b, c} rather than a number or a pair, the supercharge is chiral (there is no \!\(\*OverscriptBox[\(Q\), \(~\)]\)), and defects are not supported.";
 SetDefectGlobalSymmetry::usage = "SetDefectGlobalSymmetry[\!\(\*
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\)] sets the global symmetry in the presence of the defect to \!\(\*
 StyleBox[\"group\",\nFontSlant->\"Italic\"]\).";

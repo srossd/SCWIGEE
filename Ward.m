@@ -91,27 +91,37 @@ crosses[dim_, _Integer] = {{u -> u, v -> v}};
 crosses[dim_, None] /; dim > 2 = {{u -> u, v -> v}, {u -> u/v, v -> 1/v}, {u -> 1/u, v -> v/u}, {u -> v/u, v -> 1/u}, {u -> 1/v, v -> u/v}, {u -> v, v -> u}}; 
 crosses[2, None] = {{z -> z, zb -> zb}, {z -> 1/z, zb -> 1/zb}, {z -> 1-z, zb -> 1-zb}, {z -> 1/(1-z), zb -> 1/(1-zb)}, {z -> z/(z-1), zb -> zb/(zb-1)}, {z -> (z-1)/z, zb -> (zb-1)/zb}};
 
-AddSolutions[soln_] := 
-  Block[{tmp, unknowns}, 
+(* $SolvedCorrelators maps four-point functions and OPE coefficients to lists of equivalent solutions.
+   A four-point function is keyed by its head g[fields, i, j], and its solutions are functions of the
+   cross ratios; an OPE coefficient \[Lambda][fields, i, j] carries no cross ratios, so it is its own key
+   and its solutions are plain expressions. In both cases Normal[First /@ SolvedCorrelators[]] is a list
+   of rules that can be applied to any expression. *)
+solutionBody[val_Function] := val @@ crossRatios[SpacetimeDimension[], $qdefect];
+solutionBody[val_] := val;
+solutionValue[_\[Lambda], body_] := body;
+solutionValue[_, body_] := Function[Evaluate[crossRatios[SpacetimeDimension[], $qdefect]], body];
+
+AddSolutions[soln_] :=
+  Block[{tmp, unknowns, opeVersions},
    With[{uvVersions = Values /@ GroupBy[
          Select[
-          Flatten[Table[s /. cross, {s, soln}, {cross, crosses[SpacetimeDimension[], $qdefect]}]], 
+          Flatten[Table[s /. cross, {s, DeleteCases[soln, HoldPattern[_\[Lambda] -> _]]}, {cross, crosses[SpacetimeDimension[], $qdefect]}]],
           MatchQ[#[[1]], h_[Sequence @@ crossRatios[SpacetimeDimension[], $qdefect]] | Derivative[__][h_][Sequence @@ crossRatios[SpacetimeDimension[], $qdefect]] /; (MemberQ[$ArbitraryFunctions, h] || MatchQ[h, _g])] &
-         ] /. HoldPattern[a_ -> b_] :> (Head[a] -> (Function[Evaluate[crossRatios[SpacetimeDimension[], $qdefect]], tmp] /. tmp -> b)), 
+         ] /. HoldPattern[a_ -> b_] :> (Head[a] -> (Function[Evaluate[crossRatios[SpacetimeDimension[], $qdefect]], tmp] /. tmp -> b)),
       First]
     },
-    unknowns = Sort[DeleteDuplicates@Cases[Values[soln], g[__], All, Heads -> True]];
-    $SolvedCorrelators = KeySelect[Merge[{$SolvedCorrelators, Association[uvVersions]}, DeleteDuplicates@*Flatten@*List], !MemberQ[unknowns, #] &];
-    $SolvedCorrelators = Association @@ Table[k -> 
+    opeVersions = Values /@ GroupBy[Cases[soln, HoldPattern[_\[Lambda] -> _]], First];
+    unknowns = Sort[DeleteDuplicates@Cases[Values[soln], g[__] | \[Lambda][__], All, Heads -> True]];
+    $SolvedCorrelators = KeySelect[Merge[{$SolvedCorrelators, Association[uvVersions], Association[opeVersions]}, DeleteDuplicates@*Flatten@*List], !MemberQ[unknowns, #] &];
+    $SolvedCorrelators = Association @@ Table[k ->
         Table[
-           Function[
-              Evaluate[crossRatios[SpacetimeDimension[], $qdefect]], 
-           	  Evaluate[swSimplify[CrossingSimplify[(val @@ crossRatios[SpacetimeDimension[], $qdefect]) /. (First /@ $SolvedCorrelators)] /. (First /@ $SolvedCorrelators)]]
-           ], 
-        {val, $SolvedCorrelators[k]}], 
+           solutionValue[k,
+           	  swSimplify[CrossingSimplify[solutionBody[val] /. (First /@ $SolvedCorrelators)] /. (First /@ $SolvedCorrelators)]
+           ],
+        {val, $SolvedCorrelators[k]}],
         {k, Keys[$SolvedCorrelators]}];
     ];
-    $SolvedCorrelators = (fcts |-> SortBy[fcts, Count[# @@ crossRatios[SpacetimeDimension[], $qdefect], g[__][args__] /; {args} =!= crossRatios[SpacetimeDimension[], $qdefect], All] &]) /@ $SolvedCorrelators; 
+    $SolvedCorrelators = (vals |-> SortBy[vals, Count[solutionBody[#], g[__][args__] /; {args} =!= crossRatios[SpacetimeDimension[], $qdefect], All] &]) /@ $SolvedCorrelators;
    ];
 
 DeclareCrossingRule::invalid = "The function `` is not related by crossing to ``[``, ``].";
