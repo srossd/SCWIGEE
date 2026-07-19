@@ -203,14 +203,35 @@ PossibleQActions[f : Operator[_, rep_, dim_, spin_, y_], opt: OptionsPattern[]] 
             
 Options[SUSYCoefficient] = {"QBar" -> False};
    
-fieldPerm[t_] := With[{inds = 
-     Position[
-       Indices[t], (Lowered | Raised)[
-        WeylSpinor[SpacetimeDimension[]] | DottedWeylSpinor[SpacetimeDimension[]]]][[If[
-         Symbolic[t][[2, 1]] == "\[PartialD]", 3, 1] ;; If[Symbolic[t][[-1,1]] === chargeconj[], If[Symbolic[t][[-2,1]] === chargeconj[], -5, -3], -1], 1]], 
-    f = name2field[If[Symbolic[t][[2, 1]] == "\[PartialD]", Symbolic[t][[3, 1]], 
-         Symbolic[t][[2, 1]]]]}, 
-	PermutationPower[Cycles[{inds}], 2 Spin[f][[1]]]
+(* The permutation that cyclically rotates the operator's own spinor-index block by 2 j1, so
+   that after the Weyl <-> DottedWeyl swap of conjugation the block lines up with the
+   conjugate operator's ToTensor layout.  qToQBar calls this on tensors of the form
+   {"C", [d/dx], op, [chargeconj], [chargeconj]}.
+
+   The operator's spinor slots are located by factor rather than by fixed offsets from the
+   ends of the spinor list.  The old code sliced [[3 ;; -3]] -- "skip the derivative's two
+   leading spinor indices and the charge-conjugation matrix's two trailing ones" -- but that
+   assumed those four indices are all present.  fieldPerm is also called on a Contract, where
+   the derivative's and/or the charge-conjugation matrix's spinor indices may have been
+   contracted away; the operator then keeps fewer than four spinor indices and the slice
+   ran off the end, throwing Part::take (and a malformed permutation) for every such term. *)
+fieldPerm[t_] := Module[
+   {t2, contracted, factors, hasDeriv, opPos, counts, opRange, fullInds, opSpinors, freePos, inds},
+   {t2, contracted} = If[Head[t] === Contract, {First[t], Flatten[Last[t]]}, {t, {}}];
+   factors = Symbolic[t2];
+   hasDeriv = factors[[2, 1]] === "\[PartialD]";
+   opPos = If[hasDeriv, 3, 2];                                   (* the operator's factor *)
+   counts = (Length[#] - 1) & /@ factors;                       (* indices per factor *)
+   opRange = Total[counts[[;; opPos - 1]]] + Range[counts[[opPos]]];  (* its index slots *)
+   fullInds = Indices[t2];
+   opSpinors = Select[opRange, MatchQ[fullInds[[#]],            (* ... that are spinor indices *)
+      (Lowered | Raised)[WeylSpinor[SpacetimeDimension[]] | DottedWeylSpinor[SpacetimeDimension[]]]] &];
+   (* positions of the operator's spinor indices among the free (uncontracted) indices; a
+      contracted operator index is dropped, and Cycles collapses a 0- or 1-element list to
+      the identity, which is the correct "nothing left to rotate" result *)
+   freePos = Complement[Range[Length[fullInds]], contracted];
+   inds = Flatten[Position[freePos, #] & /@ Select[opSpinors, MemberQ[freePos, #] &]];
+   PermutationPower[Cycles[{inds}], 2 Spin[name2field[factors[[opPos, 1]]]][[1]]]
 ];
 (* specific to QAnsatz expressions *)
 qToQBar[expr_] := 
